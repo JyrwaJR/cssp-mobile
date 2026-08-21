@@ -1,6 +1,6 @@
 import Fernet from 'fernet';
 
-const FERNET_KEY = 'teLsk6phrMHFKeSgsO62ZSF1mR_E5rbEY1z8DCDfuwc=';
+const FERNET_KEY = process.env.EXPO_PUBLIC_FERNET_KEY;
 
 const secret = new Fernet.Secret(FERNET_KEY);
 

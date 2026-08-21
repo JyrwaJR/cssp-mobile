@@ -1,6 +1,6 @@
 ### Current User 
 # @name current user
-POST {{BASE_URL}}/current-user
+POST {{EXPO_PUBLIC_API_URL}}/current-user
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -8,7 +8,7 @@ Accept: application/json
 
 ### Registration Status
 # @name registrationStatus
-POST {{BASE_URL}}/get_registration_status/
+POST {{EXPO_PUBLIC_API_URL}}/get_registration_status/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -21,7 +21,7 @@ Accept: application/json
 
 ### Create Pensioner
 # @name createPensioner
-POST {{BASE_URL}}/api/create_pensioner/
+POST {{EXPO_PUBLIC_API_URL}}/api/create_pensioner/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -33,10 +33,17 @@ Accept: application/json
   "password": ""
 }
 
+### Login
+# @name login
+POST {{EXPO_PUBLIC_API_URL}}/login/
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+password=gAAAAABqiC_DHmRi4drx2JHBaoRC5QqLkdQ4-DVOwrpBO9zyubuE3pk0tqXcUvuKD6jRmO4YGGS3RwdSbMYAc3IDerk2KTwAU_yccs71k-DeYyKOEJsbLYbMOEPT-WT1pjvNy5R8qqT7HNZ9MNlOwKDeeaE6PcTXmwqM5qAmXh7ihoOFIN0J0g_GDAXPS635ISc8GFgfr0Z9LW6xzvMKGX0WVti3GUqvUAVkvq0kvQYEiBiP2FVOfr4SVDTh4Vu1HReekZ_X3DEgT6QdzelZ8OQpoecxpal9AVAqNYOJIxq9fGrP1OuYXk2a-ZpYkVqfaCGd1gpQ86yb&username=gAAAAABqiC_DFjgr6n0qB4SDp-OkauwgnIdWaMSr1oU1cUQUsvmLMq6DCWdAMFSmtdSCoxA3XU2jqQj8Asq0_uTijnUJAHpeZQ%3D%3D&version=24
 
 ### Login
 # @name login
-POST {{BASE_URL}}/login
+POST {{EXPO_PUBLIC_API_URL}}/login
 Content-Type: application/json
 Accept: application/json
 
@@ -48,7 +55,7 @@ Accept: application/json
 
 ### Logout
 # @name login
-POST {{BASE_URL}}/logout
+POST {{EXPO_PUBLIC_API_URL}}/logout
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -59,7 +66,7 @@ Accept: application/json
 
 ### Verification
 # @name verification
-POST {{BASE_URL}}/api/verification/
+POST {{EXPO_PUBLIC_API_URL}}/api/verification/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -67,7 +74,7 @@ Accept: application/json
 
 ### DLC
 # @name dlc
-POST {{BASE_URL}}/api/lc/
+POST {{EXPO_PUBLIC_API_URL}}/api/lc/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -85,7 +92,7 @@ Accept: application/json
 
 ### Verification Status
 # @name verificationStatus
-POST {{BASE_URL}}/api/verification_status/
+POST {{EXPO_PUBLIC_API_URL}}/api/verification_status/
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
@@ -96,7 +103,7 @@ Accept: application/json
 
 ### Change Password
 # @name changePassword
-POST {{BASE_URL}}/api/change_password/
+POST {{EXPO_PUBLIC_API_URL}}/api/change_password/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -108,7 +115,7 @@ Accept: application/json
 
 ### Validate Token
 # @name validateToken
-POST {{BASE_URL}}/api/validate_token/
+POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
 Authorization: renewToken {{renewToken}},
 Accept: 'application/json',
@@ -121,7 +128,7 @@ Accept: 'application/json',
 
 ### Manual
 # @name manual
-GET {{BASE_URL}}/manual.html
+GET {{EXPO_PUBLIC_API_URL}}/manual.html
 Authorization: accessToken {{accessToken}}
 
 ### Encryption
@@ -131,7 +138,7 @@ Authorization: accessToken {{accessToken}}
 
 { 
   "username":"{{USERNAME}}",
-  "password":"NTJhOGI0MzNmMDlhNWQzZmNhNzdjNjJjODY5MjQ4MzEwMjEyNTYyYmNkZWUwZjc3MzYwZjkzNjhiYjE2NDBiNTBieTEzdTI2bTNjejE1OXUxNWV5NTRmeTM5NXkzMzJ2MjAybTI0NHU4MHU0NWF1MTdieTQ1Znk0NTZtMzhkeTU3ZHg1OTF5MjdkdQ=="
+  "password":"MjAwZDVmYjI2YjdhZGNmMTYxMWM0ZjBhYzA5NDczNTA2M2YyYjU2NDU4MDQwNGE1Y2NlZjRkYmE2YjE0NmQ1YjA2dTExejI4eTM4ejM4Y3oxNjh2MTk4bTEzN3k0Mjd6MTUxeDEzM3Y0ODJ4MTRhbTk5eDIyMXkzOGZ6NDZ6NDc1djYxOHozNmRt"
 }
 
 ### Decryption
@@ -147,7 +154,7 @@ Authorization: accessToken {{accessToken}}
 
 ### Decryption
 # @name decryption
-POST http://localhost:3000/api/cssp/password
+POST http://localhost:3000/api/cssp/format-password
 Authorization: accessToken {{accessToken}}
 
 {

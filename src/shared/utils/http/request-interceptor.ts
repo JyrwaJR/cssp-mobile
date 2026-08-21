@@ -6,6 +6,7 @@
  */
 
 import { encryptFields } from '@lib/encryption';
+import { TokenStoreManager } from '@stores/token.store';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 /**
@@ -16,10 +17,19 @@ import type { InternalAxiosRequestConfig } from 'axios';
  */
 export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
-    // TODO: Retrieve access token from secure storage and attach as Bearer token.
-    if (config.data) {
-      config.data = encryptFields(config.data);
+    const accessToken = await TokenStoreManager.getAccessToken();
+
+    if (accessToken) {
+      config.headers.Authorization = `accessToken ${accessToken}`;
     }
+
+    if (config.data) {
+      config.data = {
+        ...encryptFields(config.data),
+        version: '24',
+      };
+    }
+
     return config;
   };
 };

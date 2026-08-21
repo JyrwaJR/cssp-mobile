@@ -12,11 +12,12 @@ import { createResponseInterceptor } from './response-interceptor';
 const apiClient = create({
   baseURL: API_BASE_URL,
   withCredentials: true,
-  timeout: 15000, // 15 seconds
-  headers: { 'Content-Type': 'application/json' },
+  timeout: 10000, // 15 seconds
+  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 });
 
 apiClient.interceptors.request.use(createRequestInterceptor());
+
 apiClient.interceptors.response.use(...createResponseInterceptor(apiClient));
 
 export default apiClient;

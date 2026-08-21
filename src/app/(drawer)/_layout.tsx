@@ -1,8 +1,5 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
-
-import { HeaderButton } from '../../shared/components/HeaderButton';
 
 const DrawerLayout = () => {
   return (
@@ -24,11 +21,6 @@ const DrawerLayout = () => {
           drawerLabel: 'Tabs',
           drawerIcon: ({ size, color }) => (
             <MaterialIcons name="border-bottom" size={size} color={color} />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
-            </Link>
           ),
         }}
       />
