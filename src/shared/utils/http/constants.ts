@@ -15,14 +15,7 @@ export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL as string;
  * Paths that bypass the automatic token refresh logic.
  * Errors on these paths are returned directly to the caller.
  */
-export const AUTH_PATHS = [
-  'auth/sign-in',
-  'auth/sign-in/verify',
-  'auth/sign-up',
-  'auth/refresh',
-  'auth/forgot-password',
-  'auth/reset-password',
-] as const;
+export const AUTH_PATHS = ['auth/login', 'auth/validate_token', 'auth/logout'] as const;
 
 /**
  * Checks if a given URL is one of the authentication-related paths.

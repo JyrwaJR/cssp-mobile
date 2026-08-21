@@ -22,7 +22,7 @@ Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 { 
-  "ppo_no": "",
+  "ppo_no": {{PPO_NO}},
   "dob": "",
   "bank_account_number": "",
   "password": ""

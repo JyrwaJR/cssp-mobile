@@ -5,12 +5,12 @@
  * and typed response shapes. Each method returns a consistent {@link ApiResponse} shape.
  */
 
-import { type AxiosRequestConfig } from "axios";
+import { type AxiosRequestConfig } from 'axios';
 
-import { ApiResponse } from "@/src/shared/types/api";
+import { type ApiResponse } from '@sharedTypes/api';
 
-import apiClient from "./client";
-import { handleAxiosError, handleResponse } from "./response";
+import apiClient from './client';
+import { handleAxiosError, handleResponse } from './response';
 
 /**
  * Typed HTTP client with `get`, `post`, `put`, and `delete` methods.
@@ -36,10 +36,7 @@ export const http = {
    * @param config - Optional Axios request config.
    * @returns A promise resolving to a typed {@link ApiResponse}.
    */
-  get: async <T>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<ApiResponse<T>> => {
+  get: async <T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.get(url, config);
       return handleResponse<T>(response);
@@ -59,7 +56,7 @@ export const http = {
   post: async <T>(
     url: string,
     data?: object,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.post(url, data, config);
@@ -80,7 +77,7 @@ export const http = {
   put: async <T>(
     url: string,
     data?: object,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.put(url, data, config);
@@ -97,10 +94,7 @@ export const http = {
    * @param config - Optional Axios request config.
    * @returns A promise resolving to a typed {@link ApiResponse}.
    */
-  delete: async <T>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<ApiResponse<T>> => {
+  delete: async <T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
     try {
       const response = await apiClient.delete(url, config);
       return handleResponse<T>(response);

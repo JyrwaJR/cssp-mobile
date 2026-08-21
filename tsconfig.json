@@ -4,7 +4,15 @@
     "strict": true,
 
     "paths": {
-      "@/*": ["./*"]
+      "@hooks/*": ["./src/shared/hooks/*"],
+      "@utils/*": ["./src/shared/utils/*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@lib/*": ["./src/shared/lib/*"],
+      "@styles/*": ["./src/shared/styles/*"],
+      "@sharedTypes/*": ["./src/shared/types/*"],
+      "@validation/*": ["./src/shared/validation/*"],
+      "@stores/*": ["./src/shared/stores/*"],
+      "@assets/*": ["./src/shared/assets/*"]
     }
   },
   "include": [
