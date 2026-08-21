@@ -1,0 +1,121 @@
+### Current User 
+# @name current user
+POST {{BASE_URL}}/current-user
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+
+### Registration Status
+# @name registrationStatus
+POST {{BASE_URL}}/get_registration_status/
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+
+### Create Pensioner
+# @name createPensioner
+POST {{BASE_URL}}/api/create_pensioner/
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+{ 
+  "ppo_no": "",
+  "dob": "",
+  "bank_account_number": "",
+  "password": ""
+}
+
+
+### Login
+# @name login
+POST {{BASE_URL}}/login/
+Content-Type: application/json
+Accept: application/json
+
+{ 
+  "username":"",
+  "password":"",
+  "version":"24"
+}
+
+### Logout
+# @name login
+POST {{BASE_URL}}/logout
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+{ 
+
+}
+
+### Verification
+# @name verification
+POST {{BASE_URL}}/api/verification/
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+
+### DLC
+# @name dlc
+POST {{BASE_URL}}/api/lc/
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+{ 
+  "selfVerNec": "",
+  "selfVerNmc": "",
+  "device": "",
+  "device_id": "",
+  "ver_mode_code": "",
+  "self_ver_code": "",
+  "place": ""
+}
+
+
+### Verification Status
+# @name verificationStatus
+POST {{BASE_URL}}/api/verification_status/
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+{ 
+
+}
+
+
+### Change Password
+# @name changePassword
+POST {{BASE_URL}}/api/change_password/
+Content-Type: application/json
+Authorization: accessToken {{accessToken}}
+Accept: application/json
+
+{ 
+  "oldPassword":"",
+  "newPassword":"",
+}
+
+### Validate Token
+# @name validateToken
+POST {{BASE_URL}}/api/validate_token/
+Content-Type: application/x-www-form-urlencoded
+Authorization: renewToken {{renewToken}},
+Accept: 'application/json',
+
+{ 
+  "uid":"",
+  "request_token":""
+}
+
+
+### Manual
+# @name manual
+GET {{BASE_URL}}/manual.html
+Authorization: accessToken {{accessToken}}
+
