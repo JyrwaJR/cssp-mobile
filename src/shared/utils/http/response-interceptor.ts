@@ -17,6 +17,8 @@ import {
   refreshToken,
   setRefreshing,
 } from './token-refresher';
+import { TokenStoreManager } from '@stores/token.store';
+import { handleLoginResponse, handleRefreshTokenResponse } from './response';
 
 /**
  * Creates the response interceptor that handles 401 errors by attempting
@@ -28,9 +30,15 @@ import {
  * @param apiClient - The Axios instance used to retry failed requests.
  * @returns A pair of [onFulfilled, onRejected] handlers for `axios.interceptors.response.use()`.
  */
+
 export const createResponseInterceptor = (apiClient: AxiosInstance) => {
   return [
-    (response: AxiosResponse) => response,
+    async (response: AxiosResponse) => {
+      await handleLoginResponse(response);
+      await handleRefreshTokenResponse(response);
+      return response;
+    },
+
     async (error: AxiosError) => {
       const originalRequest = error.config as InternalAxiosRequestConfig & {
         _retry?: boolean;
@@ -74,11 +82,7 @@ export const createResponseInterceptor = (apiClient: AxiosInstance) => {
         } catch (refreshError) {
           processQueue(refreshError, null);
 
-          // TODO: Clear stored tokens from secure storage.
-          // Example:
-          //   await secureStorage.deleteItem('access_token');
-          //   await secureStorage.deleteItem('refresh_token');
-          //   await secureStorage.deleteItem('mfa_temp_token');
+          await TokenStoreManager.removeTokens();
 
           triggerSessionExpired();
 

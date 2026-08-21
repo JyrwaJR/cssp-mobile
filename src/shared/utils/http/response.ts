@@ -5,9 +5,10 @@
  * raw Axios responses and errors into the standardised {@link ApiResponse} shape.
  */
 
+import { TokenStoreManager } from '@stores/token.store';
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { ApiResponse } from '@/src/shared/types/api';
+import { ApiResponse } from 'sharedTypes/api';
 
 /**
  * Transforms an unknown error into a standard error {@link ApiResponse}.
@@ -67,4 +68,28 @@ export const handleResponse = <T>(response: AxiosResponse<ApiResponse<T>>): ApiR
     data,
     meta,
   };
+};
+
+export const handleLoginResponse = async (response: AxiosResponse) => {
+  if (response.status === 200 && response.config.url?.endsWith('/login')) {
+    const data = response.data;
+    const accessToken = data.access_token;
+    const refreshToken = data.renew_token;
+    if (accessToken) {
+      await TokenStoreManager.addAccessToken(accessToken);
+    }
+    if (refreshToken) {
+      await TokenStoreManager.addRefreshToken(refreshToken);
+    }
+    return response;
+  }
+  return response;
+};
+
+export const handleRefreshTokenResponse = async (response: AxiosResponse) => {
+  // TODO: handle renew token response
+  if (response.status === 200 && response.config.url?.endsWith('/validate_token')) {
+    // TODO
+  }
+  return response;
 };

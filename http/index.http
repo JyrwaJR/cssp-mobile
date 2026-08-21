@@ -13,6 +13,11 @@ Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
+{ 
+  "ppo_no": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
+  "version":"24"
+}
+
 
 ### Create Pensioner
 # @name createPensioner
@@ -31,14 +36,14 @@ Accept: application/json
 
 ### Login
 # @name login
-POST {{BASE_URL}}/login/
+POST {{BASE_URL}}/login
 Content-Type: application/json
 Accept: application/json
 
 { 
-  "username":"",
-  "password":"",
-  "version":"24"
+  "username": "gAAAAABqiCA6T7oFpGwsFxl38Nkjuk6_rA1PEs08ExbQ2qFKEqH89GAsWyLurIgRfJF4UPxJ53EKmsQNxthT9crIH3CywORj6A==",
+  "password": "NWU3NGI0MzM2MDk3NWQzM2NiNzUyNjI3MzY5ZDQ4MzEwMjEyNTZkNWNkZWUwYTcyNTYwZDlkZjhiMTFhNDdiNTBieDEzbTI2ejNjdTUxZnY1N2R5NDc3eTQ4M20yNDR2NTkxeTE5N3kxMDl2MjQwdjIzY3k2MTB5MTllbTUzM3Y4MHUxNTl2MTFheg==",
+  "version": "24"
 }
 
 ### Logout
@@ -85,7 +90,7 @@ Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 { 
-
+  "ppo_no": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
 }
 
 
@@ -119,3 +124,32 @@ Accept: 'application/json',
 GET {{BASE_URL}}/manual.html
 Authorization: accessToken {{accessToken}}
 
+### Encryption
+# @name encryption
+POST http://localhost:3000/api/cssp/encrypt
+Authorization: accessToken {{accessToken}}
+
+{ 
+  "username":"{{USERNAME}}",
+  "password":"NTJhOGI0MzNmMDlhNWQzZmNhNzdjNjJjODY5MjQ4MzEwMjEyNTYyYmNkZWUwZjc3MzYwZjkzNjhiYjE2NDBiNTBieTEzdTI2bTNjejE1OXUxNWV5NTRmeTM5NXkzMzJ2MjAybTI0NHU4MHU0NWF1MTdieTQ1Znk0NTZtMzhkeTU3ZHg1OTF5MjdkdQ=="
+}
+
+### Decryption
+# @name decryption
+POST http://localhost:3000/api/cssp/decrypt
+Authorization: accessToken {{accessToken}}
+
+{
+  "password": "gAAAAABqiAB7I3x8tidB3ykZGx_qIxHS6p6LZs4bMJnaba9GfrBef_EABQb6VyKnC2UWEP4Ie2bEDfe6XoQ0pnzzehBGO5W4xA==",
+  "username": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
+  "version":"24"
+}
+
+### Decryption
+# @name decryption
+POST http://localhost:3000/api/cssp/password
+Authorization: accessToken {{accessToken}}
+
+{
+  "password": "{{PASSWORD}}",
+}

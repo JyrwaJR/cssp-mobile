@@ -5,6 +5,7 @@
  * to every outgoing request.
  */
 
+import { encryptFields } from '@lib/encryption';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 /**
@@ -16,6 +17,9 @@ import type { InternalAxiosRequestConfig } from 'axios';
 export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
     // TODO: Retrieve access token from secure storage and attach as Bearer token.
+    if (config.data) {
+      config.data = encryptFields(config.data);
+    }
     return config;
   };
 };

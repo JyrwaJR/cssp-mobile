@@ -5,11 +5,13 @@
  * check whether a URL targets an auth endpoint (bypassing token refresh).
  */
 
+import { env } from '@utils/env';
+
 /**
  * Base URL for the API.
  * Defaults to localhost if `EXPO_PUBLIC_API_URL` is not provided.
  */
-export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL as string;
+export const API_BASE_URL = env.EXPO_PUBLIC_API_URL as string;
 
 /**
  * Paths that bypass the automatic token refresh logic.

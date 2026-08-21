@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
+  EXPO_PUBLIC_ENCRYPTION_KEY: z.string(),
   EXPO_PUBLIC_API_URL: z.url('EXPO_PUBLIC_API_URL'),
   EXPO_PUBLIC_API_OAUTH_URL: z.url('EXPO_PUBLIC_API_OAUTH_URL'),
   EXPO_PUBLIC_APP_NAME: z.string('EXPO_PUBLIC_APP_NAME').min(1).default('MeghEis'),
@@ -23,6 +24,7 @@ const envSchema = z.object({
 });
 
 const rawEnv = {
+  EXPO_PUBLIC_ENCRYPTION_KEY: process.env.EXPO_PUBLIC_ENCRYPTION_KEY,
   EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
   EXPO_PUBLIC_API_OAUTH_URL: process.env.EXPO_PUBLIC_API_OAUTH_URL,
   EXPO_PUBLIC_APP_NAME: process.env.EXPO_PUBLIC_APP_NAME,
