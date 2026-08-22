@@ -30,10 +30,10 @@ const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
       <TextInput
         ref={ref}
         className={cn(
-          'bg-background text-body-md text-foreground w-full rounded-md border px-4 py-3',
-          'min-h-12',
+          'text-body-md w-full rounded-md border bg-background px-4 py-3 text-foreground',
+          'min-h-14',
           isFocused ? 'border-primary' : 'border-gray-300',
-          error ? 'border-destructive bg-destructive/5' : '',
+          error ? 'bg-destructive/5 border-destructive' : '',
           multiline && 'min-h-[100px]',
           className
         )}

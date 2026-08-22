@@ -22,8 +22,9 @@ export const PAGE_HEADERS = {
   // pages
   '/settings': { title: 'Settings', showBackButton: true },
   '/announcements': { title: 'Announcement Board', showBackButton: true },
-  '/auth': { title: 'CSSP Meghalaya' },
-  '/auth/sign-up': { title: 'Sign Up', showBackButton: true },
+  // '/auth': { title: 'CSSP Meghalaya', showBackButton: true },
+  '/auth/register': { title: 'Register/Forgot-Password', showBackButton: true },
+  '/auth/reg-instruction': { title: 'Instruction', showBackButton: true },
   '/auth/forgot-password': { title: 'Forgot Password', showBackButton: true, showDrawer: false },
   '/dev/ui-lab': { title: 'UI Laboratory', showBackButton: true },
   '/leaves/[id]': { title: 'My Leaves', showBackButton: true },

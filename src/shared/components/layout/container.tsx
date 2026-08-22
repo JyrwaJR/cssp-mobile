@@ -1,29 +1,70 @@
 import React from 'react';
-import { View } from 'react-native';
-import { cn } from '@utils/helpers/cn';
+import {
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ViewProps,
+} from 'react-native';
 
-type Props = {
-  /** Content to render inside the container. */
+interface ContainerProps extends ViewProps {
   children: React.ReactNode;
-  /** Additional Tailwind/NativeWind classes to merge. */
+  /** Enable scrolling for long content or small screens (default: true) */
+  scrollable?: boolean;
+  /** Automatically dismiss keyboard when tapping outside inputs (default: true) */
+  dismissKeyboard?: boolean;
+  /** Center content vertically (default: false) */
+  centered?: boolean;
+  /** Custom Tailwind classes for the outer container */
   className?: string;
-};
+  /** Custom Tailwind classes for the scroll view content container */
+  contentClassName?: string;
+}
 
-/**
- * Layout container that wraps content with a full-height flex view and the
- * theme-aware background color.
- *
- * - **Light mode:** `bg-background` resolves to `hsl(0 0% 100%)` — pure white canvas
- * - **Dark mode:**  `dark:bg-gray-900` provides an ink-like background (#111827),
- *   keeping the canvas appropriately dark while using a standard Tailwind token.
- *
- * @example
- * ```tsx
- * <Container>
- *   <Text>Page content</Text>
- * </Container>
- * ```
- */
-export const Container = ({ children, className }: Props) => {
-  return <View className={cn('flex-1 bg-zinc-100 p-4', className)}>{children}</View>;
+export const Container = ({
+  children,
+  scrollable = true,
+  dismissKeyboard = true,
+  centered = false,
+  className = '',
+  contentClassName = '',
+  style,
+  ...props
+}: ContainerProps) => {
+  const content = (
+    <View
+      className={`w-full flex-1 ${centered ? 'justify-center' : ''} ${className}`}
+      style={style}
+      {...props}>
+      {children}
+    </View>
+  );
+
+  const wrappedContent = dismissKeyboard ? (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      {content}
+    </TouchableWithoutFeedback>
+  ) : (
+    content
+  );
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      className="w-full flex-1">
+      {scrollable ? (
+        <ScrollView
+          className="w-full flex-1"
+          contentContainerClassName={`grow p-6 ${centered ? 'justify-center' : ''} ${contentClassName}`}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          {wrappedContent}
+        </ScrollView>
+      ) : (
+        wrappedContent
+      )}
+    </KeyboardAvoidingView>
+  );
 };

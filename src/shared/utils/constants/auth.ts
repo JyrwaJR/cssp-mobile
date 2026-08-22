@@ -17,7 +17,7 @@ export type RouteConfigT = {
 /**
  * Routes accessible without authentication.
  */
-export const PUBLIC_ROUTES = ['/auth', '/auth/sign-up', '/auth/forgot-password', '/ui-lab'];
+export const PUBLIC_ROUTES = ['/auth', '/auth/register', '/auth/reg-instruction', '/ui-lab'];
 
 /**
  * Role-based route protection rules.

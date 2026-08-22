@@ -4,8 +4,7 @@ import { useRouter, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoutePath } from '@hooks/use-route-path';
 import { matchPageHeader, cn } from '@utils/helpers';
-import { ArrowLeft02FreeIcons } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Icon } from '@components/ui/icon';
 
 export const StackHeader = memo(() => {
   const path = useRoutePath();
@@ -42,19 +41,14 @@ export const StackHeader = memo(() => {
                   onPress={handleBack}
                   hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                   activeOpacity={0.7}>
-                  <HugeiconsIcon
-                    icon={ArrowLeft02FreeIcons}
-                    strokeWidth={2}
-                    size={26}
-                    className="text-primary"
-                  />
+                  <Icon name="arrow-left" size={26} />
                 </TouchableOpacity>
               )
             )}
           </View>
 
           <View className="w-full flex-[4] items-center justify-center">
-            <Text className="text-primary text-2xl font-black leading-loose tracking-widest">
+            <Text className="text-xl font-bold leading-loose tracking-widest text-black">
               {config.title}
             </Text>
           </View>
