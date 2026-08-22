@@ -59,13 +59,7 @@ export const http = {
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> => {
     try {
-      let response;
-      try {
-        response = await apiClient.post(url, data, config);
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+      const response = await apiClient.post(url, data, config);
       return handleResponse<T>(response);
     } catch (error) {
       return handleAxiosError<T>(error);

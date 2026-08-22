@@ -16,20 +16,12 @@ export function useLogin() {
         version: '24',
       });
 
-      console.log('payload:', payload.toString());
-
       return await http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, payload, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
       });
-    },
-    onError: (error) => {
-      console.log('useLogin Error', error);
-    },
-    onSuccess: (data) => {
-      console.log('useLogin Success', data);
     },
   });
 }

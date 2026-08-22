@@ -111,15 +111,12 @@ export const handleAxiosError = <T>(error: unknown): ApiResponse<T> => {
  * @param response - The Axios response object.
  * @returns A standardised success response.
  */
-export const handleResponse = <T>(response: AxiosResponse<ApiResponse<T>>): ApiResponse<T> => {
-  const {
-    status,
-    data: { data, message },
-  } = response;
+export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> => {
+  const { status, data } = response;
   return {
     success: status === 200 || status === 201,
-    message,
-    data,
+    message: 'Success',
+    data: data,
   };
 };
 

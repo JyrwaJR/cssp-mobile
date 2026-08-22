@@ -1,10 +1,11 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginInput, LoginSchema } from '../validators';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import { useLogin } from '../hooks/use-login';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { Input } from '@components/ui/input';
+import { Button } from '@components/ui/button';
 
 const defaultValues = {
   username: process.env.EXPO_PUBLIC_USERNAME || '',
@@ -23,7 +24,7 @@ export const LoginForm = () => {
     mutate(data, {
       onSuccess: (data) => {
         if (data?.success) {
-          showSnackbar(data.message);
+          showSnackbar('Login successfully');
         }
         showSnackbar(data.message);
       },
@@ -84,12 +85,9 @@ export const LoginForm = () => {
         )}
       />
 
-      <Pressable
-        disabled={isPending}
-        className="mt-2 h-12 items-center justify-center rounded-lg bg-gray-900"
-        onPress={form.handleSubmit(onSubmit)}>
+      <Button disabled={isPending} onPress={form.handleSubmit(onSubmit)}>
         <Text className="text-base font-semibold text-white">Login</Text>
-      </Pressable>
+      </Button>
     </View>
   );
 };
