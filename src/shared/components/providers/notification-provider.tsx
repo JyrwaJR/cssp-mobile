@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Notifications from 'expo-notifications';
-import { useNotifications } from '@features/notification/hooks/use-notifications';
+import { useNotifications } from '@hooks/use-notifications';
 
 /**
  * Configure global foreground behavior for notifications.

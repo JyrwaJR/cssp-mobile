@@ -6,10 +6,11 @@
  * retried once the new token is available.
  */
 
-import type { QueueItem } from '@/src/shared/types/api';
-
+import type { QueueItem } from '@sharedTypes/api';
 import apiClient from './client';
-import { API_BASE_URL } from './constants';
+import { ENDPOINTS } from '@utils/constants/endpoints';
+import { TokenStoreManager } from '@stores/token.store';
+import { logger } from '@utils/logger';
 
 /** Flag indicating if a token refresh request is currently in flight. */
 export let isRefreshing = false;
@@ -40,41 +41,39 @@ export const processQueue = (error: unknown, token: string | null = null) => {
 };
 
 type RefreshResponse = {
-  access_token: string;
-  refresh_token: string;
+  token: string;
 };
 
 /**
  * Performs a token refresh request using the stored refresh token.
  *
- * TODO: Retrieve the refresh token from secure storage before making the
- *       request, and persist the new access/refresh tokens after a successful
- *       response.
- *
  * @throws If the refresh request fails.
  * @returns The new access token.
  */
 export const refreshToken = async (): Promise<string> => {
-  const refreshTokenValue = ''; // TODO: read from secure storage
+  const refreshTokenValue = await TokenStoreManager.getRefreshToken();
 
   if (!refreshTokenValue) {
     throw new Error('No refresh token available');
   }
 
   const response = await apiClient.post<{ data?: RefreshResponse }>(
-    `${API_BASE_URL}/auth/refresh`,
-    { token: refreshTokenValue },
+    ENDPOINTS.AUTH.VALIDATE_TOKEN,
+    new URLSearchParams({ token: refreshTokenValue }),
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `renewToken ${refreshToken}`,
+        Accept: 'application/json',
+      },
+    }
   );
 
-  const newAccessToken = response.data.data?.access_token ?? '';
+  const newAccessToken = response.data.data?.token ?? '';
 
   if (newAccessToken) {
-    // TODO: persist to secure storage
-  }
-
-  const newRefreshToken = response.data?.data?.refresh_token ?? '';
-  if (newRefreshToken) {
-    // TODO: persist to secure storage
+    logger.info('Token Refreshed');
+    await TokenStoreManager.addAccessToken(newAccessToken);
   }
 
   return newAccessToken;

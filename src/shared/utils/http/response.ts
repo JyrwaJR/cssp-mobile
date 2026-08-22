@@ -10,6 +10,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import { ApiResponse } from '@sharedTypes/api';
 import { LoginT } from '@sharedTypes/auth';
+import { logger } from '@utils/logger';
+import { ENDPOINTS } from '@utils/constants/endpoints';
 
 /**
  * Transforms an unknown error into a standard error {@link ApiResponse}.
@@ -72,16 +74,20 @@ export const handleResponse = <T>(response: AxiosResponse<ApiResponse<T>>): ApiR
 };
 
 export const handleLoginResponse = async (response: AxiosResponse) => {
-  if (response.status === 200 && response.config.url?.endsWith('/login')) {
+  if (response.status === 200 && response.config.url?.endsWith(ENDPOINTS.AUTH.LOGIN)) {
     const data = response.data as LoginT;
     if (data) {
       const accessToken = data.token;
       const refreshToken = data.renew_token;
       if (accessToken) {
+        logger.info('Setting Token');
         await TokenStoreManager.addAccessToken(accessToken);
+        logger.info('Token Set');
       }
       if (refreshToken) {
+        logger.info('Setting Refresh Token');
         await TokenStoreManager.addRefreshToken(refreshToken);
+        logger.info('Refresh Token Set');
       }
     }
   }

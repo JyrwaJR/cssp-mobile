@@ -4,6 +4,7 @@ import { useAppUpdateStore } from '@stores/update.store';
 import { BlurView } from 'expo-blur';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { Rocket01Icon } from '@hugeicons/core-free-icons';
+import { isRealDevice } from '@utils/helpers';
 
 export const UpdateModal: React.FC = () => {
   const isUpdateReady = useAppUpdateStore((s) => s.isUpdateReady);
@@ -15,6 +16,8 @@ export const UpdateModal: React.FC = () => {
   useEffect(() => {
     checkAndDownloadUpdate();
   }, [checkAndDownloadUpdate]);
+
+  if (!isRealDevice()) return null;
 
   if (!isUpdateReady && !isDownloading) return null;
 

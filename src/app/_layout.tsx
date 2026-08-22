@@ -1,8 +1,7 @@
 import '@styles/index.css';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
+import { ProviderWrapper } from '@components/providers';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -11,13 +10,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <Stack>
-          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ title: 'Modal', presentation: 'modal' }} />
-        </Stack>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ProviderWrapper>
+      <Stack screenOptions={{ headerShown: false }} />
+    </ProviderWrapper>
   );
 }

@@ -12,6 +12,8 @@
       "@sharedTypes/*": ["./src/shared/types/*"],
       "@validation/*": ["./src/shared/validation/*"],
       "@stores/*": ["./src/shared/stores/*"],
+      "@config/*": ["./src/shared/config/*"],
+      "@features/*": ["./src/features/*"],
       "@assets/*": ["./src/shared/assets/*"]
     }
   },

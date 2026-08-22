@@ -6,16 +6,13 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 // Internal Providers
 import { AuthInitializer } from './auth-provider';
-import { LocalAuthProvider } from './local-auth-provider';
 import { NotificationProvider } from './notification-provider';
 import { TQueryProvider } from './query-provider';
 import { ThemeProvider } from './theme-provider';
 // Shared Components & Redirects
 import { AuthRedirect } from '@components/common/auth-redirect';
-import { LocalAuthRedirect } from '@components/common/local-auth-redirect';
 import { UpdateModal } from './update-modal';
 import { GlobalErrorBoundary } from './global-error-boundary';
-import { AnimationProvider } from './animation-provider';
 
 type Props = {
   children: React.ReactNode;
@@ -38,23 +35,17 @@ export const ProviderWrapper = ({ children }: Props) => {
         <SafeAreaProvider className="flex-1">
           <TQueryProvider>
             <QueryErrorResetBoundary>
-              <AnimationProvider>
-                <ThemeProvider>
-                  <AuthInitializer>
-                    <NotificationProvider>
-                      <LocalAuthProvider>
-                        <LocalAuthRedirect>
-                          <AuthRedirect>
-                            <StatusBar style="auto" animated translucent />
-                            {children}
-                            <UpdateModal />
-                          </AuthRedirect>
-                        </LocalAuthRedirect>
-                      </LocalAuthProvider>
-                    </NotificationProvider>
-                  </AuthInitializer>
-                </ThemeProvider>
-              </AnimationProvider>
+              <ThemeProvider>
+                <AuthInitializer>
+                  <NotificationProvider>
+                    <AuthRedirect>
+                      <StatusBar style="auto" animated />
+                      {children}
+                      <UpdateModal />
+                    </AuthRedirect>
+                  </NotificationProvider>
+                </AuthInitializer>
+              </ThemeProvider>
             </QueryErrorResetBoundary>
           </TQueryProvider>
         </SafeAreaProvider>

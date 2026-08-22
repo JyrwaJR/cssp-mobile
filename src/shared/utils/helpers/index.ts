@@ -1,3 +1,4 @@
+export * from './expo';
 export * from './cn';
 export * from './get-drawer-items';
 export * from './get-icon';

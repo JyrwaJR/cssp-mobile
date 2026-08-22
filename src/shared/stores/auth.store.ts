@@ -4,8 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { RoleT, UserT } from '../types/auth';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
-import { rpc } from '@utils/api';
-import { METHODS } from '@utils/constants';
+import { http } from '@utils/http';
 
 type AuthStore = {
   user?: UserT | null;
@@ -42,7 +41,7 @@ export const useAuthStore = create<AuthStore>()(
 
         if (empCode && accessToken) {
           try {
-            const res = await rpc<UserT>(METHODS.GET_EMP_DETAILS, { emp_cd: empCode });
+            const res = await http.post<UserT>('/current-user', { emp_cd: empCode });
 
             if (res.success && res.data) {
               logger.info('AuthStore: fetchUser success', { empCode });

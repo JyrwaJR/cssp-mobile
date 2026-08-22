@@ -1,6 +1,17 @@
+@renewToken= OpGcCOKoqydVGvFht3rs6ks269kBAgpLvP1rDiVETQ4twL03SAT4qFwnj8vDWf8clPKEn6bJ997CuJ4-p05rUc--JMhFR493FyTgmgwpIAvXSGbOs6yXPr2jeQsQvCpvedAiACRPr-iJ6wPkRu-TZBSXVO1mid-bf5dhYnIS7EQA97NM9VrQOwf-KqpmtofstQZeZ7Z9
+@accessToken= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNzMwMDAwMTAzNCIsInVzZXJuYW1lIjoiTUcvU0YvMTU2NzMiLCJleHAiOjE3ODczNTAyNDN9.ZW5JhvMZoVPNbKkczj4FsaYdGg_fLT_PPj862BEvBrA
+# {
+#   "approval": "00",
+#   "has_dlc": "00",
+#   "name": "RIBENA JAMU",
+#   "renew_token": "_dDVpsErVXXI1qNIrUaUCBoF--k2JOzVRPRpJ3ejWpp5fQ01lu5d70sQaZzwPaDTi337gK7IIIxPdw3fFdB_9XTezYSdqz7E9tJzGey2_XZ417miJWzd73SulyrQ6GR98nBVGEw_zx0YnMUrPTfYmYHZ5mlDsPP4Z7bfb30QlA2yrhW-XKowYRmNIWG6Yr8LpeFfmiAN",
+#   "uid": "NzMwMDAwMTAzNA==",
+#   "username": "TUcvU0YvMTU2NzM="
+# }
+
 ### Current User 
 # @name current user
-POST {{EXPO_PUBLIC_API_URL}}/current-user
+POST {{EXPO_PUBLIC_API_URL}}/current-user/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -41,17 +52,6 @@ Accept: application/json
 
 password=gAAAAABqiC_DHmRi4drx2JHBaoRC5QqLkdQ4-DVOwrpBO9zyubuE3pk0tqXcUvuKD6jRmO4YGGS3RwdSbMYAc3IDerk2KTwAU_yccs71k-DeYyKOEJsbLYbMOEPT-WT1pjvNy5R8qqT7HNZ9MNlOwKDeeaE6PcTXmwqM5qAmXh7ihoOFIN0J0g_GDAXPS635ISc8GFgfr0Z9LW6xzvMKGX0WVti3GUqvUAVkvq0kvQYEiBiP2FVOfr4SVDTh4Vu1HReekZ_X3DEgT6QdzelZ8OQpoecxpal9AVAqNYOJIxq9fGrP1OuYXk2a-ZpYkVqfaCGd1gpQ86yb&username=gAAAAABqiC_DFjgr6n0qB4SDp-OkauwgnIdWaMSr1oU1cUQUsvmLMq6DCWdAMFSmtdSCoxA3XU2jqQj8Asq0_uTijnUJAHpeZQ%3D%3D&version=24
 
-### Login
-# @name login
-POST {{EXPO_PUBLIC_API_URL}}/login
-Content-Type: application/json
-Accept: application/json
-
-{ 
-  "username": "gAAAAABqiCA6T7oFpGwsFxl38Nkjuk6_rA1PEs08ExbQ2qFKEqH89GAsWyLurIgRfJF4UPxJ53EKmsQNxthT9crIH3CywORj6A==",
-  "password": "NWU3NGI0MzM2MDk3NWQzM2NiNzUyNjI3MzY5ZDQ4MzEwMjEyNTZkNWNkZWUwYTcyNTYwZDlkZjhiMTFhNDdiNTBieDEzbTI2ejNjdTUxZnY1N2R5NDc3eTQ4M20yNDR2NTkxeTE5N3kxMDl2MjQwdjIzY3k2MTB5MTllbTUzM3Y4MHUxNTl2MTFheg==",
-  "version": "24"
-}
 
 ### Logout
 # @name login
@@ -100,6 +100,16 @@ Accept: application/json
   "ppo_no": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
 }
 
+# Response
+# {
+#   "is_valid": "01",
+#   "ver_date": "25-04-2026",
+#   "ver_nec": "No",
+#   "ver_nmc": "No",
+#   "ver_place": "",
+#   "ver_status": "Photo is Approved. Do your next Face Verification on or after 25-10-2026\n\n The link to our Privacy Policy can be found on the manual of this app.",
+#   "ver_time": "16:16:31"
+# }
 
 ### Change Password
 # @name changePassword
@@ -113,22 +123,20 @@ Accept: application/json
   "newPassword":"",
 }
 
+#
 ### Validate Token
 # @name validateToken
 POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
-Authorization: renewToken {{renewToken}},
-Accept: 'application/json',
+Authorization: renewToken {{renewToken}}
+Accept: application/json
 
-{ 
-  "uid":"",
-  "request_token":""
-}
+uid=NzMwMDAwMTAzNA%3D%3D&request_token={{renewToken}}
 
 
 ### Manual
 # @name manual
-GET {{EXPO_PUBLIC_API_URL}}/manual.html
+GET {{EXPO_PUBLIC_API_URL}}/manual.html/
 Authorization: accessToken {{accessToken}}
 
 ### Encryption

@@ -5,7 +5,7 @@
  * to every outgoing request.
  */
 
-import { encryptFields } from '@lib/encryption';
+// import { encryptFields } from '@lib/encryption';
 import { TokenStoreManager } from '@stores/token.store';
 import type { InternalAxiosRequestConfig } from 'axios';
 
@@ -23,12 +23,12 @@ export const createRequestInterceptor = () => {
       config.headers.Authorization = `accessToken ${accessToken}`;
     }
 
-    if (config.data) {
-      config.data = {
-        ...encryptFields(config.data),
-        version: '24',
-      };
-    }
+    // if (config.data) {
+    //   config.data = {
+    //     ...encryptFields(config.data),
+    //     version: '24',
+    //   };
+    // }
 
     return config;
   };

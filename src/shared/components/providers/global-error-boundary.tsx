@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { AlertCircleIcon } from '@hugeicons/core-free-icons';
@@ -53,21 +53,21 @@ export class GlobalErrorBoundary extends Component<Props, State> {
         <Container>
           <SafeAreaView className="flex-1">
             <View className="flex-1 items-center justify-center px-6">
-              <View className="w-full overflow-hidden rounded-md border border-border p-8">
+              <View className="border-border w-full overflow-hidden rounded-md border p-8">
                 <View className="items-center">
-                  <View className="mb-6 h-20 w-20 items-center justify-center rounded-md border-destructive bg-destructive/10">
+                  <View className="border-destructive bg-destructive/10 mb-6 h-20 w-20 items-center justify-center rounded-md">
                     <HugeiconsIcon icon={AlertCircleIcon} size={48} className="text-destructive" />
                   </View>
 
                   <Text className="mb-3 text-center text-2xl font-bold">Something went wrong</Text>
 
-                  <Text className="mb-8 text-center text-base text-graphite">
+                  <Text className="text-graphite mb-8 text-center text-base">
                     An unexpected error occurred. We&apos;ve been notified and are looking into it.
                   </Text>
 
                   {__DEV__ && this.state.error && (
-                    <View className="mb-8 w-full rounded-md bg-graphite/10 p-4">
-                      <Text className="font-mono text-xs text-destructive">
+                    <View className="bg-graphite/10 mb-8 w-full rounded-md p-4">
+                      <Text className="text-destructive font-mono text-xs">
                         {this.state.error.toString()}
                       </Text>
                     </View>

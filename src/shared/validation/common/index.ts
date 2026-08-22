@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { PAGE_SIZE } from '@/src/shared/utils/constants/common';
+import { PAGE_SIZE } from '@utils/constants/common';
 
 export const uuidValidation = z.uuid('Invalid ID');
 

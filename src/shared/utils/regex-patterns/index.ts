@@ -30,8 +30,7 @@ export const ALLOW_REGEX = {
   PHONE_INTL: /^\+\d{1,3}\d{6,14}$/,
 
   /** Alphanumeric username with underscores, 3-20 chars. */
-  USERNAME: /^[a-zA-Z0-9_]{3,20}$/,
-
+  USERNAME: /^[a-zA-Z0-9_/]{3,20}$/,
   /** URL-safe slug: lowercase words separated by hyphens. */
   SLUG: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
 

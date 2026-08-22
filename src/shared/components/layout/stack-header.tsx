@@ -1,10 +1,9 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoutePath } from '@hooks/use-route-path';
 import { matchPageHeader, cn } from '@utils/helpers';
-import { DrawerToggleButton } from '@react-navigation/drawer';
 import { ArrowLeft02FreeIcons } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 
@@ -13,7 +12,6 @@ export const StackHeader = memo(() => {
   const config = useMemo(() => matchPageHeader(path), [path]);
   const router = useRouter();
   const navigation = useNavigation();
-  const iconColor = '#024AD8';
   const insets = useSafeAreaInsets();
   const canGoBack = navigation.canGoBack();
 
@@ -32,7 +30,12 @@ export const StackHeader = memo(() => {
         <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
           <View className="flex-row items-center justify-start">
             {showDrawer ? (
-              <DrawerToggleButton tintColor={iconColor} />
+              <TouchableOpacity
+                // onPress={() => navigation.openDrawer()}
+                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                activeOpacity={0.7}>
+                <Text>D</Text>
+              </TouchableOpacity>
             ) : (
               showBack && (
                 <TouchableOpacity

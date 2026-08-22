@@ -22,7 +22,7 @@ export const PAGE_HEADERS = {
   // pages
   '/settings': { title: 'Settings', showBackButton: true },
   '/announcements': { title: 'Announcement Board', showBackButton: true },
-  '/auth': { title: 'GovtAuth India' },
+  '/auth': { title: 'CSSP Meghalaya' },
   '/auth/sign-up': { title: 'Sign Up', showBackButton: true },
   '/auth/forgot-password': { title: 'Forgot Password', showBackButton: true, showDrawer: false },
   '/dev/ui-lab': { title: 'UI Laboratory', showBackButton: true },
