@@ -11,13 +11,9 @@ export interface ApiResponse<T> {
   /** Human-readable status message from the server. */
   message: string;
   /** Response payload — `null` on failure. */
-  data: T | null;
-  /** Pagination metadata for list endpoints. */
-  meta?: unknown;
-  /** Authentication token (returned on login/refresh). */
-  token?: string;
+  data?: T | null;
   /** Structured error details returned on failure. */
-  error?: string | Record<string, unknown>;
+  error?: { msg: string } | string | Record<string, unknown>;
 }
 
 /**
@@ -31,7 +27,7 @@ export interface ApiResponse<T> {
  */
 
 /** Supported HTTP methods used in API request configuration. */
-export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 /** A map of header name to header value. */
 export type HeadersMap = Record<string, string>;

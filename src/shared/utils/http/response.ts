@@ -24,34 +24,85 @@ import { ENDPOINTS } from '@utils/constants/endpoints';
  * @param error - The caught error (Axios or otherwise).
  * @returns A standardised error response with `success: false`.
  */
-export const handleAxiosError = <T>(error: unknown): ApiResponse<T> => {
-  let errorMessage = 'Something went wrong. Please try again.';
-  let errorDetails: string | Record<string, unknown> = '';
 
-  if (error instanceof AxiosError) {
-    if (error.response) {
-      errorMessage = (error.response.data as { message?: string })?.message || errorMessage;
-      errorDetails =
-        (error.response.data as { error?: string | Record<string, unknown> })?.error ||
-        error.response.data ||
-        '';
-    } else if (error.request) {
-      errorMessage = 'Please check your internet connection.';
-    } else {
-      errorMessage = error.message;
-    }
-  } else if (error instanceof Error) {
-    errorMessage = error.message;
-  }
-
-  return {
-    success: false,
-    message: errorMessage,
-    error: errorDetails,
-    data: null,
-  };
+type BackendError = {
+  message?: string;
+  error?: string | Record<string, unknown>;
+  errors?: Record<string, unknown>;
+  msg?: string;
 };
 
+export const handleAxiosError = <T>(error: unknown): ApiResponse<T> => {
+  const defaultMessage = 'Something went wrong. Please try again.';
+
+  // Axios error
+  if (error instanceof AxiosError) {
+    // Server responded with an error status
+    if (error.response) {
+      const data = error.response.data as BackendError | string | null;
+
+      // Backend returned a string directly
+      if (typeof data === 'string') {
+        return {
+          success: false,
+          message: data,
+        };
+      }
+
+      if (data && typeof data === 'object') {
+        const message =
+          data.message ??
+          data.msg ??
+          (typeof data.error === 'string' ? data.error : undefined) ??
+          defaultMessage;
+
+        return {
+          success: false,
+          message,
+          // Include backend validation/details if your ApiResponse supports it
+          ...(data.errors && { errors: data.errors }),
+          ...(data.error &&
+            typeof data.error === 'object' && {
+              error: data.error,
+            }),
+        };
+      }
+
+      return {
+        success: false,
+        message: defaultMessage,
+      };
+    }
+
+    // Request was made but no response was received
+    if (error.request) {
+      return {
+        success: false,
+        message: 'Please check your internet connection.',
+      };
+    }
+
+    // Something went wrong while creating the request
+    return {
+      success: false,
+      message: error.message || defaultMessage,
+    };
+  }
+
+  // Normal JavaScript Error
+  if (error instanceof Error) {
+    return {
+      success: false,
+      message: error.message || defaultMessage,
+    };
+  }
+
+  // Unknown error type
+  return {
+    success: false,
+    message: defaultMessage,
+  };
+};
 /**
  * Transforms a successful Axios response into a standard {@link ApiResponse}.
  *
@@ -63,13 +114,12 @@ export const handleAxiosError = <T>(error: unknown): ApiResponse<T> => {
 export const handleResponse = <T>(response: AxiosResponse<ApiResponse<T>>): ApiResponse<T> => {
   const {
     status,
-    data: { data, message, meta },
+    data: { data, message },
   } = response;
   return {
     success: status === 200 || status === 201,
     message,
     data,
-    meta,
   };
 };
 

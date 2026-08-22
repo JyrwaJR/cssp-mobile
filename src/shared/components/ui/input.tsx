@@ -30,14 +30,14 @@ const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
       <TextInput
         ref={ref}
         className={cn(
-          'w-full rounded-md border bg-background px-4 py-3 text-body-md text-foreground dark:bg-gray-900 dark:text-white',
-          'min-h-16',
-          isFocused ? 'border-primary' : 'border-input dark:border-gray-600',
+          'bg-background text-body-md text-foreground w-full rounded-md border px-4 py-3',
+          'min-h-12',
+          isFocused ? 'border-primary' : 'border-gray-300',
           error ? 'border-destructive bg-destructive/5' : '',
           multiline && 'min-h-[100px]',
           className
         )}
-        placeholderTextColor="#636363"
+        placeholderClassName="text-gray-200"
         textAlignVertical={multiline ? 'top' : 'center'}
         onFocus={(e) => {
           setIsFocused(true);

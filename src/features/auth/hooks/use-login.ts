@@ -8,13 +8,15 @@ import { LoginInput } from '../validators';
 export function useLogin() {
   return useMutation({
     mutationFn: async (data: LoginInput) => {
-      const encdata = await encryptFields<LoginInput>(data);
+      const encData = encryptFields<LoginInput>(data);
 
       const payload = new URLSearchParams({
-        username: encdata.username,
-        password: encdata.password,
+        username: encData.username,
+        password: encData.password,
         version: '24',
       });
+
+      console.log('payload:', payload.toString());
 
       return await http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, payload, {
         headers: {
@@ -22,6 +24,12 @@ export function useLogin() {
           Accept: 'application/json',
         },
       });
+    },
+    onError: (error) => {
+      console.log('useLogin Error', error);
+    },
+    onSuccess: (data) => {
+      console.log('useLogin Success', data);
     },
   });
 }

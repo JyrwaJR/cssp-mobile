@@ -4,6 +4,7 @@ import { LoginInput, LoginSchema } from '../validators';
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { useLogin } from '../hooks/use-login';
 import { useSnackbar } from '@hooks/use-snackbar';
+import { Input } from '@components/ui/input';
 
 const defaultValues = {
   username: process.env.EXPO_PUBLIC_USERNAME || '',
@@ -21,14 +22,15 @@ export const LoginForm = () => {
   const onSubmit = (data: LoginInput) =>
     mutate(data, {
       onSuccess: (data) => {
-        if (data.success) {
-          showSnackbar('Login successful');
+        if (data?.success) {
+          showSnackbar(data.message);
         }
+        showSnackbar(data.message);
       },
     });
 
   return (
-    <View className="w-full border border-red-500">
+    <View className="w-full">
       <Text className="mb-2 text-center text-2xl font-bold">Welcome Back</Text>
 
       <Text className="mb-8 text-center text-[15px] text-gray-500">Login to your account</Text>
@@ -40,13 +42,12 @@ export const LoginForm = () => {
           <View className="mb-4">
             <Text className="mb-2 text-sm font-semibold">Username</Text>
 
-            <TextInput
+            <Input
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Enter your username"
               autoCapitalize="none"
-              className="h-12 rounded-lg border border-gray-300 px-3.5 text-base"
             />
 
             {form.formState.errors.username && (
@@ -65,14 +66,13 @@ export const LoginForm = () => {
           <View className="mb-4">
             <Text className="mb-2 text-sm font-semibold">Password</Text>
 
-            <TextInput
+            <Input
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Enter your password"
               secureTextEntry
               autoCapitalize="none"
-              className="h-12 rounded-lg border border-gray-300 px-3.5 text-base"
             />
 
             {form.formState.errors.password && (

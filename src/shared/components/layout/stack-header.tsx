@@ -26,7 +26,7 @@ export const StackHeader = memo(() => {
   const showPlaceHolder = showBack || showDrawer;
   return (
     <>
-      <View className={cn('border-border border-b bg-stone-50')} style={{ paddingTop: insets.top }}>
+      <View className={cn('border-b border-gray-200')} style={{ paddingTop: insets.top }}>
         <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
           <View className="flex-row items-center justify-start">
             {showDrawer ? (
