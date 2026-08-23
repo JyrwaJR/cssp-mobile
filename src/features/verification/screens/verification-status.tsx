@@ -1,41 +1,12 @@
-import { View, Text, Image, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
-import { ENDPOINTS } from '@utils/constants/endpoints';
-import { http } from '@utils/http';
-import { useQuery } from '@tanstack/react-query';
-import { VerificationStatusT } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
-
-function parseVerificationResponse(raw: string) {
-  try {
-    return JSON.parse(raw);
-  } catch {
-    const fixed = raw.replace(
-      /("ver_status"\s*:\s*")([\s\S]*?)("\s*,\s*"ver_time")/,
-      (_, start, status, end) => {
-        return `${start}${status.replace(/\r?\n/g, '\\n').replace(/\t/g, '\\t')}${end}`;
-      }
-    );
-
-    return JSON.parse(fixed);
-  }
-}
+import { useVerificationStatus } from '../hooks';
 
 export function VerificationStatusScreen() {
-  const ppo_no: string = 'MG/11XX';
-  const { data, isFetching, refetch } = useQuery({
-    queryKey: ['verificationStatus', ppo_no],
-    queryFn: () =>
-      http.post<VerificationStatusT>(
-        ENDPOINTS.VERIFICATION.STATUS,
-        { ppo_no },
-        { headers: { Accept: 'application/json' } }
-      ),
-    select: (data) => data.data,
-  });
-  console.log(data);
+  const { data, isFetching, refetch } = useVerificationStatus();
 
   const isPhotoSubmitted = data?.verStatus === '03';
 
@@ -144,7 +115,6 @@ export function VerificationStatusScreen() {
           </View>
 
           {/* Note Alert Card */}
-
           <Alert variant="warning">
             <Icon name="alert-triangle" size={18} className="mt-0.5 text-destructive" />
             <View className="flex-1">
@@ -155,7 +125,6 @@ export function VerificationStatusScreen() {
               </AlertDescription>
             </View>
           </Alert>
-
           {/* Footer Logos */}
           <FooterImg />
         </View>

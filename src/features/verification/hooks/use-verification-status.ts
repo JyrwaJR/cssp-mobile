@@ -4,13 +4,10 @@ import { VerificationStatusT } from '../types';
 import { ENDPOINTS } from '@utils/constants';
 
 export function useVerificationStatus() {
+  const ppo_no = 'mg/11xx';
   return useQuery({
-    queryKey: ['verificationStatus'],
-    queryFn: () =>
-      http.post<VerificationStatusT>(ENDPOINTS.VERIFICATION.STATUS, {
-        // TODO: Replace with actual ppo_no
-        ppo_no: 'MG/11XX',
-      }),
+    queryKey: ['verificationStatus', ppo_no],
+    queryFn: () => http.post<VerificationStatusT>(ENDPOINTS.VERIFICATION.STATUS, { ppo_no }),
     select: (data) => data.data,
   });
 }

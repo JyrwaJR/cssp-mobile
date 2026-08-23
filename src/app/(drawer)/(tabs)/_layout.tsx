@@ -1,9 +1,10 @@
-import { StackHeaderLayout } from '@components/layout';
+import { Icon } from '@components/ui';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
   return (
     <Tabs
+      initialRouteName="index"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: 'black',
@@ -12,6 +13,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Status',
+          tabBarIcon: () => <Icon name="info" />,
         }}
       />
       <Tabs.Screen

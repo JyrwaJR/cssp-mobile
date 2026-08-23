@@ -14,28 +14,18 @@ export interface PageHeaderConfig {
 export const PAGE_HEADERS = {
   // TABS
   '/': { title: 'Pensioner', showDrawer: true },
-  '/statement': { title: 'Salary Statement', showDrawer: true },
-  '/leaves': { title: 'My Leaves', showDrawer: true },
-  '/pension': { title: 'Pensions', showDrawer: true },
+  '/photo': { title: 'Salary Statement', showDrawer: true },
   '/profile': { title: 'My Profile', showDrawer: true },
+  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
 
   // pages
-  '/settings': { title: 'Settings', showBackButton: true },
-  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
-  '/leaves/[id]': { title: 'My Leaves', showBackButton: true },
-  '/leaves/create': { title: 'Apply for Leaves', showBackButton: true },
-  '/tax': { title: 'Income Tax', showBackButton: true },
-  '/tax/detail': { title: 'Tax Computation', showBackButton: true },
-  '/tax/edit': { title: 'Edit Tax Details', showBackButton: true },
-  '/tax/create': { title: 'New Tax Record', showBackButton: true },
-  '/loans': { title: 'My Loans', showBackButton: true },
-  '/loans/[loanId]': { title: 'Loan Details', showBackButton: true },
-  '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
-  '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
-  '/nps-statements': { title: 'NPS Statements', showBackButton: true },
+  '/contact': { title: 'My Leaves', showBackButton: true },
+  'change-password': { title: 'Change Password', showBackButton: true },
+  '/about': { title: 'About Us', showBackButton: true },
+
   '/web': { title: '', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
 
