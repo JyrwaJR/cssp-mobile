@@ -1,5 +1,7 @@
+import { LoginT } from './login';
+
 export type RoleT = 'USER' | 'MEMBER';
-export type UserT = {
-  uid: string;
-};
+
+export interface UserT extends LoginT {}
+
 export * from './login';
