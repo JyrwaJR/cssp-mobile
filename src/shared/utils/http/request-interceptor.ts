@@ -26,15 +26,26 @@ export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
     const accessToken = await TokenStoreManager.getAccessToken();
 
-    console.log('Request.ts', accessToken);
     if (accessToken) {
       config.headers.Authorization = `accessToken ${accessToken}`;
     }
 
-    config.data = {
-      ...encryptFields(config.data),
-      version: '24',
-    };
+    // Pre-serialized bodies must reach the server byte-for-byte: spreading a
+    // URLSearchParams or FormData instance into an object literal yields an
+    // empty object (their entries are not own enumerable properties), which
+    // silently destroys the payload. Strings would likewise be exploded into
+    // indexed character objects by object spread.
+    const isPreSerializedBody =
+      typeof config.data === 'string' ||
+      config.data instanceof URLSearchParams ||
+      config.data instanceof FormData;
+
+    if (!isPreSerializedBody) {
+      config.data = {
+        ...encryptFields(config.data),
+        version: '24',
+      };
+    }
 
     return config;
   };

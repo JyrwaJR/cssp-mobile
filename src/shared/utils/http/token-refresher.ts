@@ -63,7 +63,7 @@ export const refreshToken = async (): Promise<string> => {
     {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `renewToken ${refreshToken}`,
+        Authorization: `renewToken ${refreshTokenValue}`,
         Accept: 'application/json',
       },
     }

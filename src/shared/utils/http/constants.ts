@@ -16,8 +16,12 @@ export const API_BASE_URL = env.EXPO_PUBLIC_API_URL as string;
 /**
  * Paths that bypass the automatic token refresh logic.
  * Errors on these paths are returned directly to the caller.
+ *
+ * These must be kept in sync with {@link ENDPOINTS.AUTH} — they are matched
+ * against `originalRequest.url` (e.g. `/login/`), which is why the values
+ * include their leading/trailing slashes.
  */
-export const AUTH_PATHS = ['auth/login', 'auth/validate_token', 'auth/logout'] as const;
+export const AUTH_PATHS = ['/login/', '/api/validate_token/', '/logout'] as const;
 
 /**
  * Checks if a given URL is one of the authentication-related paths.
