@@ -23,9 +23,10 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-primary',
-        outline: 'border border-primary bg-background dark:bg-gray-900',
+        outline: 'border border-primary bg-transparent',
         link: 'bg-transparent dark:bg-gray-900',
         destructive: 'bg-destructive',
+        secondary: 'bg-[#E9ECEF] active:opacity-80 dark:bg-gray-800',
         ghost: 'bg-transparent',
       },
       size: {
@@ -55,6 +56,8 @@ function getVariantColors(variant: string): {
     case 'link':
       return { spinnerColor: '#024ad8', textClass: 'text-primary' };
     case 'ghost':
+      return { spinnerColor: '#1a1a1a', textClass: 'text-foreground' };
+    case 'secondary':
       return { spinnerColor: '#1a1a1a', textClass: 'text-foreground' };
     default:
       // primary, ink, destructive — all use white text
@@ -120,7 +123,7 @@ export const Button = ({
           // to live inside a <Text> component or they are dropped silently
           <Text
             className={cn(
-              'text-center text-[14px] font-bold capitalize tracking-widest',
+              'text-center text-[14px] font-bold  tracking-widest',
               colors.textClass,
               className
             )}>
@@ -132,7 +135,7 @@ export const Button = ({
       ) : (
         <Text
           className={cn(
-            'text-[14px] capitalize tracking-widest',
+            'text-[14px]  tracking-widest',
             colors.textClass,
             variant === 'link' && 'underline',
             className

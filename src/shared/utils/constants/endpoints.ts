@@ -3,10 +3,10 @@ export const ENDPOINTS = {
     LOGIN: '/login/',
     LOGOUT: '/logout',
     VALIDATE_TOKEN: '/api/validate_token/',
+    CURRENT_USER: '/current-user',
   },
 
   USER: {
-    CURRENT_USER: '/current-user',
     REGISTRATION_STATUS: '/get_registration_status/',
     CREATE_PENSIONER: '/api/create_pensioner/',
     CHANGE_PASSWORD: '/api/change_password/',
@@ -22,12 +22,7 @@ export const ENDPOINTS = {
   },
 
   DOCUMENTATION: {
-    MANUAL: '/manual.html',
-  },
-
-  CSSP: {
-    ENCRYPT: '/api/cssp/encrypt',
-    DECRYPT: '/api/cssp/decrypt',
-    FORMAT_PASSWORD: '/api/cssp/format-password',
+    MANUAL: `https://shillong.meg.nic.in/manual.html`,
+    POLICY: 'https://shillong.meg.nic.in/privacy_policy.html',
   },
 } as const;

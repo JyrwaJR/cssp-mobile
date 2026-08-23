@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoutePath } from '@hooks/use-route-path';
 import { matchPageHeader, cn } from '@utils/helpers';
 import { Icon } from '@components/ui/icon';
+import { DrawerToggleButton } from 'expo-router/drawer';
+import { NicBanner } from '@components/common/nic-banner';
 
 export const StackHeader = memo(() => {
   const path = useRoutePath();
@@ -19,46 +21,47 @@ export const StackHeader = memo(() => {
   if (!config) return null;
 
   const showBack = config.showBackButton && canGoBack;
-
   const showDrawer = config.showDrawer;
-
   const showPlaceHolder = showBack || showDrawer;
+
   return (
-    <>
-      <View className={cn('border-b border-gray-200')} style={{ paddingTop: insets.top }}>
-        <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
-          <View className="flex-row items-center justify-start">
-            {showDrawer ? (
+    <View className={cn('border-b border-gray-200 bg-white')} style={{ paddingTop: insets.top }}>
+      {/* Header Main Bar */}
+      <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
+        <View className="min-w-[40px] flex-row items-center justify-start">
+          {showDrawer ? (
+            <DrawerToggleButton tintColor={'#000'} />
+          ) : (
+            showBack && (
               <TouchableOpacity
-                // onPress={() => navigation.openDrawer()}
+                onPress={handleBack}
                 hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                 activeOpacity={0.7}>
-                <Text>D</Text>
+                <Icon name="arrow-left" size={26} />
               </TouchableOpacity>
-            ) : (
-              showBack && (
-                <TouchableOpacity
-                  onPress={handleBack}
-                  hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
-                  activeOpacity={0.7}>
-                  <Icon name="arrow-left" size={26} />
-                </TouchableOpacity>
-              )
-            )}
-          </View>
-
-          <View className="w-full flex-[4] items-center justify-center">
-            <Text className="text-xl font-bold leading-loose tracking-widest text-black">
-              {config.title}
-            </Text>
-          </View>
-
-          {showPlaceHolder && <View className="flex-1 flex-row items-center justify-end" />}
+            )
+          )}
         </View>
 
-        {config.bottomContent && <View className="px-4 pb-3">{config.bottomContent}</View>}
+        {/* Title */}
+        <View className="flex-1 items-center justify-center">
+          <Text numberOfLines={1} className="text-lg font-bold tracking-wide text-gray-900">
+            {config.title}
+          </Text>
+        </View>
+
+        {/* Right Action Placeholder */}
+        <View className="min-w-[40px] items-end">
+          {showPlaceHolder && <View className="w-6" />}
+        </View>
       </View>
-    </>
+
+      {/* Optional Custom Bottom Header Content */}
+      {config.bottomContent && <View className="px-4 pb-3">{config.bottomContent}</View>}
+
+      {/* Banner docked right below the header */}
+      <NicBanner />
+    </View>
   );
 });
 

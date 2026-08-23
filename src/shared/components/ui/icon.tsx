@@ -4,11 +4,14 @@ import {
   ArrowRight02FreeIcons,
   EyeClosedIcon,
   EyeIcon,
+  InfoIcon,
+  MenuIcon,
   UserUnlock01Icon,
 } from '@hugeicons/core-free-icons';
 import { cn } from '@utils/helpers';
 
-type Name = 'eye-open' | 'eye-close' | 'user-unlock' | 'arrow-right' | 'arrow-left';
+type Name =
+  'eye-open' | 'eye-close' | 'user-unlock' | 'arrow-right' | 'arrow-left' | 'menu' | 'info';
 
 type Props = {
   name: Name;
@@ -28,6 +31,10 @@ const getHugeIcon = (name: Name) => {
       return ArrowRight02FreeIcons;
     case 'arrow-left':
       return ArrowLeft01FreeIcons;
+    case 'info':
+      return InfoIcon;
+    case 'menu':
+      return MenuIcon;
   }
 };
 

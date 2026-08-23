@@ -116,7 +116,7 @@ export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> =>
   return {
     success: status === 200 || status === 201,
     message: 'Success',
-    data: data,
+    data: data as T,
   };
 };
 

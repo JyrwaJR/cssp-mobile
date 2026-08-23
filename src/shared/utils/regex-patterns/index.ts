@@ -93,6 +93,8 @@ export const ALLOW_REGEX = {
 
   /** Indian Aadhaar: 12 digits, optionally grouped as 4-4-4. */
   ADHAAR: /^\d{4}\s?\d{4}\s?\d{4}$/,
+
+  DATE: /^\d{4}-\d{2}-\d{2}$/,
 };
 
 /**

@@ -9,7 +9,6 @@ import { useSnackbar } from '@hooks/use-snackbar';
 import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
 import { Icon } from '@components/ui/icon';
-import { Link } from 'expo-router';
 
 const defaultValues = {
   username: process.env.EXPO_PUBLIC_USERNAME || '',
@@ -50,7 +49,10 @@ export const LoginForm = () => {
         name="username"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
-            <Text className="mb-1.5 text-sm  font-medium text-gray-700">Username</Text>
+            <View className="flex-row gap-1">
+              <Text className="mb-1.5 text-sm  font-medium text-gray-700">Username</Text>
+              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+            </View>
             <Input
               value={value}
               onChangeText={onChange}
@@ -74,7 +76,10 @@ export const LoginForm = () => {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-6">
-            <Text className="mb-1.5 text-sm font-medium text-gray-700">Password</Text>
+            <View className="flex-row gap-1">
+              <Text className="mb-1.5 text-sm font-medium text-gray-700">Password</Text>
+              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+            </View>
             <View className="relative justify-center">
               <Input
                 value={value}
@@ -103,16 +108,6 @@ export const LoginForm = () => {
           </View>
         )}
       />
-      {/* Forgot Password Link*/}
-      <View className="mb-6 flex-row justify-end">
-        <Link href="/" asChild>
-          <Pressable hitSlop={8}>
-            <Text className="text-sm font-semibold text-primary active:opacity-70">
-              Forgot Password?
-            </Text>
-          </Pressable>
-        </Link>
-      </View>
       {/* Submit Button */}
       <Button
         isLoading={isPending}
@@ -120,7 +115,7 @@ export const LoginForm = () => {
         disabled={isPending}
         onPress={form.handleSubmit(onSubmit)}
         className="w-full">
-        Continue
+        Submit
       </Button>
     </View>
   );

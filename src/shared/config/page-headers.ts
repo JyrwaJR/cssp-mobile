@@ -13,7 +13,7 @@ export interface PageHeaderConfig {
 
 export const PAGE_HEADERS = {
   // TABS
-  '/': { title: 'MeghEIS', showDrawer: true },
+  '/': { title: 'CSSP Meghalaya', showDrawer: true },
   '/statement': { title: 'Salary Statement', showDrawer: true },
   '/leaves': { title: 'My Leaves', showDrawer: true },
   '/pension': { title: 'Pensions', showDrawer: true },
@@ -22,11 +22,8 @@ export const PAGE_HEADERS = {
   // pages
   '/settings': { title: 'Settings', showBackButton: true },
   '/announcements': { title: 'Announcement Board', showBackButton: true },
-  // '/auth': { title: 'CSSP Meghalaya', showBackButton: true },
-  '/auth/register': { title: 'Register/Forgot-Password', showBackButton: true },
-  '/auth/reg-instruction': { title: 'Instruction', showBackButton: true },
-  '/auth/forgot-password': { title: 'Forgot Password', showBackButton: true, showDrawer: false },
-  '/dev/ui-lab': { title: 'UI Laboratory', showBackButton: true },
+  '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
+  '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
   '/leaves/[id]': { title: 'My Leaves', showBackButton: true },
   '/leaves/create': { title: 'Apply for Leaves', showBackButton: true },
   '/ui-lab': { title: 'Ui Lab', showBackButton: true },
@@ -39,7 +36,7 @@ export const PAGE_HEADERS = {
   '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
   '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
   '/nps-statements': { title: 'NPS Statements', showBackButton: true },
-  '/pdf-preview': { title: 'Preview PDF', showBackButton: true, showDrawer: false },
+  '/web': { title: '', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
 
 export type PageHeaderRoute = keyof typeof PAGE_HEADERS;

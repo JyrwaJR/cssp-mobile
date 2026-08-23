@@ -11,7 +11,7 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <ProviderWrapper>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false, animation: 'slide_from_right' }} />
       <SnackbarProvider />
     </ProviderWrapper>
   );

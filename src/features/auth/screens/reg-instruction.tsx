@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import { ScrollView, Text, View, Pressable, Linking } from 'react-native';
 import { Button } from '@components/ui/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { NicBanner } from '@components/common/nic-banner';
+import { FooterImg } from '@components/common/nic-footer-img';
 
 export function RegistrationInstructionScreen() {
   const handleEmailSupport = () => {
@@ -122,10 +124,7 @@ export function RegistrationInstructionScreen() {
         </Button>
 
         {/* Footer Branding */}
-        <View className="mt-4 items-center gap-1">
-          <Text className="text-xs font-semibold text-gray-400">NATIONAL INFORMATICS CENTRE</Text>
-          <Text className="text-[11px] text-gray-400">Powered by NIC • Meghalaya State Centre</Text>
-        </View>
+        <FooterImg />
       </ScrollView>
     </SafeAreaView>
   );
