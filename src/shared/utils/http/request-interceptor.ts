@@ -26,23 +26,15 @@ export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
     const accessToken = await TokenStoreManager.getAccessToken();
 
+    console.log('Request.ts', accessToken);
     if (accessToken) {
       config.headers.Authorization = `accessToken ${accessToken}`;
     }
 
-    const isPlainObjectBody =
-      config.data !== null &&
-      typeof config.data === 'object' &&
-      !Array.isArray(config.data) &&
-      !(config.data instanceof FormData) &&
-      !(config.data instanceof URLSearchParams);
-
-    if (isPlainObjectBody) {
-      config.data = {
-        ...encryptFields(config.data),
-        version: '24',
-      };
-    }
+    config.data = {
+      ...encryptFields(config.data),
+      version: '24',
+    };
 
     return config;
   };

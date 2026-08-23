@@ -12,7 +12,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { cn } from '@utils/helpers';
 
-type Name =
+export type IconName =
   | 'eye-open'
   | 'eye-close'
   | 'user-unlock'
@@ -24,12 +24,12 @@ type Name =
   | 'alert-circle';
 
 type Props = {
-  name: Name;
+  name: IconName;
   size?: number;
   className?: string;
 };
 
-const getHugeIcon = (name: Name) => {
+const getHugeIcon = (name: IconName) => {
   switch (name) {
     case 'eye-open':
       return EyeIcon;

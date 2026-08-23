@@ -128,6 +128,7 @@ export const handleLoginResponse = async (response: AxiosResponse) => {
       const refreshToken = data.renew_token;
       if (accessToken) {
         logger.info('Setting Token');
+        console.log(accessToken);
         await TokenStoreManager.addAccessToken(accessToken);
         logger.info('Token Set');
       }

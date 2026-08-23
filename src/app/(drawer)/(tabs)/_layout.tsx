@@ -5,19 +5,30 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-
         tabBarActiveTintColor: 'black',
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
+          title: 'Status',
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="photo"
         options={{
-          title: 'Tab Two',
+          title: 'Submit Photo',
+        }}
+      />
+      <Tabs.Screen
+        name="withdrawal"
+        options={{
+          title: 'Withdrawal',
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
         }}
       />
     </Tabs>

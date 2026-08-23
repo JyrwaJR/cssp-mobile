@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { IconSvgElement } from '@hugeicons/react-native';
+import { IconName } from '@components/ui';
 
 interface SnackbarState {
   /** The message text to display. Null means hidden. */
@@ -7,7 +7,7 @@ interface SnackbarState {
   /** Whether the banner is currently visible (animating in). */
   visible: boolean;
   /** Optional Hugeicons icon object (SVG path data) to display before the message. */
-  icon: IconSvgElement | null;
+  icon: IconName | null;
 
   /**
    * Show the snackbar with the given message.
@@ -15,7 +15,7 @@ interface SnackbarState {
    * @param message - The text to display.
    * @param icon - Optional Hugeicons icon object (e.g. CheckmarkCircle02Icon from `@hugeicons/core-free-icons`).
    */
-  showSnackbar: (message: string, icon?: IconSvgElement) => void;
+  showSnackbar: (message: string, icon?: IconName) => void;
 
   /** Hide the snackbar immediately. Clears message and icon. */
   dismissSnackbar: () => void;
@@ -33,10 +33,10 @@ export const useSnackbarStore = create<SnackbarState>((set) => ({
   visible: false,
   icon: null,
 
-  showSnackbar: (message: string, icon?: IconSvgElement) =>
+  showSnackbar: (message: string, icon?: IconName) =>
     set({
       message,
-      icon: icon ?? null,
+      icon: icon,
       visible: true,
     }),
 

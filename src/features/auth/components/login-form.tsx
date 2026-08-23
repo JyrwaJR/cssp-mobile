@@ -5,10 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { LoginInput, LoginSchema } from '../validators';
 import { useLogin } from '../hooks/use-login';
-import { useSnackbar } from '@hooks/use-snackbar';
 import { Input } from '@components/ui/input';
 import { Button } from '@components/ui/button';
 import { Icon } from '@components/ui/icon';
+import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
+import { useSnackbar } from '@hooks/use-snackbar';
 
 const defaultValues = {
   username: process.env.EXPO_PUBLIC_USERNAME || '',
@@ -17,8 +18,8 @@ const defaultValues = {
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate, isPending } = useLogin();
   const { showSnackbar } = useSnackbar();
+  const { mutate, isPending, isSuccess, data } = useLogin();
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
@@ -28,14 +29,7 @@ export const LoginForm = () => {
   const onSubmit = (data: LoginInput) => {
     mutate(data, {
       onSuccess: (res) => {
-        if (res?.success) {
-          showSnackbar('Login successfully');
-        } else {
-          showSnackbar(res?.message || 'Login failed. Please try again.');
-        }
-      },
-      onError: (error: any) => {
-        showSnackbar(error?.message || 'Something went wrong');
+        if (res.success) showSnackbar('Login Success', 'info');
       },
     });
   };
@@ -43,15 +37,25 @@ export const LoginForm = () => {
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
-    <View className="w-full py-2">
+    <View className="w-full gap-2 py-2">
+      {isSuccess && !data.success && (
+        <Alert variant="destructive">
+          <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+          <View className="flex-1">
+            <AlertTitle className="text-sm">Login Error!</AlertTitle>
+            <AlertDescription>{data?.message}</AlertDescription>
+          </View>
+        </Alert>
+      )}
+
       <Controller
         control={form.control}
         name="username"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">Username</Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-sm font-medium text-gray-700">Username</Text>
+              <Text className="mb-1.5 text-sm font-medium text-destructive">*</Text>
             </View>
             <Input
               value={value}
@@ -63,7 +67,7 @@ export const LoginForm = () => {
               error={!!form.formState.errors.username}
             />
             {form.formState.errors.username && (
-              <Text className="mt-1 text-xs text-red-500">
+              <Text className="mt-1 text-xs text-destructive">
                 {form.formState.errors.username.message}
               </Text>
             )}
@@ -101,7 +105,7 @@ export const LoginForm = () => {
               </Pressable>
             </View>
             {form.formState.errors.password && (
-              <Text className="mt-1 text-xs text-red-500">
+              <Text className="mt-1 text-xs text-destructive">
                 {form.formState.errors.password.message}
               </Text>
             )}

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSnackbarStore } from '@stores/snackbar.store';
-import type { IconSvgElement } from '@hugeicons/react-native';
+import { IconName } from '@components/ui';
 
 /**
  * Convenience hook for showing and dismissing the snackbar banner.
@@ -17,7 +17,7 @@ export const useSnackbar = () => {
   const dismissSnackbar = useSnackbarStore((state) => state.dismissSnackbar);
 
   const show = useCallback(
-    (message: string, icon?: IconSvgElement) => {
+    (message: string, icon?: IconName) => {
       showSnackbar(message, icon);
     },
     [showSnackbar]
