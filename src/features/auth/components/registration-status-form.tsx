@@ -7,13 +7,19 @@ import { useCheckPPO } from '../hooks';
 import { Input } from '@components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { Icon } from '@components/ui/icon';
+import { useRegistrationStore } from '../store/registration';
 import { cn } from '@utils/helpers';
 
 export const RegistrationStatusForm = () => {
   const { mutate, isPending, data, isSuccess } = useCheckPPO();
+  const { formData } = useRegistrationStore();
 
+  const ppono = formData.ppo_no || '';
   const form = useForm<RegistrationStatusInput>({
     resolver: zodResolver(RegistrationStatusSchema),
+    // Seed from the store so navigating Back to this step preserves the
+    // previously entered PPO number (forms remount per step).
+    defaultValues: { ppo_no: ppono },
   });
 
   const onSubmit = (data: RegistrationStatusInput) => {
@@ -22,12 +28,6 @@ export const RegistrationStatusForm = () => {
 
   return (
     <View className="w-full gap-4 py-2">
-      <View className="flex-col items-center justify-center gap-2">
-        <Text className="text-center text-lg font-semibold">Enter your PPO No.</Text>
-        <Text className="text-center text-sm text-gray-500">
-          Please enter your PPO Number to check your registration status
-        </Text>
-      </View>
       {isSuccess && (
         <Alert variant={data.success ? 'success' : 'destructive'}>
           <Icon
@@ -47,8 +47,8 @@ export const RegistrationStatusForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">PPO Number</Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">PPO Number</Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
               value={value}
@@ -56,13 +56,17 @@ export const RegistrationStatusForm = () => {
                 return onChange(v.toUpperCase());
               }}
               onBlur={onBlur}
-              placeholder="Enter your PPO No."
-              autoCapitalize="none"
+              placeholder="Enter your PPO Number"
+              autoCapitalize="characters"
               autoCorrect={false}
+              className="text-base"
+              accessibilityLabel="PPO Number"
               error={!!form.formState.errors.ppo_no}
             />
             {form.formState.errors.ppo_no && (
-              <Text className="mt-1 text-xs text-red-500">
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
                 {form.formState.errors.ppo_no.message}
               </Text>
             )}
@@ -74,7 +78,7 @@ export const RegistrationStatusForm = () => {
         size="lg"
         disabled={isPending}
         onPress={form.handleSubmit(onSubmit)}>
-        Get PPO Status
+        Check PPO Status
       </Button>
     </View>
   );

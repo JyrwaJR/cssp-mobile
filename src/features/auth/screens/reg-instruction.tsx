@@ -2,7 +2,6 @@ import { router } from 'expo-router';
 import { ScrollView, Text, View, Pressable, Linking } from 'react-native';
 import { Button } from '@components/ui/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NicBanner } from '@components/common/nic-banner';
 import { FooterImg } from '@components/common/nic-footer-img';
 
 export function RegistrationInstructionScreen() {
@@ -39,7 +38,7 @@ export function RegistrationInstructionScreen() {
 
           <Text className="text-sm leading-relaxed text-gray-600">
             Enter your <Text className="font-semibold text-gray-800">PPO Number</Text> and tap{' '}
-            <Text className="font-semibold text-gray-800">Get PPO Status</Text>.
+            <Text className="font-semibold text-gray-800">Check PPO Status</Text>.
           </Text>
 
           {/* Invalid PPO Alert Box */}
