@@ -1,18 +1,16 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import * as SecureStore from 'expo-secure-store';
-import { RoleT, UserT } from '../types/auth';
+import { UserT } from '../types/auth';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
 import { http } from '@utils/http';
+import { ENDPOINTS } from '@utils/constants';
 
 type AuthStore = {
   user?: UserT | null;
-  emp_cd: string;
-  setEmpCode: (empCode: string) => void;
   isSignedIn: boolean;
   isAuthLoading: boolean;
-  role: RoleT;
 
   fetchUser: () => Promise<void>;
   refresh: () => void;
@@ -27,33 +25,24 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       isSignedIn: false,
       isAuthLoading: true,
-      emp_cd: '',
-      setEmpCode: (value: string) => set({ emp_cd: value }),
-      isGazetted: false,
-      role: 'USER',
 
       fetchUser: async (keepStaleOnError?: boolean) => {
-        const empCode = get().emp_cd;
-
-        logger.info('AuthStore: fetchUser called', { empCode, keepStaleOnError });
+        logger.info('AuthStore: fetchUser called', { keepStaleOnError });
 
         const accessToken = await TokenStoreManager.getAccessToken();
 
-        if (empCode && accessToken) {
+        if (accessToken) {
           try {
-            const res = await http.post<UserT>('/current-user', { emp_cd: empCode });
+            const res = await http.post<UserT>(ENDPOINTS.AUTH.CURRENT_USER);
 
             if (res.success && res.data) {
-              logger.info('AuthStore: fetchUser success', { empCode });
               set({
                 user: res.data,
                 isSignedIn: true,
-                role: 'USER',
                 isAuthLoading: false,
               });
             } else {
               logger.warn('AuthStore: fetchUser returned no data', {
-                empCode,
                 message: res.message,
                 success: res.success,
               });
@@ -66,7 +55,7 @@ export const useAuthStore = create<AuthStore>()(
             }
           }
         } else {
-          logger.warn('AuthStore: fetchUser skipped — emp_cd is empty', empCode, !!accessToken);
+          logger.warn('AuthStore: fetchUser skipped — emp_cd is empty', !!accessToken);
         }
       },
 
@@ -75,14 +64,14 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       reset: () => {
-        set({ user: null, isSignedIn: false, role: 'USER', emp_cd: '' });
+        set({ user: null, isSignedIn: false });
       },
 
       logout: async () => {
         try {
           const accessToken = await TokenStoreManager.getAccessToken();
           if (accessToken) {
-            // await http.post(ENDPOINTS.AUTH.LOGOUT, { refresh_token: refreshToken });
+            await http.post(ENDPOINTS.AUTH.LOGOUT);
           }
         } catch (error) {
           logger.error('AuthStore: logout API call failed', error);
@@ -102,7 +91,6 @@ export const useAuthStore = create<AuthStore>()(
         const state = get();
         logger.info('AuthStore: current store state', {
           user: !!state.user,
-          emp_cd: state.emp_cd,
           isSignedIn: state.isSignedIn,
         });
         try {
@@ -143,14 +131,11 @@ export const useAuthStore = create<AuthStore>()(
       partialize: (state) => {
         const partial = {
           user: state.user,
-          emp_cd: state.emp_cd,
           isSignedIn: state.isSignedIn,
-          role: state.role,
           isAuthLoading: false,
         };
         logger.info('AuthStore: persist partialize', {
           hasUser: !!state.user,
-          emp_cd: state.emp_cd,
           isSignedIn: state.isSignedIn,
         });
         return partial;
