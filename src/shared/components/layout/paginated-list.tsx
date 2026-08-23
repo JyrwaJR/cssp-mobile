@@ -79,7 +79,7 @@ export function PaginatedList<T>({
 
   const defaultEmptyComponent = (
     <View className="flex-1 items-center justify-center py-20">
-      <Text className="text-muted-foreground text-center text-sm">No items found.</Text>
+      <Text className="text-center text-sm text-muted-foreground">No items found.</Text>
     </View>
   );
 

@@ -20,7 +20,7 @@ export const NotFoundScreen = ({
 
       <Text className="text-2xl font-bold text-destructive">{title}</Text>
 
-      <Text className="text-center text-graphite">{message}</Text>
+      <Text className="text-graphite text-center">{message}</Text>
 
       <View className="mt-4 w-full items-center justify-center gap-3">
         <Button

@@ -53,9 +53,9 @@ export class GlobalErrorBoundary extends Component<Props, State> {
         <Container>
           <SafeAreaView className="flex-1">
             <View className="flex-1 items-center justify-center px-6">
-              <View className="border-border w-full overflow-hidden rounded-md border p-8">
+              <View className="w-full overflow-hidden rounded-md border border-border p-8">
                 <View className="items-center">
-                  <View className="border-destructive bg-destructive/10 mb-6 h-20 w-20 items-center justify-center rounded-md">
+                  <View className="bg-destructive/10 mb-6 h-20 w-20 items-center justify-center rounded-md border-destructive">
                     <HugeiconsIcon icon={AlertCircleIcon} size={48} className="text-destructive" />
                   </View>
 
@@ -67,7 +67,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
 
                   {__DEV__ && this.state.error && (
                     <View className="bg-graphite/10 mb-8 w-full rounded-md p-4">
-                      <Text className="text-destructive font-mono text-xs">
+                      <Text className="font-mono text-xs text-destructive">
                         {this.state.error.toString()}
                       </Text>
                     </View>

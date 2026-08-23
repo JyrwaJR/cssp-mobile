@@ -28,7 +28,7 @@ export const UnderDevelopment = ({
 
       <Text className="mb-4 text-center text-2xl font-bold text-foreground">{title}</Text>
 
-      <Text className="mb-8 text-center text-base leading-6 text-graphite">{message}</Text>
+      <Text className="text-graphite mb-8 text-center text-base leading-6">{message}</Text>
 
       {showBackButton && (
         <Button

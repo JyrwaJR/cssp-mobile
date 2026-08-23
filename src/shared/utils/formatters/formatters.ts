@@ -37,7 +37,7 @@ export const formatCurrency = (
     locale,
     minimumFractionDigits = 2,
     maximumFractionDigits = 2,
-  }: FormatCurrencyOptions = {},
+  }: FormatCurrencyOptions = {}
 ) =>
   new Intl.NumberFormat(locale, {
     style: 'currency',

@@ -14,7 +14,7 @@ export const CustomTabBar = ({
 }: any & { tabConfig: TabRouteT[] }) => {
   return (
     <View
-      className="flex-row items-center justify-around border-t border-border/40 bg-background px-3 pt-2"
+      className="border-border/40 flex-row items-center justify-around border-t bg-background px-3 pt-2"
       style={{ paddingBottom: Math.max(insets.bottom + 4, 12) }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];

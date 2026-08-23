@@ -28,7 +28,7 @@ export const EmptyScreen = ({
       <Text className={cn('mb-2 text-center text-2xl font-bold text-foreground')}>{title}</Text>
 
       {message && (
-        <Text className={cn('mb-8 text-center text-base leading-6 text-graphite')}>{message}</Text>
+        <Text className={cn('text-graphite mb-8 text-center text-base leading-6')}>{message}</Text>
       )}
 
       {!message && <View className={cn('mb-8')} />}
