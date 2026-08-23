@@ -23,12 +23,10 @@ export const useAuthStore = create<AuthStore>()(
   persist(
     (set, get) => ({
       user: null,
-      isSignedIn: false,
+      isSignedIn: true,
       isAuthLoading: true,
 
       fetchUser: async (keepStaleOnError?: boolean) => {
-        logger.info('AuthStore: fetchUser called', { keepStaleOnError });
-
         const accessToken = await TokenStoreManager.getAccessToken();
 
         if (accessToken) {
@@ -42,31 +40,17 @@ export const useAuthStore = create<AuthStore>()(
                 isAuthLoading: false,
               });
             } else {
-              logger.warn('AuthStore: fetchUser returned no data', {
-                message: res.message,
-                success: res.success,
-              });
               get().reset();
             }
-          } catch (error) {
-            logger.error('AuthStore: fetchUser failed', error);
+          } catch {
             if (!keepStaleOnError) {
               get().reset();
             }
           }
-        } else {
-          logger.warn('AuthStore: fetchUser skipped — emp_cd is empty', !!accessToken);
         }
       },
-
-      refresh: () => {
-        get().fetchUser();
-      },
-
-      reset: () => {
-        set({ user: null, isSignedIn: false });
-      },
-
+      refresh: () => get().fetchUser(),
+      reset: () => set({ user: null, isSignedIn: false }),
       logout: async () => {
         try {
           const accessToken = await TokenStoreManager.getAccessToken();
@@ -87,25 +71,16 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       _hydrate: async () => {
-        logger.info('AuthStore: _hydrate started');
-        const state = get();
-        logger.info('AuthStore: current store state', {
-          user: !!state.user,
-          isSignedIn: state.isSignedIn,
-        });
         try {
           const accessToken = await TokenStoreManager.getAccessToken();
-          logger.info('AuthStore: access token found', { hasToken: !!accessToken });
           if (accessToken) {
             await get().fetchUser();
           } else {
             get().reset();
           }
-        } catch (error) {
-          logger.error('AuthStore: _hydrate failed', error);
+        } catch {
           get().reset();
         } finally {
-          logger.info('AuthStore: _hydrate complete, setting isAuthLoading=false');
           set({ isAuthLoading: false });
         }
       },
@@ -115,15 +90,12 @@ export const useAuthStore = create<AuthStore>()(
       storage: createJSONStorage(() => ({
         getItem: async (key) => {
           const value = await SecureStore.getItemAsync(key);
-          logger.info('AuthStore: persist getItem', { key, hasValue: !!value });
           return value;
         },
         setItem: async (key, value) => {
-          logger.info('AuthStore: persist setItem', { key, size: value?.length });
           return SecureStore.setItemAsync(key, value);
         },
         removeItem: async (key) => {
-          logger.info('AuthStore: persist removeItem', { key });
           return SecureStore.deleteItemAsync(key);
         },
       })),
@@ -134,10 +106,6 @@ export const useAuthStore = create<AuthStore>()(
           isSignedIn: state.isSignedIn,
           isAuthLoading: false,
         };
-        logger.info('AuthStore: persist partialize', {
-          hasUser: !!state.user,
-          isSignedIn: state.isSignedIn,
-        });
         return partial;
       },
     }

@@ -4,8 +4,15 @@ import { useMutation } from '@tanstack/react-query';
 import { ENDPOINTS } from '@utils/constants/endpoints';
 import { http } from '@utils/http';
 import { LoginInput } from '../validators';
+import { useAuthStore } from '@stores/auth.store';
+
+const headers = {
+  'Content-Type': 'application/x-www-form-urlencoded',
+  Accept: 'application/json',
+};
 
 export function useLogin() {
+  const { refresh } = useAuthStore();
   return useMutation({
     mutationFn: async (data: LoginInput) => {
       const encData = encryptFields<LoginInput>(data);
@@ -17,11 +24,14 @@ export function useLogin() {
       });
 
       return await http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, payload, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
+        headers,
       });
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        refresh();
+      }
+      return data;
     },
   });
 }
