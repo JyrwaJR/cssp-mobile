@@ -31,8 +31,8 @@ export function ConfirmRegistrationScreen() {
 
   const maskBankAccount = (accountNumber?: string) => {
     if (!accountNumber) return 'N/A';
-    if (accountNumber.length <= 4) return accountNumber;
-    return `•••• •••• ${accountNumber.slice(-4)}`;
+    if (accountNumber.length <= 6) return accountNumber;
+    return `•••• •••• ${accountNumber.slice(-6)}`;
   };
 
   return (
@@ -65,10 +65,10 @@ export function ConfirmRegistrationScreen() {
         <Button
           size="lg"
           onPress={prevStep}
-          variant="secondary"
+          variant="outline"
           disabled={isRegistering}
           className="flex-1">
-          Back & Edit
+          Back
         </Button>
 
         <Button
@@ -77,7 +77,7 @@ export function ConfirmRegistrationScreen() {
           disabled={isRegistering}
           isLoading={isRegistering}
           className="flex-1">
-          Confirm & Submit
+          Submit
         </Button>
       </View>
     </View>

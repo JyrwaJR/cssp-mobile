@@ -47,9 +47,7 @@ export const RegisterPasswordSchema = z
 export type RegisterPasswordInput = z.infer<typeof RegisterPasswordSchema>;
 
 export const RegisterPensionerSchema = z.object({
-  // NOTE: must be INVOKED — passing the factory function itself makes
-  // zod treat it as an invalid schema and infers `unknown` for ppo_no.
-  ppo_no: ppoNoValidation(),
+  ppo_no: ppoNoValidation('PPO No.'),
   dob: dateOfBirthValidation,
   password: passwordValidation.transform((v) => formatPassword(v)),
   bank_account_number: bankAccountValidation,

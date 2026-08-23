@@ -1,5 +1,4 @@
-import { Text, View } from 'react-native';
-import { router } from 'expo-router';
+import { View } from 'react-native';
 
 import {
   ConfirmRegistrationScreen,
@@ -8,8 +7,6 @@ import {
   RegistrationStatusForm,
   RegistrationStepHeader,
 } from '../components';
-import { Button } from '@components/ui/button';
-import { Icon } from '@components/ui/icon';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common/nic-footer-img';
 import { useRegistrationStore } from '../store/registration';
@@ -25,25 +22,9 @@ import { useRegistrationStore } from '../store/registration';
  * @returns The rendered registration screen.
  */
 export default function RegistrationScreen() {
-  const { step, reset } = useRegistrationStore();
-
-  const handleExit = () => {
-    reset();
-    router.replace('/auth');
-  };
-
+  const { step } = useRegistrationStore();
   return (
-    <Container className="flex-1">
-      {/* Exit — top corner, large touch target, far from primary actions */}
-      <View className="w-full flex-row">
-        <Button variant="link" size="lg" onPress={handleExit} className="-ml-4 self-start px-0">
-          <View className="flex-row items-center gap-1.5">
-            <Icon name="arrow-left" size={22} className="text-primary" />
-            <Text className="text-base font-semibold text-primary">Back to Login</Text>
-          </View>
-        </Button>
-      </View>
-
+    <Container className="flex-1 py-10">
       {/* Step X of 4 + progress bar + title + instruction */}
       <RegistrationStepHeader step={step} />
 
