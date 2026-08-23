@@ -8,13 +8,24 @@ import { useRegistrationStore } from '../store/registration';
 import { useState } from 'react';
 import { Icon } from '@components/ui/icon';
 
+/**
+ * Step 3 of registration: create a login password.
+ *
+ * Senior-friendly: >=16px type throughout, show/hide toggles on both
+ * fields, and a "Back" button that PRESERVES entered data instead of
+ * resetting the whole flow.
+ *
+ * Note: `password` is seeded from the store so returning to this step
+ * keeps it; `confirm_password` is intentionally always blank — the user
+ * must re-type it to confirm.
+ */
 export const RegistrationPasswordForm = () => {
-  const { nextStep, reset, saveData } = useRegistrationStore();
+  const { nextStep, prevStep, saveData, formData } = useRegistrationStore();
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<RegisterPasswordInput>({
     resolver: zodResolver(RegisterPasswordSchema),
-    defaultValues: { password: '', confirm_password: '' },
+    defaultValues: { password: formData.password, confirm_password: '' },
     mode: 'onTouched',
   });
 
@@ -27,20 +38,14 @@ export const RegistrationPasswordForm = () => {
 
   return (
     <View className="gap-4 py-2">
-      <View className="flex-col items-center justify-center gap-2">
-        <Text className="text-center text-lg font-semibold">Security Information</Text>
-        <Text className="text-center text-sm text-gray-500">
-          Please confirm your login password to complete registration
-        </Text>
-      </View>
       <Controller
         control={form.control}
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">Password</Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">Password</Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <View className="relative justify-center">
               <Input
@@ -50,7 +55,8 @@ export const RegistrationPasswordForm = () => {
                 placeholder="Enter your Password"
                 autoCapitalize="none"
                 autoCorrect={false}
-                className="pr-12"
+                className="pr-12 text-base"
+                accessibilityLabel="Password"
                 error={!!form.formState.errors.password}
               />
 
@@ -63,7 +69,9 @@ export const RegistrationPasswordForm = () => {
               </Pressable>
             </View>
             {form.formState.errors.password && (
-              <Text className="mt-1 text-xs text-red-500">
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
                 {form.formState.errors.password.message}
               </Text>
             )}
@@ -77,8 +85,8 @@ export const RegistrationPasswordForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">Confirm Password</Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">Confirm Password</Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <View className="relative justify-center">
               <Input
@@ -89,7 +97,8 @@ export const RegistrationPasswordForm = () => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 error={!!form.formState.errors.confirm_password}
-                className="pr-12"
+                className="pr-12 text-base"
+                accessibilityLabel="Confirm Password"
               />
               <Pressable
                 onPress={togglePasswordVisibility}
@@ -100,7 +109,9 @@ export const RegistrationPasswordForm = () => {
               </Pressable>
             </View>
             {form.formState.errors.confirm_password && (
-              <Text className="mt-1 text-xs text-destructive">
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
                 {form.formState.errors.confirm_password.message}
               </Text>
             )}
@@ -109,9 +120,9 @@ export const RegistrationPasswordForm = () => {
       />
       <View className="gap-2">
         <View className="w-full flex-row items-center gap-3">
-          {/* Previous Step Button */}
-          <Button variant="outline" size="lg" onPress={reset} className="flex-1">
-            Cancel
+          {/* Previous Step Button — keeps all entered data */}
+          <Button variant="outline" size="lg" onPress={prevStep} className="flex-1">
+            Back
           </Button>
 
           {/* Next Step Button */}
@@ -121,7 +132,7 @@ export const RegistrationPasswordForm = () => {
             disabled={!form.formState.isValid}
             onPress={form.handleSubmit(onSubmit)}
             className="flex-1">
-            Next Step
+            Next
           </Button>
         </View>
       </View>
