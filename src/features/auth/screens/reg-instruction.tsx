@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
-import { ScrollView, Text, View, Pressable, Linking } from 'react-native';
+import { ScrollView, Text, View, Pressable } from 'react-native';
 import { Button } from '@components/ui/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FooterImg } from '@components/common/nic-footer-img';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { Icon } from '@components/ui/icon';
 import { PAGE_ROUTES } from '@utils/constants/routes';
-
+import * as Linking from 'expo-linking';
 /**
  * Registration guide screen shown before the wizard.
  *
@@ -17,12 +17,30 @@ import { PAGE_ROUTES } from '@utils/constants/routes';
  * @returns The rendered registration instruction screen.
  */
 export function RegistrationInstructionScreen() {
-  const handleEmailSupport = () => {
-    Linking.openURL('mailto:dat-shil-meg@nic.in');
+  const handleEmailSupport = async () => {
+    const url = `mailto:dat-shil-meg@nic.in`;
+
+    const supported = await Linking.canOpenURL(url);
+
+    if (!supported) {
+      console.log('No email app available');
+      return;
+    }
+
+    await Linking.openURL(url);
   };
 
-  const handlePhoneSupport = () => {
-    Linking.openURL('tel:03642226553');
+  const handlePhoneSupport = async () => {
+    const url = `tel:03642226553`;
+
+    const supported = await Linking.canOpenURL(url);
+
+    if (!supported) {
+      console.log('No email app available');
+      return;
+    }
+
+    await Linking.openURL(url);
   };
 
   return (
