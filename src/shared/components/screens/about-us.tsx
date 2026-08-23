@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { APP_VERSION } from '@utils/constants';

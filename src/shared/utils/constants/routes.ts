@@ -15,6 +15,7 @@ const routes = {
   CHANGE_PASSWORD: '/change-password' as Href,
   CONTACT_US: '/contact-us' as Href,
   ABOUT_US: '/about' as Href,
+  FACE_RECOGNITION: '/face-recognition' as Href,
 } as const;
 
 export const PAGE_ROUTES: PageRouteMap<typeof routes> = routes;

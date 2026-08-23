@@ -25,6 +25,7 @@ export const PAGE_HEADERS = {
   '/contact-us': { title: 'Contact Us', showBackButton: true },
   '/change-password': { title: 'Change Password', showBackButton: true },
   '/about': { title: 'About Us', showBackButton: true },
+  '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
   '/web': { title: '', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
