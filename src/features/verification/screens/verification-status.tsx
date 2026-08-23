@@ -1,0 +1,165 @@
+import { View, Text, Image, ScrollView, RefreshControl } from 'react-native';
+import { Container } from '@components/layout';
+import { ENDPOINTS } from '@utils/constants/endpoints';
+import { http } from '@utils/http';
+import { useQuery } from '@tanstack/react-query';
+import { VerificationStatusT } from '../types';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
+import { FooterImg } from '@components/common';
+
+function parseVerificationResponse(raw: string) {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    const fixed = raw.replace(
+      /("ver_status"\s*:\s*")([\s\S]*?)("\s*,\s*"ver_time")/,
+      (_, start, status, end) => {
+        return `${start}${status.replace(/\r?\n/g, '\\n').replace(/\t/g, '\\t')}${end}`;
+      }
+    );
+
+    return JSON.parse(fixed);
+  }
+}
+
+export function VerificationStatusScreen() {
+  const ppo_no: string = 'MG/11XX';
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ['verificationStatus', ppo_no],
+    queryFn: () =>
+      http.post<VerificationStatusT>(
+        ENDPOINTS.VERIFICATION.STATUS,
+        { ppo_no },
+        { headers: { Accept: 'application/json' } }
+      ),
+    select: (data) => data.data,
+  });
+  console.log(data);
+
+  const isPhotoSubmitted = data?.verStatus === '03';
+
+  return (
+    <SafeAreaView className="flex-1" edges={['left', 'right']}>
+      <Container refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}>
+        <View className="w-full gap-5">
+          <View className="gap-2">
+            <View className="bg-primary/10 self-start py-1">
+              <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+                Verification Status
+              </Text>
+            </View>
+
+            <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+              Check Status
+            </Text>
+
+            <Text className="text-sm font-medium text-muted-foreground">
+              Pensioner verification status
+            </Text>
+          </View>
+          {/* Status Header Badge */}
+          <View className="items-center gap-2 rounded-md border border-emerald-200/80 bg-emerald-50/70 p-5">
+            <View className="flex-row items-center gap-2">
+              <View className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <Text className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                Verification Status
+              </Text>
+            </View>
+            <Text className="text-2xl font-extrabold text-emerald-950">
+              {data?.verStatus || '—'}
+            </Text>
+          </View>
+
+          {/* Section Subtitle */}
+          <View className="bg-muted/40 rounded-md border border-gray-300 p-3">
+            <Text className="text-center text-sm font-semibold leading-5 text-muted-foreground">
+              {isPhotoSubmitted
+                ? 'Details of Photo Submitted'
+                : 'Details of Last Face Verification & Self Declarations'}
+            </Text>
+          </View>
+
+          {/* Verification Details Card */}
+          <View className="gap-4 rounded-md border border-gray-200/80 bg-card p-5">
+            <Text className="border-b border-gray-500/50 pb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Record Overview
+            </Text>
+
+            <View className="gap-3">
+              {/* Date */}
+              <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
+                <Text className="text-xs font-medium text-muted-foreground">Date</Text>
+                <Text className="text-xs font-bold text-foreground">{data?.verDate || '—'}</Text>
+              </View>
+
+              {/* Time */}
+              <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
+                <Text className="text-xs font-medium text-muted-foreground">Time</Text>
+                <Text className="text-xs font-bold text-foreground">{data?.verTime || '—'}</Text>
+              </View>
+
+              {!isPhotoSubmitted && (
+                <>
+                  {/* Place */}
+                  <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
+                    <Text className="text-xs font-medium text-muted-foreground">Place</Text>
+                    <Text className="text-xs font-bold text-foreground">
+                      {data?.verPlace || '—'}
+                    </Text>
+                  </View>
+
+                  {/* Non-Employment Declaration Card */}
+                  <View className="gap-2 rounded-md border border-gray-200 bg-background p-3.5">
+                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      Non-Employment / Re-Employment
+                    </Text>
+                    <View className="flex-row items-center justify-between border-t border-gray-200 pt-1">
+                      <Text className="text-xs font-medium text-foreground">Declaration</Text>
+                      <View className="rounded-md bg-secondary px-2.5 py-1">
+                        <Text className="text-xs font-bold text-secondary-foreground">
+                          {data?.verNec || '—'}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+
+                  {/* Re-Marriage Declaration Card */}
+                  <View className="gap-2 rounded-md border border-gray-200 bg-background p-3.5">
+                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      Re-Marriage / Non-Marriage
+                    </Text>
+                    <View className="flex-row items-center justify-between border-t border-gray-200 pt-1">
+                      <Text className="text-xs font-medium text-foreground">Declaration</Text>
+                      <View className="rounded-md bg-secondary px-2.5 py-1">
+                        <Text className="text-xs font-bold text-secondary-foreground">
+                          {data?.verNmc || '—'}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </>
+              )}
+            </View>
+          </View>
+
+          {/* Note Alert Card */}
+
+          <Alert variant="warning">
+            <Icon name="alert-triangle" size={18} className="mt-0.5 text-destructive" />
+            <View className="flex-1">
+              <AlertTitle className="text-sm">Important Notice</AlertTitle>
+              <AlertDescription>
+                Face Verification is required twice every Calendar year. Validity extends for 6
+                months from your last successful verification.
+              </AlertDescription>
+            </View>
+          </Alert>
+
+          {/* Footer Logos */}
+          <FooterImg />
+        </View>
+      </Container>
+    </SafeAreaView>
+  );
+}

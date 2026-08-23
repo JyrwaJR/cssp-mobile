@@ -1,9 +1,11 @@
-import { UnderDevelopment } from '@components/screens';
+import { StackHeader } from '@components/layout';
+import { VerificationStatusScreen } from '@features/verification/screens/verification-status';
 
 export default function Home() {
   return (
     <>
-      <UnderDevelopment />
+      <StackHeader />
+      <VerificationStatusScreen />
     </>
   );
 }

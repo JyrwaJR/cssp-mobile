@@ -13,7 +13,7 @@ export interface PageHeaderConfig {
 
 export const PAGE_HEADERS = {
   // TABS
-  '/': { title: 'CSSP Meghalaya', showDrawer: true },
+  '/': { title: 'Pensioner', showDrawer: true },
   '/statement': { title: 'Salary Statement', showDrawer: true },
   '/leaves': { title: 'My Leaves', showDrawer: true },
   '/pension': { title: 'Pensions', showDrawer: true },
@@ -21,7 +21,7 @@ export const PAGE_HEADERS = {
 
   // pages
   '/settings': { title: 'Settings', showBackButton: true },
-  '/announcements': { title: 'Announcement Board', showBackButton: true },
+  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },

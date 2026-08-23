@@ -3,7 +3,10 @@ import { Drawer } from 'expo-router/drawer';
 
 const DrawerLayout = () => {
   return (
-    <Drawer>
+    <Drawer
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Drawer.Screen
         name="index"
         options={{

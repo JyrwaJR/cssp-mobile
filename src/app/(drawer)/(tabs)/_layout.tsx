@@ -1,3 +1,4 @@
+import { StackHeaderLayout } from '@components/layout';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {

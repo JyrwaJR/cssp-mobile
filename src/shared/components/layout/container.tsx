@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ViewProps,
+  ScrollViewProps,
 } from 'react-native';
 
 interface ContainerProps extends ViewProps {
@@ -21,6 +22,7 @@ interface ContainerProps extends ViewProps {
   className?: string;
   /** Custom Tailwind classes for the scroll view content container */
   contentClassName?: string;
+  refreshControl?: ScrollViewProps['refreshControl'];
 }
 
 export const Container = ({
@@ -31,6 +33,7 @@ export const Container = ({
   className = '',
   contentClassName = '',
   style,
+  refreshControl,
   ...props
 }: ContainerProps) => {
   const content = (
@@ -59,6 +62,7 @@ export const Container = ({
           className="w-full flex-1"
           contentContainerClassName={`grow p-6 ${centered ? 'justify-center' : ''} ${contentClassName}`}
           keyboardShouldPersistTaps="handled"
+          refreshControl={refreshControl}
           showsVerticalScrollIndicator={false}>
           {wrappedContent}
         </ScrollView>

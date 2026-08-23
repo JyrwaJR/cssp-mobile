@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native';
 import { Link, router } from 'expo-router';
-import * as Constants from 'expo-constants';
 
 import { LoginForm } from '../components';
 import { Button } from '@components/ui/button';
@@ -9,6 +8,7 @@ import { ENDPOINTS } from '@utils/constants/endpoints';
 import { FooterImg } from '@components/common/nic-footer-img';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { APP_VERSION } from '@utils/constants';
 
 /**
  * Login screen for the Pensioner Portal.
@@ -21,8 +21,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
  * @returns The rendered login screen.
  */
 export function LoginScreen() {
-  const appVersion = Constants.default.manifest2?.runtimeVersion || '1.0.0';
-
   return (
     <SafeAreaView className="flex-1">
       <Container centered scrollable dismissKeyboard>
@@ -81,7 +79,7 @@ export function LoginScreen() {
           {/* Partner Logos & Version Footer */}
           <View className="items-center gap-3 pt-2">
             <FooterImg />
-            <Text className="text-sm font-medium text-muted-foreground">Version {appVersion}</Text>
+            <Text className="text-sm font-medium text-muted-foreground">Version {APP_VERSION}</Text>
           </View>
         </View>
       </Container>
