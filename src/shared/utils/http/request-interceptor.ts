@@ -14,6 +14,12 @@ import type { InternalAxiosRequestConfig } from 'axios';
  * Creates the request interceptor that attaches the access token and device headers
  * to every outgoing request.
  *
+ * Body handling: only plain-object bodies are auto-encrypted and stamped with
+ * `version`. Pre-serialized bodies (`string`, `URLSearchParams`, `FormData`) are
+ * passed through untouched so callers can control their exact wire format
+ * (e.g. `application/x-www-form-urlencoded` login payloads) and to prevent
+ * double-encrypting values that are already encrypted.
+ *
  * @returns The request interceptor function.
  */
 export const createRequestInterceptor = () => {
@@ -24,7 +30,14 @@ export const createRequestInterceptor = () => {
       config.headers.Authorization = `accessToken ${accessToken}`;
     }
 
-    if (config.data) {
+    const isPlainObjectBody =
+      config.data !== null &&
+      typeof config.data === 'object' &&
+      !Array.isArray(config.data) &&
+      !(config.data instanceof FormData) &&
+      !(config.data instanceof URLSearchParams);
+
+    if (isPlainObjectBody) {
       config.data = {
         ...encryptFields(config.data),
         version: '24',

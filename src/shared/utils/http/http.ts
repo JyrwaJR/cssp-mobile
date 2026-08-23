@@ -49,13 +49,15 @@ export const http = {
    * Sends a POST request.
    *
    * @param url    - The request URL.
-   * @param data   - Optional payload object.
+   * @param data   - Optional payload. Plain objects are auto-encrypted by the
+   *                 request interceptor; pre-serialized bodies (`string`,
+   *                 `URLSearchParams`, `FormData`) are sent as-is.
    * @param config - Optional Axios request config.
    * @returns A promise resolving to a typed {@link ApiResponse}.
    */
   post: async <T>(
     url: string,
-    data?: object,
+    data?: object | string,
     config?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> => {
     try {
