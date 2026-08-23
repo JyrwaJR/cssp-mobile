@@ -30,8 +30,7 @@ function CustomDrawerContent(props: any) {
         <DrawerItem
           label="Home"
           onPress={() => router.navigate(PAGE_ROUTES.HOME)}
-          icon={({ size, color }) => <Icon name="home" size={size} color={color} />}
-          activeTintColor="#4297A0"
+          icon={({ size, color }) => <Icon name="information-circle" size={size} color={color} />}
         />
         <DrawerItem
           label="Change Password"
