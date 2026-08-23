@@ -22,7 +22,7 @@ export function ContactScreen({ isAuthenticated = true, onLoginPress }: ContactS
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
       <Container scrollable>
-        <View className="w-full gap-5 py-4">
+        <View className="w-full gap-5">
           {/* Header Badge */}
 
           <View className="gap-2">

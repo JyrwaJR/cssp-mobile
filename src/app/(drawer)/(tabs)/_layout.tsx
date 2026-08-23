@@ -7,31 +7,48 @@ export default function TabLayout() {
       initialRouteName="index"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: '#2563eb',
+        tabBarHideOnKeyboard: true,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500',
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Status',
-          tabBarIcon: () => <Icon name="info" />,
+          tabBarIcon: ({ size, color }) => (
+            <Icon size={size} color={color} name="information-circle" />
+          ),
         }}
       />
       <Tabs.Screen
-        name="photo"
+        name="verification"
         options={{
           title: 'Submit Photo',
+          tabBarIcon: ({ size, color }) => <Icon size={size} name="camera-01" color={color} />,
         }}
       />
       <Tabs.Screen
         name="withdrawal"
         options={{
           title: 'Withdrawal',
+          tabBarIcon: ({ size, color }) => (
+            <Icon
+              color={color}
+              name="cancel-circle"
+              className={`text-${color.toString()}`}
+              size={size}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
+          tabBarIcon: ({ color, size }) => <Icon name="user-01" size={size} color={color} />,
         }}
       />
     </Tabs>

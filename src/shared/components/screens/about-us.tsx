@@ -2,12 +2,13 @@ import { View, Text, Image } from 'react-native';
 import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { APP_VERSION } from '@utils/constants';
+import { FooterImg } from '@components/common';
 
 export function AboutScreen() {
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
       <Container scrollable>
-        <View className="w-full gap-5 py-4">
+        <View className="w-full gap-5">
           {/* Header Badge */}
           <View className="gap-2">
             <View className="bg-primary/10 self-start py-1">
@@ -57,27 +58,8 @@ export function AboutScreen() {
             </View>
           </View>
 
-          {/* Footer Banner */}
-          <View className="bg-muted/40 rounded-md border border-gray-200 p-3">
-            <Text className="text-center text-sm font-semibold text-muted-foreground">
-              Powered by National Informatics Centre
-            </Text>
-          </View>
-
           {/* Footer Logos */}
-          <View className="flex-row items-center justify-center gap-6 pb-4 pt-2">
-            <Image
-              source={require('../../../shared/assets/images/NIC.png')}
-              className="h-8 w-20"
-              resizeMode="contain"
-            />
-            <View className="h-4 w-[1px] bg-border" />
-            <Image
-              source={require('../../../shared/assets/images/Digital-India.png')}
-              className="h-8 w-20"
-              resizeMode="contain"
-            />
-          </View>
+          <FooterImg />
         </View>
       </Container>
     </SafeAreaView>

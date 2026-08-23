@@ -14,7 +14,7 @@ export interface PageHeaderConfig {
 export const PAGE_HEADERS = {
   // TABS
   '/': { title: 'Pensioner', showDrawer: true },
-  '/photo': { title: 'Salary Statement', showDrawer: true },
+  '/verification': { title: 'Photo Verification', showDrawer: true },
   '/profile': { title: 'My Profile', showDrawer: true },
   '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
 
@@ -22,8 +22,8 @@ export const PAGE_HEADERS = {
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
-  '/contact': { title: 'My Leaves', showBackButton: true },
-  'change-password': { title: 'Change Password', showBackButton: true },
+  '/contact-us': { title: 'Contact Us', showBackButton: true },
+  '/change-password': { title: 'Change Password', showBackButton: true },
   '/about': { title: 'About Us', showBackButton: true },
 
   '/web': { title: '', showBackButton: true, showDrawer: false },

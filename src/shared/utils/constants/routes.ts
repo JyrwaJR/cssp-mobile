@@ -5,13 +5,16 @@ type PageRouteMap<T> = {
 };
 
 const routes = {
-  HOME: '/',
-  WEB: '/web',
+  HOME: '/' as Href,
+  WEB: '/web' as Href,
   AUTH: {
-    HOME: '/auth',
-    REGISTER: '/auth/register',
-    REG_INSTRUCTION: '/auth/reg-instruction',
+    HOME: '/auth' as Href,
+    REGISTER: '/auth/register' as Href,
+    REG_INSTRUCTION: '/auth/reg-instruction' as Href,
   },
+  CHANGE_PASSWORD: '/change-password' as Href,
+  CONTACT_US: '/contact-us' as Href,
+  ABOUT_US: '/about' as Href,
 } as const;
 
 export const PAGE_ROUTES: PageRouteMap<typeof routes> = routes;
