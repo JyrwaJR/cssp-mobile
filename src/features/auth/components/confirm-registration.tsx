@@ -5,6 +5,14 @@ import { Button } from '@components/ui/button';
 import { RegisterPensionerSchema } from '../validators';
 import { useSnackbar } from '@hooks/use-snackbar';
 
+/**
+ * Step 4 of registration: review and submit.
+ *
+ * Shows a summary card of all entered data (bank account and password
+ * masked) with >=16px labels / 18px values, theme-token colors for dark
+ * mode, and two equal-width actions: "Back & Edit" (preserves data) and
+ * "Confirm & Submit".
+ */
 export function ConfirmRegistrationScreen() {
   const { formData, prevStep } = useRegistrationStore();
   const { showSnackbar } = useSnackbar();
@@ -28,44 +36,47 @@ export function ConfirmRegistrationScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#F8F9FA] p-5">
-      <Text className="mb-1.5 text-[22px] font-bold text-[#1A1A1A]">Confirm Details</Text>
-      <Text className="mb-5 text-sm text-[#6C757D]">
-        Review your information before completing registration.
-      </Text>
-
-      <View className="mb-6 rounded-xl border border-border bg-white px-4 py-2">
-        <View className="flex-row items-center justify-between border-b border-[#F1F3F5] py-[14px]">
-          <Text className="text-sm text-[#6C757D]">PPO Number</Text>
-          <Text className="text-[15px] font-semibold text-[#212529]">
-            {formData.ppo_no || 'N/A'}
-          </Text>
+    <View className="w-full gap-4">
+      <View className="rounded-xl border border-border bg-card px-4 py-2">
+        <View className="flex-row items-center justify-between border-b border-border py-3.5">
+          <Text className="text-base text-muted-foreground">PPO Number</Text>
+          <Text className="text-lg font-bold text-foreground">{formData.ppo_no || 'N/A'}</Text>
         </View>
 
-        <View className="flex-row items-center justify-between border-b border-[#F1F3F5] py-[14px]">
-          <Text className="text-sm text-[#6C757D]">Date of Birth</Text>
-          <Text className="text-[15px] font-semibold text-[#212529]">{formData.dob || 'N/A'}</Text>
+        <View className="flex-row items-center justify-between border-b border-border py-3.5">
+          <Text className="text-base text-muted-foreground">Date of Birth</Text>
+          <Text className="text-lg font-bold text-foreground">{formData.dob || 'N/A'}</Text>
         </View>
 
-        <View className="flex-row items-center justify-between border-b border-[#F1F3F5] py-[14px]">
-          <Text className="text-sm text-[#6C757D]">Bank Account</Text>
-          <Text className="text-[15px] font-semibold text-[#212529]">
+        <View className="flex-row items-center justify-between border-b border-border py-3.5">
+          <Text className="text-base text-muted-foreground">Bank Account</Text>
+          <Text className="text-lg font-bold text-foreground">
             {maskBankAccount(formData.bank_account_number)}
           </Text>
         </View>
 
-        <View className="flex-row items-center justify-between py-[14px]">
-          <Text className="text-sm text-[#6C757D]">Password</Text>
-          <Text className="text-[15px] font-semibold text-[#212529]">••••••••</Text>
+        <View className="flex-row items-center justify-between py-3.5">
+          <Text className="text-base text-muted-foreground">Password</Text>
+          <Text className="text-lg font-bold text-foreground">••••••••</Text>
         </View>
       </View>
 
       <View className="flex-row gap-3">
-        <Button size={'lg'} onPress={prevStep} variant={'secondary'} disabled={isRegistering}>
+        <Button
+          size="lg"
+          onPress={prevStep}
+          variant="secondary"
+          disabled={isRegistering}
+          className="flex-1">
           Back & Edit
         </Button>
 
-        <Button size={'lg'} onPress={handleConfirm} disabled={isRegistering}>
+        <Button
+          size="lg"
+          onPress={handleConfirm}
+          disabled={isRegistering}
+          isLoading={isRegistering}
+          className="flex-1">
           Confirm & Submit
         </Button>
       </View>
