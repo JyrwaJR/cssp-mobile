@@ -61,9 +61,7 @@ export const RegistrationPersonalForm = () => {
               accessibilityLabel="Date of Birth, format year dash month dash day"
               error={!!form.formState.errors.dob}
             />
-            <Text className="mt-1 text-base leading-relaxed text-muted-foreground">
-              Use the date of birth of the pensioner receiving the pension.
-            </Text>
+
             {form.formState.errors.dob && (
               <Text
                 className="mt-1 text-base font-medium text-destructive"
@@ -71,6 +69,9 @@ export const RegistrationPersonalForm = () => {
                 {form.formState.errors.dob.message}
               </Text>
             )}
+            <Text className="mt-1 text-base leading-relaxed text-muted-foreground">
+              Use the date of birth of the pensioner receiving the pension.
+            </Text>
           </View>
         )}
       />
