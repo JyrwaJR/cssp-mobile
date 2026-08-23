@@ -47,7 +47,7 @@ export const RegistrationStatusForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">PPO No.</Text>
+              <Text className="mb-1.5 text-sm  font-medium text-gray-700">PPO Number</Text>
               <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
             </View>
             <Input
