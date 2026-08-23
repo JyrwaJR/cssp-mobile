@@ -6,8 +6,16 @@ import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { useRegistrationStore } from '../store/registration';
 
+/**
+ * Step 2 of registration: date of birth and pension bank account number.
+ *
+ * Senior-friendly: >=16px type throughout, numeric keypads with digit
+ * sanitizing (Android IMEs can leak symbols past number-pad), a visible
+ * format placeholder for DOB, and a "Back" button that PRESERVES entered
+ * data instead of resetting the whole flow.
+ */
 export const RegistrationPersonalForm = () => {
-  const { nextStep, reset, saveData, formData } = useRegistrationStore();
+  const { nextStep, prevStep, saveData, formData } = useRegistrationStore();
 
   const form = useForm<RegisterPersonalInfoInput>({
     resolver: zodResolver(RegisterPersonalInfoSchema),
@@ -25,22 +33,14 @@ export const RegistrationPersonalForm = () => {
 
   return (
     <View className="w-full gap-4 py-2">
-      <View className="flex-col items-center justify-center gap-2">
-        <Text className="text-center text-lg font-semibold">Personal Information</Text>
-        <Text className="text-center text-sm text-gray-500">
-          Please enter your personal information
-        </Text>
-      </View>
       <Controller
         control={form.control}
         name="dob"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">
-                Date of Birth (YYYY-MM-DD)
-              </Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">Date of Birth</Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
               value={value}
@@ -53,16 +53,21 @@ export const RegistrationPersonalForm = () => {
                 onChange(formatted);
               }}
               onBlur={onBlur}
-              placeholder="Enter your Date of Birth"
+              placeholder="YYYY-MM-DD"
+              keyboardType="number-pad"
               autoCapitalize="none"
               autoCorrect={false}
+              className="text-base"
+              accessibilityLabel="Date of Birth, format year dash month dash day"
               error={!!form.formState.errors.dob}
             />
-            <Text className="mt-1 text-sm text-gray-700">
-              Note: Date of birth(DOB) should be of a serviced Pensioner.
+            <Text className="mt-1 text-base leading-relaxed text-muted-foreground">
+              Use the date of birth of the pensioner receiving the pension.
             </Text>
             {form.formState.errors.dob && (
-              <Text className="mt-1 text-xs text-destructive">
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
                 {form.formState.errors.dob.message}
               </Text>
             )}
@@ -76,20 +81,27 @@ export const RegistrationPersonalForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
             <View className="flex-row gap-1">
-              <Text className="mb-1.5 text-sm  font-medium text-gray-700">Bank Account Number</Text>
-              <Text className="mb-1.5 text-sm  font-medium text-destructive">*</Text>
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">
+                Bank Account Number
+              </Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
               value={value}
-              onChangeText={onChange}
+              onChangeText={(v) => onChange(v.replace(/\D/g, ''))}
               onBlur={onBlur}
               placeholder="Enter your Bank Account Number"
+              keyboardType="number-pad"
               autoCapitalize="none"
               autoCorrect={false}
+              className="text-base"
+              accessibilityLabel="Bank Account Number"
               error={!!form.formState.errors.bank_account_number}
             />
             {form.formState.errors.bank_account_number && (
-              <Text className="mt-1 text-xs text-destructive">
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
                 {form.formState.errors.bank_account_number.message}
               </Text>
             )}
@@ -98,9 +110,9 @@ export const RegistrationPersonalForm = () => {
       />
       <View className="gap-2">
         <View className="w-full flex-row items-center gap-3">
-          {/* Previous Step Button */}
-          <Button variant="outline" size="lg" onPress={reset} className="flex-1">
-            Cancel
+          {/* Previous Step Button — keeps all entered data */}
+          <Button variant="outline" size="lg" onPress={prevStep} className="flex-1">
+            Back
           </Button>
 
           {/* Next Step Button */}
@@ -110,7 +122,7 @@ export const RegistrationPersonalForm = () => {
             disabled={!form.formState.isValid}
             onPress={form.handleSubmit(onSubmit)}
             className="flex-1">
-            Next Step
+            Next
           </Button>
         </View>
       </View>
