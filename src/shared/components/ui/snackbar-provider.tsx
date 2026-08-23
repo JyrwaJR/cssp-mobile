@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, TouchableOpacity, Text, View, Dimensions, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSnackbarStore } from '@stores/snackbar.store';
@@ -31,8 +31,8 @@ export const SnackbarProvider = () => {
   const theme = useTheme();
   const isDark = theme === 'dark';
 
-  const translateY = useRef(new Animated.Value(150)).current;
-  const opacity = useRef(new Animated.Value(0)).current;
+  const [translateY] = useState(() => new Animated.Value(150));
+  const [opacity] = useState(() => new Animated.Value(0));
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Clear timer on unmount

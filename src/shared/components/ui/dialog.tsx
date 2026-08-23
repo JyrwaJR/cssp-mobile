@@ -53,7 +53,7 @@ export const DialogContent = ({ children, className, onClose, ...props }: Dialog
     return () => {
       progress.value = 0;
     };
-  }, []);
+  }, [progress]);
 
   const backdropStyle = useAnimatedStyle(() => ({
     opacity: interpolate(progress.value, [0, 1], [0, 1]),
@@ -66,12 +66,14 @@ export const DialogContent = ({ children, className, onClose, ...props }: Dialog
 
   const handleClose = () => {
     // Trigger a 200ms fade-out animation, then notify the parent via runOnJS
-    progress.value = withTiming(0, { duration: 200 }, () => {
-      // runOnJS bridges from the Reanimated UI thread to the React JS thread
-      if (onClose) {
-        runOnJS(onClose)();
-      }
-    });
+    progress.set(
+      withTiming(0, { duration: 200 }, () => {
+        // runOnJS bridges from the Reanimated UI thread to the React JS thread
+        if (onClose) {
+          runOnJS(onClose)();
+        }
+      })
+    );
   };
 
   return (

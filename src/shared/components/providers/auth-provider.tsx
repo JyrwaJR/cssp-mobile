@@ -14,7 +14,7 @@ export const AuthInitializer = ({ children }: Props) => {
     if (!emp_cd) {
       logout();
     }
-  }, [emp_cd]);
+  }, [emp_cd, logout]);
 
   useEffect(() => {
     logger.info('AuthInitializer: checking persist hydration');
