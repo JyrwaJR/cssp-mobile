@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import CryptoJS from 'crypto-js';
 
 // Expo client-side environment variables MUST start with EXPO_PUBLIC_

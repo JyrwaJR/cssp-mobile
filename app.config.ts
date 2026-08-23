@@ -22,6 +22,10 @@ const config: ExpoConfig = {
       {
         image: './src/shared/assets/images/logo.jpg',
         backgroundColor: '#ffffff',
+        dark: {
+          image: './src/shared/assets/images/logo.jpg',
+          backgroundColor: '#000000',
+        },
       },
     ],
     'expo-secure-store',
