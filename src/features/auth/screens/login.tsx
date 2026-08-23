@@ -7,6 +7,7 @@ import { Button } from '@components/ui/button';
 import { Container } from '@components/layout';
 import { ENDPOINTS } from '@utils/constants/endpoints';
 import { FooterImg } from '@components/common/nic-footer-img';
+import { PAGE_ROUTES } from '@utils/constants/routes';
 
 /**
  * Login screen for the Pensioner Portal.
@@ -52,7 +53,7 @@ export function LoginScreen() {
           <Button
             variant="outline"
             size="lg"
-            onPress={() => router.push('/auth/reg-instruction')}
+            onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
             className="w-full">
             <Text className="text-center text-base font-bold text-primary">
               New User? Register / Update Password
@@ -61,13 +62,13 @@ export function LoginScreen() {
 
           {/* Secondary Policy & Manual Links */}
           <View className="flex-row items-center justify-center gap-4">
-            <Link push href={`/web?uri=${ENDPOINTS.DOCUMENTATION.MANUAL}`} asChild>
+            <Link push href={`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.MANUAL}`} asChild>
               <Text className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
                 User Manual
               </Text>
             </Link>
             <Text className="text-base text-muted-foreground">•</Text>
-            <Link push href={`/web?uri=${ENDPOINTS.DOCUMENTATION.POLICY}`} asChild>
+            <Link push href={`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.POLICY}`} asChild>
               <Text className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
                 Privacy Policy
               </Text>

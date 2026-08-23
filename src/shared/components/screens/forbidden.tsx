@@ -1,7 +1,6 @@
-import React from 'react';
 import { View, Text } from 'react-native';
 import { Button } from '@components/ui/button';
-import { Stack, useRouter } from 'expo-router';
+import { type Href, Stack, useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
@@ -51,7 +50,7 @@ export const Forbidden = ({
   const { logout } = useAuthStore();
 
   const handlePress = () => {
-    router.replace(PAGE_ROUTES.HOME);
+    router.replace(PAGE_ROUTES.HOME as Href);
   };
 
   return (
@@ -62,7 +61,7 @@ export const Forbidden = ({
         }}
       />
       <View className="flex-1 items-center justify-center gap-y-5 p-6">
-        <View className="h-24 w-24 items-center justify-center rounded-md bg-destructive/20">
+        <View className="bg-destructive/20 h-24 w-24 items-center justify-center rounded-md">
           <HugeiconsIcon icon={SecurityBlockIcon} size={48} color="#EF4444" />
         </View>
 

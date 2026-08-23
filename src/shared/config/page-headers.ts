@@ -22,11 +22,11 @@ export const PAGE_HEADERS = {
   // pages
   '/settings': { title: 'Settings', showBackButton: true },
   '/announcements': { title: 'Announcement Board', showBackButton: true },
+  '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
   '/leaves/[id]': { title: 'My Leaves', showBackButton: true },
   '/leaves/create': { title: 'Apply for Leaves', showBackButton: true },
-  '/ui-lab': { title: 'Ui Lab', showBackButton: true },
   '/tax': { title: 'Income Tax', showBackButton: true },
   '/tax/detail': { title: 'Tax Computation', showBackButton: true },
   '/tax/edit': { title: 'Edit Tax Details', showBackButton: true },

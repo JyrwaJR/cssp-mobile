@@ -1,5 +1,7 @@
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import {
+  AlertIcon,
+  AlertTriangle,
   ArrowLeft01FreeIcons,
   ArrowRight02FreeIcons,
   EyeClosedIcon,
@@ -11,7 +13,15 @@ import {
 import { cn } from '@utils/helpers';
 
 type Name =
-  'eye-open' | 'eye-close' | 'user-unlock' | 'arrow-right' | 'arrow-left' | 'menu' | 'info';
+  | 'eye-open'
+  | 'eye-close'
+  | 'user-unlock'
+  | 'arrow-right'
+  | 'arrow-left'
+  | 'menu'
+  | 'info'
+  | 'alert-triangle'
+  | 'alert-circle';
 
 type Props = {
   name: Name;
@@ -34,6 +44,12 @@ const getHugeIcon = (name: Name) => {
     case 'info':
       return InfoIcon;
     case 'menu':
+      return MenuIcon;
+    case 'alert-circle':
+      return AlertIcon;
+    case 'alert-triangle':
+      return AlertTriangle;
+    default:
       return MenuIcon;
   }
 };

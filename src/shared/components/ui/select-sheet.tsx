@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -27,7 +27,6 @@ import {
   ChevronDownIcon,
   EllipseIcon,
   FileNotFoundIcon,
-  Refresh01Icon,
 } from '@hugeicons/core-free-icons';
 
 /**
@@ -139,13 +138,13 @@ export const SelectSheet = (props: SelectSheetProps) => {
         disabled={disabled}
         className={cn(
           'min-h-[50px] w-full flex-row items-center justify-between rounded-md border bg-background px-4 dark:bg-gray-900',
-          error ? 'border-destructive bg-destructive/5' : 'border-input dark:border-gray-600'
+          error ? 'bg-destructive/5 border-destructive' : 'border-input dark:border-gray-600'
         )}
         accessibilityRole="button"
         accessibilityLabel={`${label ?? 'Field'}: ${displayText}. Tap to change.`}>
         <Text
           className={cn(
-            'flex-1 text-body-md',
+            'text-body-md flex-1',
             selectedOption
               ? 'font-semibold text-foreground dark:text-white'
               : 'text-muted-foreground'
@@ -254,7 +253,7 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                   <View className="rounded-md  bg-primary p-2">
                     <HugeiconsIcon icon={FileNotFoundIcon} className="text-white" size={48} />
                   </View>
-                  <Text className="mt-3 text-center text-lg text-graphite">
+                  <Text className="text-graphite mt-3 text-center text-lg">
                     No options available. Please check and try again.
                   </Text>
                   {refetch && (
@@ -289,7 +288,7 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                       <Text
                         className={cn(
                           'text-base',
-                          isSelected ? 'font-semibold text-primary ' : 'font-medium text-graphite'
+                          isSelected ? 'font-semibold text-primary ' : 'text-graphite font-medium'
                         )}>
                         {option.label}
                       </Text>

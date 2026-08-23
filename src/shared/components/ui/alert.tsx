@@ -10,7 +10,7 @@ const AlertContext = createContext<{ variant: Variant }>({ variant: 'default' })
 const alertVariants = cva('relative w-full rounded-xl border p-4 flex-row items-start gap-3', {
   variants: {
     variant: {
-      default: 'bg-gray-50 border-gray-200',
+      default: 'bg--50 border-gray-200',
       destructive: 'bg-red-50 border-red-200',
       success: 'bg-emerald-50 border-emerald-200',
       warning: 'bg-amber-50 border-amber-200',
@@ -37,7 +37,7 @@ const alertTitleVariants = cva('text-sm font-semibold leading-none tracking-tigh
   },
 });
 
-const alertDescriptionVariants = cva('text-xs leading-relaxed font-normal', {
+const alertDescriptionVariants = cva('text-sm leading-relaxed font-normal', {
   variants: {
     variant: {
       default: 'text-gray-600',

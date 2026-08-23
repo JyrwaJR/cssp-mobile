@@ -1,9 +1,10 @@
 import { useAuthStore } from '@stores/auth.store';
-import { usePathname, useRouter, useLocalSearchParams } from 'expo-router';
+import { usePathname, useRouter, useLocalSearchParams, Href } from 'expo-router';
 import React, { useEffect } from 'react';
 import { LoadingScreen } from '@components/screens/loading-screen';
 import { PUBLIC_ROUTES } from '@utils/constants/auth';
 import { logger } from '@utils/logger';
+import { PAGE_ROUTES } from '@utils/constants/routes';
 
 type Props = {
   children: React.ReactNode;
@@ -42,18 +43,14 @@ export const AuthRedirect = ({ children }: Props) => {
 
     // 1. Signed-in user trying to access a public page.
     if (isSignedIn && isOnPublicPage) {
-      router.replace({
-        pathname: redirectTo || '/',
-      });
+      router.replace((redirectTo as Href) || PAGE_ROUTES.HOME);
 
       return;
     }
 
     // 2. Unauthenticated user trying to access a protected page.
     if (!isSignedIn && !isOnPublicPage) {
-      const authPath = `/auth${pathName !== '/' ? `?redirect=${encodeURIComponent(pathName)}` : ''}`;
-
-      router.replace(authPath);
+      router.replace(PAGE_ROUTES.AUTH.HOME);
       return;
     }
   }, [isLoading, isSignedIn, isOnPublicPage, pathName, redirectTo, router]);

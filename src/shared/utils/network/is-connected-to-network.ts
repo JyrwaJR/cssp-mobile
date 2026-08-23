@@ -1,5 +1,5 @@
 import * as Network from 'expo-network';
-import { logger } from '../logger/logger';
+import { logger } from '@utils/logger';
 
 /**
  * Checks the current network connectivity and internet reachability status.
