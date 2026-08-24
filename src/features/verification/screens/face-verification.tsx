@@ -1,16 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
-  Alert as RNAlert,
-  ScrollView,
-} from 'react-native';
+import { View, Text, Image, ActivityIndicator, Alert as RNAlert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  Camera,
   useCameraDevice,
   useCameraPermission,
   usePhotoOutput,
@@ -20,7 +11,7 @@ import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-
 import * as FileSystem from 'expo-file-system/legacy';
 import { useRouter } from 'expo-router';
 import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
-import { FaceVerificationPainter } from '../components/face-verification-painter';
+import { FaceVerificationCamera } from '../components/face-verification-camera';
 import { FaceVerificationDeclarationForm } from '../components/face-verification-declaration-form';
 import { FaceVerificationConfirmDialog } from '../components/face-verification-confirm-dialog';
 import { FaceVerificationLoadingView } from '../components/face-verification-loading-view';
@@ -78,10 +69,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     phaseRef.current = next;
     setPhase(next);
   }, []);
-
-  // Liveness banner message — sourced from the shared Zustand store so
-  // extracted components can consume it without prop drilling
-  const msg = useFaceVerificationStore((s) => s.msg);
 
   // Updates the store-backed liveness message; unchanged strings are a no-op
   const updateMsg = useCallback((newMsg: string) => {
@@ -400,26 +387,15 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         }}>
         {/* PHASE: camera — live feed with blink detection */}
         {phase === 'camera' && (
-          <>
-            <Camera
-              style={StyleSheet.absoluteFill}
-              device={device}
-              isActive={true}
-              outputs={outputs}
-            />
-            <FaceVerificationPainter
-              faces={faces}
-              frameWidth={frameSize.width}
-              frameHeight={frameSize.height}
-              viewWidth={layoutSize.width}
-              viewHeight={layoutSize.height}
-              isFrontCamera={true}
-            />
-            {/* Bottom overlay message */}
-            <View className="absolute bottom-5 left-5 right-5 rounded-xl bg-black/75 p-4">
-              <Text className="text-center text-lg font-bold text-white">{msg}</Text>
-            </View>
-          </>
+          <FaceVerificationCamera
+            device={device}
+            outputs={outputs}
+            faces={faces}
+            frameWidth={frameSize.width}
+            frameHeight={frameSize.height}
+            viewWidth={layoutSize.width}
+            viewHeight={layoutSize.height}
+          />
         )}
 
         {/* PHASE: capturing / submitting — loading spinner */}
