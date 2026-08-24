@@ -8,7 +8,6 @@ import { logger } from '@utils/logger';
  */
 
 export * from './focus-manager';
-export * from './online-manager';
 
 /**
  * Singleton React Query client configured for production.

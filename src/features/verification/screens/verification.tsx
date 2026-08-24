@@ -45,7 +45,7 @@ export function VerificationScreen() {
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';
     router.push({
-      pathname: PAGE_ROUTES.FACE_RECOGNITION as Href,
+      pathname: '/face-recognition',
       params: { registrationStatus: isRegistrationRequired ? '1' : '0' },
     });
   };
