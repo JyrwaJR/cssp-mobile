@@ -19,22 +19,10 @@ import {
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system/legacy';
 import { useRouter } from 'expo-router';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogAction,
-  AlertDialogCancel,
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  Button,
-} from '@components/ui';
+import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
 import { FaceVerificationPainter } from '../components/face-verification-painter';
 import { FaceVerificationDeclarationForm } from '../components/face-verification-declaration-form';
+import { FaceVerificationConfirmDialog } from '../components/face-verification-confirm-dialog';
 import { useFaceVerificationStore } from '../store/face-verification.store';
 import { useSubmitVerification, useSubmitDLC } from '../hooks';
 import type {
@@ -544,52 +532,37 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       </View>
 
       {/* CONFIRMATION DIALOG — photo submission (registration mode) */}
-      <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
-        <AlertDialogContent onClose={() => setConfirmDialogOpen(false)}>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Submission</AlertDialogTitle>
-            <AlertDialogDescription>
-              {
-                'By submitting this photo you agree to our Privacy Policy.\nAre you sure you want to submit this photo?\n\n[Note: The camera will capture your photo one more time after submission]'
-              }
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel title="No" onPress={() => setConfirmDialogOpen(false)} />
-            <AlertDialogAction
-              onPress={() => {
-                setConfirmDialogOpen(false);
-                blinkCount.current = 0;
-                eyesClosed.current = false;
-                setPreviewUri('');
-                updateMsg('Please blink!!');
-                updatePhase('camera');
-              }}>
-              <Text className="text-base font-bold text-white">Yes</Text>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <FaceVerificationConfirmDialog
+        open={confirmDialogOpen}
+        onOpenChange={setConfirmDialogOpen}
+        title="Confirm Submission"
+        description={
+          'By submitting this photo you agree to our Privacy Policy.\n' +
+          'Are you sure you want to submit this photo?\n\n' +
+          '[Note: The camera will capture your photo one more time after submission]'
+        }
+        onConfirm={() => {
+          setConfirmDialogOpen(false);
+          blinkCount.current = 0;
+          eyesClosed.current = false;
+          setPreviewUri('');
+          updateMsg('Please blink!!');
+          updatePhase('camera');
+        }}
+      />
 
       {/* DLC TERMS DIALOG */}
-      <AlertDialog open={dlcDialogOpen} onOpenChange={setDlcDialogOpen}>
-        <AlertDialogContent onClose={() => setDlcDialogOpen(false)}>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-destructive">Terms and Conditions.</AlertDialogTitle>
-            <AlertDialogDescription>
-              {
-                'By submitting this Declaration, you have agreed that the information furnished by you is true.\n\nAre you sure you want to submit?'
-              }
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel title="No" onPress={() => setDlcDialogOpen(false)} />
-            <AlertDialogAction onPress={confirmDLCSubmission}>
-              <Text className="text-base font-bold text-white">Yes</Text>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <FaceVerificationConfirmDialog
+        open={dlcDialogOpen}
+        onOpenChange={setDlcDialogOpen}
+        title="Terms and Conditions."
+        description={
+          'By submitting this Declaration, you have agreed that the ' +
+          'information furnished by you is true.\n\nAre you sure you want to submit?'
+        }
+        destructive
+        onConfirm={confirmDLCSubmission}
+      />
     </SafeAreaView>
   );
 }
