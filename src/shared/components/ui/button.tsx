@@ -79,6 +79,23 @@ interface ButtonProps extends TouchableOpacityProps, VariantProps<typeof buttonV
 }
 
 /**
+ * Determines whether every child is plain text (a string or number).
+ *
+ * JSX children containing interpolations (e.g. `Call {phoneNumber}`) arrive
+ * as arrays rather than a single string, so a bare `typeof children === 'string'`
+ * check misses them and raw strings end up outside a <Text>. React Native then
+ * throws "Text strings must be rendered within a <Text> component".
+ *
+ * @param children - Children passed to the Button.
+ * @returns True when all children are strings or numbers, meaning they can be safely wrapped in a single Text.
+ */
+function isTextOnlyChildren(children: React.ReactNode): boolean {
+  return React.Children.toArray(children).every(
+    (child) => typeof child === 'string' || typeof child === 'number'
+  );
+}
+
+/**
  * A design-system button following the HP component spec.
  *
  * Filled buttons (`primary`, `ink`, `destructive`) render white text.
@@ -118,9 +135,7 @@ export const Button = ({
       {isLoading ? (
         <ActivityIndicator color={colors.spinnerColor} />
       ) : children ? (
-        typeof children === 'string' ? (
-          // Wrap raw string children in <Text> — RN requires text nodes
-          // to live inside a <Text> component or they are dropped silently
+        isTextOnlyChildren(children) ? (
           <Text
             className={cn(
               'text-center text-[14px] font-bold  tracking-widest',
