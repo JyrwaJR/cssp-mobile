@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { queryClient, setupFocusManager, setupOnlineManager } from '@utils/react-query';
+import { queryClient, setupFocusManager } from '@utils/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { logger } from '@utils/logger';
 
@@ -32,13 +32,6 @@ export const TQueryProvider = ({ children }: Props) => {
       cleanups.push(cleanupFocus);
     } catch (error) {
       logger.error('Failed to setup focus manager', error);
-    }
-
-    try {
-      const cleanupOnline = setupOnlineManager();
-      cleanups.push(cleanupOnline);
-    } catch (error) {
-      logger.error('Failed to setup online manager', error);
     }
 
     return () => {
