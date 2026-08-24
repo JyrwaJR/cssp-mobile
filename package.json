@@ -18,7 +18,6 @@
     "clean:windows": "expo start --clear && watchman watch-del-all && rmdir /s /q .expo .cache node_modules\\.cache 2>nul || true"
   },
   "dependencies": {
-    "@expo/vector-icons": "^15.0.2",
     "@hookform/resolvers": "^5.9.1",
     "@hugeicons/core-free-icons": "^4.3.0",
     "@hugeicons/react-native": "^1.0.16",
