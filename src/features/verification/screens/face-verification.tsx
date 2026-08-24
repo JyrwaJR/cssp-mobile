@@ -14,6 +14,7 @@ import {
   useCameraDevice,
   useCameraPermission,
   usePhotoOutput,
+  type CameraOutput,
 } from 'react-native-vision-camera';
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system';
@@ -287,13 +288,8 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     [capturePhoto, updateMsg]
   );
 
-  // Latest-ref pattern: keeps `handleDetectedFaces` reachable from the
-  // detector callback without changing the output's identity (see below).
-  const handleDetectedFacesRef = useRef(handleDetectedFaces);
-  handleDetectedFacesRef.current = handleDetectedFaces;
-
-  // Native face-detector output, created exactly once for this screen's
-  // lifetime.
+  // Native face-detector output, created exactly ONCE (in an effect) for
+  // this screen's lifetime.
   //
   // Do NOT use `useFaceDetectorOutput()` here: it memoizes on its
   // rest-options object (`useMemo(..., [options])`), which is re-created
@@ -301,21 +297,38 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   // output identity makes <Camera outputs> tear down and rebuild the camera
   // session (unbindAll) on EVERY render — aborting in-flight captures with
   // "ImageCaptureException: Camera is closed".
-  const [faceDetectorOutput] = useState(() =>
-    createFaceDetectorOutput({
+  const [faceDetectorOutput, setFaceDetectorOutput] = useState<CameraOutput | null>(null);
+
+  // Latest-ref holder so the natively-captured callback always reaches the
+  // freshest `handleDetectedFaces` without changing output identity.
+  const detectedFacesHandlerRef = useRef<{ current?: (faces: Face[]) => void }>({});
+
+  useEffect(() => {
+    const output = createFaceDetectorOutput({
       performanceMode: 'accurate',
       runLandmarks: true,
       runClassifications: true,
-      onFacesDetected: (faces) => handleDetectedFacesRef.current(faces),
+      onFacesDetected: (detectedFaces) => {
+        detectedFacesHandlerRef.current.current?.(detectedFaces);
+      },
       onError: (error: unknown) => {
         console.error('Face detection error:', error);
       },
-    })
-  );
+    });
+    setFaceDetectorOutput(output);
+    // Nitro hybrids are GC-managed; no eager dispose() needed on unmount.
+  }, []);
 
-  // 2. Memoize outputs array to stop Camera from tearing down native sessions
+  // Point the detector at the freshest handler after every render.
+  useEffect(() => {
+    detectedFacesHandlerRef.current.current = handleDetectedFaces;
+  });
+
+  // Memoized outputs — both elements are identity-stable, so <Camera>
+  // configures its native session once per mount instead of tearing it down
+  // on every render.
   const outputs = useMemo(
-    () => [faceDetectorOutput, photoOutput],
+    () => (faceDetectorOutput ? [faceDetectorOutput, photoOutput] : []),
     [faceDetectorOutput, photoOutput]
   );
 
