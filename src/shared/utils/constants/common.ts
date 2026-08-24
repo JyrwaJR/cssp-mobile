@@ -1,4 +1,4 @@
-import * as Constants from 'expo-constants';
+import * as Application from 'expo-application';
 /**
  * @file Project-wide shared constants.
  *
@@ -9,7 +9,7 @@ import * as Constants from 'expo-constants';
 /** Default page size for paginated queries and validation. */
 export const PAGE_SIZE = 10;
 
-export const APP_VERSION = Constants.default.manifest2?.runtimeVersion || '1.0.0';
+export const APP_VERSION = Application.nativeApplicationVersion || '1.0.0';
 
 /**
  * File size limits (in bytes).

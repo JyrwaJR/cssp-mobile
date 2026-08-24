@@ -5,6 +5,7 @@ import { router } from 'expo-router';
 import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { Button } from '@components/ui';
+import { APP_VERSION } from '@utils/constants';
 
 // Interface for Section Cards
 interface SectionCardProps {
@@ -145,23 +146,11 @@ export function UserManualScreen() {
             </Text>
 
             <Text className="text-sm font-medium text-muted-foreground">
-              Easy Step-by-Step Instructions (v1.0.3)
+              Easy Step-by-Step Instructions {APP_VERSION}
             </Text>
           </View>
           {/* Main Title Hero Card */}
           <View className="gap-4 rounded-md border border-blue-600 bg-blue-50 p-6 ">
-            <View className="items-center gap-1.5">
-              <Text className="text-xs font-black uppercase tracking-widest text-blue-800">
-                Government of Meghalaya • Finance Department
-              </Text>
-              <Text className="text-center text-3xl font-black text-slate-900">
-                Pensioner App User Guide
-              </Text>
-              <Text className="text-center text-base font-bold text-slate-700">
-                Easy Step-by-Step Instructions (v1.0.3)
-              </Text>
-            </View>
-
             {/* Emergency Helpline Box */}
             <View className="mt-2 w-full gap-3 rounded-md border border-blue-300 bg-white p-5 ">
               <Text className="text-center text-sm font-black uppercase tracking-wider text-slate-800">
