@@ -18,7 +18,8 @@ type ChangePasswordForm = {
 };
 
 export function ChangePasswordScreen() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [isShowOldPassword, setIsShowOldPassword] = useState(false);
+  const [isShowNewPassword, setIsShowNewPassword] = useState(false);
 
   const { mutate, isPending, isError, error, isSuccess } = useChangePassword();
 
@@ -42,7 +43,8 @@ export function ChangePasswordScreen() {
     if (isValid.success) mutate(data);
   };
 
-  const togglePasswordVisibility = () => setShowPassword((previous) => !previous);
+  const toggleNewPasswordVisibility = () => setIsShowNewPassword((previous) => !previous);
+  const toggleOldPasswordVisibility = () => setIsShowOldPassword((previous) => !previous);
 
   return (
     <Container scrollable>
@@ -107,18 +109,18 @@ export function ChangePasswordScreen() {
                       <Input
                         value={value}
                         onChangeText={onChange}
-                        secureTextEntry={!showPassword}
+                        secureTextEntry={!isShowOldPassword}
                         placeholder="Enter your old password"
                         error={!!errors.oldPassword?.message}
                         autoCapitalize="none"
                       />
 
                       <Pressable
-                        onPress={togglePasswordVisibility}
+                        onPress={toggleOldPasswordVisibility}
                         hitSlop={8}
                         className="absolute right-3 top-1/2 -translate-y-1/2 items-center justify-center p-1"
-                        accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}>
-                        {showPassword ? (
+                        accessibilityLabel={isShowOldPassword ? 'Hide password' : 'Show password'}>
+                        {isShowOldPassword ? (
                           <Icon name="eye-open" />
                         ) : (
                           <Icon name="eye-close" size={20} />
@@ -151,18 +153,18 @@ export function ChangePasswordScreen() {
                       <Input
                         value={value}
                         onChangeText={onChange}
-                        secureTextEntry={!showPassword}
+                        secureTextEntry={!isShowNewPassword}
                         placeholder="Enter your new password"
                         error={!!errors.newPassword?.message}
                         autoCapitalize="none"
                       />
 
                       <Pressable
-                        onPress={togglePasswordVisibility}
+                        onPress={toggleNewPasswordVisibility}
                         hitSlop={8}
                         className="absolute right-3 top-1/2 -translate-y-1/2 items-center justify-center p-1"
-                        accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}>
-                        {showPassword ? (
+                        accessibilityLabel={isShowNewPassword ? 'Hide password' : 'Show password'}>
+                        {isShowNewPassword ? (
                           <Icon name="eye-open" />
                         ) : (
                           <Icon name="eye-close" size={20} />
@@ -198,18 +200,18 @@ export function ChangePasswordScreen() {
                       <Input
                         value={value}
                         onChangeText={onChange}
-                        secureTextEntry={!showPassword}
+                        secureTextEntry={!isShowNewPassword}
                         placeholder="Retype your new password"
                         autoCapitalize="none"
                         error={!!errors.confirmPassword?.message}
                       />
 
                       <Pressable
-                        onPress={togglePasswordVisibility}
+                        onPress={toggleNewPasswordVisibility}
                         hitSlop={8}
                         className="absolute right-3 top-1/2 -translate-y-1/2 items-center justify-center p-1"
-                        accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}>
-                        {showPassword ? (
+                        accessibilityLabel={isShowNewPassword ? 'Hide password' : 'Show password'}>
+                        {isShowNewPassword ? (
                           <Icon name="eye-open" />
                         ) : (
                           <Icon name="eye-close" size={20} />
