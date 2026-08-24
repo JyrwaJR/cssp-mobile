@@ -46,14 +46,14 @@ function CustomDrawerContent(props: any) {
         <DrawerItem
           label="User Manual"
           onPress={() =>
-            router.navigate(`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.MANUAL}`)
+            router.navigate(PAGE_ROUTES.WEB.MANUAL)
           }
           icon={({ size, color }) => <Icon name="book-01" size={size} color={color} />}
         />
         <DrawerItem
           label="Privacy Policy"
           onPress={() =>
-            router.navigate(`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.POLICY}`)
+            router.navigate(PAGE_ROUTES.WEB.POLICY)
           }
           icon={({ size, color }) => <Icon name="shield" size={size} color={color} />}
         />

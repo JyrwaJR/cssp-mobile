@@ -6,7 +6,10 @@ type PageRouteMap<T> = {
 
 const routes = {
   HOME: '/' as Href,
-  WEB: '/web' as Href,
+  WEB: {
+    MANUAL: '/web?uri=https://shillong.meg.nic.in/manual.html',
+    POLICY: '/web?uri=https://shillong.meg.nic.in/privacy_policy.html',
+  },
   AUTH: {
     HOME: '/auth' as Href,
     REGISTER: '/auth/register' as Href,
@@ -16,6 +19,8 @@ const routes = {
   CONTACT_US: '/contact-us' as Href,
   ABOUT_US: '/about' as Href,
   FACE_RECOGNITION: '/face-recognition' as Href,
+  PRIVACY: '/privacy-policy' as Href,
+  USER_MANUAL: '/user-manual' as Href,
 } as const;
 
 export const PAGE_ROUTES: PageRouteMap<typeof routes> = routes;

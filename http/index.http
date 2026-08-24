@@ -1,14 +1,5 @@
 @renewToken= dn4XiQQd98ejiOJNgZxse7snsB7hOnBVb8LhqQ-ba-zp6qWUd8eTiODqmGAP_3z61BTCvZfzFSOuu0WhCimC5qCsGEv-r8VzHozzr0zIDAo74kELNyX0OuMtcR_W0DkNoQCJlAkw57EJUI1RMY-CxWv7AJsXZxyEc3VoCbvzZN-RI4k3djil_604B2_fGHbldGPzWSzm
-@accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc1MDIwMDF9.zx6PXCVz2xcFuhPepmmpLCnj1nbEvWWZaToxP3LHrBc
-
-# {
-#   "approval": "00",
-#   "has_dlc": "00",
-#   "name": "RIBENA JAMU",
-#   "renew_token": "_dDVpsErVXXI1qNIrUaUCBoF--k2JOzVRPRpJ3ejWpp5fQ01lu5d70sQaZzwPaDTi337gK7IIIxPdw3fFdB_9XTezYSdqz7E9tJzGey2_XZ417miJWzd73SulyrQ6GR98nBVGEw_zx0YnMUrPTfYmYHZ5mlDsPP4Z7bfb30QlA2yrhW-XKowYRmNIWG6Yr8LpeFfmiAN",
-#   "uid": "NzMwMDAwMTAzNA==",
-#   "username": "TUcvU0YvMTU2NzM="
-# }
+@accessToken= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc1NzA3NTJ9.kYcEtLt-tBNgYW1ShTy1g6W_4XssBv_r7393R-HOUss
 
 ### Current User 
 # @name current user
@@ -58,7 +49,7 @@ username=gAAAAABqisIZZAxwHM06j3Tvebck02UiFQLLRR_R6875L0kBZFhUYuzRxhmY4lsapb7Pu9W
 
 ### Logout
 # @name login
-POST {{EXPO_PUBLIC_API_URL}}/logout
+POST {{EXPO_PUBLIC_API_URL}}/logout/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json

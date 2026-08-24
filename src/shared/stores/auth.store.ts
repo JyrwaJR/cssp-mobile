@@ -67,7 +67,9 @@ export const useAuthStore = create<AuthStore>()(
         try {
           const { queryClient } = await import('@utils/react-query');
           queryClient.clear();
-        } catch {}
+        } catch (error) {
+          logger.error('Error Logout Query Clear', error);
+        }
       },
 
       _hydrate: async () => {

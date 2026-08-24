@@ -1,9 +1,9 @@
 export const ENDPOINTS = {
   AUTH: {
     LOGIN: '/login/',
-    LOGOUT: '/logout',
+    LOGOUT: '/logout/',
     VALIDATE_TOKEN: '/api/validate_token/',
-    CURRENT_USER: '/current-user',
+    CURRENT_USER: '/current-user/',
   },
 
   USER: {
@@ -22,7 +22,7 @@ export const ENDPOINTS = {
   },
 
   DOCUMENTATION: {
-    MANUAL: `https://shillong.meg.nic.in/manual.html`,
+    MANUAL: 'https://shillong.meg.nic.in/manual.html',
     POLICY: 'https://shillong.meg.nic.in/privacy_policy.html',
   },
 } as const;

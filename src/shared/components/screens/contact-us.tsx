@@ -1,24 +1,12 @@
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { APP_LINKS } from '@utils/constants';
+import { openEmailAddress, openPhoneNumber } from '@utils/helpers';
 
-interface ContactScreenProps {
-  isAuthenticated?: boolean;
-  onLoginPress?: () => void;
-}
-
-export function ContactScreen({ isAuthenticated = true, onLoginPress }: ContactScreenProps) {
-  // Direct dial / email handlers
-  const handlePhonePress = (phoneNumber: string) => {
-    Linking.openURL(`tel:${phoneNumber}`);
-  };
-
-  const handleEmailPress = (email: string) => {
-    Linking.openURL(`mailto:${email}`);
-  };
-
+export function ContactScreen() {
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
       <Container scrollable>
@@ -65,13 +53,13 @@ export function ContactScreen({ isAuthenticated = true, onLoginPress }: ContactS
 
             {/* Land Line No. */}
             <TouchableOpacity
-              onPress={() => handlePhonePress('03642226553')}
+              onPress={() => openPhoneNumber(APP_LINKS.PHONE.LAND_LINE)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
               <Feather name="phone" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Land Line No.</Text>
-                <Text className="text-sm text-muted-foreground">0364-2226553</Text>
+                <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.LAND_LINE}</Text>
               </View>
             </TouchableOpacity>
 
@@ -80,19 +68,21 @@ export function ContactScreen({ isAuthenticated = true, onLoginPress }: ContactS
               <Feather name="printer" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">FAX</Text>
-                <Text className="text-sm text-muted-foreground">0364-2226553</Text>
+                <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.FAX}</Text>
               </View>
             </View>
 
             {/* Email */}
             <TouchableOpacity
-              onPress={() => handleEmailPress('dat-shil-meg@nic.in')}
+              onPress={() => openEmailAddress(APP_LINKS.EMAIL.DAT_SHIL_MEG)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
               <Feather name="mail" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Email</Text>
-                <Text className="text-sm text-muted-foreground">dat-shil-meg@nic.in</Text>
+                <Text className="text-sm text-muted-foreground">
+                  {APP_LINKS.EMAIL.DAT_SHIL_MEG}
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -107,25 +97,27 @@ export function ContactScreen({ isAuthenticated = true, onLoginPress }: ContactS
 
             {/* Technical Email */}
             <TouchableOpacity
-              onPress={() => handleEmailPress('nongston@nic.in')}
+              onPress={() => openEmailAddress(APP_LINKS.EMAIL.NONGSTON_NIC)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
               <Feather name="mail" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Email</Text>
-                <Text className="text-sm text-muted-foreground">nongston@nic.in</Text>
+                <Text className="text-sm text-muted-foreground">
+                  {APP_LINKS.EMAIL.NONGSTON_NIC}
+                </Text>
               </View>
             </TouchableOpacity>
 
             {/* Technical Phone */}
             <TouchableOpacity
-              onPress={() => handlePhonePress('9402507046')}
+              onPress={() => openPhoneNumber(APP_LINKS.PHONE.TECHNICAL)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
               <Feather name="smartphone" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Phone Number</Text>
-                <Text className="text-sm text-muted-foreground">9402507046</Text>
+                <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.TECHNICAL}</Text>
               </View>
             </TouchableOpacity>
           </View>
