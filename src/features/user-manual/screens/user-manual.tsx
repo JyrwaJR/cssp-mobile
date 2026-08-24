@@ -1,10 +1,11 @@
-import { Linking, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { Button } from '@components/ui';
-import { APP_VERSION } from '@utils/constants';
+import { APP_LINKS, APP_VERSION } from '@utils/constants';
+import { openEmailAddress, openPhoneNumber, openPlayStoreLink } from '@utils/helpers';
 
 import {
   UserManualSectionCard as SectionCard,
@@ -16,24 +17,14 @@ import { USER_MANUAL_OVERVIEW_STEPS, USER_MANUAL_REGISTRATION_STEPS } from '../u
  * Senior-friendly user manual screen for the Pensioner app.
  *
  * Renders a scrollable guide covering registration, photo submission,
- * status checks and support contacts. Opens phone/email links via
- * {@link Linking} and navigates to the privacy policy route on demand.
+ * status checks and support contacts. Opens phone/email/store links via the
+ * shared linking helpers ({@link openPhoneNumber}, {@link openEmailAddress},
+ * {@link openPlayStoreLink}) and navigates to the privacy policy route on
+ * demand.
  *
  * @returns The rendered user manual screen.
  */
 export function UserManualScreen() {
-  const handlePhonePress = (phone: string) => {
-    Linking.openURL(`tel:${phone}`);
-  };
-
-  const handleEmailPress = (email: string) => {
-    Linking.openURL(`mailto:${email}`);
-  };
-
-  const handlePlayStorePress = () => {
-    Linking.openURL('https://play.google.com/store/apps/details?id=com.plc.meg');
-  };
-
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
       <Container>
@@ -62,17 +53,17 @@ export function UserManualScreen() {
               </Text>
               <View className="gap-3">
                 <Button
-                  size={'lg'}
+                  size="lg"
                   activeOpacity={0.8}
-                  onPress={() => handlePhonePress('+918974007873')}>
-                  📞 Call +91 8974007873
+                  onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_1)}>
+                  📞 Call {APP_LINKS.PHONE.HELP_LINE_1}
                 </Button>
 
                 <Button
-                  size={'lg'}
+                  size="lg"
                   activeOpacity={0.8}
-                  onPress={() => handlePhonePress('+919774074202')}>
-                  📞 Call +91 9774074202
+                  onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_2)}>
+                  📞 Call {APP_LINKS.PHONE.HELP_LINE_2}
                 </Button>
               </View>
             </View>
@@ -121,7 +112,7 @@ export function UserManualScreen() {
             <Text className="text-lg font-medium leading-7 text-slate-900">
               Tap the big green button below to open Google Play Store on your phone:
             </Text>
-            <Button size={'lg'} activeOpacity={0.8} onPress={handlePlayStorePress}>
+            <Button size="lg" activeOpacity={0.8} onPress={() => openPlayStoreLink()}>
               ▶ Tap to Download on Play Store
             </Button>
             <StepImage
@@ -237,8 +228,8 @@ export function UserManualScreen() {
                 <Button
                   size="lg"
                   activeOpacity={0.8}
-                  onPress={() => handleEmailPress('pensionhelpdesk2021@gmail.com')}>
-                  ✉️ Email: pensionhelpdesk2021@gmail.com
+                  onPress={() => openEmailAddress(APP_LINKS.EMAIL.PENSIONER_HELP_DESK)}>
+                  ✉️ Email: {APP_LINKS.EMAIL.PENSIONER_HELP_DESK}
                 </Button>
               </View>
             </View>
