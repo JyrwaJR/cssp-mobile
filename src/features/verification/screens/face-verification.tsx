@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { View, Text, Image, ActivityIndicator, Alert as RNAlert, ScrollView } from 'react-native';
+import { View, Text, ActivityIndicator, Alert as RNAlert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   useCameraDevice,
@@ -10,9 +10,9 @@ import {
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system/legacy';
 import { useRouter } from 'expo-router';
-import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
 import { FaceVerificationCamera } from '../components/face-verification-camera';
 import { FaceVerificationPhotoPreviewStep } from '../components/face-verification-photo-preview';
+import { FaceVerificationResultView } from '../components/face-verification-result-view';
 import { FaceVerificationDeclarationForm } from '../components/face-verification-declaration-form';
 import { FaceVerificationConfirmDialog } from '../components/face-verification-confirm-dialog';
 import { FaceVerificationLoadingView } from '../components/face-verification-loading-view';
@@ -412,52 +412,12 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
         {/* PHASE: result — server response display */}
         {phase === 'result' && verResponse && (
-          <ScrollView contentContainerClassName="gap-4 p-4">
-            {verResponse.self_ver_code === '00' && (
-              <Alert variant="success">
-                <AlertTitle>Verification Successful</AlertTitle>
-                <AlertDescription>{verResponse.msg}</AlertDescription>
-              </Alert>
-            )}
-
-            {verResponse.self_ver_code === '22' && (
-              <>
-                {previewUri ? (
-                  <Image
-                    source={{ uri: previewUri }}
-                    className="mx-auto h-52 w-44 rounded-xl border-2 border-destructive"
-                  />
-                ) : null}
-                <Alert variant="destructive">
-                  <AlertTitle>Photo Rejected</AlertTitle>
-                  <AlertDescription>{verResponse.msg}</AlertDescription>
-                </Alert>
-              </>
-            )}
-
-            {verResponse.self_ver_code !== '00' &&
-              verResponse.self_ver_code !== '22' &&
-              image2 !== '' && (
-                <>
-                  <Alert variant="success">
-                    <AlertDescription>
-                      Your Photo has been successfully submitted and is subjected to approval by the
-                      Treasury Officer of the Treasury Office where you are registered for
-                      disbursement of your monthly pension.
-                    </AlertDescription>
-                  </Alert>
-                  <Alert variant="destructive">
-                    <AlertDescription>
-                      You can proceed for submission of your Self declaration for Non-employment or
-                      Non-marriage by clicking on {`"Submit Self Declaration"`}
-                    </AlertDescription>
-                  </Alert>
-                  <Button size="lg" onPress={resetForSecondCapture}>
-                    <Text className="text-base font-bold text-white">Submit Self Declaration.</Text>
-                  </Button>
-                </>
-              )}
-          </ScrollView>
+          <FaceVerificationResultView
+            verResponse={verResponse}
+            previewUri={previewUri}
+            hasSecondImage={image2 !== ''}
+            onProceedToDeclaration={resetForSecondCapture}
+          />
         )}
 
         {/* PHASE: declaration — self-declaration form */}
