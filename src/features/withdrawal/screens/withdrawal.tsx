@@ -5,12 +5,12 @@ import { Text, View } from 'react-native';
 export default function WithdrawalScreen() {
   return (
     <Container scrollable className="">
-      <View className="flex-grow pb-10">
+      <View className="flex-grow">
         <View className="gap-6">
           {/* Header Banner */}
           <View className="gap-2">
             <View className="bg-primary/10 self-start py-1">
-              <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+              <Text className="text-sm font-bold uppercase tracking-wider text-primary">
                 Service Request
               </Text>
             </View>
@@ -26,11 +26,11 @@ export default function WithdrawalScreen() {
           {/* Main Info Card */}
           <View className="gap-5 rounded-md border border-gray-200/60 bg-white p-6">
             <View className="flex-row items-center justify-between border-b border-gray-200 pb-4">
-              <Text className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <Text className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
                 App Details
               </Text>
               <View className="rounded-full border border-gray-200 bg-secondary px-3 py-1">
-                <Text className="text-xs font-bold text-secondary-foreground">v{APP_VERSION}</Text>
+                <Text className="text-sm font-bold text-secondary-foreground">v{APP_VERSION}</Text>
               </View>
             </View>
 
@@ -47,11 +47,11 @@ export default function WithdrawalScreen() {
           <View className="bg-muted/40 gap-2 rounded-md border border-gray-500/50 p-5">
             <View className="flex-row items-center gap-2">
               <View className="h-2 w-2 rounded-full bg-primary" />
-              <Text className="text-xs font-bold uppercase tracking-wider text-foreground">
+              <Text className="text-sm font-bold uppercase tracking-wider text-foreground">
                 Important Notice
               </Text>
             </View>
-            <Text className="text-xs leading-5 text-muted-foreground">
+            <Text className="text-sm leading-5 text-muted-foreground">
               Please contact your designated Treasury Office to submit and finalize your withdrawal
               procedure.
             </Text>

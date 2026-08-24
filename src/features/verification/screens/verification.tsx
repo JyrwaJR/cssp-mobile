@@ -3,10 +3,10 @@ import { View, Text, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
-import { useRouter } from 'expo-router';
+import { Href, useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
 import { Button } from '@components/ui';
-import { TokenStoreManager } from '@stores/token.store';
+import { PAGE_ROUTES } from '@utils/constants';
 
 export function VerificationScreen() {
   const [regStatus, setRegStatus] = useState('00');
@@ -17,13 +17,6 @@ export function VerificationScreen() {
   useEffect(() => {
     async function initializeScreen() {
       try {
-        // Retrieve auth token from token store
-        const token = await TokenStoreManager.getAccessToken();
-        if (!token) {
-          // Toggle if auth token validation fails
-          // setIsAuthenticated(false);
-        }
-
         // Fetch registration flags
         const regValue = await SecureStore.getItemAsync('regStatus');
         const dlcValue = await SecureStore.getItemAsync('hasDlc');
@@ -53,7 +46,7 @@ export function VerificationScreen() {
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';
     router.push({
-      pathname: '/face-recognition',
+      pathname: PAGE_ROUTES.FACE_RECOGNITION as Href,
       params: { registrationStatus: isRegistrationRequired ? '1' : '0' },
     });
   };

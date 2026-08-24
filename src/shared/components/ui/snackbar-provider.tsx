@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSnackbarStore } from '@stores/snackbar.store';
 import { useTheme } from '@hooks/use-theme';
 import { Icon } from '@components/ui/icon';
+import { cn } from '@utils/helpers';
 
 const ANIMATION_DURATION = 250;
 const AUTO_DISMISS_MS = 2000;
@@ -109,9 +110,10 @@ export const SnackbarProvider = () => {
         accessibilityRole="alert"
         accessibilityLabel={message ?? undefined}>
         <View
-          className={`elevation-6 max-w-[90%] flex-row items-center rounded-full px-4 py-3 shadow-lg shadow-black/25 ${
+          className={cn(
+            'elevation-6 max-w-[90%] flex-row items-center rounded-full px-4 py-3',
             isDark ? 'bg-white' : 'bg-neutral-900'
-          }`}>
+          )}>
           {icon ? (
             <View className="mr-2">
               <Icon name={icon} size={24} className="text-white" />
@@ -121,7 +123,7 @@ export const SnackbarProvider = () => {
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            className={`text-sm font-medium ${isDark ? 'text-neutral-900' : 'text-white'}`}>
+            className={cn('text-sm font-medium', isDark ? 'text-neutral-900' : 'text-white')}>
             {message?.slice(0, 120)}
           </Text>
         </View>

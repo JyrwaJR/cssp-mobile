@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { Drawer, DrawerContentScrollView, DrawerItem } from 'expo-router/drawer';
 import { Button, Icon } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
-import { ENDPOINTS, PAGE_ROUTES } from '@utils/constants';
+import { PAGE_ROUTES } from '@utils/constants';
 
 function CustomDrawerContent(props: any) {
   const { logout } = useAuthStore();
@@ -45,16 +45,12 @@ function CustomDrawerContent(props: any) {
 
         <DrawerItem
           label="User Manual"
-          onPress={() =>
-            router.navigate(PAGE_ROUTES.WEB.MANUAL)
-          }
+          onPress={() => router.navigate(PAGE_ROUTES.USER_MANUAL)}
           icon={({ size, color }) => <Icon name="book-01" size={size} color={color} />}
         />
         <DrawerItem
           label="Privacy Policy"
-          onPress={() =>
-            router.navigate(PAGE_ROUTES.WEB.POLICY)
-          }
+          onPress={() => router.navigate(PAGE_ROUTES.PRIVACY)}
           icon={({ size, color }) => <Icon name="shield" size={size} color={color} />}
         />
         <DrawerItem

@@ -3,10 +3,16 @@ import 'react-native-get-random-values';
 import { Stack } from 'expo-router';
 import { ProviderWrapper } from '@components/providers';
 import { SnackbarProvider } from '@components/ui/snackbar-provider';
+import * as SplashScreen from 'expo-splash-screen';
 
 export const unstable_settings = {
   initialRouteName: '(drawer)',
 };
+
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
 
 export default function RootLayout() {
   return (

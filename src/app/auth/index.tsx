@@ -1,5 +1,5 @@
-import { UserManualScreen } from '@components/screens';
+import { LoginScreen } from '@features/auth';
 
 export default function page() {
-  return <UserManualScreen />;
+  return <LoginScreen />;
 }
