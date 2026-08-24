@@ -33,7 +33,7 @@ import {
   AlertTitle,
   Button,
 } from '@components/ui';
-import { FacePainter } from './face-painter';
+import { FaceVerificationPainter } from '../components/face-verification-painter';
 import { useFaceVerificationStore } from '../store/face-verification.store';
 import { useSubmitVerification, useSubmitDLC } from '../hooks';
 import type { FaceVerificationPhase, VerificationResponseT } from '../types';
@@ -414,7 +414,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
               isActive={true}
               outputs={outputs}
             />
-            <FacePainter
+            <FaceVerificationPainter
               faces={faces}
               frameWidth={frameSize.width}
               frameHeight={frameSize.height}
