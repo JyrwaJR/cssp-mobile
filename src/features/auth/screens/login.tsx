@@ -62,16 +62,18 @@ export function LoginScreen() {
 
             {/* Secondary Policy & Manual Links */}
             <View className="flex-row items-center justify-center gap-4">
-              <Link push href={`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.MANUAL}`} asChild>
-                <Text className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
-                  User Manual
-                </Text>
+              <Link
+                push
+                href={PAGE_ROUTES.USER_MANUAL}
+                className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
+                User Manual
               </Link>
               <Text className="text-base text-muted-foreground">•</Text>
-              <Link push href={`${PAGE_ROUTES.WEB}?uri=${ENDPOINTS.DOCUMENTATION.POLICY}`} asChild>
-                <Text className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
-                  Privacy Policy
-                </Text>
+              <Link
+                push
+                href={PAGE_ROUTES.PRIVACY}
+                className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
+                Privacy Policy
               </Link>
             </View>
           </View>
