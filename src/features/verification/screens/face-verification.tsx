@@ -34,6 +34,7 @@ import {
   Button,
 } from '@components/ui';
 import { FacePainter } from './face-painter';
+import { useFaceVerificationStore } from '../store/face-verification.store';
 import { useSubmitVerification, useSubmitDLC } from '../hooks';
 import type { FaceVerificationPhase, VerificationResponseT } from '../types';
 
@@ -51,7 +52,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
   // State machine
   const [phase, setPhase] = useState<FaceVerificationPhase>('camera');
-  const [msg, setMsg] = useState('Please blink!!');
   const [faces, setFaces] = useState<Face[]>([]);
   const [previewUri, setPreviewUri] = useState('');
   const [image1, setImage1] = useState('');
@@ -86,9 +86,13 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     setPhase(next);
   }, []);
 
-  // Helper to prevent redundant setMsg re-renders when string is unchanged
+  // Liveness banner message — sourced from the shared Zustand store so
+  // extracted components can consume it without prop drilling
+  const msg = useFaceVerificationStore((s) => s.msg);
+
+  // Updates the store-backed liveness message; unchanged strings are a no-op
   const updateMsg = useCallback((newMsg: string) => {
-    setMsg((prev) => (prev !== newMsg ? newMsg : prev));
+    useFaceVerificationStore.getState().setMsg(newMsg);
   }, []);
 
   // API hooks
