@@ -23,6 +23,8 @@ import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
 import { FaceVerificationPainter } from '../components/face-verification-painter';
 import { FaceVerificationDeclarationForm } from '../components/face-verification-declaration-form';
 import { FaceVerificationConfirmDialog } from '../components/face-verification-confirm-dialog';
+import { FaceVerificationLoadingView } from '../components/face-verification-loading-view';
+import { FaceVerificationErrorView } from '../components/face-verification-error-view';
 import { useFaceVerificationStore } from '../store/face-verification.store';
 import { useSubmitVerification, useSubmitDLC } from '../hooks';
 import type {
@@ -421,12 +423,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         )}
 
         {/* PHASE: capturing / submitting — loading spinner */}
-        {(phase === 'capturing' || phase === 'submitting') && (
-          <View className="flex-1 items-center justify-center">
-            <Text className="text-2xl font-bold text-primary">Please wait</Text>
-            <ActivityIndicator size="large" className="mt-4" />
-          </View>
-        )}
+        {(phase === 'capturing' || phase === 'submitting') && <FaceVerificationLoadingView />}
 
         {/* PHASE: preview — first photo confirmation (registration mode only) */}
         {phase === 'preview' && (
@@ -519,15 +516,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
         {/* PHASE: error */}
         {phase === 'error' && (
-          <View className="flex-1 items-center justify-center p-4">
-            <Alert variant="destructive">
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{errorMsg}</AlertDescription>
-            </Alert>
-            <Button size="lg" variant="outline" className="mt-6" onPress={() => router.back()}>
-              <Text className="text-base font-bold text-primary">Go Back</Text>
-            </Button>
-          </View>
+          <FaceVerificationErrorView errorMsg={errorMsg} onGoBack={() => router.back()} />
         )}
       </View>
 
