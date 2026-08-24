@@ -15,7 +15,7 @@ import {
   useCameraPermission,
   usePhotoOutput,
 } from 'react-native-vision-camera';
-import { useFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
+import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system';
 import { useRouter } from 'expo-router';
 import {
@@ -287,21 +287,31 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     [capturePhoto, updateMsg]
   );
 
-  // 1. Memoize face detector config to prevent re-instantiation on each render
-  const detectorOptions = useMemo(
-    () => ({
-      performanceMode: 'accurate' as const,
+  // Latest-ref pattern: keeps `handleDetectedFaces` reachable from the
+  // detector callback without changing the output's identity (see below).
+  const handleDetectedFacesRef = useRef(handleDetectedFaces);
+  handleDetectedFacesRef.current = handleDetectedFaces;
+
+  // Native face-detector output, created exactly once for this screen's
+  // lifetime.
+  //
+  // Do NOT use `useFaceDetectorOutput()` here: it memoizes on its
+  // rest-options object (`useMemo(..., [options])`), which is re-created
+  // every render, so it returns a NEW native output each render. A new
+  // output identity makes <Camera outputs> tear down and rebuild the camera
+  // session (unbindAll) on EVERY render — aborting in-flight captures with
+  // "ImageCaptureException: Camera is closed".
+  const [faceDetectorOutput] = useState(() =>
+    createFaceDetectorOutput({
+      performanceMode: 'accurate',
       runLandmarks: true,
       runClassifications: true,
-      onFacesDetected: handleDetectedFaces,
+      onFacesDetected: (faces) => handleDetectedFacesRef.current(faces),
       onError: (error: unknown) => {
         console.error('Face detection error:', error);
       },
-    }),
-    [handleDetectedFaces]
+    })
   );
-
-  const faceDetectorOutput = useFaceDetectorOutput(detectorOptions);
 
   // 2. Memoize outputs array to stop Camera from tearing down native sessions
   const outputs = useMemo(
