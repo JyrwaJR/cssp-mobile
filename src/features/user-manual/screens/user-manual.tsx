@@ -6,8 +6,11 @@ import { Container } from '@components/layout';
 import { Button } from '@components/ui';
 import { APP_VERSION } from '@utils/constants';
 
-import { SectionCard, StepImage } from './components';
-import { OVERVIEW_STEPS, REGISTRATION_STEPS } from './data';
+import {
+  UserManualSectionCard as SectionCard,
+  UserManualStepImage as StepImage,
+} from '../components';
+import { USER_MANUAL_OVERVIEW_STEPS, USER_MANUAL_REGISTRATION_STEPS } from '../utils/guide-steps';
 
 /**
  * Senior-friendly user manual screen for the Pensioner app.
@@ -162,7 +165,7 @@ export function UserManualScreen() {
           {/* 5. Process Overview (Sub-Cards per Step) */}
           <SectionCard stepNumber="5" title="5 Simple Steps to Complete Registration">
             <View className="gap-5">
-              {OVERVIEW_STEPS.map((item, index) => (
+              {USER_MANUAL_OVERVIEW_STEPS.map((item, index) => (
                 <View key={index} className="rounded-md border border-gray-200 bg-gray-50 p-4">
                   <View className="self-start rounded-md bg-blue-700 px-3 py-1">
                     <Text className="text-sm font-black text-white">{item.step}</Text>
@@ -184,7 +187,7 @@ export function UserManualScreen() {
           {/* 6. Registration (Clear Detailed Step Cards) */}
           <SectionCard stepNumber="6" title="First Time Registration Steps">
             <View className="gap-6">
-              {REGISTRATION_STEPS.map((item) => (
+              {USER_MANUAL_REGISTRATION_STEPS.map((item) => (
                 <View
                   key={item.step}
                   className="gap-2 rounded-md border border-gray-200 bg-gray-50 p-4">

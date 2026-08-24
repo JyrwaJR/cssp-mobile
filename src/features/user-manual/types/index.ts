@@ -7,7 +7,7 @@ import type { ImageSourcePropType } from 'react-native';
  * Renders a senior-friendly card with a numbered circular badge and a bold
  * title header, followed by arbitrary child content.
  */
-export interface SectionCardProps {
+export interface UserManualSectionCardProps {
   /** Badge text displayed inside the circular header (e.g. "1"). */
   stepNumber: string;
   /** Card title rendered next to the badge in large high-contrast text. */
@@ -17,12 +17,12 @@ export interface SectionCardProps {
 }
 
 /**
- * Props for the {@link StepImage} component.
+ * Props for the {@link UserManualStepImage} component.
  *
  * Displays an instructional screenshot with an optional dark caption bar,
  * or a large dashed placeholder when no image source is provided.
  */
-export interface StepImageProps {
+export interface UserManualStepImageProps {
   /** Image source to render; omit to show the placeholder instead. */
   source?: ImageSourcePropType;
   /** Short "Look for this" hint shown in the dark caption bar. */

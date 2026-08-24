@@ -45,7 +45,7 @@ const GUIDE_IMAGE =
  * Detailed first-time registration steps rendered inside section 6 of the
  * user manual screen.
  */
-export const REGISTRATION_STEPS: RegistrationStep[] = [
+export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
   {
     step: 'Step 1',
     title: 'Tap Register Link',
@@ -92,7 +92,7 @@ export const REGISTRATION_STEPS: RegistrationStep[] = [
  * High-level five-step process overview rendered inside section 5 of the
  * user manual screen.
  */
-export const OVERVIEW_STEPS: OverviewStep[] = [
+export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
   {
     step: 'STEP 1',
     title: 'ONE-TIME REGISTRATION',
