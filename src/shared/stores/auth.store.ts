@@ -53,6 +53,7 @@ export const useAuthStore = create<AuthStore>()(
       reset: () => set({ user: null, isSignedIn: false }),
       logout: async () => {
         try {
+          set({ isAuthLoading: true });
           const accessToken = await TokenStoreManager.getAccessToken();
           if (accessToken) {
             await http.post(ENDPOINTS.AUTH.LOGOUT);
@@ -70,6 +71,7 @@ export const useAuthStore = create<AuthStore>()(
         } catch (error) {
           logger.error('Error Logout Query Clear', error);
         }
+        set({ isAuthLoading: false });
       },
 
       _hydrate: async () => {

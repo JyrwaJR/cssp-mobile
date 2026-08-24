@@ -1,0 +1,20 @@
+{
+  "ignore_dirs": [
+    ".git",
+    "node_modules",
+    ".expo",
+    ".cache",
+    "android",
+    "ios",
+    "dist",
+    "build",
+    ".gradle",
+    ".cxx"
+  ],
+  "watchman": {
+    "usePolling": true,
+    "pollingInterval": 1000
+  },
+  "max_files": 50000,
+  "max_files_per_root": 50000
+}
