@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Feather } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { Href, useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
-import { Button } from '@components/ui';
+import { Button, Icon } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 
 export function VerificationScreen() {
@@ -113,7 +112,7 @@ export function VerificationScreen() {
             {/* Dynamic Status / Warning Banner */}
             {msg !== '' && (
               <View className="flex-row items-start gap-3 rounded-md border border-red-200 bg-red-50 p-3.5">
-                <Feather name="alert-circle" size={18} color="#DC2626" className="mt-0.5" />
+                <Icon name="alert-circle" size={18} color="#DC2626" className="mt-0.5" />
                 <Text className="text-md flex-1 font-medium leading-5 text-red-700">{msg}</Text>
               </View>
             )}
