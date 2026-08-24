@@ -7,16 +7,24 @@ import {
   ArrowRight02FreeIcons,
   Book01Icon,
   Camera01Icon,
+  CheckmarkCircle01Icon,
   Contact01Icon,
   DashboardSquare01Icon,
+  EllipseIcon,
   EyeClosedIcon,
   EyeIcon,
   Home07Icon,
   InfoIcon,
   Logout01Icon,
+  Mail01Icon,
+  MapPinIcon,
   MenuIcon,
   MoneySend01Icon,
+  PrinterIcon,
   Shield01Icon,
+  SmartPhone01Icon,
+  TelephoneIcon,
+  Tick01Icon,
   UserCircle02Icon,
   UserRemove01Icon,
   UserUnlock01Icon,
@@ -42,7 +50,15 @@ export type IconName =
   | 'contact-01'
   | 'alert-circle'
   | 'book-01'
-  | 'shield';
+  | 'shield'
+  | 'check-circle'
+  | 'circle'
+  | 'check'
+  | 'map-pin'
+  | 'phone'
+  | 'printer'
+  | 'mail'
+  | 'smartphone';
 
 type Props = {
   name: IconName;
@@ -91,6 +107,22 @@ const getHugeIcon = (name: IconName) => {
       return Book01Icon;
     case 'shield':
       return Shield01Icon;
+    case 'check-circle':
+      return CheckmarkCircle01Icon;
+    case 'circle':
+      return EllipseIcon;
+    case 'check':
+      return Tick01Icon;
+    case 'map-pin':
+      return MapPinIcon;
+    case 'phone':
+      return TelephoneIcon;
+    case 'printer':
+      return PrinterIcon;
+    case 'mail':
+      return Mail01Icon;
+    case 'smartphone':
+      return SmartPhone01Icon;
     default:
       return MenuIcon;
   }
