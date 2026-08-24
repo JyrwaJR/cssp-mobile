@@ -3,4 +3,3 @@ export * from './loading-screen';
 export * from './under-development';
 export * from './forbidden';
 export * from './empty-screen';
-export * from './privacy-policy';
