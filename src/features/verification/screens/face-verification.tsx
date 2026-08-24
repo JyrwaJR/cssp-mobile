@@ -34,13 +34,16 @@ import {
   Button,
 } from '@components/ui';
 import { FaceVerificationPainter } from '../components/face-verification-painter';
+import { FaceVerificationDeclarationForm } from '../components/face-verification-declaration-form';
 import { useFaceVerificationStore } from '../store/face-verification.store';
 import { useSubmitVerification, useSubmitDLC } from '../hooks';
-import type { FaceVerificationPhase, VerificationResponseT } from '../types';
+import type {
+  FaceVerificationPhase,
+  FaceVerificationRouteParams,
+  VerificationResponseT,
+} from '../types';
 
-interface FaceVerificationScreenProps {
-  registrationStatus: 0 | 1;
-}
+type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
 export function FaceVerificationScreen({ registrationStatus }: FaceVerificationScreenProps) {
   const router = useRouter();
@@ -515,7 +518,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
         {/* PHASE: declaration — self-declaration form */}
         {phase === 'declaration' && verResponse && (
-          <DeclarationForm
+          <FaceVerificationDeclarationForm
             selfVerCode={verResponse.self_ver_code}
             selfVerNec={selfVerNec}
             selfVerNmc={selfVerNmc}
@@ -588,100 +591,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         </AlertDialogContent>
       </AlertDialog>
     </SafeAreaView>
-  );
-}
-
-function DeclarationForm({
-  selfVerCode,
-  selfVerNec,
-  selfVerNmc,
-  onChangeNec,
-  onChangeNmc,
-  onSubmit,
-  previewUri,
-}: {
-  selfVerCode: string;
-  selfVerNec: 'Yes' | 'No' | '';
-  selfVerNmc: 'Yes' | 'No' | '';
-  onChangeNec: (value: 'Yes' | 'No') => void;
-  onChangeNmc: (value: 'Yes' | 'No') => void;
-  onSubmit: () => void;
-  previewUri: string;
-}) {
-  const showMarriageQuestion = selfVerCode === '4';
-
-  return (
-    <ScrollView contentContainerClassName="items-center p-4">
-      {previewUri ? (
-        <Image
-          source={{ uri: previewUri }}
-          className="mb-4 h-52 w-44 rounded-xl border-2 border-primary"
-        />
-      ) : null}
-
-      <View className="w-full rounded-md border-r-4 border-r-primary bg-muted p-4">
-        <Text className="text-center font-bold underline">NON-EMPLOYMENT</Text>
-        <Text className="text-center font-bold text-destructive">(SELF DECLARATION)</Text>
-        <Text className="my-2 text-sm">
-          Are you employed or re-employed in any State or Central Government Office/Autonomous
-          Bodies or Corporations during the last six months period?
-        </Text>
-
-        <View className="my-2 flex-row justify-center gap-3">
-          <Button
-            variant={selfVerNec === 'No' ? 'primary' : 'outline'}
-            onPress={() => onChangeNec('No')}
-            className="w-20">
-            <Text className={`font-bold ${selfVerNec === 'No' ? 'text-white' : 'text-primary'}`}>
-              No
-            </Text>
-          </Button>
-          <Button
-            variant={selfVerNec === 'Yes' ? 'primary' : 'outline'}
-            onPress={() => onChangeNec('Yes')}
-            className="w-20">
-            <Text className={`font-bold ${selfVerNec === 'Yes' ? 'text-white' : 'text-primary'}`}>
-              Yes
-            </Text>
-          </Button>
-        </View>
-
-        {showMarriageQuestion && (
-          <>
-            <Text className="mt-4 text-center font-bold underline">RE-MARRIAGE/NON MARRIAGE</Text>
-            <Text className="text-center font-bold text-destructive">(SELF DECLARATION)</Text>
-            <Text className="my-2 text-sm">
-              Are you married or re-married during the last six months period?
-            </Text>
-
-            <View className="my-2 flex-row justify-center gap-3">
-              <Button
-                variant={selfVerNmc === 'Yes' ? 'primary' : 'outline'}
-                onPress={() => onChangeNmc('Yes')}
-                className="w-20">
-                <Text
-                  className={`font-bold ${selfVerNmc === 'Yes' ? 'text-white' : 'text-primary'}`}>
-                  Yes
-                </Text>
-              </Button>
-              <Button
-                variant={selfVerNmc === 'No' ? 'primary' : 'outline'}
-                onPress={() => onChangeNmc('No')}
-                className="w-20">
-                <Text
-                  className={`font-bold ${selfVerNmc === 'No' ? 'text-white' : 'text-primary'}`}>
-                  No
-                </Text>
-              </Button>
-            </View>
-          </>
-        )}
-
-        <Button size="lg" className="mt-5" onPress={onSubmit}>
-          <Text className="text-base font-bold text-white">Submit</Text>
-        </Button>
-      </View>
-    </ScrollView>
   );
 }
 
