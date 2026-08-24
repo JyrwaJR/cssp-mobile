@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
+import { Icon } from '@components/ui';
 import { PASSWORD_RULES } from '../utils/constants/password-rule';
-import { Feather } from '@expo/vector-icons';
 
 export const PasswordRequiredments = ({ value }: { value: string }) => {
   return (
@@ -15,7 +15,7 @@ export const PasswordRequiredments = ({ value }: { value: string }) => {
 
           return (
             <View key={rule.key} className="flex-row items-center gap-2">
-              <Feather
+              <Icon
                 name={isMet ? 'check-circle' : 'circle'}
                 size={12}
                 color={isMet ? '#10b981' : '#a1a1aa'}
