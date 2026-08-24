@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import Svg, { Rect, Circle, Text as SvgText, G } from 'react-native-svg';
+import { View, Text } from 'react-native';
 import type { Face } from 'react-native-vision-camera-face-detector';
 
 interface FacePainterProps {
@@ -22,26 +21,25 @@ export const FacePainter: React.FC<FacePainterProps> = ({
 }) => {
   if (!frameWidth || !frameHeight || !viewWidth || !viewHeight) return null;
 
-  // Calculate Scale Ratios
   const scaleX = viewWidth / frameWidth;
   const scaleY = viewHeight / frameHeight;
 
   return (
-    <Svg style={StyleSheet.absoluteFill}>
+    <View className="absolute inset-0" pointerEvents="none">
       {faces.map((face, index) => {
         const { bounds, leftEyeOpenProbability, rightEyeOpenProbability, landmarks } = face;
 
-        // Front Camera Mirror Adjustment
+        // Front camera mirror adjustment
         const x = isFrontCamera ? frameWidth - bounds.x - bounds.width : bounds.x;
         const y = bounds.y;
 
-        // Scaled Rectangle Coordinates
+        // Scaled coordinates
         const scaledX = x * scaleX;
         const scaledY = y * scaleY;
         const scaledWidth = bounds.width * scaleX;
         const scaledHeight = bounds.height * scaleY;
 
-        // Landmarks (Left / Right Eyes)
+        // Eye landmarks
         const leftEye = landmarks?.LEFT_EYE;
         const rightEye = landmarks?.RIGHT_EYE;
 
@@ -55,56 +53,60 @@ export const FacePainter: React.FC<FacePainterProps> = ({
           : null;
         const rightEyeY = rightEye ? rightEye.y * scaleY : null;
 
-        // Blink Detection Logic
+        // Blink detection logic
         const leftProb = leftEyeOpenProbability ?? 1.0;
         const rightProb = rightEyeOpenProbability ?? 1.0;
         const isBlinking = leftProb < 0.45 && rightProb < 0.45;
 
         return (
-          <G key={index}>
+          <React.Fragment key={index}>
             {/* FACE RECTANGLE */}
-            <Rect
-              x={scaledX}
-              y={scaledY}
-              width={scaledWidth}
-              height={scaledHeight}
-              stroke="#22c55e" // Colors.green
-              strokeWidth="4"
-              fill="none"
+            <View
+              className="absolute rounded-lg border-[3px] border-green-500"
+              style={{
+                left: scaledX,
+                top: scaledY,
+                width: scaledWidth,
+                height: scaledHeight,
+              }}
             />
+
+            {/* STATUS TEXT (BLINK / OPEN) */}
+            <Text
+              className={`absolute text-base font-bold ${
+                isBlinking ? 'text-red-500' : 'text-green-500'
+              }`}
+              style={{
+                left: scaledX,
+                top: Math.max(scaledY - 24, 20),
+              }}>
+              {isBlinking ? 'BLINK' : 'OPEN'}
+            </Text>
 
             {/* LEFT EYE LANDMARK */}
             {leftEyeX !== null && leftEyeY !== null && (
-              <Circle
-                cx={leftEyeX}
-                cy={leftEyeY}
-                r={5}
-                fill="#ef4444" // Colors.red
+              <View
+                className="absolute h-2.5 w-2.5 rounded-full bg-red-500"
+                style={{
+                  left: leftEyeX - 5,
+                  top: leftEyeY - 5,
+                }}
               />
             )}
 
             {/* RIGHT EYE LANDMARK */}
             {rightEyeX !== null && rightEyeY !== null && (
-              <Circle
-                cx={rightEyeX}
-                cy={rightEyeY}
-                r={5}
-                fill="#ef4444" // Colors.red
+              <View
+                className="absolute h-2.5 w-2.5 rounded-full bg-red-500"
+                style={{
+                  left: rightEyeX - 5,
+                  top: rightEyeY - 5,
+                }}
               />
             )}
-
-            {/* STATUS TEXT (BLINK / OPEN) */}
-            <SvgText
-              x={scaledX}
-              y={Math.max(scaledY - 10, 20)}
-              fill={isBlinking ? '#ef4444' : '#22c55e'}
-              fontSize="16"
-              fontWeight="bold">
-              {isBlinking ? 'BLINK' : 'OPEN'}
-            </SvgText>
-          </G>
+          </React.Fragment>
         );
       })}
-    </Svg>
+    </View>
   );
 };
