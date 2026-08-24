@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Icon } from '@components/ui';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -40,7 +40,7 @@ export function ContactScreen() {
 
             {/* Contact Address */}
             <View className="bg-muted/30 flex-row items-start gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="map-pin" size={18} className="mt-0.5" />
+              <Icon name="map-pin" size={18} className="mt-0.5" />
               <View className="flex-1">
                 <Text className="mb-1 text-sm font-semibold text-foreground">Contact Address</Text>
                 <Text className="text-sm leading-5 text-muted-foreground">
@@ -56,7 +56,7 @@ export function ContactScreen() {
               onPress={() => openPhoneNumber(APP_LINKS.PHONE.LAND_LINE)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="phone" size={18} />
+              <Icon name="phone" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Land Line No.</Text>
                 <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.LAND_LINE}</Text>
@@ -65,7 +65,7 @@ export function ContactScreen() {
 
             {/* FAX */}
             <View className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="printer" size={18} />
+              <Icon name="printer" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">FAX</Text>
                 <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.FAX}</Text>
@@ -77,7 +77,7 @@ export function ContactScreen() {
               onPress={() => openEmailAddress(APP_LINKS.EMAIL.DAT_SHIL_MEG)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="mail" size={18} />
+              <Icon name="mail" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Email</Text>
                 <Text className="text-sm text-muted-foreground">
@@ -100,7 +100,7 @@ export function ContactScreen() {
               onPress={() => openEmailAddress(APP_LINKS.EMAIL.NONGSTON_NIC)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="mail" size={18} />
+              <Icon name="mail" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Email</Text>
                 <Text className="text-sm text-muted-foreground">
@@ -114,7 +114,7 @@ export function ContactScreen() {
               onPress={() => openPhoneNumber(APP_LINKS.PHONE.TECHNICAL)}
               activeOpacity={0.7}
               className="bg-muted/30 flex-row items-center gap-3 rounded-md border border-gray-200 p-3.5">
-              <Feather name="smartphone" size={18} />
+              <Icon name="smartphone" size={18} />
               <View className="flex-1">
                 <Text className="mb-0.5 text-sm font-semibold text-foreground">Phone Number</Text>
                 <Text className="text-sm text-muted-foreground">{APP_LINKS.PHONE.TECHNICAL}</Text>
