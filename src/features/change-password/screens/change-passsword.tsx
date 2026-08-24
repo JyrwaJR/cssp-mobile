@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -69,7 +68,7 @@ export function ChangePasswordScreen() {
           /* Success */
           <View className="my-4 items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
             <View className="h-12 w-12 items-center justify-center rounded-full bg-emerald-500">
-              <Feather name="check" size={24} color="white" />
+              <Icon name="check" size={24} color="white" />
             </View>
 
             <Text className="text-center text-base font-bold text-emerald-950">
