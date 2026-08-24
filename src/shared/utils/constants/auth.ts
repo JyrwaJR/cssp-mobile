@@ -1,4 +1,5 @@
 import { RoleT } from '@sharedTypes/auth';
+import { Href } from 'expo-router';
 
 /**
  * Configuration for a role-protected route.
@@ -17,4 +18,10 @@ export type RouteConfigT = {
 /**
  * Routes accessible without authentication.
  */
-export const PUBLIC_ROUTES = ['/auth', '/auth/register', '/auth/reg-instruction', '/web'];
+export const PUBLIC_ROUTES: Href[] = [
+  '/auth',
+  '/auth/register',
+  '/auth/reg-instruction',
+  '/user-manual',
+  '/privacy-policy',
+];

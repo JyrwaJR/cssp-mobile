@@ -6,10 +6,6 @@ type PageRouteMap<T> = {
 
 const routes = {
   HOME: '/' as Href,
-  WEB: {
-    MANUAL: '/web?uri=https://shillong.meg.nic.in/manual.html',
-    POLICY: '/web?uri=https://shillong.meg.nic.in/privacy_policy.html',
-  },
   AUTH: {
     HOME: '/auth' as Href,
     REGISTER: '/auth/register' as Href,

@@ -27,7 +27,8 @@ export const PAGE_HEADERS = {
   '/about': { title: 'About Us', showBackButton: true },
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
-  '/web': { title: '', showBackButton: true, showDrawer: false },
+  '/user-manual': { title: 'Manual', showBackButton: true, showDrawer: false },
+  '/privacy-policy': { title: 'Privacy Policy', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
 
 export type PageHeaderRoute = keyof typeof PAGE_HEADERS;
