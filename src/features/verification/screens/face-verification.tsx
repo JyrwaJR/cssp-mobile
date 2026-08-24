@@ -145,9 +145,11 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         ? photoFile.filePath
         : `file://${photoFile.filePath}`;
 
+      // TODO: Update this to not use legacy code
       const base64Image = await FileSystem.readAsStringAsync(filePath, {
         encoding: FileSystem.EncodingType.Base64,
       });
+
       const cleanBase64 = base64Image.replace(/[\r\n\s]/g, '');
 
       setPreviewUri(`data:image/jpeg;base64,${cleanBase64}`);
@@ -180,6 +182,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       updatePhase('error');
     }
   }, [image1, image2, registrationStatus, photoOutput, submitVerification, updatePhase, updateMsg]);
+
   // Face detection callback
   const handleDetectedFaces = useCallback(
     (detectedFaces: Face[]) => {
