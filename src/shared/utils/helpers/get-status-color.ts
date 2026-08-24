@@ -1,5 +1,5 @@
 /**
- * Returns Tailwind CSS classes and Ionicons icon data for a given status label.
+ * Returns Tailwind CSS class names for a given status label.
  *
  * **Success** (green): `'Verified'`, `'PAID'`, `'PROCESSED'`
  * **Pending** (amber): `'Pending'`, `'Entry'`, `'PENDING'`, `'HELD'`, `'NOT_FILED'`
