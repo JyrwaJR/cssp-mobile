@@ -9,7 +9,7 @@ import { openEmailAddress, openPhoneNumber } from '@utils/helpers';
 export function ContactScreen() {
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
-      <Container scrollable>
+      <Container>
         <View className="w-full gap-5">
           {/* Header Badge */}
 
