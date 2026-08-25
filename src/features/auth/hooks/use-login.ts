@@ -13,7 +13,6 @@ export function useLogin() {
     mutationFn: async (data: LoginInput) =>
       http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, data, { headers }),
     onSuccess: ({ success, data }, { username }) => {
-      console.log('success', success, 'data', data);
       if (success) {
         if (data) {
           setUser({
