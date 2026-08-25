@@ -5,4 +5,4 @@ export const ppoNoValidation = (message?: string) =>
   z
     .string(`${message || 'PPO No'} is Required`)
     .regex(ALLOW_REGEX.USERNAME, `Invalid ${message || 'PPO No'}`)
-    .transform((val) => val.toUpperCase());
+    .trim();
