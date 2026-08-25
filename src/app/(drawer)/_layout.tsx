@@ -7,6 +7,7 @@ import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
 
 function CustomDrawerContent(props: any) {
+  const { user } = useAuthStore();
   const { logout } = useAuthStore();
   const inset = useSafeAreaInsets();
 
@@ -19,8 +20,8 @@ function CustomDrawerContent(props: any) {
             <Icon name="user-01" size={32} color="#FFFFFF" />
           </View>
           <View className="items-center">
-            <Text className="text-base font-bold text-white">User Name</Text>
-            <Text className="text-xs text-white/80">user@example.com</Text>
+            <Text className="text-base font-bold text-white">{user?.name}</Text>
+            <Text className="text-xs text-white/80">{user?.username}</Text>
           </View>
         </View>
       </View>
@@ -40,6 +41,11 @@ function CustomDrawerContent(props: any) {
         <DrawerItem
           label="Contact Us"
           onPress={() => router.navigate(PAGE_ROUTES.CONTACT_US)}
+          icon={({ size, color }) => <Icon name="contact-01" size={size} color={color} />}
+        />
+        <DrawerItem
+          label="Withdrawal"
+          onPress={() => router.navigate(PAGE_ROUTES.WITHDRAWAL)}
           icon={({ size, color }) => <Icon name="contact-01" size={size} color={color} />}
         />
 

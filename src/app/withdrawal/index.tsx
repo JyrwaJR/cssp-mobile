@@ -4,7 +4,6 @@ import WithdrawalScreen from '@features/withdrawal/screens/withdrawal';
 export default function Home() {
   return (
     <>
-      <StackHeader />
       <WithdrawalScreen />
     </>
   );

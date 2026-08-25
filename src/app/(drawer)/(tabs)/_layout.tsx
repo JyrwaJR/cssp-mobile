@@ -31,20 +31,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="withdrawal"
-        options={{
-          title: 'Withdrawal',
-          tabBarIcon: ({ size, color }) => (
-            <Icon
-              color={color}
-              name="cancel-circle"
-              className={`text-${color.toString()}`}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
