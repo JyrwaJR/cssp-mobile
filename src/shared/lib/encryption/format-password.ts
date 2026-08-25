@@ -6,16 +6,22 @@ function randomBetween(min: number, max: number): number {
 
 export function formatPassword(password: string): string {
   const random = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
   const randomSep = ['z', 'y', 'x', 'u', 'v', 'm'];
+
   const salt: (number | string)[] = [];
 
-  // 1. SHA-256 Hash via CryptoJS (Synchronous)
-  const hash = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-  const pwd: string[] = hash.split('');
+  // Same as:
+  // createHash('sha256')
+  //   .update(password, 'utf8')
+  //   .digest('hex')
+  const hash = CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(password)).toString(CryptoJS.enc.Hex);
 
-  // 2. Custom salting & obfuscation loop
+  const pwd = hash.split('');
+
   for (let i = 0; i < 20; i++) {
     const j = i <= 3 ? i : randomBetween(4, 63);
+
     const temp = pwd[j];
 
     pwd[j] = random[Math.floor(Math.random() * random.length)];
@@ -25,7 +31,5 @@ export function formatPassword(password: string): string {
 
   const result = pwd.join('') + salt.join('');
 
-  // 3. Base64 Encoding via CryptoJS
-  const utf8Bytes = CryptoJS.enc.Utf8.parse(result);
-  return CryptoJS.enc.Base64.stringify(utf8Bytes);
+  return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(result));
 }

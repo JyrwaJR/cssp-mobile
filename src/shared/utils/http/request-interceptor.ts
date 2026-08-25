@@ -46,7 +46,8 @@ export const createRequestInterceptor = () => {
         version: '24',
       };
     }
-
+    console.log(config.headers);
+    console.log(config.data);
     return config;
   };
 };

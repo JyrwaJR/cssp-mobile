@@ -12,12 +12,18 @@ export function useLogin() {
   return useMutation({
     mutationFn: async (data: LoginInput) =>
       http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, data, { headers }),
-    onSuccess: (data, { username }) => {
-      if (data.data) {
-        setUser({
-          ...data.data,
-          ppo_no: username,
-        });
+    onSuccess: ({ success, data }, { username }) => {
+      if (success) {
+        if (data) {
+          setUser({
+            username: data.username,
+            uid: data.uid,
+            name: data.name,
+            has_dlc: data.has_dlc,
+            approve: data.approve,
+            ppo_no: username,
+          });
+        }
       }
       // _hydrate();
     },

@@ -17,6 +17,7 @@ const routes = {
   FACE_RECOGNITION: '/face-recognition' as Href,
   PRIVACY: '/privacy-policy' as Href,
   USER_MANUAL: '/user-manual' as Href,
+  WITHDRAWAL: '/withdrawal' as Href,
 } as const;
 
 export const PAGE_ROUTES: PageRouteMap<typeof routes> = routes;
