@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Alert } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
@@ -8,8 +8,8 @@ import { useInitializeVerification } from '../hooks/use-init-verification';
 export function VerificationScreen() {
   const router = useRouter();
 
-  const { data, regStatus, dlcStatus, msg } = useInitializeVerification();
-
+  const { regStatus, msg } = useInitializeVerification();
+  console.log('regStatus', regStatus, 'msg', msg);
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';
     router.push({

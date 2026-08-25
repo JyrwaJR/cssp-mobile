@@ -5,4 +5,3 @@ export * from './notification.store';
 export * from './rate-limit.store';
 export * from './snackbar.store';
 export * from './theme.store';
-export * from './verification';

@@ -1,5 +1,5 @@
 export type LoginT = {
-  approve: string;
+  approval: string;
   has_dlc: string;
   name: string;
   uid: string;

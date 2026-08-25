@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { ENDPOINTS } from '@utils/constants';
 import { http } from '@utils/http';
 import type { VerificationResponseT } from '../types';
-import { VerificationStoreManager } from '@stores/verification';
+import { useAuthStore } from '@stores/auth.store';
 
 interface VerificationPayload {
   image_1: string;
@@ -20,15 +20,24 @@ interface VerificationPayload {
  * @returns TanStack Query mutation with `VerificationResponseT` result.
  */
 export function useSubmitVerification() {
+  // TODO: change and saperate this
+  const { setUser, user } = useAuthStore();
   return useMutation({
     mutationFn: async (payload: VerificationPayload) =>
       http.post<VerificationResponseT>(ENDPOINTS.VERIFICATION.VERIFICATION, payload),
 
     onSuccess: async ({ data }) => {
       if (data && data.self_ver_code !== '03') {
-        const regStatus = await VerificationStoreManager.getRegStatus();
+        const regStatus = user?.approval;
         if (regStatus !== '00') {
-          await VerificationStoreManager.updateRegStatus('01');
+          setUser({
+            approval: '01',
+            username: user?.username || '',
+            uid: user?.uid || '',
+            name: user?.name || '',
+            has_dlc: user?.has_dlc || '',
+            ppo_no: user?.username || '',
+          });
         }
       }
     },

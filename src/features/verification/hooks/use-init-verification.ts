@@ -1,24 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { VerificationStoreManager } from '@stores/verification';
-
-type GetVerificationT = {
-  data: {
-    regStatus: string | null;
-    dlc: string | null;
-  };
-};
-
-async function getVerification(): Promise<GetVerificationT> {
-  const regStatus = await VerificationStoreManager.getRegStatus();
-  const dlc = await VerificationStoreManager.getDlc();
-
-  return {
-    data: {
-      dlc,
-      regStatus,
-    },
-  };
-}
+import { useAuthStore } from '@stores/auth.store';
 
 const getRegStatusMessage = (currentReg: string | null | undefined): string => {
   if (currentReg === '02') {
@@ -30,10 +11,16 @@ const getRegStatusMessage = (currentReg: string | null | undefined): string => {
 };
 
 export function useInitializeVerification() {
+  const { user } = useAuthStore();
+  const initData = {
+    regStatus: user?.approval,
+    dlc: user?.has_dlc,
+  };
+
   const query = useQuery({
     queryKey: ['init', 'verification'],
-    queryFn: getVerification,
-    select: (data) => data.data,
+    queryFn: () => initData,
+    select: (data) => data,
   });
 
   const regStatus = query.data?.regStatus;

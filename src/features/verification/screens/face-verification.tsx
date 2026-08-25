@@ -87,31 +87,31 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   const submitVerification = useCallback(
     async (img1: string, img2: string) => {
       updatePhase('submitting');
-      console.log('Capture Submitting');
-      // verificationMutation.mutate(
-      //   { image_1: img1, image_2: img2 },
-      //   {
-      //     onSuccess: ({ data }) => {
-      //       if (data) {
-      //         setVerResponse(data);
-      //         isCapturing.current = false;
-      //
-      //         if (data.self_ver_code === '00' || data.self_ver_code === '22') {
-      //           updatePhase('result');
-      //         } else if (img2 !== '') {
-      //           updatePhase('result');
-      //         } else {
-      //           updatePhase('declaration');
-      //         }
-      //       }
-      //     },
-      //     onError: (error) => {
-      //       isCapturing.current = false;
-      //       setErrorMsg(error.message || 'Verification failed');
-      //       updatePhase('error');
-      //     },
-      //   }
-      // );
+
+      verificationMutation.mutate(
+        { image_1: img1, image_2: img2 },
+        {
+          onSuccess: ({ data }) => {
+            if (data) {
+              setVerResponse(data);
+              isCapturing.current = false;
+
+              if (data.self_ver_code === '00' || data.self_ver_code === '22') {
+                updatePhase('result');
+              } else if (img2 !== '') {
+                updatePhase('result');
+              } else {
+                updatePhase('declaration');
+              }
+            }
+          },
+          onError: (error) => {
+            isCapturing.current = false;
+            setErrorMsg(error.message || 'Verification failed');
+            updatePhase('error');
+          },
+        }
+      );
     },
     [verificationMutation, updatePhase]
   );
