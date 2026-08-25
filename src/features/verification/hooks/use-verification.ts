@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { ENDPOINTS } from '@utils/constants';
 import { http } from '@utils/http';
 import type { VerificationResponseT } from '../types';
-import * as SecureStore from 'expo-secure-store';
+import { VerificationStoreManager } from '@stores/verification';
 
 interface VerificationPayload {
   image_1: string;
@@ -21,23 +21,14 @@ interface VerificationPayload {
  */
 export function useSubmitVerification() {
   return useMutation({
-    mutationFn: async (payload: VerificationPayload) => {
-      const response = await http.post<VerificationResponseT>(
-        ENDPOINTS.VERIFICATION.VERIFICATION,
-        payload
-      );
+    mutationFn: async (payload: VerificationPayload) =>
+      http.post<VerificationResponseT>(ENDPOINTS.VERIFICATION.VERIFICATION, payload),
 
-      if (!response.success) {
-        throw new Error(response.message || 'Verification failed');
-      }
-
-      return response.data!;
-    },
-    onSuccess: async (data) => {
-      if (data.self_ver_code !== '03') {
-        const regStatus = await SecureStore.getItemAsync('regStatus');
+    onSuccess: async ({ data }) => {
+      if (data && data.self_ver_code !== '03') {
+        const regStatus = await VerificationStoreManager.getRegStatus();
         if (regStatus !== '00') {
-          await SecureStore.setItemAsync('regStatus', '01');
+          await VerificationStoreManager.updateRegStatus('01');
         }
       }
     },

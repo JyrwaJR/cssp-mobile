@@ -11,6 +11,34 @@ interface DLCPayload {
   self_ver_code: string;
 }
 
+/** Device metadata attached to every DLC submission. */
+interface DeviceMetadata {
+  /** Human-readable application name (fallback `'Unknown'`). */
+  deviceName: string;
+  /** OS-level device identifier (iOS `idForVendor` / Android ID, fallback `'unknown'`). */
+  deviceId: string;
+}
+
+/**
+ * Resolves device metadata for the DLC payload.
+ *
+ * Must be called from an async context: Hermes does not support top-level
+ * `await`, and module-scope awaits crash the JS bundle at compile time
+ * ("')' expected at end of parenthesized expression").
+ *
+ * @returns The application name and platform-specific device identifier.
+ */
+async function resolveDeviceMetadata(): Promise<DeviceMetadata> {
+  const deviceName = Application.applicationName ?? 'Unknown';
+
+  const deviceId =
+    Platform.OS === 'ios'
+      ? ((await Application.getIosIdForVendorAsync()) ?? 'unknown')
+      : ((await Application.getAndroidId()) ?? 'unknown');
+
+  return { deviceName, deviceId };
+}
+
 /**
  * Submits the Digital Life Certificate (DLC) self-declaration to `POST /api/lc/`.
  *
@@ -23,13 +51,9 @@ interface DLCPayload {
 export function useSubmitDLC() {
   return useMutation({
     mutationFn: async (payload: DLCPayload) => {
-      const deviceName = Application.applicationName ?? 'Unknown';
-      const deviceId =
-        Platform.OS === 'ios'
-          ? (await Application.getIosIdForVendorAsync()) ?? 'unknown'
-          : (await Application.getAndroidId()) ?? 'unknown';
+      const { deviceName, deviceId } = await resolveDeviceMetadata();
 
-      const response = await http.post<VerificationResponseT>(ENDPOINTS.DLC.CREATE, {
+      return http.post<VerificationResponseT>(ENDPOINTS.DLC.CREATE, {
         selfVerNec: payload.selfVerNec,
         selfVerNmc: payload.selfVerNmc,
         device: deviceName,
@@ -38,12 +62,6 @@ export function useSubmitDLC() {
         self_ver_code: payload.self_ver_code,
         place: '',
       });
-
-      if (!response.success) {
-        throw new Error(response.message || 'DLC submission failed');
-      }
-
-      return response.data!;
     },
   });
 }

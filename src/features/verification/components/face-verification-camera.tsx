@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react';
+import { type ComponentProps } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Camera, type CameraDevice } from 'react-native-vision-camera';
 import type { Face } from 'react-native-vision-camera-face-detector';

@@ -8,10 +8,18 @@ import { useAuthStore } from '@stores/auth.store';
 const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
 
 export function useLogin() {
-  const { _hydrate } = useAuthStore();
+  const { setUser } = useAuthStore();
   return useMutation({
     mutationFn: async (data: LoginInput) =>
       http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, data, { headers }),
-    onSuccess: (data) => data.success && _hydrate(),
+    onSuccess: (data, { username }) => {
+      if (data.data) {
+        setUser({
+          ...data.data,
+          ppo_no: username,
+        });
+      }
+      // _hydrate();
+    },
   });
 }

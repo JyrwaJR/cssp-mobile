@@ -1,46 +1,14 @@
-import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as SecureStore from 'expo-secure-store';
-import { Href, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
 import { Button, Icon } from '@components/ui';
-import { PAGE_ROUTES } from '@utils/constants';
+import { useInitializeVerification } from '../hooks/use-init-verification';
 
 export function VerificationScreen() {
-  const [regStatus, setRegStatus] = useState('00');
-  const [dlcStatus, setDlcStatus] = useState('00');
-  const [msg, setMsg] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    async function initializeScreen() {
-      try {
-        // Fetch registration flags
-        const regValue = await SecureStore.getItemAsync('regStatus');
-        const dlcValue = await SecureStore.getItemAsync('hasDlc');
-
-        const currentReg = regValue ?? '00';
-        const currentDlc = dlcValue ?? '00';
-
-        setRegStatus(currentReg);
-        setDlcStatus(currentDlc);
-
-        if (currentReg === '02') {
-          setMsg(
-            'Since the photo you submitted was rejected, the app will capture your photo twice.'
-          );
-        } else if (currentReg === '03') {
-          setMsg("Since you haven't submitted your photo, the app will capture your photo twice.");
-        }
-      } catch (e) {
-        console.error('LOAD ERROR:', e);
-        Alert.alert('Error', 'Failed to load verification settings.');
-      }
-    }
-
-    initializeScreen();
-  }, []);
+  const { data, regStatus, dlcStatus, msg } = useInitializeVerification();
 
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';

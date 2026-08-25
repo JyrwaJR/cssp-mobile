@@ -4,9 +4,7 @@ import { router } from 'expo-router';
 import { logger } from '@utils/logger';
 import { useAuthStore } from '@stores/auth.store';
 import { useNotificationStore } from '@stores/notification.store';
-// import { NotificationService } from '@services/notification.service';
 import { isRealDevice } from '@utils/helpers/expo';
-import { env } from '@utils/env';
 
 /**
  * Whitelist of permitted internal routes for push-triggered navigation.
@@ -25,7 +23,6 @@ type PushNotificationData = {
  * Handles registration, foreground listeners, and deep-linking interactions.
  */
 export const useNotifications = () => {
-  const { emp_cd } = useAuthStore();
   const [notification, setNotification] = useState<Notifications.Notification | undefined>(
     undefined
   );
@@ -61,15 +58,13 @@ export const useNotifications = () => {
   }, [lastResponse]);
 
   useEffect(() => {
-    if (!isRealDevice() && !emp_cd) return;
+    if (!isRealDevice()) return;
 
     let isMounted = true;
 
     const register = async () => {
-      const { registeredEmpCd } = useNotificationStore.getState();
-
-      if (registeredEmpCd === emp_cd && env.NODE_ENV === 'production') {
-        logger.info('NotificationHook: Skipping registration — already registered', { emp_cd });
+      if (process.env.NODE_ENV === 'production') {
+        logger.info('NotificationHook: Skipping registration — already registered');
         return;
       }
 
@@ -79,7 +74,7 @@ export const useNotifications = () => {
         //   emp_cd: emp_cd || '',
         // });
 
-        useNotificationStore.getState().setRegisteredEmpCd(emp_cd || '');
+        useNotificationStore.getState().setRegisteredEmpCd('');
 
         if (isMounted) {
           await Notifications.getNotificationChannelsAsync();
@@ -120,7 +115,7 @@ export const useNotifications = () => {
       notificationListener.remove();
       responseListener.remove();
     };
-  }, [emp_cd]);
+  }, []);
 
   return { notification };
 };

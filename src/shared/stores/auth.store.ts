@@ -12,6 +12,8 @@ type AuthStore = {
   isSignedIn: boolean;
   isAuthLoading: boolean;
 
+  // TODO: remove this and handle with current-user
+  setUser: (data: UserT) => void;
   fetchUser: () => Promise<void>;
   refresh: () => void;
   reset: () => void;
@@ -26,9 +28,10 @@ export const useAuthStore = create<AuthStore>()(
       isSignedIn: true,
       isAuthLoading: true,
 
+      setUser: (data) => set({ user: data, isAuthLoading: false, isSignedIn: true }),
+
       fetchUser: async (keepStaleOnError?: boolean) => {
         const accessToken = await TokenStoreManager.getAccessToken();
-
         if (accessToken) {
           try {
             const res = await http.post<UserT>(ENDPOINTS.AUTH.CURRENT_USER);

@@ -12,7 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { useSnackbar } from '@hooks/use-snackbar';
 
 const defaultValues = {
-  username: process.env.EXPO_PUBLIC_USERNAME || '',
+  username: process.env.EXPO_PUBLIC_PPO_NO || '',
   password: process.env.EXPO_PUBLIC_PASSWORD || '',
 };
 

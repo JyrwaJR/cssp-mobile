@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
 import { Button } from '@components/ui';
 

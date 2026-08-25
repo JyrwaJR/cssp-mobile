@@ -81,7 +81,7 @@ export default function DrawerLayout() {
         drawerActiveTintColor: '#4297A0',
         drawerInactiveTintColor: '#475569',
         drawerItemStyle: {
-          borderRadius: 8,
+          borderRadius: 0,
           marginHorizontal: 12,
           marginVertical: 2,
         },

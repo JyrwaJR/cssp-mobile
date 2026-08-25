@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { View, Text, ActivityIndicator, Alert as RNAlert } from 'react-native';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { View, Text, ActivityIndicator, Alert as RNAlert, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   useCameraDevice,
@@ -87,29 +87,31 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   const submitVerification = useCallback(
     async (img1: string, img2: string) => {
       updatePhase('submitting');
-
-      verificationMutation.mutate(
-        { image_1: img1, image_2: img2 },
-        {
-          onSuccess: (data) => {
-            setVerResponse(data);
-            isCapturing.current = false;
-
-            if (data.self_ver_code === '00' || data.self_ver_code === '22') {
-              updatePhase('result');
-            } else if (img2 !== '') {
-              updatePhase('result');
-            } else {
-              updatePhase('declaration');
-            }
-          },
-          onError: (error) => {
-            isCapturing.current = false;
-            setErrorMsg(error.message || 'Verification failed');
-            updatePhase('error');
-          },
-        }
-      );
+      console.log('Capture Submitting');
+      // verificationMutation.mutate(
+      //   { image_1: img1, image_2: img2 },
+      //   {
+      //     onSuccess: ({ data }) => {
+      //       if (data) {
+      //         setVerResponse(data);
+      //         isCapturing.current = false;
+      //
+      //         if (data.self_ver_code === '00' || data.self_ver_code === '22') {
+      //           updatePhase('result');
+      //         } else if (img2 !== '') {
+      //           updatePhase('result');
+      //         } else {
+      //           updatePhase('declaration');
+      //         }
+      //       }
+      //     },
+      //     onError: (error) => {
+      //       isCapturing.current = false;
+      //       setErrorMsg(error.message || 'Verification failed');
+      //       updatePhase('error');
+      //     },
+      //   }
+      // );
     },
     [verificationMutation, updatePhase]
   );
@@ -124,6 +126,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
       // 2. NOW transition phase state after native capture completes
       updatePhase('capturing');
+
       updateMsg('Please wait...');
 
       const filePath = photoFile.filePath.startsWith('file://')
@@ -137,12 +140,11 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
       const cleanBase64 = base64Image.replace(/[\r\n\s]/g, '');
 
-      setPreviewUri(`data:image/jpeg;base64,${cleanBase64}`);
-
+      const uri = `data:image/jpeg;base64,${cleanBase64}`;
+      setPreviewUri(uri);
       // Registration mode: first photo → preview screen
       if (registrationStatus === 1 && !image1) {
         setImage1(cleanBase64);
-        updatePhase('preview');
         isCapturing.current = false;
         return;
       }
@@ -346,9 +348,11 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         self_ver_code: verResponse?.self_ver_code ?? '',
       },
       {
-        onSuccess: (data) => {
-          setVerResponse(data);
-          updatePhase('result');
+        onSuccess: ({ data }) => {
+          if (data) {
+            setVerResponse(data);
+            updatePhase('result');
+          }
         },
         onError: (error) => {
           setErrorMsg(error.message || 'DLC submission failed');

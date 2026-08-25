@@ -1,4 +1,3 @@
-import React from 'react';
 import { router } from 'expo-router';
 import { Text, View } from 'react-native';
 import { Button } from '../ui/button';

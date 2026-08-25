@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, Text, Image } from 'react-native';
 import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
 import type { VerificationResponseT } from '../types';

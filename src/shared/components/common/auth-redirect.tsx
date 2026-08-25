@@ -21,43 +21,43 @@ type Props = {
  * Role-based access control is intentionally handled elsewhere.
  */
 export const AuthRedirect = ({ children }: Props) => {
-  // const { isAuthLoading: isLoading, isSignedIn } = useAuthStore();
-  //
-  // const pathName = usePathname();
-  // const router = useRouter();
-  // const params = useLocalSearchParams();
-  //
-  // const redirectTo = params.redirect as string | undefined;
-  //
-  // const isOnPublicPage = PUBLIC_ROUTES.includes(pathName as Href);
-  //
-  // useEffect(() => {
-  //   logger.info('AuthRedirect: effect running', {
-  //     isLoading,
-  //     isSignedIn,
-  //     pathName,
-  //     isOnPublicPage,
-  //   });
-  //
-  //   if (isLoading) return;
-  //
-  //   // 1. Signed-in user trying to access a public page.
-  //   if (isSignedIn && isOnPublicPage) {
-  //     router.replace((redirectTo as Href) || PAGE_ROUTES.HOME);
-  //
-  //     return;
-  //   }
-  //
-  //   // 2. Unauthenticated user trying to access a protected page.
-  //   if (!isSignedIn && !isOnPublicPage) {
-  //     router.replace(PAGE_ROUTES.AUTH.HOME);
-  //     return;
-  //   }
-  // }, [isLoading, isSignedIn, isOnPublicPage, pathName, redirectTo, router]);
-  //
-  // if (isLoading) {
-  //   return <LoadingScreen />;
-  // }
+  const { isAuthLoading: isLoading, isSignedIn } = useAuthStore();
+
+  const pathName = usePathname();
+  const router = useRouter();
+  const params = useLocalSearchParams();
+
+  const redirectTo = params.redirect as string | undefined;
+
+  const isOnPublicPage = PUBLIC_ROUTES.includes(pathName as Href);
+
+  useEffect(() => {
+    logger.info('AuthRedirect: effect running', {
+      isLoading,
+      isSignedIn,
+      pathName,
+      isOnPublicPage,
+    });
+
+    if (isLoading) return;
+
+    // 1. Signed-in user trying to access a public page.
+    if (isSignedIn && isOnPublicPage) {
+      router.replace((redirectTo as Href) || PAGE_ROUTES.HOME);
+
+      return;
+    }
+
+    // 2. Unauthenticated user trying to access a protected page.
+    if (!isSignedIn && !isOnPublicPage) {
+      router.replace(PAGE_ROUTES.AUTH.HOME);
+      return;
+    }
+  }, [isLoading, isSignedIn, isOnPublicPage, pathName, redirectTo, router]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return <>{children}</>;
 };

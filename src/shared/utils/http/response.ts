@@ -7,11 +7,10 @@
 
 import { TokenStoreManager } from '@stores/token.store';
 import { AxiosError, AxiosResponse } from 'axios';
-
 import { ApiResponse } from '@sharedTypes/api';
-import { LoginT } from '@sharedTypes/auth';
 import { logger } from '@utils/logger';
 import { ENDPOINTS } from '@utils/constants/endpoints';
+import { LoginT } from '@sharedTypes/auth';
 
 /**
  * Transforms an unknown error into a standard error {@link ApiResponse}.
@@ -120,24 +119,44 @@ export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> =>
   };
 };
 
+interface LoginResponseT extends LoginT {
+  renew_token: string;
+  token: string;
+}
+
 export const handleLoginResponse = async (response: AxiosResponse) => {
-  if (response.status === 200 && response.config.url?.endsWith(ENDPOINTS.AUTH.LOGIN)) {
-    const data = response.data as LoginT;
-    if (data) {
-      const accessToken = data.token;
-      const refreshToken = data.renew_token;
-      if (accessToken) {
+  console.log("Error login",response)
+  const requestUrl = response.config.url || '';
+
+  // Safely check if the request path matches the login endpoint, ignoring query parameters
+  const isLoginEndpoint = requestUrl.split('?')[0].endsWith(ENDPOINTS.AUTH.LOGIN);
+
+  // Axios only passes 2xx status codes to this handler by default
+  if (isLoginEndpoint && response.data) {
+    const data = response.data as LoginResponseT;
+
+    try {
+      if (data.token) {
         logger.info('Setting Token');
-        await TokenStoreManager.addAccessToken(accessToken);
+        await TokenStoreManager.addAccessToken(data.token);
         logger.info('Token Set');
       }
-      if (refreshToken) {
+
+      if (data.renew_token) {
         logger.info('Setting Refresh Token');
-        await TokenStoreManager.addRefreshToken(refreshToken);
+        await TokenStoreManager.addRefreshToken(data.renew_token);
         logger.info('Refresh Token Set');
       }
+    } catch (error) {
+      logger.error('Failed to save tokens to store', error);
+      return Promise.reject(error);
     }
+
+    // Strip tokens from the response payload returned to callers
+    const { token, renew_token, ...userData } = data;
+    response.data = userData;
   }
+
   return response;
 };
 

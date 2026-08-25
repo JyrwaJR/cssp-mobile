@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, Text } from 'react-native';
 import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
 
