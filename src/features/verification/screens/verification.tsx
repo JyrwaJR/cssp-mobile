@@ -9,7 +9,6 @@ export function VerificationScreen() {
   const router = useRouter();
 
   const { regStatus, msg } = useInitializeVerification();
-  console.log('regStatus', regStatus, 'msg', msg);
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';
     router.push({
