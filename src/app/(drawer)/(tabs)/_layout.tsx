@@ -10,8 +10,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#2563eb',
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: 14,
+          fontWeight: '800',
         },
       }}>
       <Tabs.Screen
