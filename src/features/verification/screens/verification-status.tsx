@@ -8,7 +8,7 @@ import { useVerificationStatus } from '../hooks';
 export function VerificationStatusScreen() {
   const { data, isFetching, refetch } = useVerificationStatus();
 
-  const isPhotoSubmitted = data?.verStatus === '03';
+  const isPhotoSubmitted = data?.ver_status === '03';
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
@@ -36,7 +36,7 @@ export function VerificationStatusScreen() {
               </Text>
             </View>
             <Text className="text-2xl font-extrabold text-emerald-950">
-              {data?.verStatus || '—'}
+              {data?.ver_status || '—'}
             </Text>
           </View>
 
@@ -59,13 +59,13 @@ export function VerificationStatusScreen() {
               {/* Date */}
               <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
                 <Text className="text-sm font-medium text-muted-foreground">Date</Text>
-                <Text className="text-sm font-bold text-foreground">{data?.verDate || '—'}</Text>
+                <Text className="text-sm font-bold text-foreground">{data?.ver_date || '—'}</Text>
               </View>
 
               {/* Time */}
               <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
                 <Text className="text-sm font-medium text-muted-foreground">Time</Text>
-                <Text className="text-sm font-bold text-foreground">{data?.verTime || '—'}</Text>
+                <Text className="text-sm font-bold text-foreground">{data?.ver_time || '—'}</Text>
               </View>
 
               {!isPhotoSubmitted && (
@@ -74,7 +74,7 @@ export function VerificationStatusScreen() {
                   <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
                     <Text className="text-sm font-medium text-muted-foreground">Place</Text>
                     <Text className="text-sm font-bold text-foreground">
-                      {data?.verPlace || '—'}
+                      {data?.ver_place || '—'}
                     </Text>
                   </View>
 
@@ -87,7 +87,7 @@ export function VerificationStatusScreen() {
                       <Text className="text-sm font-medium text-foreground">Declaration</Text>
                       <View className="rounded-md bg-secondary px-2.5 py-1">
                         <Text className="text-sm font-bold text-secondary-foreground">
-                          {data?.verNec || '—'}
+                          {data?.ver_nec || '—'}
                         </Text>
                       </View>
                     </View>
@@ -102,7 +102,7 @@ export function VerificationStatusScreen() {
                       <Text className="text-sm font-medium text-foreground">Declaration</Text>
                       <View className="rounded-md bg-secondary px-2.5 py-1">
                         <Text className="text-sm font-bold text-secondary-foreground">
-                          {data?.verNmc || '—'}
+                          {data?.ver_nec || '—'}
                         </Text>
                       </View>
                     </View>
