@@ -121,7 +121,7 @@ Accept: application/json
 # @name validateToken
 POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
-Authorization: renewToken {{renewToken}}
+Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 uid=NzMwMDAwMTAzNA%3D%3D&request_token={{renewToken}}
