@@ -24,9 +24,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="verification"
+        name="dlc"
         options={{
-          title: 'Submit Photo',
+          title: 'Submit DLC',
           tabBarIcon: ({ size, color }) => <Icon size={size} name="camera-01" color={color} />,
         }}
       />

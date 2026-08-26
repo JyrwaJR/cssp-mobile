@@ -1,11 +1,11 @@
 import { StackHeader } from '@components/layout';
-import { VerificationScreen } from '@features/verification/screens';
+import { DLCScreen } from '@features/dlc/screens';
 
 export default function page() {
   return (
     <>
       <StackHeader />
-      <VerificationScreen />
+      <DLCScreen />
     </>
   );
 }

@@ -5,7 +5,7 @@ import { FooterImg } from '@components/common';
 import { Button, Icon } from '@components/ui';
 import { useInitializeVerification } from '../hooks/use-init-verification';
 
-export function VerificationScreen() {
+export function DLCScreen() {
   const router = useRouter();
 
   const { regStatus, msg } = useInitializeVerification();

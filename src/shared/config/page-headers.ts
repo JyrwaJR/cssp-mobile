@@ -14,11 +14,11 @@ export interface PageHeaderConfig {
 export const PAGE_HEADERS = {
   // TABS
   '/': { title: 'Pensioner', showDrawer: true },
-  '/verification': { title: 'Photo Verification', showDrawer: true },
+  '/dlc': { title: 'Submit Digital Life Certificate', showDrawer: true },
   '/profile': { title: 'My Profile', showDrawer: true },
-  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
 
   // pages
+  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
