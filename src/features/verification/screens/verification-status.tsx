@@ -35,7 +35,7 @@ export function VerificationStatusScreen() {
                 Verification Status
               </Text>
             </View>
-            <Text className="text-2xl font-extrabold text-emerald-950">
+            <Text className="text-center text-2xl font-semibold text-emerald-950">
               {data?.ver_status || '—'}
             </Text>
           </View>
