@@ -28,7 +28,7 @@ export function ProfileScreen() {
     );
   }
 
-  const fields: Array<{ label: string; value: string }> = [
+  const fields: { label: string; value: string }[] = [
     { label: 'Name', value: user.name },
     { label: 'Username', value: user.username },
     { label: 'UID', value: user.uid },
