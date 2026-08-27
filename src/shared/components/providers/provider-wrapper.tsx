@@ -8,7 +8,6 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { AuthInitializer } from './auth-provider';
 import { NotificationProvider } from './notification-provider';
 import { TQueryProvider } from './query-provider';
-import { ThemeProvider } from './theme-provider';
 // Shared Components & Redirects
 import { AuthRedirect } from '@components/common';
 import { UpdateModal } from './update-modal';
@@ -38,17 +37,15 @@ export const ProviderWrapper = ({ children }: Props) => {
         <SafeAreaProvider className="flex-1">
           <TQueryProvider>
             <QueryErrorResetBoundary>
-              <ThemeProvider>
-                <AuthInitializer>
-                  <NotificationProvider>
-                    <AuthRedirect>
-                      <StatusBar style="auto" animated />
-                      {children}
-                      <UpdateModal />
-                    </AuthRedirect>
-                  </NotificationProvider>
-                </AuthInitializer>
-              </ThemeProvider>
+              <AuthInitializer>
+                <NotificationProvider>
+                  <AuthRedirect>
+                    <StatusBar style="auto" animated />
+                    {children}
+                    <UpdateModal />
+                  </AuthRedirect>
+                </NotificationProvider>
+              </AuthInitializer>
             </QueryErrorResetBoundary>
           </TQueryProvider>
         </SafeAreaProvider>
