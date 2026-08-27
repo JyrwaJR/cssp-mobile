@@ -4,7 +4,6 @@ import { Link, router } from 'expo-router';
 import { LoginForm } from '../components';
 import { Button } from '@components/ui/button';
 import { Container } from '@components/layout';
-import { ENDPOINTS } from '@utils/constants/endpoints';
 import { FooterImg } from '@components/common/nic-footer-img';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';

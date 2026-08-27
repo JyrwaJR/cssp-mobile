@@ -2,11 +2,18 @@ import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
-import { Button, Icon } from '@components/ui';
+import { Button, Icon, Alert, AlertTitle, AlertDescription } from '@components/ui';
 import { useInitializeVerification } from '../hooks/use-init-verification';
+import { useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
 
+// check if front camera is present in device before allowing to process with dlc
+// if device does not present of front camera show message that i cannot be proceed
 export function DLCScreen() {
   const router = useRouter();
+  const frontCamera = useCameraDevice('front');
+  const { hasPermission } = useCameraPermission();
+
+  const isDisableCapture = frontCamera === null || !hasPermission;
 
   const { regStatus, msg } = useInitializeVerification();
   const handleCapturePress = () => {
@@ -20,6 +27,7 @@ export function DLCScreen() {
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
       {/* Main Content Area */}
+
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, padding: 16, gap: 20 }}
         showsVerticalScrollIndicator={false}>
@@ -86,8 +94,41 @@ export function DLCScreen() {
           </View>
         </View>
 
+        {!hasPermission && (
+          <Alert variant="destructive">
+            <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+
+            <View className="flex-1">
+              <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+
+              <AlertDescription>
+                Camera access is required to continue. Please allow camera permission in your device
+                settings.
+              </AlertDescription>
+            </View>
+          </Alert>
+        )}
+
+        {hasPermission && !frontCamera && (
+          <Alert variant="destructive">
+            <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+
+            <View className="flex-1">
+              <AlertTitle className="text-sm">Front Camera Not Available</AlertTitle>
+
+              <AlertDescription>
+                This device does not have a front-facing camera. A front camera is required to
+                continue.
+              </AlertDescription>
+            </View>
+          </Alert>
+        )}
         {/* Primary Action Button */}
-        <Button size={'lg'} onPress={handleCapturePress} activeOpacity={0.8}>
+        <Button
+          disabled={isDisableCapture}
+          size={'lg'}
+          onPress={handleCapturePress}
+          activeOpacity={0.8}>
           <Text className="text-base font-bold text-white">Capture Photo</Text>
         </Button>
 
