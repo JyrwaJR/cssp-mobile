@@ -8,13 +8,6 @@ type Props = {
 
 export const AuthInitializer = ({ children }: Props) => {
   const hydrate = useAuthStore((s) => s._hydrate);
-  const logout = useAuthStore((s) => s.logout);
-  const emp_cd = useAuthStore((s) => s.emp_cd);
-  useEffect(() => {
-    if (!emp_cd) {
-      logout();
-    }
-  }, [emp_cd, logout]);
 
   useEffect(() => {
     logger.info('AuthInitializer: checking persist hydration');
