@@ -17,6 +17,7 @@ export function DLCScreen() {
   const isDisableCapture = frontCamera === null || !hasPermission;
 
   const { regStatus, msg } = useInitializeVerification();
+
   const handleCapturePress = () => {
     const isRegistrationRequired = regStatus === '03' || regStatus === '02';
     router.push({

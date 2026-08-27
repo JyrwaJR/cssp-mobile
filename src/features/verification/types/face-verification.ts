@@ -24,7 +24,7 @@ export type FaceVerificationPhase =
  */
 export interface VerificationResponseT {
   msg: string;
-  self_ver_code: string;
+  self_ver_code: '00' | '22' | '4' | '1' | string;
 }
 
 /**

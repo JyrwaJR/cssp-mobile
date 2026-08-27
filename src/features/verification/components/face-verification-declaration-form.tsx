@@ -1,6 +1,6 @@
-import { ScrollView, View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button } from '@components/ui';
-
+import { Container } from '@components/layout';
 /** Allowed answers for each self-declaration question. */
 type SelfVerAnswer = 'Yes' | 'No' | '';
 
@@ -23,11 +23,10 @@ export interface FaceVerificationDeclarationFormProps {
 }
 
 /**
- * Renders the DLC self-declaration form: non-employment question,
- * optionally the re-marriage question (when `selfVerCode === '4'`),
- * and a Submit button. Purely presentational — validation and network
- * submission live in the parent FaceVerificationScreen.
+ * Enhanced DLC self-declaration form with side-by-side radio buttons,
+ * simplified copy, and fixed state handlers.
  */
+// TODO: // remarried value
 export function FaceVerificationDeclarationForm({
   selfVerCode,
   selfVerNec,
@@ -37,79 +36,153 @@ export function FaceVerificationDeclarationForm({
   onSubmit,
   previewUri,
 }: FaceVerificationDeclarationFormProps) {
-  const showMarriageQuestion = selfVerCode === '4';
+  // const showMarriageQuestion = selfVerCode === '4';
+  const showMarriageQuestion = true;
+
+  // Default selection is 'No' when unanswered
+  const isNecNo = selfVerNec === 'No' || selfVerNec === '';
+  const isNecYes = selfVerNec === 'Yes';
+
+  const isNmcNo = selfVerNmc === 'No' || selfVerNmc === '';
+  const isNmcYes = selfVerNmc === 'Yes';
 
   return (
-    <ScrollView contentContainerClassName="items-center p-4">
-      {previewUri ? (
-        <Image
-          source={{ uri: previewUri }}
-          className="mb-4 h-52 w-44 rounded-xl border-2 border-primary"
-        />
-      ) : null}
-
-      <View className="w-full rounded-md border-r-4 border-r-primary bg-muted p-4">
-        <Text className="text-center font-bold underline">NON-EMPLOYMENT</Text>
-        <Text className="text-center font-bold text-destructive">(SELF DECLARATION)</Text>
-        <Text className="my-2 text-sm">
-          Are you employed or re-employed in any State or Central Government Office/Autonomous
-          Bodies or Corporations during the last six months period?
-        </Text>
-
-        <View className="my-2 flex-row justify-center gap-3">
-          <Button
-            variant={selfVerNec === 'No' ? 'primary' : 'outline'}
-            onPress={() => onChangeNec('No')}
-            className="w-20">
-            <Text className={`font-bold ${selfVerNec === 'No' ? 'text-white' : 'text-primary'}`}>
-              No
-            </Text>
-          </Button>
-          <Button
-            variant={selfVerNec === 'Yes' ? 'primary' : 'outline'}
-            onPress={() => onChangeNec('Yes')}
-            className="w-20">
-            <Text className={`font-bold ${selfVerNec === 'Yes' ? 'text-white' : 'text-primary'}`}>
-              Yes
-            </Text>
-          </Button>
+    <Container className="gap-5">
+      <View className="gap-2">
+        <View className="bg-primary/10 self-start py-1">
+          <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+            Employement / Marriage
+          </Text>
         </View>
 
+        <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+          Self-Declaration
+        </Text>
+
+        <Text className="text-sm font-medium text-muted-foreground">
+          Please answer the questions below.
+        </Text>
+      </View>
+
+      {previewUri ? (
+        <View className="items-center justify-center">
+          <Image
+            source={{ uri: previewUri }}
+            className="mb-4 h-52 w-44 rounded-md border border-primary"
+          />
+        </View>
+      ) : null}
+
+      <View className="w-full gap-y-2 rounded-md border-gray-500 bg-muted p-4">
+        {/* Employment Section */}
+        <Text className="text-center font-bold text-primary">EMPLOYMENT STATUS</Text>
+        <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
+          <Text className="flex-1 pr-2 text-sm font-bold text-foreground">Are you Employed?</Text>
+          <View className="flex-row items-center gap-3">
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => onChangeNec('Yes')}
+              className="flex-row items-center gap-1.5 px-2 py-1">
+              <View
+                className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                  isNecYes ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                }`}>
+                {isNecYes && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+              </View>
+              <Text className="text-sm font-bold text-foreground">Yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => onChangeNec('No')}
+              className="flex-row items-center gap-1.5 px-2 py-1">
+              <View
+                className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                  isNecNo ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                }`}>
+                {isNecNo && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+              </View>
+              <Text className="text-sm font-bold text-foreground">No</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Marriage / Re-Marriage Section */}
         {showMarriageQuestion && (
           <>
-            <Text className="mt-4 text-center font-bold underline">RE-MARRIAGE/NON MARRIAGE</Text>
-            <Text className="text-center font-bold text-destructive">(SELF DECLARATION)</Text>
-            <Text className="my-2 text-sm">
-              Are you married or re-married during the last six months period?
-            </Text>
+            <Text className="mt-2 text-center font-bold text-primary">MARITAL STATUS</Text>
 
-            <View className="my-2 flex-row justify-center gap-3">
-              <Button
-                variant={selfVerNmc === 'Yes' ? 'primary' : 'outline'}
-                onPress={() => onChangeNmc('Yes')}
-                className="w-20">
-                <Text
-                  className={`font-bold ${selfVerNmc === 'Yes' ? 'text-white' : 'text-primary'}`}>
-                  Yes
-                </Text>
-              </Button>
-              <Button
-                variant={selfVerNmc === 'No' ? 'primary' : 'outline'}
-                onPress={() => onChangeNmc('No')}
-                className="w-20">
-                <Text
-                  className={`font-bold ${selfVerNmc === 'No' ? 'text-white' : 'text-primary'}`}>
-                  No
-                </Text>
-              </Button>
+            <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
+              <Text className="flex-1 pr-2 text-sm font-bold text-foreground">
+                Are you Married?
+              </Text>
+
+              <View className="flex-row items-center gap-3">
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onChangeNmc('Yes')}
+                  className="flex-row items-center gap-1.5 px-2 py-1">
+                  <View
+                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                      isNmcYes ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                    }`}>
+                    {isNmcYes && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+                  </View>
+                  <Text className="text-sm font-bold text-foreground">Yes</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onChangeNmc('No')}
+                  className="flex-row items-center gap-1.5 px-2 py-1">
+                  <View
+                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                      isNmcNo ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                    }`}>
+                    {isNmcNo && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+                  </View>
+                  <Text className="text-sm font-bold text-foreground">No</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
+              <Text className="flex-1 pr-2 text-sm font-bold text-foreground">
+                Are you Re-Married?
+              </Text>
+
+              <View className="flex-row items-center gap-3">
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onChangeNmc('Yes')}
+                  className="flex-row items-center gap-1.5 px-2 py-1">
+                  <View
+                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                      isNmcYes ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                    }`}>
+                    {isNmcYes && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+                  </View>
+                  <Text className="text-sm font-bold text-foreground">Yes</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onChangeNmc('No')}
+                  className="flex-row items-center gap-1.5 px-2 py-1">
+                  <View
+                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
+                      isNmcNo ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
+                    }`}>
+                    {isNmcNo && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
+                  </View>
+                  <Text className="text-sm font-bold text-foreground">No</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </>
         )}
 
-        <Button size="lg" className="mt-5" onPress={onSubmit}>
+        <Button size="lg" className="mt-3 w-full" onPress={onSubmit}>
           <Text className="text-base font-bold text-white">Submit</Text>
         </Button>
       </View>
-    </ScrollView>
+    </Container>
   );
 }

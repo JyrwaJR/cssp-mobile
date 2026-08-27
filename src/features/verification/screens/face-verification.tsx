@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { View, Text, ActivityIndicator, Alert as RNAlert, Image } from 'react-native';
+import { View, Text, ActivityIndicator, Alert as RNAlert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   useCameraDevice,
