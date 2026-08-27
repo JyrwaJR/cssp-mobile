@@ -12,6 +12,7 @@ const routes = {
     REG_INSTRUCTION: '/auth/reg-instruction' as Href,
   },
   CHANGE_PASSWORD: '/change-password' as Href,
+  PROFILE_UPDATE: '/profile-update' as Href,
   CONTACT_US: '/contact-us' as Href,
   ABOUT_US: '/about' as Href,
   FACE_RECOGNITION: '/face-recognition' as Href,
