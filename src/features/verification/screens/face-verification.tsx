@@ -49,7 +49,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   const [selfVerNmc, setSelfVerNmc] = useState<'Yes' | 'No' | ''>('');
 
   // Dialogs
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [dlcDialogOpen, setDlcDialogOpen] = useState(false);
 
   // Layout tracking for face overlay scaling
@@ -146,13 +145,15 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       if (registrationStatus === 1 && !image1) {
         setImage1(cleanBase64);
         isCapturing.current = false;
+        updatePhase('preview');
         return;
       }
 
-      // Registration mode: second photo → submit both
+      // Registration mode: second photo → preview screen (submitted after approval)
       if (registrationStatus === 1 && image1 && !image2) {
         setImage2(cleanBase64);
-        await submitVerification(image1, cleanBase64);
+        isCapturing.current = false;
+        updatePhase('preview');
         return;
       }
 
@@ -406,11 +407,26 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         {/* PHASE: capturing / submitting — loading spinner */}
         {(phase === 'capturing' || phase === 'submitting') && <FaceVerificationLoadingView />}
 
-        {/* PHASE: preview — first photo confirmation (registration mode only) */}
+        {/* PHASE: preview — first/second photo confirmation (registration mode only) */}
         {phase === 'preview' && (
           <FaceVerificationPhotoPreviewStep
             previewUri={previewUri}
-            onSubmitPress={() => setConfirmDialogOpen(true)}
+            actionLabel={
+              registrationStatus === 1 && image1 && !image2 ? 'Take Second Photo' : 'Submit Photo'
+            }
+            onSubmitPress={() => {
+              if (registrationStatus === 1 && image1 && !image2) {
+                // Approved the first photo; return to camera to capture the second.
+                blinkCount.current = 0;
+                eyesClosed.current = false;
+                setPreviewUri('');
+                updateMsg('Please blink!!');
+                updatePhase('camera');
+              } else if (registrationStatus === 1 && image1 && image2) {
+                // Approved the second photo; submit both images.
+                void submitVerification(image1, image2);
+              }
+            }}
           />
         )}
 
@@ -442,26 +458,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
           <FaceVerificationErrorView errorMsg={errorMsg} onGoBack={() => router.back()} />
         )}
       </View>
-
-      {/* CONFIRMATION DIALOG — photo submission (registration mode) */}
-      <FaceVerificationConfirmDialog
-        open={confirmDialogOpen}
-        onOpenChange={setConfirmDialogOpen}
-        title="Confirm Submission"
-        description={
-          'By submitting this photo you agree to our Privacy Policy.\n' +
-          'Are you sure you want to submit this photo?\n\n' +
-          '[Note: The camera will capture your photo one more time after submission]'
-        }
-        onConfirm={() => {
-          setConfirmDialogOpen(false);
-          blinkCount.current = 0;
-          eyesClosed.current = false;
-          setPreviewUri('');
-          updateMsg('Please blink!!');
-          updatePhase('camera');
-        }}
-      />
 
       {/* DLC TERMS DIALOG */}
       <FaceVerificationConfirmDialog

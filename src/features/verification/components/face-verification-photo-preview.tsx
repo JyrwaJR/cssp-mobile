@@ -6,18 +6,22 @@ import { Button } from '@components/ui';
 export interface FaceVerificationPhotoPreviewStepProps {
   /** Data URI of the captured photo; empty string hides the image. */
   previewUri: string;
-  /** Called by the Submit Photo button; parent opens the confirm dialog. */
+  /** Called by the action button; parent decides the next step. */
   onSubmitPress: () => void;
+  /** Label for the action button; defaults to "Submit Photo". */
+  actionLabel?: string;
 }
 
 /**
- * Registration-mode step confirming the first captured photograph
- * before submission. Displays the photo, authenticity/privacy notice
- * text, and the Submit Photo action. Purely presentational.
+ * Registration-mode step confirming a captured photograph before
+ * proceeding. Displays the photo, authenticity/privacy notice text, and
+ * an action button whose label is configurable via {@link
+ * FaceVerificationPhotoPreviewStepProps.actionLabel}. Purely presentational.
  */
 export function FaceVerificationPhotoPreviewStep({
   previewUri,
   onSubmitPress,
+  actionLabel = 'Submit Photo',
 }: FaceVerificationPhotoPreviewStepProps) {
   return (
     <ScrollView contentContainerClassName="items-center p-4">
@@ -39,7 +43,7 @@ export function FaceVerificationPhotoPreviewStep({
         Identity for Pension.]
       </Text>
       <Button size="lg" className="mt-6" onPress={onSubmitPress}>
-        <Text className="text-base font-bold text-white">Submit Photo</Text>
+        <Text className="text-base font-bold text-white">{actionLabel}</Text>
       </Button>
     </ScrollView>
   );

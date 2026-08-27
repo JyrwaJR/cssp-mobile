@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import { logger } from '@utils/logger';
-import { useAuthStore } from '@stores/auth.store';
 import { useNotificationStore } from '@stores/notification.store';
 import { isRealDevice } from '@utils/helpers/expo';
 
@@ -41,7 +40,7 @@ export const useNotifications = () => {
     }
 
     logger.info(`NotificationHook: Navigating to ${url}`, { responseId });
-    router.push(url);
+    router.push(url as Href);
   };
 
   useEffect(() => {
