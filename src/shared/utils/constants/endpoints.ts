@@ -10,6 +10,7 @@ export const ENDPOINTS = {
     REGISTRATION_STATUS: '/get_registration_status/',
     CREATE_PENSIONER: '/api/create_pensioner/',
     CHANGE_PASSWORD: '/api/change_password/',
+    UPDATE_PROFILE: '/api/update_profile/',
   },
 
   VERIFICATION: {
