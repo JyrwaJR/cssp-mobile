@@ -13,6 +13,7 @@ import { ThemeProvider } from './theme-provider';
 import { AuthRedirect } from '@components/common/auth-redirect';
 import { UpdateModal } from './update-modal';
 import { GlobalErrorBoundary } from './global-error-boundary';
+import { usePreventScreenCapture } from 'expo-screen-capture';
 
 type Props = {
   children: React.ReactNode;
@@ -29,6 +30,7 @@ type Props = {
  * 4. Navigation & Security Gates (LocalAuth, AuthRedirect)
  */
 export const ProviderWrapper = ({ children }: Props) => {
+  usePreventScreenCapture();
   return (
     <GlobalErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }}>
