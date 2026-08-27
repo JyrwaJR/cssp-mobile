@@ -1,11 +1,11 @@
 import { StackHeader } from '@components/layout';
-import { ChangePasswordScreen } from '@features/change-password/screens/change-passsword';
+import { ProfileScreen } from '@features/profile/screens';
 
 export default function Home() {
   return (
     <>
       <StackHeader />
-      <ChangePasswordScreen />
+      <ProfileScreen />
     </>
   );
 }
