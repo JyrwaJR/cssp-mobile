@@ -92,10 +92,13 @@ export function DLCScreen() {
 
             {/* Dynamic Status / Warning Banner */}
             {msg !== '' && (
-              <View className="flex-row items-start gap-3 rounded-md border border-red-200 bg-red-50 p-3.5">
-                <Icon name="alert-circle" size={18} color="#DC2626" className="mt-0.5" />
-                <Text className="text-md flex-1 font-medium leading-5 text-red-700">{msg}</Text>
-              </View>
+              <Alert variant={'destructive'}>
+                <Icon name="alert-circle" size={18} className="text-destructive" />
+                <View className="flex-1">
+                  <AlertTitle>Warning</AlertTitle>
+                  <AlertDescription className="flex-1">{msg}</AlertDescription>
+                </View>
+              </Alert>
             )}
           </View>
         </View>
@@ -105,7 +108,7 @@ export function DLCScreen() {
             <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
 
             <View className="flex-1">
-              <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+              <AlertTitle>Camera Permission Required</AlertTitle>
 
               <AlertDescription>
                 Camera access is required to continue. Please allow camera permission in your device
