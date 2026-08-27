@@ -51,6 +51,44 @@ export const RegistrationPersonalForm = () => {
     <View className="w-full gap-4 py-2">
       <Controller
         control={form.control}
+        name="organization"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View className="mb-4">
+            <View className="flex-row gap-1">
+              <Text className="mb-1.5 text-base font-semibold text-gray-700">Organization</Text>
+              <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
+            </View>
+            <Input
+              value={value}
+              onChangeText={(v) => {
+                const formatted = v
+                  .replace(/\D/g, '')
+                  .replace(/^(\d{4})(\d)/, '$1-$2')
+                  .replace(/^(\d{4}-\d{2})(\d)/, '$1-$2')
+                  .slice(0, 10);
+                onChange(formatted);
+              }}
+              onBlur={onBlur}
+              placeholder="Enter your organization"
+              keyboardType="default"
+              autoCapitalize="none"
+              autoCorrect={false}
+              className="text-base"
+              error={!!form.formState.errors.organization}
+            />
+
+            {form.formState.errors.organization && (
+              <Text
+                className="mt-1 text-base font-medium text-destructive"
+                accessibilityLiveRegion="polite">
+                {form.formState.errors.organization.message}
+              </Text>
+            )}
+          </View>
+        )}
+      />
+      <Controller
+        control={form.control}
         name="dob"
         render={({ field: { onChange, onBlur, value } }) => (
           <View className="mb-4">
