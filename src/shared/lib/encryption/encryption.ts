@@ -188,3 +188,7 @@ export function decryptText(encryptedText: string): string {
 
   return result;
 }
+
+export const sha256 = (value: string): string => {
+  return CryptoJS.SHA256(value).toString(CryptoJS.enc.Hex);
+};
