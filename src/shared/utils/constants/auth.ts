@@ -1,4 +1,3 @@
-import { RoleT } from '@sharedTypes/auth';
 import { Href } from 'expo-router';
 
 /**
@@ -10,8 +9,6 @@ export type RouteConfigT = {
   /** Whether the route requires authentication. */
   needAuth: boolean;
   /** Allowed user roles for this route. */
-  role: RoleT[];
-  /** Optional redirect path when access is denied. */
   redirect?: string;
 };
 

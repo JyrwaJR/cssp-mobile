@@ -1,4 +1,3 @@
-export * from './use-access';
 export * from './use-delay';
 export * from './use-theme';
 export * from './use-online-status';
