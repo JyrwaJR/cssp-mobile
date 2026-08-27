@@ -13,7 +13,6 @@ export type RegistrationStatusInput = z.infer<typeof RegistrationStatusSchema>;
 const dateOfBirthValidation = z
   .string('Date of Birth is Required')
   .min(10, 'Date of Birth should be 10 in length')
-  .regex(ALLOW_REGEX.DATE, 'Date of Birth should be in yyyy-mm-dd format')
   .trim();
 
 const bankAccountValidation = z

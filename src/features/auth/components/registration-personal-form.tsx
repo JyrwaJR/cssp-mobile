@@ -28,11 +28,13 @@ export const RegistrationPersonalForm = () => {
     const isValid = RegisterPersonalInfoSchema.safeParse(data).success;
 
     if (isValid) {
-      if (validation?.dob !== data.dob) {
-        form.setError('dob', {
-          message: 'Date of birth does not match the registered details.',
-        });
-        return;
+      if (validation?.dob) {
+        if (validation?.dob !== data.dob) {
+          form.setError('dob', {
+            message: 'Date of birth does not match the registered details.',
+          });
+          return;
+        }
       }
 
       if (validation?.bank_account_number !== sha256(data.bank_account_number)) {
@@ -60,14 +62,7 @@ export const RegistrationPersonalForm = () => {
             </View>
             <Input
               value={value}
-              onChangeText={(v) => {
-                const formatted = v
-                  .replace(/\D/g, '')
-                  .replace(/^(\d{4})(\d)/, '$1-$2')
-                  .replace(/^(\d{4}-\d{2})(\d)/, '$1-$2')
-                  .slice(0, 10);
-                onChange(formatted);
-              }}
+              onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Enter your organization"
               keyboardType="default"
@@ -99,15 +94,16 @@ export const RegistrationPersonalForm = () => {
             <Input
               value={value}
               onChangeText={(v) => {
-                const formatted = v
-                  .replace(/\D/g, '')
-                  .replace(/^(\d{4})(\d)/, '$1-$2')
-                  .replace(/^(\d{4}-\d{2})(\d)/, '$1-$2')
-                  .slice(0, 10);
+                const digits = v.replace(/\D/g, '').slice(0, 8);
+
+                const formatted = digits
+                  .replace(/^(\d{2})(\d)/, '$1-$2')
+                  .replace(/^(\d{2})-(\d{2})(\d)/, '$1-$2-$3');
+
                 onChange(formatted);
               }}
               onBlur={onBlur}
-              placeholder="YYYY-MM-DD"
+              placeholder="DD-MM-YYYY"
               keyboardType="number-pad"
               autoCapitalize="none"
               autoCorrect={false}

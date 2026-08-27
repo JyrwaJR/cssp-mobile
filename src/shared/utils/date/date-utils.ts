@@ -33,3 +33,17 @@ export function isFuture(date: Date): boolean {
 export function formatISODate(date: Date): string {
   return date.toISOString();
 }
+
+export const parseYYYYMMDD = (value: string): Date | null => {
+  const [year, month, day] = value.split('-').map(Number);
+
+  const date = new Date(year, month - 1, day);
+
+  // Ensure the date is valid (e.g. reject 2026-02-31)
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+    return null;
+  }
+
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
