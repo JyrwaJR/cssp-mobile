@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { useRegistrationStore } from '../store/registration';
+import { sha256 } from '@lib/encryption';
 
 /**
  * Step 2 of registration: date of birth and pension bank account number.
@@ -15,7 +16,7 @@ import { useRegistrationStore } from '../store/registration';
  * data instead of resetting the whole flow.
  */
 export const RegistrationPersonalForm = () => {
-  const { nextStep, prevStep, saveData, formData } = useRegistrationStore();
+  const { nextStep, validation, prevStep, saveData, formData } = useRegistrationStore();
 
   const form = useForm<RegisterPersonalInfoInput>({
     resolver: zodResolver(RegisterPersonalInfoSchema),
@@ -25,7 +26,22 @@ export const RegistrationPersonalForm = () => {
 
   const onSubmit = (data: RegisterPersonalInfoInput) => {
     const isValid = RegisterPersonalInfoSchema.safeParse(data).success;
+
     if (isValid) {
+      if (validation?.dob !== data.dob) {
+        form.setError('dob', {
+          message: 'Date of birth does not match the registered details.',
+        });
+        return;
+      }
+
+      if (validation?.bank_account_number !== sha256(data.bank_account_number)) {
+        form.setError('bank_account_number', {
+          message: 'Bank account number does not match the registered details.',
+        });
+        return;
+      }
+
       saveData(data);
       nextStep();
     }

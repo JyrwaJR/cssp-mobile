@@ -1,17 +1,18 @@
 import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { FooterImg } from '@components/common';
+import { FooterImg, Ternary } from '@components/common';
 import { Button, Icon, Alert, AlertTitle, AlertDescription } from '@components/ui';
 import { useInitializeVerification } from '../hooks/use-init-verification';
 import { useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
+import * as Linking from 'expo-linking';
 
 // check if front camera is present in device before allowing to process with dlc
 // if device does not present of front camera show message that i cannot be proceed
 export function DLCScreen() {
   const router = useRouter();
   const frontCamera = useCameraDevice('front');
-  const { hasPermission } = useCameraPermission();
+  const { hasPermission, requestPermission, canRequestPermission } = useCameraPermission();
 
   const isDisableCapture = frontCamera === null || !hasPermission;
 
@@ -23,6 +24,8 @@ export function DLCScreen() {
       params: { registrationStatus: isRegistrationRequired ? '1' : '0' },
     });
   };
+
+  const openSettings = async () => await Linking.openSettings();
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
@@ -123,15 +126,67 @@ export function DLCScreen() {
             </View>
           </Alert>
         )}
-        {/* Primary Action Button */}
-        <Button
-          disabled={isDisableCapture}
-          size={'lg'}
-          onPress={handleCapturePress}
-          activeOpacity={0.8}>
-          <Text className="text-base font-bold text-white">Capture Photo</Text>
-        </Button>
 
+        {/* Primary Action Button | Check if camera Permission is granted */}
+        <Ternary
+          condition={hasPermission}
+          ifTrue={
+            <Button
+              disabled={isDisableCapture}
+              size="lg"
+              onPress={handleCapturePress}
+              activeOpacity={0.8}>
+              Capture Photo
+            </Button>
+          }
+          ifFalse={
+            <Ternary
+              condition={canRequestPermission}
+              ifTrue={
+                <>
+                  <Alert variant="destructive">
+                    <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+
+                    <View className="flex-1">
+                      <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+
+                      <AlertDescription>
+                        Camera access is required to continue. Please allow camera permission in
+                        your device settings.
+                      </AlertDescription>
+                    </View>
+                  </Alert>
+
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onPress={requestPermission}
+                    activeOpacity={0.8}>
+                    Allow Camera
+                  </Button>
+                </>
+              }
+              ifFalse={
+                <>
+                  <Alert variant="destructive">
+                    <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+
+                    <View className="flex-1">
+                      <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+
+                      <AlertDescription>
+                        Camera access is disabled. Please enable it in your device settings.
+                      </AlertDescription>
+                    </View>
+                  </Alert>
+                  <Button size="lg" variant="outline" onPress={openSettings} activeOpacity={0.8}>
+                    Open App Settings
+                  </Button>
+                </>
+              }
+            />
+          }
+        />
         {/* Partner Logos */}
         <FooterImg />
       </ScrollView>

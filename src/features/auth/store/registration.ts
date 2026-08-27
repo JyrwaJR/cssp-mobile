@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import { RegisterPensionerInput } from '../validators';
 
+const defaultValue: RegisterPensionerInput = {
+  ppo_no: '',
+  dob: '',
+  password: '',
+  bank_account_number: '',
+};
+
 interface RegistrationStore {
   step: number;
   formData: RegisterPensionerInput;
@@ -9,18 +16,16 @@ interface RegistrationStore {
   prevStep: () => void;
   saveData: (data: Partial<RegisterPensionerInput>) => void;
   reset: () => void;
-}
 
-const defaultValue: RegisterPensionerInput = {
-  ppo_no: '',
-  dob: '',
-  password: '',
-  bank_account_number: '',
-};
+  validation: Omit<RegisterPensionerInput, 'ppo_no' | 'password'> | null;
+  setValidationData: (data: Omit<RegisterPensionerInput, 'ppo_no' | 'password'>) => void;
+}
 
 export const useRegistrationStore = create<RegistrationStore>((set, get) => ({
   step: 1,
   formData: defaultValue,
+  validation: null,
+  setValidationData: (data) => set({ validation: data }),
 
   setStep: (step) => set({ step }),
   nextStep: () => {
