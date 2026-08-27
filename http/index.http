@@ -148,8 +148,7 @@ POST http://localhost:3000/api/cssp/decrypt
 Authorization: accessToken {{accessToken}}
 
 {
-  "password": "gAAAAABqiAB7I3x8tidB3ykZGx_qIxHS6p6LZs4bMJnaba9GfrBef_EABQb6VyKnC2UWEP4Ie2bEDfe6XoQ0pnzzehBGO5W4xA==",
-  "username": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
+  "password": "1fbd4e08c1f6802e0aca322147c4026fbea5a93fa7fee777c306ab220a3c3a32",
   "version":"24"
 }
 
