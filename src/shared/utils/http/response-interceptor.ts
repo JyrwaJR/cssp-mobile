@@ -37,14 +37,20 @@ export const createResponseInterceptor = (apiClient: AxiosInstance) => {
       await handleLoginResponse(response);
       await handleRefreshTokenResponse(response);
       if (__DEV__) {
-        console.log('response interceptor', response.data);
+        console.log('response interceptor', {
+          url: response.config.url,
+          data: response.data,
+        });
       }
       return response;
     },
 
     async (error: AxiosError) => {
       if (__DEV__) {
-        console.log('response interceptor error', error);
+        console.log('response interceptor', {
+          url: error.config?.url,
+          error,
+        });
       }
       const originalRequest = error.config as InternalAxiosRequestConfig & {
         _retry?: boolean;
