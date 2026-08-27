@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { Icon } from '@components/ui/icon';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import * as Linking from 'expo-linking';
+import { APP_LINKS } from '@utils/constants';
 /**
  * Registration guide screen shown before the wizard.
  *
@@ -18,12 +19,11 @@ import * as Linking from 'expo-linking';
  */
 export function RegistrationInstructionScreen() {
   const handleEmailSupport = async () => {
-    const url = `mailto:dat-shil-meg@nic.in`;
+    const url = `mailto:${APP_LINKS.EMAIL.DAT_SHIL_MEG}`;
 
     const supported = await Linking.canOpenURL(url);
 
     if (!supported) {
-      console.log('No email app available');
       return;
     }
 
@@ -31,12 +31,11 @@ export function RegistrationInstructionScreen() {
   };
 
   const handlePhoneSupport = async () => {
-    const url = `tel:03642226553`;
+    const url = `tel:${APP_LINKS.PHONE.LAND_LINE}`;
 
     const supported = await Linking.canOpenURL(url);
 
     if (!supported) {
-      console.log('No email app available');
       return;
     }
 
