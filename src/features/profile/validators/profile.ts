@@ -8,6 +8,9 @@ import { z } from 'zod';
  */
 export const ProfileUpdateSchema = z.object({
   name: z.string().min(1, 'Name is required').max(120, 'Name must be 120 characters or less'),
+  organization: z
+    .string('organization is required')
+    .min(3, 'Organization should be atleast 3 in length'),
   username: z
     .string()
     .min(1, 'Username is required')

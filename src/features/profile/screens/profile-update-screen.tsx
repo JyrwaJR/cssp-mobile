@@ -103,6 +103,33 @@ export function ProfileUpdateScreen() {
               />
             </View>
 
+            <View className="gap-1.5">
+              <Text className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                Organization
+              </Text>
+
+              <Controller
+                control={control}
+                name="organization"
+                render={({ field: { onChange, value } }) => (
+                  <View>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      placeholder="Enter your organization"
+                      error={!!errors.organization?.message}
+                      autoCapitalize="none"
+                    />
+
+                    {errors.organization && (
+                      <Text className="mt-1 text-sm text-destructive">
+                        {errors.organization.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
+              />
+            </View>
             {/* Username */}
             <View className="gap-1.5">
               <Text className="text-sm font-bold uppercase tracking-wider text-muted-foreground">

@@ -1,7 +1,7 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, RefreshControl } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Container } from '@components/layout';
-import { Icon } from '@components/ui';
+import { Button } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
 import { ProfileFieldRow } from '../components';
@@ -17,6 +17,8 @@ import { ProfileFieldRow } from '../components';
 export function ProfileScreen() {
   const router = useRouter();
   const user = useAuthStore((s) => s.user);
+  const refresh = useAuthStore((s) => s.refresh);
+  const isLoading = useAuthStore((s) => s.isAuthLoading);
 
   if (!user) {
     return (
@@ -40,17 +42,24 @@ export function ProfileScreen() {
   ];
 
   return (
-    <Container scrollable>
+    <Container
+      scrollable
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refresh} />}>
       <View className="w-full gap-5">
-        {/* Avatar */}
-        <View className="items-center gap-2 py-2">
-          <View className="bg-primary/10 h-20 w-20 items-center justify-center rounded-full">
-            <Icon name="user-01" size={40} color="#2563eb" />
+        <View className="gap-2">
+          <View className="bg-primary/10 self-start py-1">
+            <Text className="text-sm font-bold uppercase tracking-wider text-primary">
+              Personal info
+            </Text>
           </View>
-          <Text className="text-lg font-extrabold text-foreground">{user.name}</Text>
-          <Text className="text-sm font-medium text-muted-foreground">@{user.username}</Text>
-        </View>
 
+          <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+            {user.name}
+          </Text>
+          <Text className="text-sm font-medium text-muted-foreground">
+            {user.organization ?? '-'}
+          </Text>
+        </View>
         {/* Field list */}
         <View className="rounded-md border border-gray-200/80 bg-card p-4">
           {fields.map((f) => (
@@ -59,12 +68,9 @@ export function ProfileScreen() {
         </View>
 
         {/* Update action */}
-        <Pressable onPress={() => router.push(PAGE_ROUTES.PROFILE_UPDATE)}>
-          <View className="border-primary/30 bg-primary/5 flex-row items-center justify-center gap-2 rounded-md border p-3">
-            <Icon name="contact-01" size={20} color="#2563eb" />
-            <Text className="text-sm font-bold text-primary">Update Profile</Text>
-          </View>
-        </Pressable>
+        <Button size={'lg'} onPress={() => router.push(PAGE_ROUTES.PROFILE.UPDATE)}>
+          Update Profile
+        </Button>
       </View>
     </Container>
   );
