@@ -5,7 +5,6 @@ const readline = require('readline');
 const BASE_PATH = path.join(process.cwd(), 'src', 'features');
 
 const FOLDERS = [
-  'api',
   'components',
   'hooks',
   'screens',
