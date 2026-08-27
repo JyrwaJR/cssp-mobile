@@ -24,6 +24,7 @@ export const PAGE_HEADERS = {
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },
   '/contact-us': { title: 'Contact Us', showBackButton: true },
   '/change-password': { title: 'Change Password', showBackButton: true },
+  '/profile-update': { title: 'Update Profile', showBackButton: true },
   '/about': { title: 'About Us', showBackButton: true },
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
