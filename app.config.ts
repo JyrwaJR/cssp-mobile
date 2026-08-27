@@ -8,15 +8,14 @@ const config: ExpoConfig = {
   scheme: 'cssp-mobile',
 
   platforms: ['ios', 'android'],
-
   orientation: 'portrait',
-
   userInterfaceStyle: 'light',
 
   icon: './src/shared/assets/images/logo.jpg',
 
   plugins: [
     'expo-router',
+
     [
       'expo-splash-screen',
       {
@@ -28,9 +27,16 @@ const config: ExpoConfig = {
         },
       },
     ],
+
     'expo-secure-store',
     'expo-font',
-    'expo-status-bar',
+
+    [
+      'react-native-vision-camera',
+      {
+        cameraPermission: 'CSSP Mobile needs access to your camera for photo verification.',
+      },
+    ],
   ],
 
   experiments: {
@@ -42,7 +48,9 @@ const config: ExpoConfig = {
 
   ios: {
     supportsTablet: true,
+
     bundleIdentifier: 'com.jyrwajr.csspmobile',
+
     infoPlist: {
       NSCameraUsageDescription: 'CSSP Mobile needs access to your camera for photo verification.',
     },
@@ -50,12 +58,13 @@ const config: ExpoConfig = {
 
   android: {
     package: 'com.jyrwajr.csspmobile',
-    permissions: ['android.permission.CAMERA'],
+
     adaptiveIcon: {
       foregroundImage: './src/shared/assets/images/logo.jpg',
       backgroundColor: '#ffffff',
     },
   },
+
   extra: {
     eas: {
       projectId: '9ac6a35c-06b5-445c-8227-37951817b496',
