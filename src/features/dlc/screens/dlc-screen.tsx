@@ -39,11 +39,13 @@ export function DLCScreen() {
 
         <View className="gap-2">
           <View className="bg-primary/10 self-start py-1">
-            <Text className="text-xs font-bold uppercase tracking-wider text-primary">Photo</Text>
+            <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+              Self Verification
+            </Text>
           </View>
 
           <Text className="text-2xl font-extrabold tracking-tight text-foreground">
-            Photo Verification
+            Digital Life Certificate
           </Text>
 
           <Text className="text-sm font-medium text-muted-foreground">
