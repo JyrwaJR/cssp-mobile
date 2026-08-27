@@ -128,66 +128,70 @@ export function DLCScreen() {
         )}
 
         {/* Primary Action Button | Check if camera Permission is granted */}
-        <Ternary
-          condition={hasPermission}
-          ifTrue={
-            <Button
-              disabled={isDisableCapture}
-              size="lg"
-              onPress={handleCapturePress}
-              activeOpacity={0.8}>
-              Capture Photo
-            </Button>
-          }
-          ifFalse={
-            <Ternary
-              condition={canRequestPermission}
-              ifTrue={
-                <>
-                  <Alert variant="destructive">
-                    <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+        {
+          /* Partner Logos */
+          <Ternary
+            condition={hasPermission}
+            ifTrue={
+              <Button
+                disabled={isDisableCapture}
+                size="lg"
+                onPress={handleCapturePress}
+                activeOpacity={0.8}>
+                Capture Photo
+              </Button>
+            }
+            ifFalse={
+              <Ternary
+                condition={canRequestPermission}
+                ifTrue={
+                  <>
+                    <Alert variant="destructive">
+                      <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
 
-                    <View className="flex-1">
-                      <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+                      <View className="flex-1">
+                        <AlertTitle className="text-sm">Camera Access Required</AlertTitle>
 
-                      <AlertDescription>
-                        Camera access is required to continue. Please allow camera permission in
-                        your device settings.
-                      </AlertDescription>
-                    </View>
-                  </Alert>
+                        <AlertDescription>
+                          Camera access is required to capture a photo. Please grant camera
+                          permission to continue.
+                        </AlertDescription>
+                      </View>
+                    </Alert>
 
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    onPress={requestPermission}
-                    activeOpacity={0.8}>
-                    Allow Camera
-                  </Button>
-                </>
-              }
-              ifFalse={
-                <>
-                  <Alert variant="destructive">
-                    <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onPress={requestPermission}
+                      activeOpacity={0.8}>
+                      Allow Camera Access
+                    </Button>
+                  </>
+                }
+                ifFalse={
+                  <>
+                    <Alert variant="destructive">
+                      <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
 
-                    <View className="flex-1">
-                      <AlertTitle className="text-sm">Camera Permission Required</AlertTitle>
+                      <View className="flex-1">
+                        <AlertTitle className="text-sm">Camera Access Blocked</AlertTitle>
 
-                      <AlertDescription>
-                        Camera access is disabled. Please enable it in your device settings.
-                      </AlertDescription>
-                    </View>
-                  </Alert>
-                  <Button size="lg" variant="outline" onPress={openSettings} activeOpacity={0.8}>
-                    Open App Settings
-                  </Button>
-                </>
-              }
-            />
-          }
-        />
-        {/* Partner Logos */}
+                        <AlertDescription>
+                          Camera permission has been denied. Please enable camera access in your app
+                          settings to continue.
+                        </AlertDescription>
+                      </View>
+                    </Alert>
+
+                    <Button size="lg" variant="outline" onPress={openSettings} activeOpacity={0.8}>
+                      Open App Settings
+                    </Button>
+                  </>
+                }
+              />
+            }
+          />
+        }
         <FooterImg />
       </ScrollView>
     </SafeAreaView>
