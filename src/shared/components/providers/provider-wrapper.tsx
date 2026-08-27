@@ -30,6 +30,7 @@ type Props = {
  * 4. Navigation & Security Gates (LocalAuth, AuthRedirect)
  */
 export const ProviderWrapper = ({ children }: Props) => {
+  // Prevent user from taking screen shot
   usePreventScreenCapture();
   return (
     <GlobalErrorBoundary>

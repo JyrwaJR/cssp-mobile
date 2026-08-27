@@ -29,14 +29,6 @@ const config: ExpoConfig = {
     ],
 
     'expo-secure-store',
-    'expo-font',
-
-    [
-      'react-native-vision-camera',
-      {
-        cameraPermission: 'CSSP Mobile needs access to your camera for photo verification.',
-      },
-    ],
   ],
 
   experiments: {
@@ -58,6 +50,7 @@ const config: ExpoConfig = {
 
   android: {
     package: 'com.jyrwajr.csspmobile',
+    permissions: ['android.permission.CAMERA'],
 
     adaptiveIcon: {
       foregroundImage: './src/shared/assets/images/logo.jpg',
