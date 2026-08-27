@@ -10,7 +10,7 @@ import { NotificationProvider } from './notification-provider';
 import { TQueryProvider } from './query-provider';
 import { ThemeProvider } from './theme-provider';
 // Shared Components & Redirects
-import { AuthRedirect } from '@components/common/auth-redirect';
+import { AuthRedirect } from '@components/common';
 import { UpdateModal } from './update-modal';
 import { GlobalErrorBoundary } from './global-error-boundary';
 import { usePreventScreenCapture } from 'expo-screen-capture';
@@ -30,7 +30,7 @@ type Props = {
  * 4. Navigation & Security Gates (LocalAuth, AuthRedirect)
  */
 export const ProviderWrapper = ({ children }: Props) => {
-  // Prevent user from taking screen shot
+  // Prevent user from taking screen shot or screen recording
   usePreventScreenCapture();
   return (
     <GlobalErrorBoundary>

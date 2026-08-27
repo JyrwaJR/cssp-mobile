@@ -9,7 +9,7 @@ export function useVerificationStatus() {
 
   const ppo_no = user?.ppo_no || process.env.EXPO_PUBLIC_PPO_NO;
 
-  const isEnabled = process.env.NODE_ENV === 'development' ? true : isSignedIn && !!ppo_no;
+  const isEnabled = isSignedIn && !!ppo_no;
 
   return useQuery({
     queryKey: ['verificationStatus', ppo_no],
