@@ -3,7 +3,6 @@ import { ENDPOINTS } from '@utils/constants/endpoints';
 import { http } from '@utils/http';
 import { RegistrationStatusInput } from '../validators';
 import { useRegistrationStore } from '../store/registration';
-import { sha256 } from '@lib/encryption';
 
 type PPOStatus = {
   bank_account_no: string;
