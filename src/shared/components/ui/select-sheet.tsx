@@ -21,13 +21,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { cn } from '@utils/helpers/cn';
 import { Ternary } from '@components/common';
 import { Button } from './button';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import {
-  CheckmarkCircle02Icon,
-  ChevronDownIcon,
-  EllipseIcon,
-  FileNotFoundIcon,
-} from '@components/ui/icons';
+import { Icon } from './icon';
 
 /**
  * A single option shape for the {@link SelectSheet} component.
@@ -151,7 +145,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
           )}>
           {loading ? 'Loading...' : displayText}
         </Text>
-        <HugeiconsIcon icon={ChevronDownIcon} size={18} color="#9ca3af" />
+        <Icon name="chevron-down" size={18} color="#9ca3af" />
       </TouchableOpacity>
 
       {error && <Text className="ml-1 mt-2 text-base text-destructive">{error}</Text>}
@@ -251,7 +245,7 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
               ifTrue={
                 <View className="items-center justify-center gap-y-2 px-5 py-10">
                   <View className="rounded-md  bg-primary p-2">
-                    <HugeiconsIcon icon={FileNotFoundIcon} className="text-white" size={48} />
+                    <Icon name="file-not-found" size={48} className="text-white" />
                   </View>
                   <Text className="text-graphite mt-3 text-center text-lg">
                     No options available. Please check and try again.
@@ -299,9 +293,9 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                       )}
                     </View>
                     {isSelected ? (
-                      <HugeiconsIcon icon={CheckmarkCircle02Icon} size={22} color="#3b82f6" />
+                      <Icon name="check-circle-2" size={22} color="#3b82f6" />
                     ) : (
-                      <HugeiconsIcon icon={EllipseIcon} size={22} color="#d1d5db" />
+                      <Icon name="circle" size={22} color="#d1d5db" />
                     )}
                   </TouchableOpacity>
                 );

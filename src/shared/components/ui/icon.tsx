@@ -7,6 +7,8 @@ import {
   Book01Icon,
   Camera01Icon,
   CheckmarkCircle01Icon,
+  CheckmarkCircle02Icon,
+  ChevronDownIcon,
   Contact01Icon,
   DashboardSquare01Icon,
   EllipseIcon,
@@ -46,8 +48,10 @@ export type IconName =
   | 'book-01'
   | 'shield'
   | 'check-circle'
+  | 'check-circle-2'
   | 'circle'
   | 'check'
+  | 'chevron-down'
   | 'map-pin'
   | 'phone'
   | 'printer'
@@ -97,10 +101,14 @@ const getHugeIcon = (name: IconName) => {
       return Shield01Icon;
     case 'check-circle':
       return CheckmarkCircle01Icon;
+    case 'check-circle-2':
+      return CheckmarkCircle02Icon;
     case 'circle':
       return EllipseIcon;
     case 'check':
       return Tick01Icon;
+    case 'chevron-down':
+      return ChevronDownIcon;
     case 'map-pin':
       return MapPinIcon;
     case 'phone':
