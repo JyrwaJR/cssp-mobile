@@ -11,12 +11,5 @@ import { FaceVerificationScreen } from '@features/verification/screens';
 export default function FaceRecognitionPage() {
   const { registrationStatus } = useLocalSearchParams<{ registrationStatus: string }>();
 
-  return (
-    <>
-      <FaceVerificationScreen registrationStatus={registrationStatus === '1' ? 1 : 0} />
-    </>
-  );
+  return <FaceVerificationScreen registrationStatus={registrationStatus === '1' ? 1 : 0} />;
 }
-// export default function page() {
-//   return null;
-// }
