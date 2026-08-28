@@ -7,19 +7,20 @@ import { useCheckPPO } from '../hooks';
 import { Input } from '@components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { Icon } from '@components/ui/icon';
-import { useRegistrationStore } from '../store/registration';
 import { cn } from '@utils/helpers';
+
+const defaultValues = {
+  ppo_no: process.env.EXPO_PUBLIC_PPO_NO,
+};
 
 export const RegistrationStatusForm = () => {
   const { mutate, isPending, data, isSuccess } = useCheckPPO();
-  const { formData } = useRegistrationStore();
 
-  const ppono = formData.ppo_no || '';
   const form = useForm<RegistrationStatusInput>({
     resolver: zodResolver(RegistrationStatusSchema),
     // Seed from the store so navigating Back to this step preserves the
     // previously entered PPO number (forms remount per step).
-    defaultValues: { ppo_no: ppono },
+    defaultValues,
   });
 
   const onSubmit = (data: RegistrationStatusInput) => {
