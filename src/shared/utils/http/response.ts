@@ -6,11 +6,20 @@
  */
 
 import { TokenStoreManager } from '@stores/token.store';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { ApiResponse } from '@sharedTypes/api';
 import { logger } from '@utils/logger';
 import { ENDPOINTS } from '@utils/constants/endpoints';
 import { LoginT } from '@sharedTypes/auth';
+import { triggerSessionExpired } from './session-expired-handler';
+import {
+  failedQueue,
+  isRefreshing,
+  processQueue,
+  refreshToken,
+  setRefreshing,
+} from './token-refresher';
+import apiClient from './client';
 
 /** Shape of error bodies the backend may return. */
 type BackendErrorBody = {
@@ -188,10 +197,52 @@ export const handleLoginResponse = async (response: AxiosResponse) => {
   return response;
 };
 
-export const handleRefreshTokenResponse = async (response: AxiosResponse) => {
-  // TODO: handle renew token response
-  if (response.status === 200 && response.config.url?.endsWith('/validate_token')) {
-    // TODO
+export const handleRefreshTokenResponse = async (
+  response: AxiosResponse
+): Promise<AxiosResponse> => {
+  const originalRequest = response.config as InternalAxiosRequestConfig & {
+    _retry?: boolean;
+  };
+
+  const refreshResponseStatus = response?.status === 202;
+
+  if (refreshResponseStatus && !originalRequest._retry) {
+    if (isRefreshing) {
+      return new Promise((resolve, reject) => {
+        failedQueue.push({
+          resolve: (token: string) => {
+            originalRequest.headers.Authorization = `accessToken ${token}`;
+            resolve(apiClient(originalRequest));
+          },
+          reject,
+        });
+      });
+    }
+
+    originalRequest._retry = true;
+    setRefreshing(true);
+
+    try {
+      const newToken = await refreshToken();
+      processQueue(null, newToken);
+
+      if (originalRequest.headers) {
+        originalRequest.headers.Authorization = `accessToken ${newToken}`;
+      }
+      return apiClient(originalRequest);
+    } catch (refreshError) {
+      processQueue(refreshError, null);
+
+      await TokenStoreManager.removeTokens();
+
+      triggerSessionExpired();
+
+      if (response) return response;
+
+      return response;
+    } finally {
+      setRefreshing(false);
+    }
   }
   return response;
 };

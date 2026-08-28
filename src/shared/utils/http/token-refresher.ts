@@ -11,6 +11,8 @@ import { tokenRefreshClient } from './token-refresh-client';
 import { ENDPOINTS } from '@utils/constants/endpoints';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
+import { router } from 'expo-router';
+import { PAGE_ROUTES } from '@utils/constants';
 
 /** Flag indicating if a token refresh request is currently in flight. */
 export let isRefreshing = false;
@@ -52,26 +54,32 @@ type RefreshResponse = {
  */
 export const refreshToken = async (): Promise<string> => {
   const refreshTokenValue = await TokenStoreManager.getRefreshToken();
+  const accessTokenValue = await TokenStoreManager.getAccessToken();
 
   if (!refreshTokenValue) {
     throw new Error('No refresh token available');
   }
 
-  const response = await tokenRefreshClient.post<{ data?: RefreshResponse }>(
+  const response = await tokenRefreshClient.post<RefreshResponse>(
     ENDPOINTS.AUTH.VALIDATE_TOKEN,
     new URLSearchParams({ token: refreshTokenValue }),
     {
       headers: {
-        Authorization: `renewToken ${refreshTokenValue}`,
+        Authorization: `accessToken ${accessTokenValue}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     }
   );
 
-  const newAccessToken = response.data.data?.token ?? '';
+  const newAccessToken = response.data.token;
 
   if (newAccessToken) {
     logger.info('Token Refreshed');
     await TokenStoreManager.addAccessToken(newAccessToken);
+  } else {
+    // remove both token when backend does not return a new token when refresh
+    await TokenStoreManager.removeTokens();
+    router.replace(PAGE_ROUTES.HOME);
   }
 
   return newAccessToken;
