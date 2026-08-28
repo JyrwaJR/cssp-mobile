@@ -7,6 +7,7 @@ import { matchPageHeader, cn } from '@utils/helpers';
 import { Icon } from '@components/ui/icon';
 import { DrawerToggleButton } from 'expo-router/drawer';
 import { NicBanner } from '@components/common/nic-banner';
+import { NetworkStatusBanner } from '@components/common/network-status-banner';
 
 export const StackHeader = memo(() => {
   const path = useRoutePath();
@@ -61,6 +62,7 @@ export const StackHeader = memo(() => {
 
       {/* Banner docked right below the header */}
       <NicBanner />
+      <NetworkStatusBanner />
     </View>
   );
 });
