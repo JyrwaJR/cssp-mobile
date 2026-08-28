@@ -35,7 +35,7 @@ function getBundleId(base: string): string {
 }
 
 const config: ExpoConfig = {
-  name: 'PensionApp',
+  name: 'cssp-mobile',
   slug: 'cssp',
   version: '3.0.0',
 
