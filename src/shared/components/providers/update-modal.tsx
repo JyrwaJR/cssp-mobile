@@ -17,7 +17,7 @@ export const UpdateModal: React.FC = () => {
 
   if (!isRealDevice()) return null;
 
-  // if (!isUpdateReady && !isDownloading) return null;
+  if (!isUpdateReady && !isDownloading) return null;
 
   return (
     <Modal transparent animationType="fade" visible={isUpdateReady || isDownloading}>

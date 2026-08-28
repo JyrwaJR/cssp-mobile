@@ -28,6 +28,7 @@ import {
   UserCircle02Icon,
   UserRemove01Icon,
   UserUnlock01Icon,
+  Rocket01Icon,
 } from '@hugeicons/core-free-icons';
 import { cn } from '@utils/helpers';
 
@@ -58,6 +59,7 @@ export type IconName =
   | 'phone'
   | 'printer'
   | 'mail'
+  | 'rocket-01'
   | 'smartphone';
 
 type Props = {
@@ -123,6 +125,8 @@ const getHugeIcon = (name: IconName) => {
       return Mail01Icon;
     case 'smartphone':
       return SmartPhone01Icon;
+    case 'rocket-01':
+      return Rocket01Icon;
     default:
       return MenuIcon;
   }
