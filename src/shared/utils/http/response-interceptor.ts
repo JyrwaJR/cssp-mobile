@@ -29,25 +29,11 @@ export const createResponseInterceptor = (apiClient: AxiosInstance) => {
       // Capture the return value - it may be the retried response after token refresh
       const refreshedResponse = await handleRefreshTokenResponse(response);
 
-      if (__DEV__) {
-        console.log('response interceptor', {
-          url: response.config.url,
-          data: refreshedResponse.data,
-          refreshed: refreshedResponse !== response,
-        });
-      }
       // Return the refreshed response if token was refreshed, otherwise original
       return refreshedResponse;
     },
 
     async (error: AxiosError) => {
-      if (__DEV__) {
-        console.log('response interceptor', {
-          url: error.config?.url,
-          error,
-        });
-      }
-
       const originalRequest = error.config as InternalAxiosRequestConfig & {
         _retry?: boolean;
       };
