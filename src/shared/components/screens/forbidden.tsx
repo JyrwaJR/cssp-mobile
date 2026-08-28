@@ -1,10 +1,8 @@
 import { View, Text } from 'react-native';
-import { Button } from '@components/ui/button';
+import { Button, Icon } from '@components/ui';
 import { type Href, Stack, useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { SecurityBlockIcon } from '@components/ui/icons';
 
 /**
  * Props for the {@link Forbidden} screen component.
@@ -62,7 +60,7 @@ export const Forbidden = ({
       />
       <View className="flex-1 items-center justify-center gap-y-5 p-6">
         <View className="bg-destructive/20 h-24 w-24 items-center justify-center rounded-md">
-          <HugeiconsIcon icon={SecurityBlockIcon} size={48} color="#EF4444" />
+          <Icon name="security-block" size={48} color="#EF4444" />
         </View>
 
         <Text className="text-center text-4xl font-bold tracking-widest text-foreground">

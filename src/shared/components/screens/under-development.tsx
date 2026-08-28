@@ -1,11 +1,8 @@
 import { View, Text } from 'react-native';
-import React from 'react';
 import { useRouter } from 'expo-router';
-import { Button } from '@components/ui';
+import { Button, Icon } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Container } from '@components/layout';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { ToolsIcon } from '@components/ui/icons';
 
 interface UnderDevelopmentProps {
   title?: string;
@@ -23,7 +20,7 @@ export const UnderDevelopment = ({
   return (
     <Container className="flex-1 items-center justify-center">
       <View className="mb-6 items-center justify-center rounded-md bg-primary p-6">
-        <HugeiconsIcon icon={ToolsIcon} className="text-white" size={48} />
+        <Icon name="tool" className="text-white" size={48} />
       </View>
 
       <Text className="mb-4 text-center text-2xl font-bold text-foreground">{title}</Text>

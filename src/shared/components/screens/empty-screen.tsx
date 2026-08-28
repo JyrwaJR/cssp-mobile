@@ -1,10 +1,7 @@
-import React from 'react';
 import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 import { Container } from '../layout/container';
-import { Button } from '@components/ui';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { FileNotFoundIcon } from '@components/ui/icons';
+import { Button, Icon } from '@components/ui';
 
 interface EmptyScreenProps {
   title: string;
@@ -22,7 +19,7 @@ export const EmptyScreen = ({
   return (
     <Container className={cn('flex-1 items-center justify-center px-6')}>
       <View className={cn('mb-6 h-24 w-24 items-center justify-center rounded-md bg-primary')}>
-        <HugeiconsIcon icon={FileNotFoundIcon} className="text-white" size={48} />
+        <Icon name="file-not-found" className="text-white" size={48} />
       </View>
 
       <Text className={cn('mb-2 text-center text-2xl font-bold text-foreground')}>{title}</Text>

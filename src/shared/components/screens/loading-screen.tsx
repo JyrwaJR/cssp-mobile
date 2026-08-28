@@ -1,5 +1,4 @@
 import { cn } from '@utils/helpers/cn';
-import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { Container } from '../layout/container';
 

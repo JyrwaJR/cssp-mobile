@@ -24,6 +24,9 @@ import {
   UserCircle02Icon,
   UserUnlock01Icon,
   Rocket01Icon,
+  FileNotFoundIcon,
+  SecurityBlockIcon,
+  ToolsIcon,
 } from './icons';
 import { cn } from '@utils/helpers';
 
@@ -50,7 +53,10 @@ export type IconName =
   | 'printer'
   | 'mail'
   | 'rocket-01'
-  | 'smartphone';
+  | 'security-block'
+  | 'tool'
+  | 'smartphone'
+  | 'file-not-found';
 
 type Props = {
   name: IconName;
@@ -107,6 +113,12 @@ const getHugeIcon = (name: IconName) => {
       return SmartPhone01Icon;
     case 'rocket-01':
       return Rocket01Icon;
+    case 'file-not-found':
+      return FileNotFoundIcon;
+    case 'security-block':
+      return SecurityBlockIcon;
+    case 'tool':
+      return ToolsIcon;
     default:
       return MenuIcon;
   }
