@@ -23,9 +23,7 @@ export const RegistrationStatusForm = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: RegistrationStatusInput) => {
-    mutate(data);
-  };
+  const onSubmit = (data: RegistrationStatusInput) => mutate(data);
 
   return (
     <View className="w-full gap-4 py-2">
