@@ -26,7 +26,6 @@ export interface FaceVerificationDeclarationFormProps {
  * Enhanced DLC self-declaration form with side-by-side radio buttons,
  * simplified copy, and fixed state handlers.
  */
-// TODO: // remarried value
 export function FaceVerificationDeclarationForm({
   selfVerCode,
   selfVerNec,
@@ -36,8 +35,7 @@ export function FaceVerificationDeclarationForm({
   onSubmit,
   previewUri,
 }: FaceVerificationDeclarationFormProps) {
-  // const showMarriageQuestion = selfVerCode === '4';
-  const showMarriageQuestion = true;
+  const showMarriageQuestion = selfVerCode === '4';
 
   // Default selection is 'No' when unanswered
   const isNecNo = selfVerNec === 'No' || selfVerNec === '';
@@ -77,7 +75,9 @@ export function FaceVerificationDeclarationForm({
         {/* Employment Section */}
         <Text className="text-center font-bold text-primary">EMPLOYMENT STATUS</Text>
         <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
-          <Text className="flex-1 pr-2 text-sm font-bold text-foreground">Are you Employed?</Text>
+          <Text className="flex-1 pr-2 text-sm font-bold text-foreground">
+            Are you Re-Employed?
+          </Text>
           <View className="flex-row items-center gap-3">
             <TouchableOpacity
               activeOpacity={0.7}
@@ -110,40 +110,6 @@ export function FaceVerificationDeclarationForm({
         {showMarriageQuestion && (
           <>
             <Text className="mt-2 text-center font-bold text-primary">MARITAL STATUS</Text>
-
-            <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
-              <Text className="flex-1 pr-2 text-sm font-bold text-foreground">
-                Are you Married?
-              </Text>
-
-              <View className="flex-row items-center gap-3">
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => onChangeNmc('Yes')}
-                  className="flex-row items-center gap-1.5 px-2 py-1">
-                  <View
-                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
-                      isNmcYes ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
-                    }`}>
-                    {isNmcYes && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
-                  </View>
-                  <Text className="text-sm font-bold text-foreground">Yes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => onChangeNmc('No')}
-                  className="flex-row items-center gap-1.5 px-2 py-1">
-                  <View
-                    className={`h-5 w-5 items-center justify-center rounded-full border-2 ${
-                      isNmcNo ? 'bg-primary/10 border-primary' : 'border-slate-400 bg-white'
-                    }`}>
-                    {isNmcNo && <View className="h-2.5 w-2.5 rounded-full bg-primary" />}
-                  </View>
-                  <Text className="text-sm font-bold text-foreground">No</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
             <View className="mb-4 flex-row items-center justify-between rounded-md border border-border bg-background p-3">
               <Text className="flex-1 pr-2 text-sm font-bold text-foreground">
                 Are you Re-Married?
