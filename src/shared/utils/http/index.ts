@@ -6,3 +6,4 @@ export * from './response';
 export * from './response-interceptor';
 export * from './session-expired-handler';
 export * from './token-refresher';
+export { tokenRefreshClient } from './token-refresh-client';
