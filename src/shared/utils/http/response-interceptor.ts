@@ -22,7 +22,7 @@ import { handleLoginResponse, handleRefreshTokenResponse } from './response';
  * @returns A pair of [onFulfilled, onRejected] handlers for `axios.interceptors.response.use()`.
  */
 
-export const createResponseInterceptor = (apiClient: AxiosInstance) => {
+export const createResponseInterceptor = () => {
   return [
     async (response: AxiosResponse) => {
       await handleLoginResponse(response);

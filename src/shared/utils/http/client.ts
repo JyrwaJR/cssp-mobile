@@ -18,6 +18,6 @@ const apiClient = create({
 
 apiClient.interceptors.request.use(createRequestInterceptor());
 
-apiClient.interceptors.response.use(...createResponseInterceptor(apiClient));
+apiClient.interceptors.response.use(...createResponseInterceptor());
 
 export default apiClient;
