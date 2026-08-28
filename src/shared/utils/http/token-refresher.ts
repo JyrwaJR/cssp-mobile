@@ -7,7 +7,7 @@
  */
 
 import type { QueueItem } from '@sharedTypes/api';
-import apiClient from './client';
+import { tokenRefreshClient } from './token-refresh-client';
 import { ENDPOINTS } from '@utils/constants/endpoints';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
@@ -57,14 +57,12 @@ export const refreshToken = async (): Promise<string> => {
     throw new Error('No refresh token available');
   }
 
-  const response = await apiClient.post<{ data?: RefreshResponse }>(
+  const response = await tokenRefreshClient.post<{ data?: RefreshResponse }>(
     ENDPOINTS.AUTH.VALIDATE_TOKEN,
     new URLSearchParams({ token: refreshTokenValue }),
     {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `renewToken ${refreshTokenValue}`,
-        Accept: 'application/json',
       },
     }
   );
