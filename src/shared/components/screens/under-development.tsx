@@ -5,7 +5,7 @@ import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Container } from '@components/layout';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { ToolsIcon } from '@hugeicons/core-free-icons';
+import { ToolsIcon } from '@components/ui/icons';
 
 interface UnderDevelopmentProps {
   title?: string;

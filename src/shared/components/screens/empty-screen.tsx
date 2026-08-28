@@ -4,7 +4,7 @@ import { cn } from '@utils/helpers/cn';
 import { Container } from '../layout/container';
 import { Button } from '@components/ui';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { FileNotFoundIcon } from '@hugeicons/core-free-icons';
+import { FileNotFoundIcon } from '@components/ui/icons';
 
 interface EmptyScreenProps {
   title: string;

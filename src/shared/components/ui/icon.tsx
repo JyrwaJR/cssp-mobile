@@ -4,7 +4,6 @@ import {
   AlertIcon,
   AlertTriangle,
   ArrowLeft01FreeIcons,
-  ArrowRight02FreeIcons,
   Book01Icon,
   Camera01Icon,
   CheckmarkCircle01Icon,
@@ -13,40 +12,31 @@ import {
   EllipseIcon,
   EyeClosedIcon,
   EyeIcon,
-  Home07Icon,
   InfoIcon,
-  Logout01Icon,
   Mail01Icon,
   MapPinIcon,
   MenuIcon,
-  MoneySend01Icon,
   PrinterIcon,
   Shield01Icon,
   SmartPhone01Icon,
   TelephoneIcon,
   Tick01Icon,
   UserCircle02Icon,
-  UserRemove01Icon,
   UserUnlock01Icon,
   Rocket01Icon,
-} from '@hugeicons/core-free-icons';
+} from './icons';
 import { cn } from '@utils/helpers';
 
 export type IconName =
   | 'eye-open'
   | 'eye-close'
   | 'user-unlock'
-  | 'arrow-right'
   | 'arrow-left'
   | 'menu'
   | 'info'
   | 'information-circle'
   | 'camera-01'
-  | 'money-send-01'
-  | 'home'
   | 'user-01'
-  | 'cancel-circle'
-  | 'logout-01'
   | 'alert-triangle'
   | 'contact-01'
   | 'alert-circle'
@@ -77,8 +67,6 @@ const getHugeIcon = (name: IconName) => {
       return EyeClosedIcon;
     case 'user-unlock':
       return UserUnlock01Icon;
-    case 'arrow-right':
-      return ArrowRight02FreeIcons;
     case 'arrow-left':
       return ArrowLeft01FreeIcons;
     case 'info':
@@ -93,16 +81,8 @@ const getHugeIcon = (name: IconName) => {
       return DashboardSquare01Icon;
     case 'camera-01':
       return Camera01Icon;
-    case 'money-send-01':
-      return MoneySend01Icon;
-    case 'cancel-circle':
-      return UserRemove01Icon;
     case 'user-01':
       return UserCircle02Icon;
-    case 'home':
-      return Home07Icon;
-    case 'logout-01':
-      return Logout01Icon;
     case 'contact-01':
       return Contact01Icon;
     case 'book-01':

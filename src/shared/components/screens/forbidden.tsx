@@ -4,7 +4,7 @@ import { type Href, Stack, useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { SecurityBlockIcon } from '@hugeicons/core-free-icons';
+import { SecurityBlockIcon } from '@components/ui/icons';
 
 /**
  * Props for the {@link Forbidden} screen component.

@@ -1,11 +1,9 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text } from 'react-native';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import * as Updates from 'expo-updates';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { logger } from '@utils/logger';
-import { Button } from '@components/ui/button';
+import { Button, Icon } from '@components/ui';
 import { Container } from '@components/layout';
 
 interface Props {
@@ -55,7 +53,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
               <View className="w-full overflow-hidden rounded-md border border-border p-8">
                 <View className="items-center">
                   <View className="bg-destructive/10 mb-6 h-20 w-20 items-center justify-center rounded-md border-destructive">
-                    <HugeiconsIcon icon={AlertCircleIcon} size={48} className="text-destructive" />
+                    <Icon name="alert-triangle" size={48} className="text-destructive" />
                   </View>
 
                   <Text className="mb-3 text-center text-2xl font-bold">Something went wrong</Text>

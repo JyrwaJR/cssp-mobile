@@ -27,7 +27,7 @@ import {
   ChevronDownIcon,
   EllipseIcon,
   FileNotFoundIcon,
-} from '@hugeicons/core-free-icons';
+} from '@components/ui/icons';
 
 /**
  * A single option shape for the {@link SelectSheet} component.

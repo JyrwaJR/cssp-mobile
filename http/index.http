@@ -1,5 +1,15 @@
-@renewToken= dn4XiQQd98ejiOJNgZxse7snsB7hOnBVb8LhqQ-ba-zp6qWUd8eTiODqmGAP_3z61BTCvZfzFSOuu0WhCimC5qCsGEv-r8VzHozzr0zIDAo74kELNyX0OuMtcR_W0DkNoQCJlAkw57EJUI1RMY-CxWv7AJsXZxyEc3VoCbvzZN-RI4k3djil_604B2_fGHbldGPzWSzm
-@accessToken= eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc1NzA3NTJ9.kYcEtLt-tBNgYW1ShTy1g6W_4XssBv_r7393R-HOUss
+@renewToken=  7WsMJrhiMnK1kloSrmcqHQp2Gq8cIJNfr8HdLiQ9XI16S3lMB1R0pY6P7xlic8Xoe9YLazO91kfVl0GUVSUfP5aegGGw619pcsqD6D0Vbb4qewfhf16RZ-RxZzJ7mvQ29zoQOdJ9aDQGSAPMYX1dKIf14wzaIhGxHbuFXbJaZ5HOxooyzZd08MwcFRaHEhtkJ2vkBBmq
+@accessToken=  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc5NDcwNjd9.qxNpZfFxCTCH-bxjofsxAwKUk5ElEfJDZ34Dra9my0k
+
+# {
+#   "approval": "00",
+#   "has_dlc": "01",
+#   "name": "R Lyngdoh",
+#   "renew_token": "7WsMJrhiMnK1kloSrmcqHQp2Gq8cIJNfr8HdLiQ9XI16S3lMB1R0pY6P7xlic8Xoe9YLazO91kfVl0GUVSUfP5aegGGw619pcsqD6D0Vbb4qewfhf16RZ-RxZzJ7mvQ29zoQOdJ9aDQGSAPMYX1dKIf14wzaIhGxHbuFXbJaZ5HOxooyzZd08MwcFRaHEhtkJ2vkBBmq",
+#   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc5NDcwNjd9.qxNpZfFxCTCH-bxjofsxAwKUk5ElEfJDZ34Dra9my0k",
+#   "uid": "MTExMTE=",
+#   "username": "TUcvMTF4eA=="
+# }
 
 ### Current User 
 # @name current user
@@ -90,19 +100,8 @@ Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 { 
-  "ppo_no": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
+  "ppo_no": "",
 }
-
-# Response
-# {
-#   "is_valid": "01",
-#   "ver_date": "25-04-2026",
-#   "ver_nec": "No",
-#   "ver_nmc": "No",
-#   "ver_place": "",
-#   "ver_status": "Photo is Approved. Do your next Face Verification on or after 25-10-2026\n\n The link to our Privacy Policy can be found on the manual of this app.",
-#   "ver_time": "16:16:31"
-# }
 
 ### Change Password
 # @name changePassword
@@ -116,16 +115,15 @@ Accept: application/json
   "newPassword":"",
 }
 
-#
+
 ### Validate Token
 # @name validateToken
 POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
-Authorization: accessToken {{accessToken}}
+Authorization: renewToken {{renewToken}}
 Accept: application/json
 
-uid=NzMwMDAwMTAzNA%3D%3D&request_token={{renewToken}}
-
+request_token=gAAAAABqkZniR2jrXekn1U6qfX0lREZNvDGc78hc3YQ1O39bYz7NSV3xbkDFmh3w8Nvm6fO4scf0UA4AHVx7fn1KtaUbjlaqIZRs3198nmMyq3Q2EP2ac6vvpZgrfpnfTuXYpakZNhgmxhaYXUKiY9LtcYsdVqzenKbhRQnYshPnTWsxjpS7C8ZF9hbF-Z4qrNOVgzc0w7D1oPreZHvxfsXLt0F9OASLApMWKLg-vOE3Bn-kGueAj-nWbDE-xfGSvrsFnVXfVCkD56F_DaM6NYUSRghJ6p0SFtNQrDEmwzHtieCWxkaX7bBBtlTjJYKVFYlYPzTpsrsFhEj5vlvTBD7Y5r5A298X5w%3D%3D&uid=gAAAAABqkZnipcrv2vyvYnNpDbUgNh1rZaNHN5TU3MQKeBrjmC6SmghkvrT1UQyyM81hr95SemmHdxWMb-WVjXdTO0NaYjD6TQ%3D%3D
 
 ### Manual
 # @name manual
@@ -134,17 +132,18 @@ Authorization: accessToken {{accessToken}}
 
 ### Encryption
 # @name encryption
-POST http://localhost:3000/api/cssp/encrypt
+POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
 Authorization: accessToken {{accessToken}}
 
 { 
-  "username":"{{USERNAME}}",
-  "password":"YTg1YzRmYzI2OTcxZDdhMTgxMTg0YzFhYzc5NDU3NTA2M2MyZDVjNDAyN2RiNGEzMmNlZjQ4YmE2YjE0Njg1YjA2eTExeDI4ejM4eDUzZHU2Ynk0MTh4MzUybTQwNXU1OTR1MTFheTQ3NXkyOTN5NDZtNDQwbTQzNG0yMWZ4MzRmdTI4N3UyNTB4"
+
+"uid":"NzMwMDAwMTAzNA",
+"request_token": "{{renewToken}}"
 }
 
 ### Decryption
 # @name decryption
-POST http://localhost:3000/api/cssp/decrypt
+POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt
 Authorization: accessToken {{accessToken}}
 
 {
@@ -154,7 +153,9 @@ Authorization: accessToken {{accessToken}}
 
 ### Decryption
 # @name decryption
-POST http://localhost:3000/api/cssp/format-password
+
+# 
+POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
 Authorization: accessToken {{accessToken}}
 
 {
