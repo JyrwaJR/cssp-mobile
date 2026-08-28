@@ -6,7 +6,8 @@
  * via a `POST /logs` endpoint for centralised log aggregation.
  */
 
-import apiClient from '@utils/http';
+import { logClient } from './log-client';
+
 /** Log severity levels. */
 type ErrorType = 'ERROR' | 'INFO' | 'WARN' | 'LOG';
 
@@ -26,7 +27,7 @@ const sendLogToServer = async (type: ErrorType, message: string, content: string
   };
 
   try {
-    await apiClient.post('/logs', logEntry);
+    await logClient.post('/logs', logEntry);
   } catch (error) {
     console.log('Failed to send logs to server', error);
   }
