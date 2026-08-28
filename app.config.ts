@@ -1,5 +1,16 @@
 import type { ExpoConfig } from 'expo/config';
 
+const bundleIdentifier = 'com.jyrwajr.csspmobile';
+const androidPackage = 'com.jyrwajr.csspmobile';
+
+const variant = process.env.APP_VARIANT;
+
+function getBundleId(base: string): string {
+  if (variant === 'development') return `${base}.dev`;
+  if (variant === 'preview') return `${base}.preview`;
+  return base;
+}
+
 const config: ExpoConfig = {
   name: 'cssp-mobile',
   slug: 'cssp',
@@ -41,7 +52,7 @@ const config: ExpoConfig = {
   ios: {
     supportsTablet: true,
 
-    bundleIdentifier: 'com.jyrwajr.csspmobile',
+    bundleIdentifier: getBundleId(bundleIdentifier),
 
     infoPlist: {
       NSCameraUsageDescription: 'CSSP Mobile needs access to your camera for photo verification.',
@@ -49,7 +60,7 @@ const config: ExpoConfig = {
   },
 
   android: {
-    package: 'com.jyrwajr.csspmobile',
+    package: getBundleId(androidPackage),
     permissions: ['android.permission.CAMERA'],
 
     adaptiveIcon: {
