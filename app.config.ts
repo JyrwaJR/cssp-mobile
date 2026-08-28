@@ -70,7 +70,7 @@ const config: ExpoConfig = {
     tsconfigPaths: true,
   },
 
-  assetBundlePatterns: ['**/*'],
+  assetBundlePatterns: ['src/shared/assets/**/*'],
 
   ios: {
     supportsTablet: true,
