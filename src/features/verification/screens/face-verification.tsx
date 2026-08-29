@@ -38,7 +38,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   // Photo output for capture (v5 outputs API)
   const photoOutput = usePhotoOutput({
     qualityPrioritization: 'speed',
-    quality: 0.2,
+    quality: 0.0, // lower the quality the lower the file size
   });
 
   // State machine
@@ -97,7 +97,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         { image_1: img1, image_2: img2 },
         {
           onSuccess: (data) => {
-            console.log('/verification response', data.message);
+            console.log('/verification response', data);
             if (data.success) {
               if (data.data) {
                 setVerResponse(data.data);
@@ -189,7 +189,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     } catch (error) {
       console.error('Capture error:', error);
       isCapturing.current = false;
-      setErrorMsg('Failed to capture image');
+      setErrorMsg(`Failed to capture image`);
       updatePhase('error');
     }
   }, [image1, image2, registrationStatus, photoOutput, submitVerification, updatePhase, updateMsg]);
@@ -372,15 +372,16 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         self_ver_code: verResponse?.self_ver_code ?? '',
       },
       {
-        onSuccess: ({ data }) => {
-          if (data) {
-            setVerResponse(data);
-            updatePhase('result');
+        onSuccess: ({ data, ...restData }) => {
+          if (restData.success) {
+            if (data) {
+              setVerResponse(data);
+              updatePhase('result');
+            }
+          } else {
+            setErrorMsg(restData.message || 'DLC submission failed');
+            updatePhase('error');
           }
-        },
-        onError: (error) => {
-          setErrorMsg(error.message || 'DLC submission failed');
-          updatePhase('error');
         },
       }
     );

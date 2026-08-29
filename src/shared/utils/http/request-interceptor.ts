@@ -8,6 +8,7 @@
 // import { encryptFields } from '@lib/encryption';
 import { encryptFields } from '@lib/encryption';
 import { TokenStoreManager } from '@stores/token.store';
+import { logger } from '@utils/logger';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 /**
@@ -24,6 +25,9 @@ import type { InternalAxiosRequestConfig } from 'axios';
  */
 export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
+    if (__DEV__) {
+      logger.log(`Request: ${config.method} ${config.url}`);
+    }
     const accessToken = await TokenStoreManager.getAccessToken();
 
     if (accessToken) {
@@ -46,6 +50,7 @@ export const createRequestInterceptor = () => {
         version: '24',
       };
     }
+
     return config;
   };
 };
