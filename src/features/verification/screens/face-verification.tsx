@@ -9,6 +9,7 @@ import {
 } from 'react-native-vision-camera';
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system/legacy';
+import { MAX_IMAGE_SIZE } from '@utils/constants/common';
 import { useRouter } from 'expo-router';
 import { FaceVerificationCamera } from '../components/face-verification-camera';
 import { FaceVerificationPhotoPreviewStep } from '../components/face-verification-photo-preview';
@@ -132,12 +133,23 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         ? photoFile.filePath
         : `file://${photoFile.filePath}`;
 
-      // TODO: Update this to not use legacy code
-      const base64Image = await FileSystem.readAsStringAsync(filePath, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
+      // Reject oversized captures BEFORE base64-encoding them.
+      const fileInfo = await FileSystem.getInfoAsync(filePath);
+      const size = fileInfo.exists ? (fileInfo.size ?? 0) : 0;
+      if (size > MAX_IMAGE_SIZE) {
+        await FileSystem.deleteAsync(filePath, { idempotent: true });
+        throw new Error('Photo exceeds the 2MB size limit');
+      }
 
-      await FileSystem.deleteAsync(filePath, { idempotent: true });
+      // Read to base64; ALWAYS delete the temp file, even on read failure.
+      let base64Image: string;
+      try {
+        base64Image = await FileSystem.readAsStringAsync(filePath, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+      } finally {
+        await FileSystem.deleteAsync(filePath, { idempotent: true });
+      }
 
       const cleanBase64 = base64Image.replace(/[\r\n\s]/g, '');
 
