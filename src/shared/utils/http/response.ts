@@ -35,6 +35,51 @@ const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again.';
 const NETWORK_ERROR_MESSAGE = 'Please check your internet connection.';
 
 /**
+ * Detects whether a value is an HTML document string.
+ *
+ * Heuristic check used to identify proxy/gateway error pages (which are served
+ * as HTML) so they are never shown verbatim to users.
+ *
+ * @param value - The value to inspect (typically a response body or message).
+ * @returns `true` when the value is a string that starts an `<html>` document.
+ */
+const isHtml = (value: unknown): value is string => {
+  return typeof value === 'string' && /<html[\s>]/i.test(value);
+};
+
+/**
+ * Resolves a user-facing error message from a raw backend value.
+ *
+ * When the value is a non-HTML string it is returned as-is; when it is not a
+ * usable string a generic fallback is used. If the value is an HTML document
+ * (e.g. a gateway error page) a friendly, status-aware message is returned
+ * instead of the raw markup.
+ *
+ * @param message - The raw backend value (may be HTML, a plain string, or empty).
+ * @param status - The HTTP status code used to tailor HTML fallback messages.
+ * @returns A safe, human-readable error message string.
+ */
+const getErrorMessage = (message: unknown, status?: number): string => {
+  if (!isHtml(message)) {
+    return typeof message === 'string' ? message : 'Something went wrong. Please try again.';
+  }
+
+  switch (status) {
+    case 502:
+      return 'The server is temporarily unavailable. Please try again later.';
+
+    case 503:
+      return 'The server is temporarily unavailable. Please try again later.';
+
+    case 504:
+      return 'The server took too long to respond. Please try again later.';
+
+    default:
+      return 'The server returned an unexpected response. Please try again later.';
+  }
+};
+
+/**
  * Extracts the most specific human-readable message from a backend body.
  *
  * Handles string bodies, `message`, `msg`, and string-valued `error` keys.
@@ -61,20 +106,28 @@ const extractBackendMessage = (data: unknown): string | undefined => {
  * Builds the standard failure-payload fields from a backend body.
  *
  * Always yields a `message`; preserves `errors` (validation map) and
- * object-shaped `error` details when present.
+ * object-shaped `error` details when present. When the backend returns a
+ * non-JSON (HTML) response body — typically from an upstream proxy or gateway —
+ * the message is resolved through {@link getErrorMessage} so the user sees a
+ * friendly, status-aware text instead of raw HTML markup.
+ *
+ * @param data - The raw response body (object, string, or empty).
+ * @param status - The HTTP status code, used to tailor HTML fallback messages.
+ * @returns The standard failure-payload fields.
  */
 const buildErrorFields = (
-  data: unknown
+  data: unknown,
+  status?: number
 ): Pick<ApiResponse<unknown>, 'message' | 'error' | 'errors'> => {
   if (data && typeof data === 'object') {
     const body = data as BackendErrorBody;
     return {
-      message: extractBackendMessage(body) ?? DEFAULT_ERROR_MESSAGE,
+      message: getErrorMessage(extractBackendMessage(body), status),
       ...(body.errors && { errors: body.errors }),
       ...(body.error && typeof body.error === 'object' && { error: body.error }),
     };
   }
-  return { message: extractBackendMessage(data) ?? DEFAULT_ERROR_MESSAGE };
+  return { message: getErrorMessage(data, status) };
 };
 
 /**
@@ -97,7 +150,7 @@ export const handleAxiosError = <T>(error: unknown): ApiResponse<T> => {
       return {
         success: false,
         status: error.response.status,
-        ...buildErrorFields(error.response.data),
+        ...buildErrorFields(error.response.data, error.response.status),
       };
     }
 
@@ -141,10 +194,15 @@ export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> =>
   const isSuccess = status >= 200 && status < 300;
 
   if (isSuccess) {
+    const message = extractBackendMessage(data);
     return {
       success: true,
       status,
-      message: extractBackendMessage(data) ?? DEFAULT_SUCCESS_MESSAGE,
+      // Use the status-aware HTML fallback only when the body is an HTML page;
+      // otherwise keep the normal "Success" default for JSON bodies.
+      message: isHtml(message)
+        ? getErrorMessage(message, status)
+        : (message ?? DEFAULT_SUCCESS_MESSAGE),
       data,
     };
   }
@@ -153,7 +211,7 @@ export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> =>
   return {
     success: false,
     status,
-    ...buildErrorFields(data),
+    ...buildErrorFields(data, status),
   };
 };
 
