@@ -6,7 +6,6 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 // Internal Providers
 import { AuthInitializer } from './auth-provider';
-import { NotificationProvider } from './notification-provider';
 import { TQueryProvider } from './query-provider';
 // Shared Components & Redirects
 import { AuthRedirect } from '@components/common';
@@ -38,13 +37,11 @@ export const ProviderWrapper = ({ children }: Props) => {
           <TQueryProvider>
             <QueryErrorResetBoundary>
               <AuthInitializer>
-                <NotificationProvider>
-                  <AuthRedirect>
-                    <StatusBar style="auto" animated />
-                    {children}
-                    <UpdateModal />
-                  </AuthRedirect>
-                </NotificationProvider>
+                <AuthRedirect>
+                  <StatusBar style="auto" animated />
+                  {children}
+                  <UpdateModal />
+                </AuthRedirect>
               </AuthInitializer>
             </QueryErrorResetBoundary>
           </TQueryProvider>
