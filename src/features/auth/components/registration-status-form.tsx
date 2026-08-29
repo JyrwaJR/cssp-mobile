@@ -10,6 +10,7 @@ import { Icon } from '@components/ui/icon';
 import { cn } from '@utils/helpers';
 
 const defaultValues = {
+  // DEV-ONLY prefill; EXPO_PUBLIC_PPO_NO inlines into the bundle at build time.
   ppo_no: process.env.EXPO_PUBLIC_PPO_NO,
 };
 

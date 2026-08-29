@@ -7,6 +7,7 @@ import { ENDPOINTS } from '@utils/constants';
 export function useVerificationStatus() {
   const { user, isSignedIn } = useAuthStore();
 
+  // Fallback is DEV-ONLY; EXPO_PUBLIC_PPO_NO inlines into the bundle.
   const ppo_no = user?.ppo_no || process.env.EXPO_PUBLIC_PPO_NO;
 
   const isEnabled = isSignedIn && !!ppo_no;

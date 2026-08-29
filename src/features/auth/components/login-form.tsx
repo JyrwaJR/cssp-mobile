@@ -12,8 +12,13 @@ import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { useSnackbar } from '@hooks/use-snackbar';
 
 const defaultValues = {
+  // DEV-ONLY convenience prefill. EXPO_PUBLIC_PPO_NO is compiled into the JS
+  // bundle, so it must NEVER be set in a production/EAS build. Leave unset for
+  // release builds.
   username: process.env.EXPO_PUBLIC_PPO_NO || '',
-  password: process.env.EXPO_PUBLIC_PASSWORD || '',
+  // Password is NEVER defaulted from an env var: EXPO_PUBLIC_* values ship in
+  // the client bundle, which would embed a working credential in the binary.
+  password: '',
 };
 
 export const LoginForm = () => {
