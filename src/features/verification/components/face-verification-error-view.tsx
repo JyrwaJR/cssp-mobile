@@ -1,5 +1,7 @@
 import { View, Text } from 'react-native';
-import { Alert, AlertDescription, AlertTitle, Button } from '@components/ui';
+import { Alert, AlertDescription, Icon, AlertTitle, Button } from '@components/ui';
+import { Container } from '@components/layout';
+import { FooterImg } from '@components/common';
 
 /** Props for {@link FaceVerificationErrorView}. */
 export interface FaceVerificationErrorViewProps {
@@ -16,14 +18,31 @@ export interface FaceVerificationErrorViewProps {
  */
 export function FaceVerificationErrorView({ errorMsg, onGoBack }: FaceVerificationErrorViewProps) {
   return (
-    <View className="flex-1 items-center justify-center p-4">
-      <Alert variant="destructive">
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{errorMsg}</AlertDescription>
-      </Alert>
-      <Button size="lg" variant="outline" className="mt-6" onPress={onGoBack}>
-        <Text className="text-base font-bold text-primary">Go Back</Text>
-      </Button>
-    </View>
+    <Container className="gap-5">
+      <View className="gap-2">
+        <View className="bg-primary/10 self-start py-1">
+          <Text className="text-xs font-bold uppercase tracking-wider text-primary">Error</Text>
+        </View>
+
+        <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+          Something went wrong
+        </Text>
+
+        <Text className="text-sm font-medium text-muted-foreground">Please try again.</Text>
+      </View>
+      <View className="items-center justify-center gap-5">
+        <Alert variant="destructive">
+          <Icon name="info" size={18} className="mt-0.5 text-destructive" />
+          <View className="flex-1">
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{errorMsg}</AlertDescription>
+          </View>
+        </Alert>
+        <Button size="lg" className="w-full" onPress={onGoBack}>
+          Go Back
+        </Button>
+      </View>
+      <FooterImg />
+    </Container>
   );
 }

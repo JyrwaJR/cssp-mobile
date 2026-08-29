@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button } from '@components/ui';
 import { Container } from '@components/layout';
+import { FooterImg } from '@components/common';
 /** Allowed answers for each self-declaration question. */
 type SelfVerAnswer = 'Yes' | 'No' | '';
 
@@ -149,6 +150,7 @@ export function FaceVerificationDeclarationForm({
           <Text className="text-base font-bold text-white">Submit</Text>
         </Button>
       </View>
+      <FooterImg />
     </Container>
   );
 }

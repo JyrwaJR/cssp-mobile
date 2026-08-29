@@ -1,6 +1,7 @@
-import React from 'react';
-import { ScrollView, Text, Image } from 'react-native';
+import { Text, Image } from 'react-native';
 import { Button } from '@components/ui';
+import { Container } from '@components/layout';
+import { FooterImg } from '@components/common';
 
 /** Props for {@link FaceVerificationPhotoPreviewStep}. */
 export interface FaceVerificationPhotoPreviewStepProps {
@@ -24,7 +25,7 @@ export function FaceVerificationPhotoPreviewStep({
   actionLabel = 'Submit Photo',
 }: FaceVerificationPhotoPreviewStepProps) {
   return (
-    <ScrollView contentContainerClassName="items-center p-4">
+    <Container>
       {previewUri ? (
         <Image
           source={{ uri: previewUri }}
@@ -45,6 +46,7 @@ export function FaceVerificationPhotoPreviewStep({
       <Button size="lg" className="mt-6" onPress={onSubmitPress}>
         <Text className="text-base font-bold text-white">{actionLabel}</Text>
       </Button>
-    </ScrollView>
+      <FooterImg />
+    </Container>
   );
 }

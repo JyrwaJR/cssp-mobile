@@ -4,6 +4,7 @@ import type { VerificationResponseT } from '../types';
 import { Container } from '@components/layout';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
+import { FooterImg } from '@components/common';
 
 /** Props for {@link FaceVerificationResultView}. */
 export interface FaceVerificationResultViewProps {
@@ -149,7 +150,7 @@ export function FaceVerificationResultView({
 }: FaceVerificationResultViewProps) {
   const code = verResponse.self_ver_code;
   return (
-    <Container className="gap-y-6">
+    <Container className="gap-y-5">
       {/* Header Section */}
       <View className="gap-2">
         <View className="bg-primary/10 self-start rounded-full py-1">
@@ -183,6 +184,7 @@ export function FaceVerificationResultView({
       {code !== '00' && code !== '22' && hasSecondImage && (
         <DeclarationStatusCard proceedDeclaration={onProceedToDeclaration} />
       )}
+      <FooterImg />
     </Container>
   );
 }

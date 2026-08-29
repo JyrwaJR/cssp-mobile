@@ -25,6 +25,8 @@ import type {
   FaceVerificationRouteParams,
   VerificationResponseT,
 } from '../types';
+import { FooterImg } from '@components/common';
+import { Container } from '@components/layout';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
@@ -34,7 +36,10 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   const device = useCameraDevice('front');
 
   // Photo output for capture (v5 outputs API)
-  const photoOutput = usePhotoOutput({ qualityPrioritization: 'speed' });
+  const photoOutput = usePhotoOutput({
+    qualityPrioritization: 'speed',
+    quality: 0.2,
+  });
 
   // State machine
   const [phase, setPhase] = useState<FaceVerificationPhase>('camera');
@@ -91,24 +96,26 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       verificationMutation.mutate(
         { image_1: img1, image_2: img2 },
         {
-          onSuccess: ({ data }) => {
-            if (data) {
-              setVerResponse(data);
-              isCapturing.current = false;
+          onSuccess: (data) => {
+            console.log('/verification response', data.message);
+            if (data.success) {
+              if (data.data) {
+                setVerResponse(data.data);
+                isCapturing.current = false;
 
-              if (data.self_ver_code === '00' || data.self_ver_code === '22') {
-                updatePhase('result');
-              } else if (img2 !== '') {
-                updatePhase('result');
-              } else {
-                updatePhase('declaration');
+                if (data.data.self_ver_code === '00' || data.data.self_ver_code === '22') {
+                  updatePhase('result');
+                } else if (img2 !== '') {
+                  updatePhase('result');
+                } else {
+                  updatePhase('declaration');
+                }
               }
+            } else {
+              isCapturing.current = false;
+              setErrorMsg(data.message || 'Verification failed');
+              updatePhase('error');
             }
-          },
-          onError: (error) => {
-            isCapturing.current = false;
-            setErrorMsg(error.message || 'Verification failed');
-            updatePhase('error');
           },
         }
       );
@@ -136,6 +143,8 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       // Reject oversized captures BEFORE base64-encoding them.
       const fileInfo = await FileSystem.getInfoAsync(filePath);
       const size = fileInfo.exists ? (fileInfo.size ?? 0) : 0;
+
+      console.log('Photo size', size);
       if (size > MAX_IMAGE_SIZE) {
         await FileSystem.deleteAsync(filePath, { idempotent: true });
         throw new Error('Photo exceeds the 2MB size limit');
@@ -390,15 +399,18 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
   if (!hasPermission || !device) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-background">
-        <ActivityIndicator size="large" />
-        <Text className="mt-4 text-base text-muted-foreground">Loading Camera...</Text>
-      </SafeAreaView>
+      <Container>
+        <SafeAreaView className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" />
+          <Text className="mt-4 text-base text-muted-foreground">Loading Camera...</Text>
+          <FooterImg />
+        </SafeAreaView>
+      </Container>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={['left', 'right']}>
+    <SafeAreaView className="flex-1" edges={['left', 'right']}>
       <View
         className="flex-1"
         onLayout={(e) => {

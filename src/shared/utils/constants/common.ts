@@ -14,7 +14,7 @@ export const APP_VERSION = Application.nativeApplicationVersion || '1.0.0';
 /**
  * File size limits (in bytes).
  */
-export const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
+export const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 
 export const BLOCK_FILE_EXT = ['.exe', '.bat', '.sh', '.cmd', '.php', '.js'];
 
