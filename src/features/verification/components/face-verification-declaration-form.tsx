@@ -29,8 +29,8 @@ export interface FaceVerificationDeclarationFormProps {
  */
 export function FaceVerificationDeclarationForm({
   selfVerCode,
-  selfVerNec,
-  selfVerNmc,
+  selfVerNec = 'No',
+  selfVerNmc = 'No',
   onChangeNec,
   onChangeNmc,
   onSubmit,

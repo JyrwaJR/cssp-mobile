@@ -2,13 +2,14 @@ import { View, Text } from 'react-native';
 import { Alert, AlertDescription, Icon, AlertTitle, Button } from '@components/ui';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
+import { router } from 'expo-router';
 
 /** Props for {@link FaceVerificationErrorView}. */
 export interface FaceVerificationErrorViewProps {
   /** Human-readable failure message displayed in the alert body. */
   errorMsg: string;
   /** Invoked by the Go Back button; parent wires `router.back()`. */
-  onGoBack: () => void;
+  onTryAgainPress?: () => void;
 }
 
 /**
@@ -16,7 +17,10 @@ export interface FaceVerificationErrorViewProps {
  * button for the error phase of FaceVerificationScreen. Purely
  * presentational; navigation is delegated via `onGoBack`.
  */
-export function FaceVerificationErrorView({ errorMsg, onGoBack }: FaceVerificationErrorViewProps) {
+export function FaceVerificationErrorView({
+  errorMsg,
+  onTryAgainPress,
+}: FaceVerificationErrorViewProps) {
   return (
     <Container className="gap-5">
       <View className="gap-2">
@@ -38,9 +42,20 @@ export function FaceVerificationErrorView({ errorMsg, onGoBack }: FaceVerificati
             <AlertDescription>{errorMsg}</AlertDescription>
           </View>
         </Alert>
-        <Button size="lg" className="w-full" onPress={onGoBack}>
-          Go Back
-        </Button>
+
+        <View className="gap-2">
+          {onTryAgainPress && (
+            <Button
+              size="lg"
+              className="w-full"
+              onPress={() => onTryAgainPress && onTryAgainPress()}>
+              Try Again
+            </Button>
+          )}
+          <Button size="lg" variant={'secondary'} className="w-full" onPress={() => router.back()}>
+            Go Back
+          </Button>
+        </View>
       </View>
       <FooterImg />
     </Container>

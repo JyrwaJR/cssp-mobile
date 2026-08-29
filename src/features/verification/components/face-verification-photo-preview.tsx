@@ -1,4 +1,4 @@
-import { Text, Image } from 'react-native';
+import { Text, Image, View } from 'react-native';
 import { Button } from '@components/ui';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
@@ -25,12 +25,14 @@ export function FaceVerificationPhotoPreviewStep({
   actionLabel = 'Submit Photo',
 }: FaceVerificationPhotoPreviewStepProps) {
   return (
-    <Container>
+    <Container className="gap-5">
       {previewUri ? (
-        <Image
-          source={{ uri: previewUri }}
-          className="h-64 w-56 rounded-2xl border-2 border-primary"
-        />
+        <View className="items-center">
+          <Image
+            source={{ uri: previewUri }}
+            className="h-64 w-56 rounded-md border border-primary"
+          />
+        </View>
       ) : null}
       <Text className="mt-4 text-center text-sm text-foreground">
         This photo is required for the system to verify your Authenticity.

@@ -67,11 +67,11 @@ const formatData = (type: ErrorType, ...args: unknown[]): string => {
  * @param args - One or more values to log.
  */
 const logMethod = async (type: ErrorType, ...args: unknown[]): Promise<void> => {
-  if (process.env.NODE_ENV === 'development') {
+  if (__DEV__) {
     console.log(formatData(type, ...args));
   }
 
-  if (process.env.NODE_ENV === 'production' && type !== 'LOG') {
+  if (!__DEV__ && type !== 'LOG') {
     try {
       let message: string;
       let content: string;

@@ -10,7 +10,6 @@ import {
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system/legacy';
 import { MAX_IMAGE_SIZE } from '@utils/constants/common';
-import { useRouter } from 'expo-router';
 import { FaceVerificationCamera } from '../components/face-verification-camera';
 import { FaceVerificationPhotoPreviewStep } from '../components/face-verification-photo-preview';
 import { FaceVerificationResultView } from '../components/face-verification-result-view';
@@ -31,14 +30,13 @@ import { Container } from '@components/layout';
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
 export function FaceVerificationScreen({ registrationStatus }: FaceVerificationScreenProps) {
-  const router = useRouter();
   const { hasPermission, requestPermission } = useCameraPermission();
   const device = useCameraDevice('front');
 
   // Photo output for capture (v5 outputs API)
   const photoOutput = usePhotoOutput({
     qualityPrioritization: 'speed',
-    quality: 0.0, // lower the quality the lower the file size
+    quality: 0.34, // lower the quality the lower the file size
   });
 
   // State machine
@@ -107,8 +105,11 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
                   updatePhase('result');
                 } else if (img2 !== '') {
                   updatePhase('result');
-                } else {
+                } else if (data.success) {
                   updatePhase('declaration');
+                } else {
+                  updatePhase('error');
+                  setErrorMsg(data.message || 'Verification failed');
                 }
               }
             } else {
@@ -186,8 +187,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         await submitVerification(cleanBase64, '');
         return;
       }
-    } catch (error) {
-      console.error('Capture error:', error);
+    } catch {
       isCapturing.current = false;
       setErrorMsg(`Failed to capture image`);
       updatePhase('error');
@@ -482,7 +482,10 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
 
         {/* PHASE: error */}
         {phase === 'error' && (
-          <FaceVerificationErrorView errorMsg={errorMsg} onGoBack={() => router.back()} />
+          <FaceVerificationErrorView
+            errorMsg={errorMsg}
+            onTryAgainPress={() => updatePhase('camera')}
+          />
         )}
       </View>
 
