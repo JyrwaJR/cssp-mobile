@@ -26,11 +26,13 @@ import type {
 } from '../types';
 import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
+import { useSnackbar } from '@hooks/use-snackbar';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
 export function FaceVerificationScreen({ registrationStatus }: FaceVerificationScreenProps) {
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { showSnackbar } = useSnackbar();
   const device = useCameraDevice('front');
 
   // Photo output for capture (v5 outputs API)
@@ -146,9 +148,11 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       const size = fileInfo.exists ? (fileInfo.size ?? 0) : 0;
 
       console.log('Photo size', size);
+
       if (size > MAX_IMAGE_SIZE) {
         await FileSystem.deleteAsync(filePath, { idempotent: true });
-        throw new Error('Photo exceeds the 2MB size limit');
+        updatePhase('error');
+        setErrorMsg('Image too large');
       }
 
       // Read to base64; ALWAYS delete the temp file, even on read failure.
@@ -158,6 +162,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
           encoding: FileSystem.EncodingType.Base64,
         });
       } finally {
+        // Delete temp file after reading
         await FileSystem.deleteAsync(filePath, { idempotent: true });
       }
 
@@ -326,7 +331,9 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         detectedFacesHandlerRef.current.current?.(detectedFaces);
       },
       onError: (error: unknown) => {
-        console.error('Face detection error:', error);
+        if (__DEV__) {
+          console.error('Face detection error:', error);
+        }
       },
     });
     setFaceDetectorOutput(output);
@@ -350,16 +357,16 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
     const selfVerCode = verResponse?.self_ver_code ?? '';
 
     if (selfVerNec === '') {
-      RNAlert.alert('Error', 'Please select Yes or No');
+      showSnackbar('Please select Yes or No', 'alert-triangle');
       return;
     }
     if (selfVerCode === '4' && selfVerNmc === '') {
-      RNAlert.alert('Error', 'Please select Yes or No');
+      showSnackbar('Please select Yes or No', 'alert-triangle');
       return;
     }
 
     setDlcDialogOpen(true);
-  }, [selfVerNec, selfVerNmc, verResponse]);
+  }, [selfVerNec, selfVerNmc, verResponse, showSnackbar]);
 
   const confirmDLCSubmission = useCallback(() => {
     setDlcDialogOpen(false);
