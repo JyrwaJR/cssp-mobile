@@ -1,5 +1,8 @@
 allowBuilds:
   unrs-resolver: true
+overrides:
+  fastq: 1.20.2
+  string.prototype.matchall: 4.0.12
 minimumReleaseAgeExclude:
   - '@expo/cli@57.0.18'
   - '@expo/config-plugins@57.0.9'

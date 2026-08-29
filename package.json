@@ -75,11 +75,5 @@
     "tailwindcss": "3.4.0",
     "typescript": "6.0.3"
   },
-  "private": true,
-  "pnpm": {
-    "overrides": {
-      "fastq": "1.20.2",
-      "string.prototype.matchall": "4.0.12"
-    }
-  }
+  "private": true
 }
