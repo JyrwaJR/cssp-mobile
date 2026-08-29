@@ -137,6 +137,8 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         encoding: FileSystem.EncodingType.Base64,
       });
 
+      await FileSystem.deleteAsync(filePath, { idempotent: true }); // immediately after the base64 read (in a finally).
+
       const cleanBase64 = base64Image.replace(/[\r\n\s]/g, '');
 
       const uri = `data:image/jpeg;base64,${cleanBase64}`;
