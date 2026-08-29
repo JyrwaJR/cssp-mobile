@@ -9,7 +9,6 @@ import {
 } from 'react-native-vision-camera';
 import { createFaceDetectorOutput, type Face } from 'react-native-vision-camera-face-detector';
 import * as FileSystem from 'expo-file-system/legacy';
-import { MAX_IMAGE_SIZE } from '@utils/constants/common';
 import { FaceVerificationCamera } from '../components/face-verification-camera';
 import { FaceVerificationPhotoPreviewStep } from '../components/face-verification-photo-preview';
 import { FaceVerificationResultView } from '../components/face-verification-result-view';
@@ -27,18 +26,19 @@ import type {
 import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { useSnackbar } from '@hooks/use-snackbar';
+import { useImageCompressor, type CompressedImageResult } from '@hooks/use-image-compressor';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
 export function FaceVerificationScreen({ registrationStatus }: FaceVerificationScreenProps) {
   const { hasPermission, requestPermission } = useCameraPermission();
   const { showSnackbar } = useSnackbar();
+  const { compressImageToBase64, reset } = useImageCompressor();
   const device = useCameraDevice('front');
 
   // Photo output for capture (v5 outputs API)
   const photoOutput = usePhotoOutput({
     qualityPrioritization: 'speed',
-    quality: 0.34, // lower the quality the lower the file size
   });
 
   // State machine
@@ -143,30 +143,27 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         ? photoFile.filePath
         : `file://${photoFile.filePath}`;
 
-      // Reject oversized captures BEFORE base64-encoding them.
-      const fileInfo = await FileSystem.getInfoAsync(filePath);
-      const size = fileInfo.exists ? (fileInfo.size ?? 0) : 0;
+      // Clear stale result/error state left by a previous capture.
+      reset();
 
-      console.log('Photo size', size);
-
-      if (size > MAX_IMAGE_SIZE) {
-        await FileSystem.deleteAsync(filePath, { idempotent: true });
-        updatePhase('error');
-        setErrorMsg('Image too large');
-      }
-
-      // Read to base64; ALWAYS delete the temp file, even on read failure.
-      let base64Image: string;
+      // 3. Always compress to ≤500 KB before base64-encoding. The compressor
+      //    steps JPEG quality down (0.85 → 0.3) until the payload fits and
+      //    throws if it cannot, so oversized captures are compressed instead
+      //    of rejected.
+      let compressed: CompressedImageResult;
       try {
-        base64Image = await FileSystem.readAsStringAsync(filePath, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
+        compressed = await compressImageToBase64(filePath, { maxSizeKB: 500 });
       } finally {
-        // Delete temp file after reading
+        // Delete the original capture file, even when compression fails.
         await FileSystem.deleteAsync(filePath, { idempotent: true });
       }
 
-      const cleanBase64 = base64Image.replace(/[\r\n\s]/g, '');
+      // The re-encoded output file is only needed while reading base64.
+      await FileSystem.deleteAsync(compressed.uri, { idempotent: true });
+
+      // ImageManipulator emits whitespace-free base64; strip defensively to
+      // keep the exact payload format the API previously received.
+      const cleanBase64 = compressed.base64.replace(/[\r\n\s]/g, '');
 
       const uri = `data:image/jpeg;base64,${cleanBase64}`;
       setPreviewUri(uri);
@@ -192,12 +189,25 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         await submitVerification(cleanBase64, '');
         return;
       }
-    } catch {
+    } catch (e) {
+      // CRITICAL: both statements below are required. Dropping either leaves
+      // the loading spinner up forever and deadlocks the blink-capture gate
+      // (`blinkCount.current > 0 && !isCapturing.current`).
       isCapturing.current = false;
-      setErrorMsg(`Failed to capture image`);
+      setErrorMsg(e instanceof Error ? e.message : 'Failed to capture image');
       updatePhase('error');
     }
-  }, [image1, image2, registrationStatus, photoOutput, submitVerification, updatePhase, updateMsg]);
+  }, [
+    image1,
+    image2,
+    registrationStatus,
+    photoOutput,
+    submitVerification,
+    updatePhase,
+    updateMsg,
+    compressImageToBase64,
+    reset,
+  ]);
 
   // Face detection callback
   const handleDetectedFaces = useCallback(
