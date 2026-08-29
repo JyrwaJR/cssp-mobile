@@ -1,45 +1,41 @@
-@renewToken=  7WsMJrhiMnK1kloSrmcqHQp2Gq8cIJNfr8HdLiQ9XI16S3lMB1R0pY6P7xlic8Xoe9YLazO91kfVl0GUVSUfP5aegGGw619pcsqD6D0Vbb4qewfhf16RZ-RxZzJ7mvQ29zoQOdJ9aDQGSAPMYX1dKIf14wzaIhGxHbuFXbJaZ5HOxooyzZd08MwcFRaHEhtkJ2vkBBmq
-@accessToken=  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc5NDcwNjd9.qxNpZfFxCTCH-bxjofsxAwKUk5ElEfJDZ34Dra9my0k
+# ============================================================================
+# cssp-mobile API playground (VSCode REST Client)
+#
+# SECURITY NOTICE:
+#   - NEVER commit real tokens, passwords, hashes, or encrypted payloads here.
+#   - Values are interpolated from your LOCAL .env at request time.
+#   - Required .env vars: EXPO_PUBLIC_API_URL, ACCESS_TOKEN, RENEW_TOKEN.
+#     After a fresh login, copy token= / renew_token= values into .env and
+#     keep .env gitignored.
+# ============================================================================
 
-# {
-#   "approval": "00",
-#   "has_dlc": "01",
-#   "name": "R Lyngdoh",
-#   "renew_token": "7WsMJrhiMnK1kloSrmcqHQp2Gq8cIJNfr8HdLiQ9XI16S3lMB1R0pY6P7xlic8Xoe9YLazO91kfVl0GUVSUfP5aegGGw619pcsqD6D0Vbb4qewfhf16RZ-RxZzJ7mvQ29zoQOdJ9aDQGSAPMYX1dKIf14wzaIhGxHbuFXbJaZ5HOxooyzZd08MwcFRaHEhtkJ2vkBBmq",
-#   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTExMTEiLCJ1c2VybmFtZSI6Ik1HLzExeHgiLCJleHAiOjE3ODc5NDcwNjd9.qxNpZfFxCTCH-bxjofsxAwKUk5ElEfJDZ34Dra9my0k",
-#   "uid": "MTExMTE=",
-#   "username": "TUcvMTF4eA=="
-# }
+@accessToken = {{ACCESS_TOKEN}}
+@renewToken = {{RENEW_TOKEN}}
 
-### Current User 
-# @name current user
+### Current User
 POST {{EXPO_PUBLIC_API_URL}}/current-user/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-
 ### Registration Status
-# @name registrationStatus
 POST {{EXPO_PUBLIC_API_URL}}/get_registration_status/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
-  "ppo_no": "gAAAAABqiAB7ULfPNzlIlH9R3fWxJexz9ykiQPjUg3I8gQNKoOP8N0W1RNGzojON0jnSEcue10dU0BPrwkakfzQN80WNm_GkMQ==",
-  "version":"24"
+{
+  "ppo_no": "{{PPO_NO}}",
+  "version": "24"
 }
 
-
 ### Create Pensioner
-# @name createPensioner
 POST {{EXPO_PUBLIC_API_URL}}/api/create_pensioner/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
+{
   "ppo_no": {{PPO_NO}},
   "dob": "",
   "bank_account_number": "",
@@ -47,42 +43,31 @@ Accept: application/json
 }
 
 ### Login
-# @name login
 POST {{EXPO_PUBLIC_API_URL}}/login/
 Content-Type: application/x-www-form-urlencoded
 Accept: application/json
 
-# password=gAAAAABqiC_DHmRi4drx2JHBaoRC5QqLkdQ4-DVOwrpBO9zyubuE3pk0tqXcUvuKD6jRmO4YGGS3RwdSbMYAc3IDerk2KTwAU_yccs71k-DeYyKOEJsbLYbMOEPT-WT1pjvNy5R8qqT7HNZ9MNlOwKDeeaE6PcTXmwqM5qAmXh7ihoOFIN0J0g_GDAXPS635ISc8GFgfr0Z9LW6xzvMKGX0WVti3GUqvUAVkvq0kvQYEiBiP2FVOfr4SVDTh4Vu1HReekZ_X3DEgT6QdzelZ8OQpoecxpal9AVAqNYOJIxq9fGrP1OuYXk2a-ZpYkVqfaCGd1gpQ86yb&username=gAAAAABqiC_DFjgr6n0qB4SDp-OkauwgnIdWaMSr1oU1cUQUsvmLMq6DCWdAMFSmtdSCoxA3XU2jqQj8Asq0_uTijnUJAHpeZQ%3D%3D&version=24
-password=gAAAAABqidLuAv3Y11Y-XURux_JJ2QbKdcdQSUMu9wA4QUwcHSiGIdHrzv2f-dxnr_G-DNP0G0xc08PBpZnmuw_xM5F5BO21lVDpA8R4s0gloY_wNVH9WzSp5VT3S_IqUc1MNfCJ3cBKfVJcuFdwveo75qlJ7lHaeLSNGInAzRkz5er8VzWwM4dOux4qR85i3lDoU6qvqjTmLTsdN9N0ztUKu4lM6wHXElf-EHbj7o6TjrKAQpolAjDESczzkmFiVlxC8wtb6UboSvMvACiRb4K13FleTIZiNjKrjqeKGaoONWO9H7xYN8-irup-DPo_iCsAKOZXriWm&username=gAAAAABqidLuYDWOen2IiDeDxVlamXiBg30bFkIDyQKNLGw-RBOmxV_Inx4txJU_E-tJKUoOasIYZwmwVIAXAA1xSEkm39jrrw%3D%3D&version=24
-# password=gAAAAABqidnL2ughyi8PHFSvWOVI-XVDB6w-BojCjHTrXTuk6qc-ralAvF9Hmk3MEw4B0GcueYmvVfUX5uYGiM9goGijie95nwNuLXDWid8ejd0-KXXhseCcCVlTLOs5fP2DrD_snES1kMsP-NRQgxx0RxtxOFgidegbYzLy244q7xEEeCzJWG7z1K_zsNBRimbnLcS0_8mBwc_xAzsW6RzuPIR2tlyTyg6R9T__5zMTXUSLVqwDMUpQpgLX5kr2q0W6ZPXOBlQO3FOhkDBDYa9CjMqcOaZ7Niwmy1X3PlY2JaObSOqBo2DYkh7KuPWgMrxCo7-uD80D&username=gAAAAABqidnLzEsa4btJleB2b-sqMLMbCXzCQhBRD1FpAo5XrYNF7izQI0jSb6KJtAyepW-p4686aJrwo6oD4BFD0Ua6e0KBwA%3D%3D&version=24
+password={{PASSWORD_ENCRYPTED}}&username={{USERNAME_ENCRYPTED}}&version=24
 
 ### Logout
-# @name login
 POST {{EXPO_PUBLIC_API_URL}}/logout/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
-
-}
-
 ### Verification
-# @name verification
 POST {{EXPO_PUBLIC_API_URL}}/api/verification/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-
 ### DLC
-# @name dlc
 POST {{EXPO_PUBLIC_API_URL}}/api/lc/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
+{
   "selfVerNec": "",
   "selfVerNmc": "",
   "device": "",
@@ -92,72 +77,49 @@ Accept: application/json
   "place": ""
 }
 
-
 ### Verification Status
-# @name verificationStatus
 POST {{EXPO_PUBLIC_API_URL}}/api/verification_status/
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
-  "ppo_no": "",
+{
+  "ppo_no": ""
 }
 
 ### Change Password
-# @name changePassword
 POST {{EXPO_PUBLIC_API_URL}}/api/change_password/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-{ 
-  "oldPassword":"",
-  "newPassword":"",
+{
+  "oldPassword": "",
+  "newPassword": ""
 }
 
-
 ### Validate Token
-# @name validateToken
 POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
 Authorization: renewToken {{renewToken}}
 Accept: application/json
 
-request_token=gAAAAABqkZniR2jrXekn1U6qfX0lREZNvDGc78hc3YQ1O39bYz7NSV3xbkDFmh3w8Nvm6fO4scf0UA4AHVx7fn1KtaUbjlaqIZRs3198nmMyq3Q2EP2ac6vvpZgrfpnfTuXYpakZNhgmxhaYXUKiY9LtcYsdVqzenKbhRQnYshPnTWsxjpS7C8ZF9hbF-Z4qrNOVgzc0w7D1oPreZHvxfsXLt0F9OASLApMWKLg-vOE3Bn-kGueAj-nWbDE-xfGSvrsFnVXfVCkD56F_DaM6NYUSRghJ6p0SFtNQrDEmwzHtieCWxkaX7bBBtlTjJYKVFYlYPzTpsrsFhEj5vlvTBD7Y5r5A298X5w%3D%3D&uid=gAAAAABqkZnipcrv2vyvYnNpDbUgNh1rZaNHN5TU3MQKeBrjmC6SmghkvrT1UQyyM81hr95SemmHdxWMb-WVjXdTO0NaYjD6TQ%3D%3D
+request_token={{REQUEST_TOKEN_ENCRYPTED}}&uid={{UID_ENCRYPTED}}
 
-### Manual
-# @name manual
-GET {{EXPO_PUBLIC_API_URL}}/manual.html/
-Authorization: accessToken {{accessToken}}
-
-### Encryption
-# @name encryption
+### Encrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
 Authorization: accessToken {{accessToken}}
+Content-Type: application/json
 
-{ 
-
-"uid":"NzMwMDAwMTAzNA",
-"request_token": "{{renewToken}}"
-}
-
-### Decryption
-# @name decryption
+### Decrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt
 Authorization: accessToken {{accessToken}}
+Content-Type: application/json
 
-{
-  "password": "1fbd4e08c1f6802e0aca322147c4026fbea5a93fa7fee777c306ab220a3c3a32",
-  "version":"24"
-}
-
-### Decryption
-# @name decryption
-
-# 
+### format-password helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
 Authorization: accessToken {{accessToken}}
+Content-Type: application/json
 
 {
-  "password": "{{PASSWORD}}",
+  "password": "{{PASSWORD}}"
 }
