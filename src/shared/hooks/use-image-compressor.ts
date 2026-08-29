@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import * as ImageManipulator from 'expo-image-manipulator';
+import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as FileSystem from 'expo-file-system/legacy';
 
 /**
@@ -34,12 +34,14 @@ export interface CompressImageOptions {
 /**
  * Compresses image files to a target size and returns their base64 payload.
  *
- * Uses `expo-image-manipulator` to re-encode JPEGs, stepping quality from
- * `initialQuality` down toward `minQuality` until the payload fits within
- * `maxSizeKB` (default 500 KB). Intermediate temp files that overshoot the
- * target are deleted as it iterates. Resolves with the compressed result,
- * or rejects with an {@link Error} when the image cannot be reduced to the
- * target size (the final attempt's temp file is deleted first).
+ * Uses the `expo-image-manipulator` context API (SDK 52+, `manipulateAsync`
+ * is deprecated) to decode the source once and re-encode it as JPEG, stepping
+ * quality from `initialQuality` down toward `minQuality` until the payload
+ * fits within `maxSizeKB` (default 500 KB). Intermediate temp files that
+ * overshoot the target are deleted as it iterates. Resolves with the
+ * compressed result, or rejects with an {@link Error} when the image cannot
+ * be reduced to the target size (the final attempt's temp file is deleted
+ * first).
  *
  * @returns `compressImageToBase64` plus reactive `isCompressing`, `error`,
  * `result`, and `reset` state for callers that render progress status.
@@ -68,27 +70,32 @@ export function useImageCompressor() {
       try {
         const maxSizeBytes = maxSizeKB * 1024;
 
+        // Decode the source once via the context API, then re-encode per save
+        // attempt by walking quality down until the payload fits.
+        const context = ImageManipulator.manipulate(imageUri);
+        const renderedImage = await context.renderAsync();
+
         let quality = initialQuality;
 
         while (quality >= minQuality) {
-          const image = await ImageManipulator.manipulateAsync(imageUri, [], {
+          const savedImage = await renderedImage.saveAsync({
             compress: quality,
-            format: ImageManipulator.SaveFormat.JPEG,
+            format: SaveFormat.JPEG,
             base64: true,
           });
 
-          if (!image.base64) {
+          if (!savedImage.base64) {
             throw new Error('Failed to generate base64 image');
           }
 
           // Base64 represents approximately 4/3 of the
           // original binary data.
-          const bytes = Math.ceil((image.base64.length * 3) / 4);
+          const bytes = Math.ceil((savedImage.base64.length * 3) / 4);
 
           if (bytes <= maxSizeBytes) {
             const compressedResult: CompressedImageResult = {
-              uri: image.uri,
-              base64: image.base64,
+              uri: savedImage.uri,
+              base64: savedImage.base64,
               bytes,
               sizeKB: bytes / 1024,
               quality,
@@ -100,26 +107,26 @@ export function useImageCompressor() {
           }
 
           // Overshooting iteration: remove its temp output before retrying lower.
-          await FileSystem.deleteAsync(image.uri, { idempotent: true });
+          await FileSystem.deleteAsync(savedImage.uri, { idempotent: true });
 
           quality -= qualityStep;
         }
 
         // Final attempt at minimum quality.
-        const image = await ImageManipulator.manipulateAsync(imageUri, [], {
+        const finalImage = await renderedImage.saveAsync({
           compress: minQuality,
-          format: ImageManipulator.SaveFormat.JPEG,
+          format: SaveFormat.JPEG,
           base64: true,
         });
 
-        if (!image.base64) {
+        if (!finalImage.base64) {
           throw new Error('Failed to generate base64 image');
         }
 
-        const bytes = Math.ceil((image.base64.length * 3) / 4);
+        const bytes = Math.ceil((finalImage.base64.length * 3) / 4);
 
         if (bytes > maxSizeBytes) {
-          await FileSystem.deleteAsync(image.uri, { idempotent: true });
+          await FileSystem.deleteAsync(finalImage.uri, { idempotent: true });
           throw new Error(
             `Unable to compress image below ${maxSizeKB} KB. ` +
               `Final size: ${(bytes / 1024).toFixed(2)} KB`
@@ -127,8 +134,8 @@ export function useImageCompressor() {
         }
 
         const compressedResult: CompressedImageResult = {
-          uri: image.uri,
-          base64: image.base64,
+          uri: finalImage.uri,
+          base64: finalImage.base64,
           bytes,
           sizeKB: bytes / 1024,
           quality: minQuality,
