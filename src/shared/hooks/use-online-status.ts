@@ -12,6 +12,7 @@ import { onlineManager } from '@tanstack/react-query';
  * @returns {{ isOnline: boolean }} Current connectivity state.
  *
  * @example
+ *
  * ```tsx
  * const { isOnline } = useOnlineStatus();
  * if (!isOnline) return <OfflineIndicator />;
