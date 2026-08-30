@@ -191,7 +191,7 @@ const DEFAULT_SUCCESS_MESSAGE = 'Success';
  */
 export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> => {
   const { status, data } = response;
-  const isSuccess = status >= 200 && status < 300;
+  const isSuccess = status >= 200;
 
   if (isSuccess) {
     const message = extractBackendMessage(data);
@@ -202,7 +202,7 @@ export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> =>
       // otherwise keep the normal "Success" default for JSON bodies.
       message: isHtml(message)
         ? getErrorMessage(message, status)
-        : (message ?? DEFAULT_SUCCESS_MESSAGE),
+        : message ?? DEFAULT_SUCCESS_MESSAGE,
       data,
     };
   }
