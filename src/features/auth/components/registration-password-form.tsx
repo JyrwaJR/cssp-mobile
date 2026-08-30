@@ -7,6 +7,7 @@ import { Input } from '@components/ui/input';
 import { useRegistrationStore } from '../store/registration';
 import { useState } from 'react';
 import { Icon } from '@components/ui/icon';
+import { formatPassword } from '@lib/encryption';
 
 /**
  * Step 3 of registration: create a login password.
@@ -20,19 +21,19 @@ import { Icon } from '@components/ui/icon';
  * must re-type it to confirm.
  */
 export const RegistrationPasswordForm = () => {
-  const { nextStep, prevStep, saveData, formData } = useRegistrationStore();
+  const { nextStep, prevStep, saveData } = useRegistrationStore();
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<RegisterPasswordInput>({
     resolver: zodResolver(RegisterPasswordSchema),
-    defaultValues: { password: formData.password, confirm_password: '' },
+    defaultValues: { password: '', confirm_password: '' },
     mode: 'onTouched',
   });
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const onSubmit = (data: RegisterPasswordInput) => {
-    saveData({ password: data.password });
+    saveData({ password: formatPassword(data.password) });
     nextStep();
   };
 

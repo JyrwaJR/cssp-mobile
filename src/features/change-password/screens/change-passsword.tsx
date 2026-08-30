@@ -10,6 +10,7 @@ import { FooterImg } from '@components/common';
 import { ChangePasswrodSchema } from '../validators';
 import { useChangePassword } from '../hooks/use-change-password';
 import { PasswordRequiredments } from '../components/password-req';
+import { formatPassword } from '@lib/encryption';
 
 type ChangePasswordForm = {
   oldPassword: string;
@@ -40,7 +41,11 @@ export function ChangePasswordScreen() {
 
   const onSubmit = (data: ChangePasswordForm) => {
     const isValid = ChangePasswrodSchema.safeParse(data);
-    if (isValid.success) mutate(data);
+    if (isValid.success)
+      mutate({
+        oldPassword: formatPassword(data.oldPassword),
+        newPassword: formatPassword(data.newPassword),
+      });
   };
 
   const toggleNewPasswordVisibility = () => setIsShowNewPassword((previous) => !previous);

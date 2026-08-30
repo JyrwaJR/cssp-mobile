@@ -5,6 +5,7 @@ import { Button } from '@components/ui/button';
 import { RegisterPensionerSchema } from '../validators';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useNetworkStatus } from '@hooks/use-network-status';
+import { formatPassword } from '@lib/encryption';
 
 /**
  * Step 4 of registration: review and submit.
@@ -23,7 +24,10 @@ export function ConfirmRegistrationScreen() {
   const handleConfirm = () => {
     const isValidData = RegisterPensionerSchema.safeParse(formData);
     if (isValidData.success) {
-      register(formData);
+      register({
+        ...formData,
+        password: formatPassword(formData.password),
+      });
     } else {
       showSnackbar(
         isValidData.error.issues[0]?.message || 'Registration failed. Please try again.'
