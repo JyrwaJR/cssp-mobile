@@ -10,6 +10,7 @@ import { Button } from '@components/ui/button';
 import { Icon } from '@components/ui/icon';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { useSnackbar } from '@hooks/use-snackbar';
+import { useNetworkStatus } from '@hooks/use-network-status';
 
 const defaultValues = {
   // DEV-ONLY convenience prefill. EXPO_PUBLIC_PPO_NO is compiled into the JS
@@ -25,6 +26,7 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { showSnackbar } = useSnackbar();
   const { mutate, isPending, isSuccess, data } = useLogin();
+  const { isOffline } = useNetworkStatus();
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
@@ -67,6 +69,7 @@ export const LoginForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="Enter your PPO No."
+              readOnly={isOffline}
               autoCapitalize="none"
               autoCorrect={false}
               error={!!form.formState.errors.username}
@@ -97,6 +100,7 @@ export const LoginForm = () => {
                 placeholder="Enter your password"
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
+                readOnly={isOffline}
                 autoCorrect={false}
                 error={!!form.formState.errors.password}
                 className="pr-12"
@@ -121,7 +125,7 @@ export const LoginForm = () => {
       <Button
         isLoading={isPending}
         size="lg"
-        disabled={isPending}
+        disabled={isPending || isOffline}
         onPress={form.handleSubmit(onSubmit)}
         className="w-full">
         Submit

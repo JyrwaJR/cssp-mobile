@@ -4,6 +4,7 @@ import { useRegisterPensioner } from '../hooks';
 import { Button } from '@components/ui/button';
 import { RegisterPensionerSchema } from '../validators';
 import { useSnackbar } from '@hooks/use-snackbar';
+import { useNetworkStatus } from '@hooks/use-network-status';
 
 /**
  * Step 4 of registration: review and submit.
@@ -17,6 +18,7 @@ export function ConfirmRegistrationScreen() {
   const { formData, prevStep } = useRegistrationStore();
   const { showSnackbar } = useSnackbar();
   const { mutate: register, isPending: isRegistering } = useRegisterPensioner();
+  const { isOffline } = useNetworkStatus();
 
   const handleConfirm = () => {
     const isValidData = RegisterPensionerSchema.safeParse(formData);
@@ -74,7 +76,7 @@ export function ConfirmRegistrationScreen() {
         <Button
           size="lg"
           onPress={handleConfirm}
-          disabled={isRegistering}
+          disabled={isRegistering || isOffline}
           isLoading={isRegistering}
           className="flex-1">
           Submit
