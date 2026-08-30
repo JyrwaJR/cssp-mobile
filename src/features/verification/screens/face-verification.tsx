@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { View, Text, ActivityIndicator, Alert as RNAlert } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   useCameraDevice,
@@ -27,6 +27,7 @@ import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useImageCompressor, type CompressedImageResult } from '@hooks/use-image-compressor';
+import { MAX_IMAGE_SIZE_IN_KB } from '@utils/constants';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
@@ -152,7 +153,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       //    of rejected.
       let compressed: CompressedImageResult;
       try {
-        compressed = await compressImageToBase64(filePath, { maxSizeKB: 500 });
+        compressed = await compressImageToBase64(filePath, { maxSizeKB: MAX_IMAGE_SIZE_IN_KB });
       } finally {
         // Delete the original capture file, even when compression fails.
         await FileSystem.deleteAsync(filePath, { idempotent: true });
