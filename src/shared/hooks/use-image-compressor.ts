@@ -92,6 +92,9 @@ export function useImageCompressor() {
           // original binary data.
           const bytes = Math.ceil((savedImage.base64.length * 3) / 4);
 
+          // into mb
+          console.log(bytes / 1024 / 1024);
+
           if (bytes <= maxSizeBytes) {
             const compressedResult: CompressedImageResult = {
               uri: savedImage.uri,
