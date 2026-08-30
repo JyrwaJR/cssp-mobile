@@ -98,7 +98,6 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
         { image_1: img1, image_2: img2 },
         {
           onSuccess: (data) => {
-            console.log('/verification response', data);
             if (data.success) {
               if (data.data) {
                 setVerResponse(data.data);

@@ -32,13 +32,6 @@ export const AuthRedirect = ({ children }: Props) => {
   const isOnPublicPage = PUBLIC_ROUTES.includes(pathName as Href);
 
   useEffect(() => {
-    logger.info('AuthRedirect: effect running', {
-      isLoading,
-      isSignedIn,
-      pathName,
-      isOnPublicPage,
-    });
-
     if (isLoading) return;
 
     // 1. Signed-in user trying to access a public page.
