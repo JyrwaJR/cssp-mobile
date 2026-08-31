@@ -55,7 +55,7 @@ export function LoginScreen() {
               onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
               className="w-full">
               <Text className="text-center text-base font-bold text-primary">
-                New User? Register / Update Password
+                New User? Register / Forgot Password
               </Text>
             </Button>
 
