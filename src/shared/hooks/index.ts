@@ -6,3 +6,4 @@ export * from './use-debounced';
 export * from './use-snackbar';
 export * from './use-network-status';
 export * from './use-image-compressor';
+export * from './use-navigation-lock';
