@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { View } from 'react-native';
 
-import { cn } from '@utils/helpers/cn';
+import { Button } from '@components/ui';
 
 /** The two instruction groups offered by the user manual tabs. */
 export type UserManualTabId = 'getting-started' | 'using-app';
@@ -37,35 +37,30 @@ const TABS: TabOption[] = [
  * @param props - Component props. See {@link UserManualTabsProps}.
  * @returns A horizontally arranged pair of tab buttons.
  */
-export const UserManualTabs: React.FC<UserManualTabsProps> = ({ activeTab, onChange }) => (
-  <View
-    className="flex-row gap-1 rounded-md border border-gray-300 bg-gray-100 p-1"
-    accessibilityRole="tablist">
-    {TABS.map((tab) => {
-      const isActive = tab.id === activeTab;
-      return (
-        <Pressable
-          key={tab.id}
-          onPress={() => onChange(tab.id)}
-          accessibilityRole="tab"
-          accessibilityState={{ selected: isActive }}
-          accessibilityLabel={tab.label}
-          className={cn(
-            'h-12 flex-1 flex-row items-center justify-center gap-2 rounded-md px-2',
-            isActive ? 'bg-primary' : 'bg-transparent active:bg-gray-200'
-          )}>
-          <Text className={cn('text-lg', isActive ? '' : 'opacity-70')}>{tab.icon}</Text>
-          <Text
-            className={cn(
-              'text-center text-sm font-bold tracking-wide',
-              isActive ? 'text-white' : 'text-slate-800'
-            )}>
+export const UserManualTabs: React.FC<UserManualTabsProps> = ({ activeTab, onChange }) => {
+  return (
+    <View
+      className="flex-row items-center gap-2 rounded-md border border-gray-300 bg-gray-200 p-2"
+      accessibilityRole="tablist">
+      {TABS.map((tab) => {
+        const isActive = tab.id === activeTab;
+        return (
+          <Button
+            key={tab.id}
+            size={'lg'}
+            onPress={() => onChange(tab.id)}
+            variant={isActive ? 'primary' : 'secondary'}
+            disabled={isActive}
+            accessibilityRole="tab"
+            className="flex-1"
+            accessibilityState={{ selected: isActive }}
+            accessibilityLabel={tab.label}>
             {tab.label}
-          </Text>
-        </Pressable>
-      );
-    })}
-  </View>
-);
+          </Button>
+        );
+      })}
+    </View>
+  );
+};
 
 UserManualTabs.displayName = 'UserManualTabs';
