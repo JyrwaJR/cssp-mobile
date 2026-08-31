@@ -19,7 +19,7 @@ const defaultValues = {
   username: process.env.EXPO_PUBLIC_PPO_NO || '',
   // Password is NEVER defaulted from an env var: EXPO_PUBLIC_* values ship in
   // the client bundle, which would embed a working credential in the binary.
-  password: '',
+  password: __DEV__ ? process.env.EXPO_PUBLIC_PASSWORD : '',
 };
 
 export const LoginForm = () => {

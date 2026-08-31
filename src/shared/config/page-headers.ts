@@ -18,7 +18,7 @@ export const PAGE_HEADERS = {
   '/profile': { title: 'My Profile', showDrawer: true },
 
   // pages
-  '/withdrawal': { title: 'Withdrawal', showBackButton: false, showDrawer: true },
+  '/withdrawal': { title: 'Withdrawal', showBackButton: true },
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },
   '/auth/reg-instruction': { title: 'Instructions', showBackButton: true },

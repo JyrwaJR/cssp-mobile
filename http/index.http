@@ -21,7 +21,6 @@ Accept: application/json
 ### Registration Status
 POST {{EXPO_PUBLIC_API_URL}}/get_registration_status/
 Content-Type: application/json
-Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 {
@@ -83,7 +82,7 @@ Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 {
-  "ppo_no": ""
+  "ppo_no": "{{PPO_NO}}"
 }
 
 ### Change Password
@@ -98,9 +97,10 @@ Accept: application/json
 }
 
 ### Validate Token
+# @name=refresh token
 POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
-Authorization: renewToken {{renewToken}}
+Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 request_token={{REQUEST_TOKEN_ENCRYPTED}}&uid={{UID_ENCRYPTED}}
@@ -109,6 +109,11 @@ request_token={{REQUEST_TOKEN_ENCRYPTED}}&uid={{UID_ENCRYPTED}}
 POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
 Authorization: accessToken {{accessToken}}
 Content-Type: application/json
+
+{ 
+    "token":"{{RENEW_TOKEN}}",
+    "uid":"{{UID_ENCRYPTED}}"
+}
 
 ### Decrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt

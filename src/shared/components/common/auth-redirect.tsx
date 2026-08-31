@@ -3,7 +3,6 @@ import { usePathname, useRouter, useLocalSearchParams, Href } from 'expo-router'
 import React, { useEffect } from 'react';
 import { LoadingScreen } from '@components/screens/loading-screen';
 import { PUBLIC_ROUTES } from '@utils/constants/auth';
-import { logger } from '@utils/logger';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 
 type Props = {

@@ -20,8 +20,7 @@ function CustomDrawerContent(props: any) {
             <Icon name="user-01" size={32} color="#FFFFFF" />
           </View>
           <View className="items-center">
-            <Text className="text-base font-bold text-white">{user?.name}</Text>
-            <Text className="text-xs text-white/80">{user?.username}</Text>
+            <Text className="text-sm font-semibold text-white">{user?.name}</Text>
           </View>
         </View>
       </View>
@@ -31,6 +30,8 @@ function CustomDrawerContent(props: any) {
         <DrawerItem
           label="Home"
           onPress={() => router.navigate(PAGE_ROUTES.HOME)}
+          pressOpacity={1}
+          pressColor={'none'}
           icon={({ size, color }) => <Icon name="information-circle" size={size} color={color} />}
         />
         <DrawerItem
@@ -46,7 +47,7 @@ function CustomDrawerContent(props: any) {
         <DrawerItem
           label="Withdrawal"
           onPress={() => router.navigate(PAGE_ROUTES.WITHDRAWAL)}
-          icon={({ size, color }) => <Icon name="contact-01" size={size} color={color} />}
+          icon={({ size, color }) => <Icon name="property-delete" size={size} color={color} />}
         />
 
         <DrawerItem
@@ -63,13 +64,12 @@ function CustomDrawerContent(props: any) {
           label="About"
           onPress={() => router.navigate(PAGE_ROUTES.ABOUT_US)}
           icon={({ size, color }) => <Icon name="info" size={size} color={color} />}
-          activeTintColor="#4297A0"
         />
       </DrawerContentScrollView>
 
       {/* Drawer Footer / Logout */}
       <View className="border-t border-slate-100 p-4">
-        <Button variant={'destructive'} activeOpacity={0.7} onPress={logout}>
+        <Button size={'lg'} variant={'destructive'} activeOpacity={0.7} onPress={logout}>
           Logout
         </Button>
       </View>
@@ -87,7 +87,7 @@ export default function DrawerLayout() {
         drawerActiveTintColor: '#4297A0',
         drawerInactiveTintColor: '#475569',
         drawerItemStyle: {
-          borderRadius: 0,
+          borderRadius: 6,
           marginHorizontal: 12,
           marginVertical: 2,
         },

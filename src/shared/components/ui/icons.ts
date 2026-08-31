@@ -26,6 +26,7 @@ import ToolsIcon from '@hugeicons/core-free-icons/ToolsIcon';
 import UserCircle02Icon from '@hugeicons/core-free-icons/UserCircle02Icon';
 import UserUnlock01Icon from '@hugeicons/core-free-icons/UserUnlock01Icon';
 import AlertCircleIcon from '@hugeicons/core-free-icons/AlertCircleIcon';
+import PropertyDeleteIcon from '@hugeicons/core-free-icons/PropertyDeleteIcon';
 
 /**
  * Central icon re-export layer.
@@ -69,4 +70,5 @@ export {
   ToolsIcon,
   UserCircle02Icon,
   UserUnlock01Icon,
+  PropertyDeleteIcon,
 };

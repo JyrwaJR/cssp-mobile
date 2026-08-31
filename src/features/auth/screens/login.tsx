@@ -64,14 +64,14 @@ export function LoginScreen() {
               <Link
                 push
                 href={PAGE_ROUTES.USER_MANUAL}
-                className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
+                className="py-2 text-sm font-semibold active:opacity-70">
                 User Manual
               </Link>
               <Text className="text-base text-muted-foreground">•</Text>
               <Link
                 push
                 href={PAGE_ROUTES.PRIVACY}
-                className="py-2 text-base font-semibold text-muted-foreground active:opacity-70">
+                className="py-2 text-sm font-semibold tracking-wider active:opacity-70">
                 Privacy Policy
               </Link>
             </View>
@@ -80,7 +80,6 @@ export function LoginScreen() {
           {/* Partner Logos & Version Footer */}
           <View className="items-center gap-3 pt-2">
             <FooterImg />
-            <Text className="text-sm font-medium text-muted-foreground">Version {APP_VERSION}</Text>
           </View>
         </View>
       </Container>
