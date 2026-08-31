@@ -158,4 +158,37 @@ export const USER_MANUAL_DLC_STEPS: OverviewStep[] = [
   },
 ];
 
-export const USER_MANUAL_CHANGE_PASSWORD_STEPS: OverviewStep[] = [];
+export const USER_MANUAL_CHANGE_PASSWORD_STEPS: OverviewStep[] = [
+  {
+    step: 'STEP 1',
+    title: 'LOG IN TO YOUR ACCOUNT',
+    desc: 'Type your PPO Number and Password to log in.',
+    placeholder: 'Screen with PPO Box and Password Box',
+    caption: 'Log In box screen',
+    source: require('@assets/images/manual/login.jpeg'),
+  },
+  {
+    step: 'STEP 2',
+    title: 'OPEN THE DRAWER MENU',
+    desc: 'Open the App drawer menu to select Change Password.',
+    placeholder: 'Click the drawer menu icon',
+    caption: 'Click the drawer menu icon',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 3',
+    title: 'CLICK ON CHANGE PASSWORD',
+    desc: 'Open the App drawer menu to select Change Password.',
+    placeholder: 'Click the drawer menu icon',
+    caption: 'Click the drawer menu icon',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 4',
+    title: 'FILL IN YOUR OLD & NEW PASSWORD',
+    desc: 'Open the App drawer menu to select Change Password.',
+    placeholder: 'Click the drawer menu icon',
+    caption: 'Click the drawer menu icon',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+];

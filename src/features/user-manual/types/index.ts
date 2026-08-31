@@ -9,7 +9,7 @@ import type { ImageSourcePropType } from 'react-native';
  */
 export interface UserManualSectionCardProps {
   /** Badge text displayed inside the circular header (e.g. "1"). */
-  stepNumber: string;
+  stepNumber?: string;
   /** Card title rendered next to the badge in large high-contrast text. */
   title: string;
   /** Card body content rendered below the header divider. */

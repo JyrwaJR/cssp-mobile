@@ -19,9 +19,11 @@ export const UserManualSectionCard: React.FC<UserManualSectionCardProps> = ({
 }) => (
   <View className="gap-4 rounded-md border border-gray-300 bg-white p-5 ">
     <View className="flex-row items-center gap-3 border-b-2 border-gray-200 pb-4">
-      <View className="h-12 w-12 items-center justify-center rounded-full bg-blue-700">
-        <Text className="text-xl font-black text-white">{stepNumber}</Text>
-      </View>
+      {stepNumber && (
+        <View className="h-12 w-12 items-center justify-center rounded-full bg-blue-700">
+          <Text className="text-xl font-black text-white">{stepNumber}</Text>
+        </View>
+      )}
       <Text className="flex-1 text-xl font-black tracking-wide text-slate-900">{title}</Text>
     </View>
     <View className="gap-4 pt-1">{children}</View>

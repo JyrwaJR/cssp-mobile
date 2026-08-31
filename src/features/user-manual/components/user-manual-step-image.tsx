@@ -21,12 +21,14 @@ export const UserManualStepImage: React.FC<UserManualStepImageProps> = ({
 }) => (
   <View className="my-3 overflow-hidden rounded-md border border-gray-300 bg-gray-50 ">
     {source ? (
-      <Image
-        source={source}
-        className="h-[32rem] w-full"
-        accessibilityLabel={caption || 'Instructional step visual guide'}
-        resizeMode="cover"
-      />
+      <View className="h-[32rem] w-full items-center justify-center">
+        <Image
+          source={source}
+          className="h-full w-full object-cover"
+          accessibilityLabel={caption || 'Instructional step visual guide'}
+          resizeMode="contain"
+        />
+      </View>
     ) : (
       <View className="h-48 w-full items-center justify-center border-b-2 border-dashed border-gray-300 bg-gray-100 p-4">
         <Text className="text-center text-3xl">📱</Text>

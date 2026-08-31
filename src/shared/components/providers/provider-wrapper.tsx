@@ -29,7 +29,7 @@ type Props = {
  */
 export const ProviderWrapper = ({ children }: Props) => {
   // Prevent user from taking screen shot or screen recording
-  usePreventScreenCapture();
+  // usePreventScreenCapture();
   return (
     <GlobalErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }}>

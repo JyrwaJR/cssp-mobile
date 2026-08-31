@@ -6,6 +6,7 @@ import {
   UserManualStepImage as StepImage,
 } from '../components';
 import { Container } from '@components/layout';
+import { USER_MANUAL_CHANGE_PASSWORD_STEPS } from '../utils/guide-steps';
 
 /**
  * "Using the App" tab content for the Pensioner app user manual.
@@ -19,17 +20,37 @@ import { Container } from '@components/layout';
 export function UserManualChangePasswordScreen() {
   return (
     <Container className="gap-5">
-      {/* 7. Submit Photo & Declaration */}
-      <SectionCard stepNumber="1" title="How to Change Password">
-        <Text className="text-lg font-medium leading-7 text-slate-900">
-          If you want to choose a new password, select{' '}
-          <Text className="font-black text-blue-800">&quot;Change Password&quot;</Text> from the app
-          Drawer.
+      <View className="gap-2">
+        <View className="bg-primary/10 self-start py-1">
+          <Text className="text-sm font-bold uppercase tracking-wider text-primary">Security</Text>
+        </View>
+
+        <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+          Change Password
         </Text>
-        <StepImage
-          placeholderText="Change Password Screen"
-          caption="Type your current password and new password"
-        />
+        <Text className="text-sm font-medium text-muted-foreground">
+          Easy Step-by-Step Instructions
+        </Text>
+      </View>
+      <SectionCard title="Simple Steps to Change Password">
+        <View className="gap-5">
+          {USER_MANUAL_CHANGE_PASSWORD_STEPS.map((item, index) => (
+            <View key={index} className="rounded-md border border-gray-200 bg-gray-50 p-4">
+              <View className="self-start rounded-md bg-blue-700 px-3 py-1">
+                <Text className="text-sm font-black text-white">{item.step}</Text>
+              </View>
+              <Text className="mt-2 text-xl font-black text-slate-900">{item.title}</Text>
+              <Text className="mt-1 text-base font-semibold leading-6 text-slate-700">
+                {item.desc}
+              </Text>
+              <StepImage
+                source={item.source}
+                placeholderText={item.placeholder}
+                caption={item.caption}
+              />
+            </View>
+          ))}
+        </View>
       </SectionCard>
       {/* Bottom Logos */}
       <View className="mt-4 py-6">
