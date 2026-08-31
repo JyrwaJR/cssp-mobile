@@ -167,6 +167,31 @@ export function RegistrationInstructionScreen() {
           </View>
         </Alert>
 
+        {/* User Manual Section */}
+        <View className="gap-3 rounded-md border border-border bg-card p-4">
+          <View className="flex-row items-center gap-3">
+            <View className="bg-primary/10 h-9 w-9 items-center justify-center rounded-full">
+              <Icon name="book-01" size={18} className="text-primary" />
+            </View>
+            <Text className="flex-1 text-base font-semibold text-foreground">User Manual</Text>
+          </View>
+
+          <Text className="text-base leading-relaxed text-muted-foreground">
+            Need help? Check the <Text className="font-semibold text-foreground">User Manual</Text>{' '}
+            for step-by-step instructions on using the pensioner portal.
+          </Text>
+
+          <Button
+            variant="outline"
+            size="lg"
+            onPress={() => router.push(PAGE_ROUTES.USER_MANUAL)}
+            className="flex-row items-center gap-2"
+            accessibilityLabel="Open user manual">
+            <Icon name="book-01" size={18} className="text-primary" />
+            <Text className="text-base font-semibold text-primary">View Manual</Text>
+          </Button>
+        </View>
+
         {/* Action Button */}
         <Button size="lg" onPress={() => router.push(PAGE_ROUTES.AUTH.REGISTER)}>
           Proceed to Registration
