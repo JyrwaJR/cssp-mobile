@@ -166,7 +166,7 @@ export function UserManualScreen() {
                     {item.desc}
                   </Text>
                   <StepImage
-                    source={{ uri: item.source }}
+                    source={item.source}
                     placeholderText={item.placeholder}
                     caption={item.caption}
                   />
@@ -191,7 +191,7 @@ export function UserManualScreen() {
                   </Text>
 
                   <StepImage
-                    source={{ uri: item.source }}
+                    source={item.source}
                     placeholderText={item.placeholder}
                     caption={item.caption}
                   />
@@ -200,7 +200,7 @@ export function UserManualScreen() {
 
               {/* Family Pensioner Note */}
               <View className="rounded-md border border-amber-500 bg-amber-100 p-5">
-                <Text className="text-xl font-black text-amber-950">
+                <Text className="text-lg font-black text-amber-950">
                   📌 IMPORTANT NOTE FOR FAMILY PENSIONERS:
                 </Text>
 

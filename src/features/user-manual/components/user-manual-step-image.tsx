@@ -23,8 +23,9 @@ export const UserManualStepImage: React.FC<UserManualStepImageProps> = ({
     {source ? (
       <Image
         source={source}
-        className="resize-cover aspect-[9/16] w-full bg-white"
+        className="h-[32rem] w-full"
         accessibilityLabel={caption || 'Instructional step visual guide'}
+        resizeMode="cover"
       />
     ) : (
       <View className="h-48 w-full items-center justify-center border-b-2 border-dashed border-gray-300 bg-gray-100 p-4">
