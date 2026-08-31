@@ -9,7 +9,7 @@ import * as Application from 'expo-application';
 /** Default page size for paginated queries and validation. */
 export const PAGE_SIZE = 10;
 
-export const APP_VERSION = Application.nativeApplicationVersion || '1.0.0';
+export const APP_VERSION = Application.nativeApplicationVersion || '3.0.0';
 
 /**
  * File size limits (in bytes).
