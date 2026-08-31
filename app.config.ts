@@ -15,7 +15,7 @@ import type { ExpoConfig } from 'expo/config';
 const bundleIdentifier = 'com.jyrwajr.csspmobile';
 const androidPackage = 'com.jyrwajr.csspmobile';
 
-const variant = process.env.EXPO_PUBLIC_APP_VARIANT;
+const variant = process.env.APP_VARIANT;
 
 /**
  * Derives the platform bundle identifier for the active build variant.
@@ -29,9 +29,16 @@ const variant = process.env.EXPO_PUBLIC_APP_VARIANT;
  * @see APP_VARIANT
  */
 function getBundleId(base: string): string {
-  if (variant) return `${base}.dev`;
-  if (variant === 'preview') return `${base}.preview`;
-  return base;
+  switch (variant) {
+    case 'development':
+      return `${base}.dev`;
+    case 'preview':
+      return `${base}.preview`;
+    case 'production':
+      return `${base}`;
+    default:
+      return `${base}.dev`;
+  }
 }
 
 const config: ExpoConfig = {
