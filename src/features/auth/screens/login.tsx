@@ -60,7 +60,6 @@ export function LoginScreen() {
             </Button>
 
             {/* Secondary Policy & Manual Links */}
-
             <View className="gap-3 rounded-md border border-border bg-card p-4">
               <View className="flex-row items-center gap-3">
                 <View className="bg-primary/10 h-9 w-9 items-center justify-center rounded-full">

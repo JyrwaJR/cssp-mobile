@@ -2,8 +2,8 @@ import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Container } from '@components/layout';
-import { Button } from '@components/ui';
-import { APP_LINKS, APP_VERSION } from '@utils/constants';
+import { Button, Icon } from '@components/ui';
+import { APP_LINKS, APP_VERSION, PAGE_ROUTES } from '@utils/constants';
 import { openPhoneNumber } from '@utils/helpers';
 
 import { FooterImg } from '@components/common';
@@ -41,6 +41,7 @@ export function UserManualScreen() {
         </View>
 
         {/* Main Title Hero Card */}
+
         <View className="gap-4 rounded-md border border-blue-600 bg-blue-50 p-6 ">
           {/* Emergency Helpline Box */}
           <View className="mt-2 w-full gap-3 rounded-md border border-blue-300 bg-white p-5 ">
@@ -65,9 +66,29 @@ export function UserManualScreen() {
           </View>
 
           {/* Quick Link to Privacy Policy */}
-          <Button size={'lg'} onPress={() => router.push('/privacy-policy')}>
-            📄 View App Privacy Policy
-          </Button>
+          <View className="gap-3 rounded-md border border-border bg-card p-4">
+            <View className="flex-row items-center gap-3">
+              <View className="bg-primary/10 h-9 w-9 items-center justify-center rounded-full">
+                <Icon name="book-01" size={18} className="text-primary" />
+              </View>
+              <Text className="flex-1 text-base font-semibold text-foreground">Privacy Policy</Text>
+            </View>
+
+            <Text className="text-center text-base leading-relaxed text-muted-foreground">
+              Review how your personal data is collected, used, and protected in the{' '}
+              <Text className="font-semibold text-foreground">Privacy Policy</Text>.
+            </Text>
+
+            <Button
+              variant="outline"
+              size="lg"
+              onPress={() => router.push(PAGE_ROUTES.PRIVACY)}
+              className="flex-row items-center gap-2"
+              accessibilityLabel="Open privacy policy">
+              <Icon name="book-01" size={18} className="text-primary" />
+              <Text className="text-base font-semibold text-primary">Privacy Policy</Text>
+            </Button>
+          </View>
         </View>
         <Button size={'lg'} onPress={() => router.push('/user-manual/change-password')}>
           Change Password
