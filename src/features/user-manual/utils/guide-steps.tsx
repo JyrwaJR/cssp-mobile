@@ -178,17 +178,17 @@ export const USER_MANUAL_CHANGE_PASSWORD_STEPS: OverviewStep[] = [
   {
     step: 'STEP 3',
     title: 'CLICK ON CHANGE PASSWORD',
-    desc: 'Open the App drawer menu to select Change Password.',
-    placeholder: 'Click the drawer menu icon',
-    caption: 'Click the drawer menu icon',
+    desc: 'Tap on the "Change Password" option from the drawer menu.',
+    placeholder: 'Drawer menu showing Change Password option',
+    caption: "Select 'Change Password' from the menu",
     source: require('@assets/images/manual/home-screen.jpeg'),
   },
   {
     step: 'STEP 4',
     title: 'FILL IN YOUR OLD & NEW PASSWORD',
-    desc: 'Open the App drawer menu to select Change Password.',
-    placeholder: 'Click the drawer menu icon',
-    caption: 'Click the drawer menu icon',
+    desc: 'Enter your current password, then type your new password and confirm it.',
+    placeholder: 'Change Password form with old and new password fields',
+    caption: 'Fill in all password fields and tap Submit',
     source: require('@assets/images/manual/home-screen.jpeg'),
   },
 ];

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Animated, TouchableOpacity, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSnackbarStore } from '@stores/snackbar.store';
-import { useTheme } from '@hooks/use-theme';
 import { Icon } from '@components/ui/icon';
 import { cn } from '@utils/helpers';
 
@@ -19,8 +18,6 @@ export const SnackbarProvider = () => {
   const dismissSnackbar = useSnackbarStore((state) => state.dismissSnackbar);
 
   const insets = useSafeAreaInsets();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
 
   const [translateY] = useState(() => new Animated.Value(150));
   const [opacity] = useState(() => new Animated.Value(0));
@@ -110,20 +107,14 @@ export const SnackbarProvider = () => {
         accessibilityRole="alert"
         accessibilityLabel={message ?? undefined}>
         <View
-          className={cn(
-            'elevation-6 max-w-[90%] flex-row items-center rounded-full px-4 py-3',
-            isDark ? 'bg-white' : 'bg-neutral-900'
-          )}>
+          className={cn('elevation-6 max-w-[90%] flex-row items-center rounded-full px-4 py-3')}>
           {icon ? (
             <View className="mr-2">
               <Icon name={icon} size={24} className="text-white" />
             </View>
           ) : null}
 
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            className={cn('text-sm font-medium', isDark ? 'text-neutral-900' : 'text-white')}>
+          <Text numberOfLines={1} ellipsizeMode="tail" className={cn('text-sm font-medium')}>
             {message?.slice(0, 120)}
           </Text>
         </View>
