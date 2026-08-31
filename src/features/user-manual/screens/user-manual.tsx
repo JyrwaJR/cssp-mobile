@@ -27,7 +27,7 @@ export function UserManualScreen() {
 
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
-      <Container scrollable={false}>
+      <Container>
         <View className="gap-5">
           <View className="gap-2 px-6 pt-2">
             <View className="bg-primary/10 self-start py-1">
@@ -76,17 +76,12 @@ export function UserManualScreen() {
           </View>
 
           {/* Segmented Tab Control */}
-          <View className="px-6">
-            <UserManualTabs activeTab={activeTab} onChange={setActiveTab} />
-          </View>
+          <UserManualTabs activeTab={activeTab} onChange={(tab) => setActiveTab(tab)} />
 
           {/* Active Tab Content */}
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerClassName="gap-5 p-6 pt-2"
-            className="w-full flex-1">
+          <View className="w-full flex-1 gap-5">
             {activeTab === 'getting-started' ? <GettingStartedSections /> : <UsingAppSections />}
-          </ScrollView>
+          </View>
         </View>
       </Container>
     </SafeAreaView>

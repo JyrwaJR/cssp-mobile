@@ -50,9 +50,7 @@ export const UserManualTabs: React.FC<UserManualTabsProps> = ({ activeTab, onCha
             size={'lg'}
             onPress={() => onChange(tab.id)}
             variant={isActive ? 'primary' : 'secondary'}
-            disabled={isActive}
             accessibilityRole="tab"
-            className="flex-1"
             accessibilityState={{ selected: isActive }}
             accessibilityLabel={tab.label}>
             {tab.label}
