@@ -1,8 +1,8 @@
 import { useAuthStore } from '@stores/auth.store';
-import { usePathname, useRouter, useLocalSearchParams, Href } from 'expo-router';
+import { usePathname, useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useEffect } from 'react';
 import { LoadingScreen } from '@components/screens/loading-screen';
-import { PUBLIC_ROUTES } from '@utils/constants/auth';
+import { isGuestOnlyRoute, isPublicRoute, isProtectedRoute } from '@utils/constants/auth';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 
 type Props = {
@@ -10,14 +10,18 @@ type Props = {
 };
 
 /**
- * Authentication redirect guard.
+ * Authentication redirect guard with three-tier access control.
  *
  * Handles:
  * 1. Waiting for auth hydration/loading to complete.
- * 2. Redirecting authenticated users away from public routes.
- * 3. Redirecting unauthenticated users to the auth page.
+ * 2. Guest-only routes: redirect authenticated users away (login, register).
+ * 3. Public routes: accessible by both authenticated and non-authenticated users.
+ * 4. Protected routes: redirect non-authenticated users to auth page.
  *
- * Role-based access control is intentionally handled elsewhere.
+ * Route Categories:
+ * - Guest-Only: /auth, /auth/register, /auth/reg-instruction
+ * - Public: /user-manual, /privacy-policy, /contact-us, /about
+ * - Protected: Everything else (requires authentication)
  */
 export const AuthRedirect = ({ children }: Props) => {
   const { isAuthLoading: isLoading, isSignedIn } = useAuthStore();
@@ -28,24 +32,27 @@ export const AuthRedirect = ({ children }: Props) => {
 
   const redirectTo = params.redirect as string | undefined;
 
-  const isOnPublicPage = PUBLIC_ROUTES.includes(pathName as Href);
+  const onGuestOnlyPage = isGuestOnlyRoute(pathName);
+  const onPublicPage = isPublicRoute(pathName);
+  const onProtectedPage = isProtectedRoute(pathName);
 
   useEffect(() => {
     if (isLoading) return;
 
-    // 1. Signed-in user trying to access a public page.
-    if (isSignedIn && isOnPublicPage) {
-      router.replace((redirectTo as Href) || PAGE_ROUTES.HOME);
-
+    // 1. Authenticated user on guest-only page -> redirect to home (or redirectTo)
+    if (isSignedIn && onGuestOnlyPage) {
+      router.replace(redirectTo || PAGE_ROUTES.HOME);
       return;
     }
 
-    // 2. Unauthenticated user trying to access a protected page.
-    if (!isSignedIn && !isOnPublicPage) {
+    // 2. Non-authenticated user on protected page -> redirect to auth
+    if (!isSignedIn && onProtectedPage) {
       router.replace(PAGE_ROUTES.AUTH.HOME);
       return;
     }
-  }, [isLoading, isSignedIn, isOnPublicPage, pathName, redirectTo, router]);
+
+    // 3. Public pages and authenticated users on protected pages -> allow access (no redirect)
+  }, [isLoading, isSignedIn, onGuestOnlyPage, onPublicPage, onProtectedPage, pathName, redirectTo, router]);
 
   if (isLoading) {
     return <LoadingScreen />;
