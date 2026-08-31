@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { type ImageSourcePropType, Text } from 'react-native';
 
 /**
  * One entry of the detailed first-time registration walkthrough.
@@ -9,8 +9,8 @@ interface RegistrationStep {
   step: string;
   /** Short title of the registration step. */
   title: string;
-  /** Remote screenshot URL rendered via {@link StepImage}. */
-  source: string;
+  /** Image source (local require or remote URI) rendered via {@link StepImage}. */
+  source: ImageSourcePropType;
   /** Rich-text instruction body (may contain styled `<Text>` spans). */
   description: React.ReactNode;
   /** Placeholder text shown if the image cannot be resolved. */
@@ -33,13 +33,9 @@ interface OverviewStep {
   placeholder: string;
   /** Caption hint displayed under the image. */
   caption: string;
-  /** Remote screenshot URL rendered via {@link StepImage}. */
-  source: string;
+  /** Image source (local require or remote URI) rendered via {@link StepImage}. */
+  source: ImageSourcePropType;
 }
-
-/** Sample guide image used across all manual screenshots. */
-const GUIDE_IMAGE =
-  'https://fastly.picsum.photos/id/690/200/300.jpg?hmac=YX9nONyDZ_zuGZ5wLOen_mxLWVHEsjpkADU43laON4M';
 
 /**
  * Detailed first-time registration steps rendered inside section 6 of the
@@ -49,7 +45,7 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
   {
     step: 'Step 1',
     title: 'Tap Register Link',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
     description: (
       <>
         Open the app and tap on{' '}
@@ -63,7 +59,7 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
   {
     step: 'Step 2',
     title: 'Enter PPO Number',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/reg-1.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">PPO Number</Text> (printed on the
@@ -71,20 +67,47 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
       </>
     ),
     placeholder: 'PPO Number input box screen',
-    caption: 'Type your PPO number exactly as printed on passbook',
+    caption: 'Type your PPO number exactly as printed on Passbook',
   },
   {
     step: 'Step 3',
     title: 'Enter DOB & Bank Account',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/reg-2.jpeg'),
     description: (
       <>
-        Enter your <Text className="font-black text-slate-900">Date of Birth</Text>, Bank Account
-        Number, and create a secret password.
+        Enter your <Text className="font-black text-slate-900">Date of Birth</Text>, &nbsp;
+        <Text className="font-black text-slate-900">Bank Account Number</Text>.
       </>
     ),
     placeholder: 'Registration Form Screen',
     caption: 'Fill in Date of Birth, Bank account, and password',
+  },
+  {
+    step: 'Step 4',
+    title: 'Enter Login Password',
+    source: require('@assets/images/manual/reg-3.jpeg'),
+    description: (
+      <>
+        Enter your <Text className="font-black text-slate-900">Password</Text>, then re-enter it in{' '}
+        <Text className="font-black text-slate-900">Confirm Password</Text>.
+      </>
+    ),
+    placeholder: 'Password Form Screen',
+    caption: 'Fill in Password and Confirm password',
+  },
+  {
+    step: 'Step 5',
+    title: 'Confirmation Screen',
+    source: require('@assets/images/manual/reg-4.jpeg'),
+    description: (
+      <>
+        Review all your details on the confirmation screen, then tap{' '}
+        <Text className="font-black text-blue-800">&quot;Submit&quot;</Text> to complete
+        registration.
+      </>
+    ),
+    placeholder: 'Confirmation Screen',
+    caption: 'Confirm your details before submitting',
   },
 ];
 
@@ -96,10 +119,10 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
   {
     step: 'STEP 1',
     title: 'ONE-TIME REGISTRATION',
-    desc: 'Register your phone first before trying to log in.',
+    desc: 'Register your account first before trying to log in.',
     placeholder: 'Screen showing Register Button',
     caption: 'Main opening screen where you start registration',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
   },
   {
     step: 'STEP 2',
@@ -107,7 +130,7 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
     desc: 'Type your PPO Number and Password to log in.',
     placeholder: 'Screen with PPO Box and Password Box',
     caption: 'Log In box screen',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
   },
   {
     step: 'STEP 3',
@@ -115,7 +138,7 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
     desc: 'Hold camera in front of your face. Do this once every 6 months.',
     placeholder: 'Camera screen showing face circle',
     caption: 'Position your face inside the circle',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
   },
   {
     step: 'STEP 4',
@@ -123,7 +146,7 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
     desc: 'Tap YES/NO to confirm your employment or marriage status.',
     placeholder: 'Screen showing Self-Declaration questions',
     caption: 'Simple Yes / No declaration screen',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
   },
   {
     step: 'STEP 5',
@@ -131,6 +154,6 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
     desc: 'See if your photo verification was approved by Treasury.',
     placeholder: 'Screen showing Approved Status tick mark',
     caption: 'Status screen showing green approval tag',
-    source: GUIDE_IMAGE,
+    source: require('@assets/images/manual/login.jpeg'),
   },
 ];
