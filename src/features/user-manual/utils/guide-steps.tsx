@@ -41,7 +41,7 @@ interface OverviewStep {
  * Detailed first-time registration steps rendered inside section 6 of the
  * user manual screen.
  */
-export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
+export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
   {
     step: 'Step 1',
     title: 'Tap Register Link',
@@ -50,7 +50,7 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
       <>
         Open the app and tap on{' '}
         <Text className="font-black text-blue-800">&quot;Register / Forgot Password&quot;</Text>{' '}
-        text at the bottom.
+        Button at the bottom.
       </>
     ),
     placeholder: 'Login Screen showing Register button at bottom',
@@ -67,7 +67,7 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
       </>
     ),
     placeholder: 'PPO Number input box screen',
-    caption: 'Type your PPO number exactly as printed on Passbook',
+    caption: 'Type your PPO number exactly as printed on passbook',
   },
   {
     step: 'Step 3',
@@ -115,11 +115,11 @@ export const USER_MANUAL_REGISTRATION_STEPS: RegistrationStep[] = [
  * High-level five-step process overview rendered inside section 5 of the
  * user manual screen.
  */
-export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
+export const USER_MANUAL_DLC_STEPS: OverviewStep[] = [
   {
     step: 'STEP 1',
     title: 'ONE-TIME REGISTRATION',
-    desc: 'Register your account first before trying to log in.',
+    desc: 'Register your phone first before trying to log in.',
     placeholder: 'Screen showing Register Button',
     caption: 'Main opening screen where you start registration',
     source: require('@assets/images/manual/login.jpeg'),
@@ -157,3 +157,5 @@ export const USER_MANUAL_OVERVIEW_STEPS: OverviewStep[] = [
     source: require('@assets/images/manual/login.jpeg'),
   },
 ];
+
+export const USER_MANUAL_CHANGE_PASSWORD_STEPS: OverviewStep[] = [];

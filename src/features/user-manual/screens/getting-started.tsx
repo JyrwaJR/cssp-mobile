@@ -1,14 +1,14 @@
 import { Text, View } from 'react-native';
-import { router } from 'expo-router';
 import { Button } from '@components/ui';
 import { APP_LINKS } from '@utils/constants';
-import { openEmailAddress, openPlayStoreLink } from '@utils/helpers';
+import { openEmailAddress } from '@utils/helpers';
 
 import {
   UserManualSectionCard as SectionCard,
   UserManualStepImage as StepImage,
-} from '../components';
-import { USER_MANUAL_OVERVIEW_STEPS, USER_MANUAL_REGISTRATION_STEPS } from '../utils/guide-steps';
+} from '../components/';
+import { USER_GETTING_STARTED_STEPS } from '../utils/guide-steps';
+import { Container } from '@components/layout';
 
 /**
  * "Getting Started" tab content for the Pensioner app user manual.
@@ -20,9 +20,9 @@ import { USER_MANUAL_OVERVIEW_STEPS, USER_MANUAL_REGISTRATION_STEPS } from '../u
  *
  * @returns The getting-started section cards rendered as a vertical stack.
  */
-export function GettingStartedSections() {
+export function UserManualGettingStartedScreen() {
   return (
-    <>
+    <Container className="gap-5">
       {/* 1. Introduction */}
       <SectionCard stepNumber="1" title="What is This App For?">
         <Text className="text-lg font-medium leading-7 text-slate-900">
@@ -36,9 +36,7 @@ export function GettingStartedSections() {
         <StepImage
           placeholderText="Main Welcome Home Screen"
           caption="Main app home screen with easy big buttons"
-          source={{
-            uri: 'https://fastly.picsum.photos/id/690/200/300.jpg?hmac=YX9nONyDZ_zuGZ5wLOen_mxLWVHEsjpkADU43laON4M',
-          }}
+          source={require('@assets/images/manual/home-screen.jpeg')}
         />
       </SectionCard>
 
@@ -57,7 +55,7 @@ export function GettingStartedSections() {
       </SectionCard>
 
       {/* 3. Download */}
-      <SectionCard stepNumber="3" title="How to Download the App">
+      {/* <SectionCard stepNumber="3" title="How to Download the App">
         <Text className="text-lg font-medium leading-7 text-slate-900">
           Tap the big green button below to open Google Play Store on your phone:
         </Text>
@@ -67,11 +65,9 @@ export function GettingStartedSections() {
         <StepImage
           placeholderText="Google Play Store App Listing Screen"
           caption="Search for 'Pensioner Life Certificate Meghalaya'"
-          source={{
-            uri: 'https://fastly.picsum.photos/id/690/200/300.jpg?hmac=YX9nONyDZ_zuGZ5wLOen_mxLWVHEsjpkADU43laON4M',
-          }}
+          source={require("@assets/images/manual/log.jpeg")}
         />
-      </SectionCard>
+      </SectionCard> */}
 
       {/* 4. Requirements */}
       <SectionCard stepNumber="4" title="What Your Phone Needs">
@@ -100,32 +96,10 @@ export function GettingStartedSections() {
         </View>
       </SectionCard>
 
-      {/* 5. Process Overview (Sub-Cards per Step) */}
-      <SectionCard stepNumber="5" title="5 Simple Steps to Complete Registration">
-        <View className="gap-5">
-          {USER_MANUAL_OVERVIEW_STEPS.map((item, index) => (
-            <View key={index} className="rounded-md border border-gray-200 bg-gray-50 p-4">
-              <View className="self-start rounded-md bg-blue-700 px-3 py-1">
-                <Text className="text-sm font-black text-white">{item.step}</Text>
-              </View>
-              <Text className="mt-2 text-xl font-black text-slate-900">{item.title}</Text>
-              <Text className="mt-1 text-base font-semibold leading-6 text-slate-700">
-                {item.desc}
-              </Text>
-              <StepImage
-                source={item.source}
-                placeholderText={item.placeholder}
-                caption={item.caption}
-              />
-            </View>
-          ))}
-        </View>
-      </SectionCard>
-
-      {/* 6. Registration (Clear Detailed Step Cards) */}
+      {/* 5. Registration (Clear Detailed Step Cards) */}
       <SectionCard stepNumber="6" title="First Time Registration Steps">
         <View className="gap-6">
-          {USER_MANUAL_REGISTRATION_STEPS.map((item) => (
+          {USER_GETTING_STARTED_STEPS.map((item) => (
             <View
               key={item.step}
               className="gap-2 rounded-md border border-gray-200 bg-gray-50 p-4">
@@ -180,6 +154,6 @@ export function GettingStartedSections() {
           </View>
         </View>
       </SectionCard>
-    </>
+    </Container>
   );
 }

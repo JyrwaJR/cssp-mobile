@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Container } from '@components/layout';
@@ -7,8 +6,7 @@ import { Button } from '@components/ui';
 import { APP_LINKS, APP_VERSION } from '@utils/constants';
 import { openPhoneNumber } from '@utils/helpers';
 
-import { UserManualTabs, type UserManualTabId } from '../components';
-import { GettingStartedSections, UsingAppSections } from '../sections';
+import { FooterImg } from '@components/common';
 
 /**
  * Senior-friendly user manual screen for the Pensioner app.
@@ -23,66 +21,64 @@ import { GettingStartedSections, UsingAppSections } from '../sections';
  * @returns The rendered user manual screen.
  */
 export function UserManualScreen() {
-  const [activeTab, setActiveTab] = useState<UserManualTabId>('getting-started');
-
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
-      <Container>
-        <View className="gap-5">
-          <View className="gap-2 px-6 pt-2">
-            <View className="bg-primary/10 self-start py-1">
-              <Text className="text-sm font-bold uppercase tracking-wider text-primary">
-                Government of Meghalaya • Finance Department
-              </Text>
-            </View>
-
-            <Text className="text-2xl font-extrabold tracking-tight text-foreground">
-              Pensioner App User Guide
-            </Text>
-
-            <Text className="text-sm font-medium text-muted-foreground">
-              Easy Step-by-Step Instructions {APP_VERSION}
+      <Container className="gap-5">
+        <View className="gap-2 pt-2">
+          <View className="bg-primary/10 self-start py-1">
+            <Text className="text-sm font-bold uppercase tracking-wider text-primary">
+              Government of Meghalaya • Finance Department
             </Text>
           </View>
 
-          {/* Main Title Hero Card */}
-          <View className="mx-6 gap-4 rounded-md border border-blue-600 bg-blue-50 p-6 ">
-            {/* Emergency Helpline Box */}
-            <View className="mt-2 w-full gap-3 rounded-md border border-blue-300 bg-white p-5 ">
-              <Text className="text-center text-sm font-black uppercase tracking-wider text-slate-800">
-                📞 Need help? Tap a number to call us directly:
-              </Text>
-              <View className="gap-3">
-                <Button
-                  size="lg"
-                  activeOpacity={0.8}
-                  onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_1)}>
-                  📞 Call {APP_LINKS.PHONE.HELP_LINE_1}
-                </Button>
+          <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+            Pensioner App User Guide
+          </Text>
 
-                <Button
-                  size="lg"
-                  activeOpacity={0.8}
-                  onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_2)}>
-                  📞 Call {APP_LINKS.PHONE.HELP_LINE_2}
-                </Button>
-              </View>
-            </View>
-
-            {/* Quick Link to Privacy Policy */}
-            <Button size={'lg'} onPress={() => router.push('/privacy-policy')}>
-              📄 View App Privacy Policy
-            </Button>
-          </View>
-
-          {/* Segmented Tab Control */}
-          <UserManualTabs activeTab={activeTab} onChange={(tab) => setActiveTab(tab)} />
-
-          {/* Active Tab Content */}
-          <View className="w-full flex-1 gap-5">
-            {activeTab === 'getting-started' ? <GettingStartedSections /> : <UsingAppSections />}
-          </View>
+          <Text className="text-sm font-medium text-muted-foreground">
+            Easy Step-by-Step Instructions {APP_VERSION}
+          </Text>
         </View>
+
+        {/* Main Title Hero Card */}
+        <View className="gap-4 rounded-md border border-blue-600 bg-blue-50 p-6 ">
+          {/* Emergency Helpline Box */}
+          <View className="mt-2 w-full gap-3 rounded-md border border-blue-300 bg-white p-5 ">
+            <Text className="text-center text-sm font-black uppercase tracking-wider text-slate-800">
+              📞 Need help? Tap a number to call us directly:
+            </Text>
+            <View className="gap-3">
+              <Button
+                size="lg"
+                activeOpacity={0.8}
+                onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_1)}>
+                📞 Call {APP_LINKS.PHONE.HELP_LINE_1}
+              </Button>
+
+              <Button
+                size="lg"
+                activeOpacity={0.8}
+                onPress={() => openPhoneNumber(APP_LINKS.PHONE.HELP_LINE_2)}>
+                📞 Call {APP_LINKS.PHONE.HELP_LINE_2}
+              </Button>
+            </View>
+          </View>
+
+          {/* Quick Link to Privacy Policy */}
+          <Button size={'lg'} onPress={() => router.push('/privacy-policy')}>
+            📄 View App Privacy Policy
+          </Button>
+        </View>
+        <Button size={'lg'} onPress={() => router.push('/user-manual/change-password')}>
+          Change Password
+        </Button>
+        <Button size={'lg'} onPress={() => router.push('/user-manual/dlc')}>
+          DLC
+        </Button>
+        <Button size={'lg'} onPress={() => router.push('/user-manual/getting-started')}>
+          Getting Started
+        </Button>
+        <FooterImg />
       </Container>
     </SafeAreaView>
   );

@@ -4,7 +4,7 @@ import { FooterImg } from '@components/common';
 import {
   UserManualSectionCard as SectionCard,
   UserManualStepImage as StepImage,
-} from '../components';
+} from '../../components';
 
 /**
  * "Using the App" tab content for the Pensioner app user manual.
@@ -15,7 +15,7 @@ import {
  *
  * @returns The using-the-app section cards rendered as a vertical stack.
  */
-export function UsingAppSections() {
+export function UserManualUsingAppSections() {
   return (
     <>
       {/* 7. Submit Photo & Declaration */}
