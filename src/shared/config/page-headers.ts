@@ -29,6 +29,20 @@ export const PAGE_HEADERS = {
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
   '/user-manual': { title: 'Manual', showBackButton: true, showDrawer: false },
+
+  '/user-manual/getting-started': {
+    title: 'Getting Started',
+    showBackButton: true,
+    showDrawer: false,
+  },
+  '/user-manual/change-password': {
+    title: 'Change Password',
+    showBackButton: true,
+  },
+  '/user-manual/dlc': {
+    title: 'Digital Life Certificate',
+    showBackButton: true,
+  },
   '/privacy-policy': { title: 'Privacy Policy', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
 
