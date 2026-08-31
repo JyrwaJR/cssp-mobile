@@ -1,5 +1,5 @@
 import { useAuthStore } from '@stores/auth.store';
-import { usePathname, useRouter, useLocalSearchParams } from 'expo-router';
+import { usePathname, useRouter, useLocalSearchParams, Href } from 'expo-router';
 import React, { useEffect } from 'react';
 import { LoadingScreen } from '@components/screens/loading-screen';
 import { isGuestOnlyRoute, isPublicRoute, isProtectedRoute } from '@utils/constants/auth';
@@ -30,7 +30,7 @@ export const AuthRedirect = ({ children }: Props) => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const redirectTo = params.redirect as string | undefined;
+  const redirectTo = params.redirect as Href;
 
   const onGuestOnlyPage = isGuestOnlyRoute(pathName);
   const onPublicPage = isPublicRoute(pathName);
@@ -52,7 +52,16 @@ export const AuthRedirect = ({ children }: Props) => {
     }
 
     // 3. Public pages and authenticated users on protected pages -> allow access (no redirect)
-  }, [isLoading, isSignedIn, onGuestOnlyPage, onPublicPage, onProtectedPage, pathName, redirectTo, router]);
+  }, [
+    isLoading,
+    isSignedIn,
+    onGuestOnlyPage,
+    onPublicPage,
+    onProtectedPage,
+    pathName,
+    redirectTo,
+    router,
+  ]);
 
   if (isLoading) {
     return <LoadingScreen />;
