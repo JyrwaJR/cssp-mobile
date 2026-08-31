@@ -24,7 +24,7 @@ import { useRegistrationStore } from '../store/registration';
 export default function RegistrationScreen() {
   const { step } = useRegistrationStore();
   return (
-    <Container className="flex-1 py-10">
+    <Container className="flex-1 gap-5 py-10">
       {/* Step X of 4 + progress bar + title + instruction */}
       <RegistrationStepHeader step={step} />
 
