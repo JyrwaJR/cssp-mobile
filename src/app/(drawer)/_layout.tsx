@@ -1,15 +1,16 @@
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
 import { Drawer, DrawerContentScrollView, DrawerItem } from 'expo-router/drawer';
 import { Button, Icon } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
+import { useNavigationLock } from '@hooks/use-navigation-lock';
 
 function CustomDrawerContent(props: any) {
   const { user } = useAuthStore();
   const { logout } = useAuthStore();
   const inset = useSafeAreaInsets();
+  const navigate = useNavigationLock();
 
   return (
     <View className="flex-1">
@@ -29,40 +30,40 @@ function CustomDrawerContent(props: any) {
       <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 12 }}>
         <DrawerItem
           label="Home"
-          onPress={() => router.navigate(PAGE_ROUTES.HOME)}
+          onPress={() => navigate(PAGE_ROUTES.HOME)}
           pressOpacity={1}
           pressColor={'none'}
           icon={({ size, color }) => <Icon name="information-circle" size={size} color={color} />}
         />
         <DrawerItem
           label="Change Password"
-          onPress={() => router.navigate(PAGE_ROUTES.CHANGE_PASSWORD)}
+          onPress={() => navigate(PAGE_ROUTES.CHANGE_PASSWORD)}
           icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
         />
         <DrawerItem
           label="Contact Us"
-          onPress={() => router.navigate(PAGE_ROUTES.CONTACT_US)}
+          onPress={() => navigate(PAGE_ROUTES.CONTACT_US)}
           icon={({ size, color }) => <Icon name="contact-01" size={size} color={color} />}
         />
         <DrawerItem
           label="Withdrawal"
-          onPress={() => router.navigate(PAGE_ROUTES.WITHDRAWAL)}
+          onPress={() => navigate(PAGE_ROUTES.WITHDRAWAL)}
           icon={({ size, color }) => <Icon name="property-delete" size={size} color={color} />}
         />
 
         <DrawerItem
           label="User Manual"
-          onPress={() => router.navigate(PAGE_ROUTES.USER_MANUAL)}
+          onPress={() => navigate(PAGE_ROUTES.USER_MANUAL)}
           icon={({ size, color }) => <Icon name="book-01" size={size} color={color} />}
         />
         <DrawerItem
           label="Privacy Policy"
-          onPress={() => router.navigate(PAGE_ROUTES.PRIVACY)}
+          onPress={() => navigate(PAGE_ROUTES.PRIVACY)}
           icon={({ size, color }) => <Icon name="shield" size={size} color={color} />}
         />
         <DrawerItem
           label="About"
-          onPress={() => router.navigate(PAGE_ROUTES.ABOUT_US)}
+          onPress={() => navigate(PAGE_ROUTES.ABOUT_US)}
           icon={({ size, color }) => <Icon name="info" size={size} color={color} />}
         />
       </DrawerContentScrollView>
