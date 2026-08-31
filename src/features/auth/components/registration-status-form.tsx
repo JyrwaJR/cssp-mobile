@@ -53,7 +53,7 @@ export const RegistrationStatusForm = () => {
             <Input
               value={value}
               onChangeText={(v) => {
-                return onChange(v.toUpperCase());
+                return onChange(v);
               }}
               onBlur={onBlur}
               placeholder="Enter your PPO Number"
