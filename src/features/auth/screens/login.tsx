@@ -8,6 +8,7 @@ import { FooterImg } from '@components/common/nic-footer-img';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { APP_VERSION } from '@utils/constants';
+import { Icon } from '@components/ui';
 
 /**
  * Login screen for the Pensioner Portal.
@@ -51,7 +52,6 @@ export function LoginScreen() {
             {/* Primary entry point for new users — full-width, 56px target */}
             <Button
               variant="outline"
-              size="lg"
               onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
               className="w-full">
               <Text className="text-center text-base font-bold text-primary">
@@ -60,20 +60,30 @@ export function LoginScreen() {
             </Button>
 
             {/* Secondary Policy & Manual Links */}
-            <View className="flex-row items-center justify-center gap-4">
-              <Link
-                push
-                href={PAGE_ROUTES.USER_MANUAL}
-                className="py-2 text-sm font-semibold active:opacity-70">
-                User Manual
-              </Link>
-              <Text className="text-base text-muted-foreground">•</Text>
-              <Link
-                push
-                href={PAGE_ROUTES.PRIVACY}
-                className="py-2 text-sm font-semibold tracking-wider active:opacity-70">
-                Privacy Policy
-              </Link>
+
+            <View className="gap-3 rounded-md border border-border bg-card p-4">
+              <View className="flex-row items-center gap-3">
+                <View className="bg-primary/10 h-9 w-9 items-center justify-center rounded-full">
+                  <Icon name="book-01" size={18} className="text-primary" />
+                </View>
+                <Text className="flex-1 text-base font-semibold text-foreground">User Manual</Text>
+              </View>
+
+              <Text className="text-center text-base leading-relaxed text-muted-foreground">
+                Need help? Check the{' '}
+                <Text className="font-semibold text-foreground">User Manual</Text> for step-by-step
+                instructions on using the pensioner portal.
+              </Text>
+
+              <Button
+                variant="outline"
+                size="lg"
+                onPress={() => router.push(PAGE_ROUTES.USER_MANUAL)}
+                className="flex-row items-center gap-2"
+                accessibilityLabel="Open user manual">
+                <Icon name="book-01" size={18} className="text-primary" />
+                <Text className="text-base font-semibold text-primary">View Manual</Text>
+              </Button>
             </View>
           </View>
 
