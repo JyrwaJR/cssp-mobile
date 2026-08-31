@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { ScrollView, Text, View, Pressable } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from '@components/ui/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FooterImg } from '@components/common/nic-footer-img';
