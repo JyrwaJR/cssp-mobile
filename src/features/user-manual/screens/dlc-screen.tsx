@@ -35,7 +35,7 @@ export function UserManualDLCScreen() {
           Easy Step-by-Step Instructions
         </Text>
       </View>
-      <SectionCard title="5 Simple Steps to Complete  Registration">
+      <SectionCard title="Steps to Complete Digital Life Registration">
         <View className="gap-5">
           {USER_MANUAL_DLC_STEPS.map((item, index) => (
             <View key={index} className="rounded-md border border-gray-200 bg-gray-50 p-4">
