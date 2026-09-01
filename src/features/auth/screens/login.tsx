@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 
 import { LoginForm } from '../components';
 import { Button } from '@components/ui/button';
@@ -7,7 +7,6 @@ import { Container } from '@components/layout';
 import { FooterImg } from '@components/common/nic-footer-img';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { APP_VERSION } from '@utils/constants';
 import { Icon } from '@components/ui';
 
 /**
@@ -77,7 +76,7 @@ export function LoginScreen() {
               <Button
                 variant="outline"
                 size="lg"
-                onPress={() => router.push(PAGE_ROUTES.USER_MANUAL)}
+                onPress={() => router.push(PAGE_ROUTES.USER_MANUAL.HOME)}
                 className="flex-row items-center gap-2"
                 accessibilityLabel="Open user manual">
                 <Icon name="book-01" size={18} className="text-primary" />

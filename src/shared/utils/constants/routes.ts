@@ -17,7 +17,12 @@ const routes = {
   ABOUT_US: '/about' as Href,
   FACE_RECOGNITION: '/face-recognition' as Href,
   PRIVACY: '/privacy-policy' as Href,
-  USER_MANUAL: '/user-manual' as Href,
+  USER_MANUAL: {
+    HOME: '/user-manual',
+    DLC: '/user-manual/dlc',
+    CHANGE_PASSWORD: '/user-manual/change-password',
+    GETTING_STARTED: '/user-manual/getting-started',
+  },
   WITHDRAWAL: '/withdrawal' as Href,
 } as const;
 

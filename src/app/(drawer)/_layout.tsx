@@ -61,7 +61,7 @@ function CustomDrawerContent(props: any) {
           label="User Manual"
           pressOpacity={0.1}
           pressColor={'#FFF'}
-          onPress={() => navigate(PAGE_ROUTES.USER_MANUAL)}
+          onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.HOME)}
           icon={({ size, color }) => <Icon name="book-01" size={size} color={color} />}
         />
         <DrawerItem
