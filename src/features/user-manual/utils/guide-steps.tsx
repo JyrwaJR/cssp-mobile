@@ -60,46 +60,64 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
   },
   {
     step: 'Step 2',
+    title: 'Tap Proceed to Registration',
+    source: require('@assets/images/manual/login.jpeg'),
+    description: (
+      <>
+        On the Registration Guide screen, tap{' '}
+        <Text className="font-black text-blue-800">&quot;Proceed to Registration&quot;</Text> to
+        start the registration wizard.
+      </>
+    ),
+    placeholder: 'Registration Guide screen with Proceed to Registration button',
+    caption: 'Tap the Proceed to Registration button',
+  },
+  {
+    step: 'Step 3',
     title: 'Enter PPO Number',
     source: require('@assets/images/manual/reg-1.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">PPO Number</Text> (printed on the
-        front cover of your Pension Passbook).
+        front cover of your Pension Passbook) and tap{' '}
+        <Text className="font-black text-blue-800">&quot;Check PPO Status&quot;</Text>
       </>
     ),
-    placeholder: 'PPO Number input box screen',
-    caption: 'Type your PPO number exactly as printed on passbook',
+    placeholder: 'PPO Number input box screen with Check PPO Status button',
+    caption: 'Type your PPO number, then tap Check PPO Status',
   },
   {
-    step: 'Step 3',
+    step: 'Step 4',
     title: 'Enter DOB & Bank Account',
     source: require('@assets/images/manual/reg-2.jpeg'),
     description: (
       <>
-        Enter your <Text className="font-black text-slate-900">Date of Birth</Text>, &nbsp;
-        <Text className="font-black text-slate-900">Bank Account Number</Text>.
+        Enter your <Text className="font-black text-slate-900">Organization</Text>,{' '}
+        <Text className="font-black text-slate-900">Date of Birth</Text>, and{' '}
+        <Text className="font-black text-slate-900">Bank Account Number</Text>, then tap{' '}
+        <Text className="font-black text-blue-800">&quot;Next&quot;</Text>
       </>
     ),
-    placeholder: 'Registration Form Screen',
-    caption: 'Fill in Date of Birth, Bank account, and password',
+    placeholder: 'Registration Form Screen with Organization, DOB, and Bank Account fields',
+    caption: 'Fill in Organization, Date of Birth, and Bank account, then tap Next',
   },
   {
-    step: 'Step 4',
+    step: 'Step 5',
     title: 'Enter Login Password',
     source: require('@assets/images/manual/reg-3.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">Password</Text>, then re-enter it in{' '}
-        <Text className="font-black text-slate-900">Confirm Password</Text>.
+        <Text className="font-black text-slate-900">Confirm Password</Text>, then tap{' '}
+        <Text className="font-black text-blue-800">&quot;Next&quot;</Text>
       </>
     ),
     placeholder: 'Password Form Screen',
-    caption: 'Fill in Password and Confirm password',
+    caption: 'Fill in Password and Confirm password, then tap Next',
   },
   {
-    step: 'Step 5',
-    title: 'Confirmation Screen',
+    step: 'Step 6',
+    title: 'Review & Submit',
     source: require('@assets/images/manual/reg-4.jpeg'),
     description: (
       <>
@@ -108,8 +126,8 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
         registration.
       </>
     ),
-    placeholder: 'Confirmation Screen',
-    caption: 'Confirm your details before submitting',
+    placeholder: 'Confirmation Screen with Submit button',
+    caption: 'Check your details, then tap Submit to finish',
   },
 ];
 
