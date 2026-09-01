@@ -10,6 +10,7 @@ import { FooterImg } from '@components/common';
 import { ChangePasswrodSchema } from '../validators';
 import { useChangePassword } from '../hooks/use-change-password';
 import { PasswordRequiredments } from '../components/password-req';
+import { ChangePasswordConfirmDialog } from '../components/change-password-confirm-dialog';
 import { formatPassword } from '@lib/encryption';
 
 type ChangePasswordForm = {
@@ -21,6 +22,7 @@ type ChangePasswordForm = {
 export function ChangePasswordScreen() {
   const [isShowOldPassword, setIsShowOldPassword] = useState(false);
   const [isShowNewPassword, setIsShowNewPassword] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const { mutate, isPending, isError, error, isSuccess } = useChangePassword();
 
@@ -237,7 +239,7 @@ export function ChangePasswordScreen() {
             {/* Submit */}
             <Button
               size="lg"
-              onPress={handleSubmit(onSubmit)}
+              onPress={() => setIsConfirmOpen(true)}
               disabled={isPending}
               isLoading={isPending}
               activeOpacity={0.8}>
@@ -248,6 +250,16 @@ export function ChangePasswordScreen() {
 
         <FooterImg />
       </View>
+
+      {/* Confirmation dialog */}
+      <ChangePasswordConfirmDialog
+        open={isConfirmOpen}
+        onOpenChange={setIsConfirmOpen}
+        onConfirm={() => {
+          setIsConfirmOpen(false);
+          handleSubmit(onSubmit)();
+        }}
+      />
     </Container>
   );
 }
