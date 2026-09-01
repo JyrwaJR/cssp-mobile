@@ -21,7 +21,21 @@ export function UserManualDLCScreen() {
   return (
     <Container className="gap-5">
       {/* 7. Submit Photo & Declaration */}
-      <SectionCard stepNumber="5" title="5 Simple Steps to Complete  Registration">
+      <View className="gap-2">
+        <View className="bg-primary/10 self-start py-1">
+          <Text className="text-sm font-bold uppercase tracking-wider text-primary">
+            Registration
+          </Text>
+        </View>
+
+        <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+          Digital Life Registration
+        </Text>
+        <Text className="text-sm font-medium text-muted-foreground">
+          Easy Step-by-Step Instructions
+        </Text>
+      </View>
+      <SectionCard title="5 Simple Steps to Complete  Registration">
         <View className="gap-5">
           {USER_MANUAL_DLC_STEPS.map((item, index) => (
             <View key={index} className="rounded-md border border-gray-200 bg-gray-50 p-4">
@@ -43,9 +57,7 @@ export function UserManualDLCScreen() {
       </SectionCard>
 
       {/* Bottom Logos */}
-      <View className="mt-4 py-6">
-        <FooterImg />
-      </View>
+      <FooterImg />
     </Container>
   );
 }

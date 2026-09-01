@@ -53,9 +53,7 @@ export function UserManualChangePasswordScreen() {
         </View>
       </SectionCard>
       {/* Bottom Logos */}
-      <View className="mt-4 py-6">
-        <FooterImg />
-      </View>
+      <FooterImg />
     </Container>
   );
 }

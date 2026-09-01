@@ -28,7 +28,7 @@ export const PAGE_HEADERS = {
   '/about': { title: 'About Us', showBackButton: true },
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
-  '/user-manual': { title: 'Manual', showBackButton: true, showDrawer: false },
+  '/user-manual': { title: 'App User Manual', showBackButton: true, showDrawer: false },
 
   '/user-manual/getting-started': {
     title: 'Getting Started',

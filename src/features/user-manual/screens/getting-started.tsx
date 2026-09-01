@@ -9,6 +9,7 @@ import {
 } from '../components/';
 import { USER_GETTING_STARTED_STEPS } from '../utils/guide-steps';
 import { Container } from '@components/layout';
+import { FooterImg } from '@components/common';
 
 /**
  * "Getting Started" tab content for the Pensioner app user manual.
@@ -23,8 +24,20 @@ import { Container } from '@components/layout';
 export function UserManualGettingStartedScreen() {
   return (
     <Container className="gap-5">
+      <View className="gap-2">
+        <View className="bg-primary/10 self-start py-1">
+          <Text className="text-sm font-bold uppercase tracking-wider text-primary">Starting</Text>
+        </View>
+
+        <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+          Getting Started
+        </Text>
+        <Text className="text-sm font-medium text-muted-foreground">
+          Easy Step-by-Step Instructions
+        </Text>
+      </View>
       {/* 1. Introduction */}
-      <SectionCard stepNumber="1" title="What is This App For?">
+      <SectionCard title="What is This App For?">
         <Text className="text-lg font-medium leading-7 text-slate-900">
           Pensioners in Meghalaya no longer need to travel to the Treasury Office in person to
           submit their Life Certificate.
@@ -154,6 +167,7 @@ export function UserManualGettingStartedScreen() {
           </View>
         </View>
       </SectionCard>
+      <FooterImg />
     </Container>
   );
 }

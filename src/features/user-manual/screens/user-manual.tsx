@@ -42,7 +42,7 @@ export function UserManualScreen() {
 
         {/* Main Title Hero Card */}
 
-        <View className="gap-4 rounded-md border border-blue-600 bg-blue-50 p-6 ">
+        <View className="gap-4 rounded-md border border-blue-600 bg-blue-50 p-4 ">
           {/* Emergency Helpline Box */}
           <View className="mt-2 w-full gap-3 rounded-md border border-blue-300 bg-white p-5 ">
             <Text className="text-center text-sm font-black uppercase tracking-wider text-slate-800">
