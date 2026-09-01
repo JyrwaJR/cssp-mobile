@@ -1,9 +1,11 @@
 import { View, Text, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
+import { AlertDescription, Alert, AlertTitle, Icon, Button } from '@components/ui';
 import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '../hooks';
+import { router } from 'expo-router';
+import { PAGE_ROUTES } from '@utils/constants';
 
 export function VerificationStatusScreen() {
   const { data, isFetching, refetch } = useVerificationStatus();
@@ -35,7 +37,7 @@ export function VerificationStatusScreen() {
                 Verification Status
               </Text>
             </View>
-            <Text className="text-center text-2xl font-semibold text-emerald-950">
+            <Text className="text-center text-xl font-semibold text-emerald-950">
               {data?.ver_status || '—'}
             </Text>
           </View>
@@ -68,7 +70,7 @@ export function VerificationStatusScreen() {
                 <Text className="text-sm font-bold text-foreground">{data?.ver_time || '—'}</Text>
               </View>
 
-              {!isPhotoSubmitted && (
+              {isPhotoSubmitted && (
                 <>
                   {/* Place */}
                   <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
@@ -110,6 +112,26 @@ export function VerificationStatusScreen() {
                 </>
               )}
             </View>
+          </View>
+          <View className="gap-3 rounded-md border border-border bg-card p-4">
+            <View className="flex-row items-center gap-3">
+              <Text className="flex-1 text-base font-semibold text-foreground">
+                Digital Life Certificate
+              </Text>
+            </View>
+
+            <Text className="text-center text-base leading-relaxed text-muted-foreground">
+              Submit a quick photo to verify your identity and complete your Digital Life
+              Certificate.
+            </Text>
+
+            <Button
+              size="lg"
+              onPress={() => router.push(PAGE_ROUTES.DLC)}
+              className="flex-row items-center gap-2"
+              accessibilityLabel="Open user manual">
+              <Text className="text-base font-semibold text-primary-foreground">SUBMIT DLC</Text>
+            </Button>
           </View>
 
           {/* Note Alert Card */}
