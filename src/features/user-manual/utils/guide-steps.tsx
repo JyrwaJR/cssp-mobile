@@ -20,9 +20,11 @@ interface RegistrationStep {
 }
 
 /**
- * One entry of the high-level five-step process overview.
+ * One entry of a high-level step-by-step user manual overview, used by the
+ * DLC and change-password guides (named after the `USER_MANUAL_*_STEPS`
+ * arrays).
  */
-interface OverviewStep {
+interface UserManualDlcStep {
   /** Badge label shown in the blue pill (e.g. "STEP 1"). */
   step: string;
   /** Uppercase title of the overview step. */
@@ -112,53 +114,95 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
 ];
 
 /**
- * High-level five-step process overview rendered inside section 5 of the
- * user manual screen.
+ * Step-by-step guide for submitting the annual Digital Life Certificate (DLC),
+ * from logging in to completing the submission. Each step's `source` is a
+ * temporary existing manual image; replace with the matching screenshot image
+ * when it becomes available. `placeholder` documents the screenshot needed.
  */
-export const USER_MANUAL_DLC_STEPS: OverviewStep[] = [
+export const USER_MANUAL_DLC_STEPS: UserManualDlcStep[] = [
   {
     step: 'STEP 1',
-    title: 'ONE-TIME REGISTRATION',
-    desc: 'Register your phone first before trying to log in.',
-    placeholder: 'Screen showing Register Button',
-    caption: 'Main opening screen where you start registration',
+    title: 'LOG IN TO YOUR ACCOUNT',
+    desc: 'Open the app, enter your PPO Number and Password, then tap the Login button.',
+    placeholder: 'Login screen with PPO Number and Password fields',
+    caption: 'Enter your PPO Number and Password, then tap Login',
     source: require('@assets/images/manual/login.jpeg'),
   },
   {
     step: 'STEP 2',
-    title: 'LOG IN TO YOUR ACCOUNT',
-    desc: 'Type your PPO Number and Password to log in.',
-    placeholder: 'Screen with PPO Box and Password Box',
-    caption: 'Log In box screen',
-    source: require('@assets/images/manual/login.jpeg'),
+    title: 'OPEN THE SUBMIT DLC TAB',
+    desc: "At the bottom of the home screen, tap the 'Submit DLC' tab.",
+    placeholder: 'Home screen with bottom tabs: Status, Submit DLC, Profile',
+    caption: 'Tap the Submit DLC tab at the bottom of the screen',
+    source: require('@assets/images/manual/home-screen.jpeg'),
   },
   {
     step: 'STEP 3',
-    title: 'TAKE A FACE PHOTO',
-    desc: 'Hold camera in front of your face. Do this once every 6 months.',
-    placeholder: 'Camera screen showing face circle',
-    caption: 'Position your face inside the circle',
-    source: require('@assets/images/manual/login.jpeg'),
+    title: 'ALLOW CAMERA ACCESS',
+    desc: "If asked, tap the 'Allow Camera Access' button so the app can use your camera. If the button is not shown, camera access is already granted - skip to the next step.",
+    placeholder: 'Digital Life Certificate screen with Allow Camera Access button',
+    caption: 'Tap the Allow Camera Access button on screen',
+    source: require('@assets/images/manual/home-screen.jpeg'),
   },
   {
     step: 'STEP 4',
-    title: 'CONFIRM DECLARATION',
-    desc: 'Tap YES/NO to confirm your employment or marriage status.',
-    placeholder: 'Screen showing Self-Declaration questions',
-    caption: 'Simple Yes / No declaration screen',
-    source: require('@assets/images/manual/login.jpeg'),
+    title: 'TAP CAPTURE PHOTO',
+    desc: "On the Digital Life Certificate screen, tap the blue 'Capture Photo' button.",
+    placeholder: 'Digital Life Certificate screen with Capture Photo button',
+    caption: 'Tap the Capture Photo button',
+    source: require('@assets/images/manual/home-screen.jpeg'),
   },
   {
     step: 'STEP 5',
-    title: 'CHECK YOUR APPROVAL',
-    desc: 'See if your photo verification was approved by Treasury.',
-    placeholder: 'Screen showing Approved Status tick mark',
-    caption: 'Status screen showing green approval tag',
-    source: require('@assets/images/manual/login.jpeg'),
+    title: 'LOOK INTO THE CAMERA AND BLINK',
+    desc: 'Look straight into the camera, keep your face centred, and blink your eyes once. The photo is taken automatically.',
+    placeholder: 'Camera screen asking you to blink your eyes',
+    caption: 'Look straight and blink your eyes once',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 6',
+    title: 'WAIT FOR VERIFICATION',
+    desc: 'Wait while the app processes and verifies your photo. Do not close the app.',
+    placeholder: 'Loading screen with a "Please wait..." message',
+    caption: 'Wait for the check to finish',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 7',
+    title: 'ANSWER THE QUESTIONS',
+    desc: "If a Self-Declaration form appears, answer the questions. For example, tap 'Yes' or 'No' for 'Are you Re-Employed?' and for 'Are you Re-Married?' if it shows.",
+    placeholder: 'Self-Declaration form with Yes / No options',
+    caption: 'Tap Yes or No for each question',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 8',
+    title: 'TAP SUBMIT',
+    desc: "Tap the 'Submit' button on the Self-Declaration form to send your answers.",
+    placeholder: 'Self-Declaration form with Submit button',
+    caption: 'Tap the Submit button',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 9',
+    title: 'CONFIRM THE TERMS',
+    desc: "A 'Terms and Conditions' pop-up appears. Tap 'Yes' to confirm and finish submitting.",
+    placeholder: 'Terms and Conditions confirmation pop-up',
+    caption: 'Tap Yes on the Terms and Conditions pop-up',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 10',
+    title: 'SEE YOUR RESULT',
+    desc: 'The result screen shows whether your annual Digital Life Certificate was submitted successfully, or if further action is needed.',
+    placeholder: 'Verification result screen',
+    caption: 'Check your result here',
+    source: require('@assets/images/manual/home-screen.jpeg'),
   },
 ];
 
-export const USER_MANUAL_CHANGE_PASSWORD_STEPS: OverviewStep[] = [
+export const USER_MANUAL_CHANGE_PASSWORD_STEPS: UserManualDlcStep[] = [
   {
     step: 'STEP 1',
     title: 'LOG IN TO YOUR ACCOUNT',
