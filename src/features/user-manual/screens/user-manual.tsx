@@ -7,6 +7,7 @@ import { APP_LINKS, APP_VERSION, PAGE_ROUTES } from '@utils/constants';
 import { openPhoneNumber } from '@utils/helpers';
 
 import { FooterImg } from '@components/common';
+import { useNavigationLock } from '@hooks/use-navigation-lock';
 
 /**
  * Senior-friendly user manual screen for the Pensioner app.
@@ -21,6 +22,7 @@ import { FooterImg } from '@components/common';
  * @returns The rendered user manual screen.
  */
 export function UserManualScreen() {
+  const navigate = useNavigationLock();
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
       <Container className="gap-5">
@@ -90,14 +92,15 @@ export function UserManualScreen() {
             </Button>
           </View>
         </View>
-        <Button size={'lg'} onPress={() => router.push('/user-manual/change-password')}>
-          Change Password
+
+        <Button size={'lg'} onPress={() => navigate('/user-manual/change-password')}>
+          Change Password Guide - See Step-by-Step Instructions
         </Button>
-        <Button size={'lg'} onPress={() => router.push('/user-manual/dlc')}>
-          DLC
+        <Button size={'lg'} onPress={() => navigate('/user-manual/dlc')}>
+          Digital Life Registration Guide - See Step-by-Step Instructions
         </Button>
-        <Button size={'lg'} onPress={() => router.push('/user-manual/getting-started')}>
-          Getting Started
+        <Button size={'lg'} onPress={() => navigate('/user-manual/getting-started')}>
+          Getting Started Guide - See Step-by-Step Instructions
         </Button>
         <FooterImg />
       </Container>
