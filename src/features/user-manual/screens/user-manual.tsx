@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Container } from '@components/layout';
@@ -93,15 +93,64 @@ export function UserManualScreen() {
           </View>
         </View>
 
-        <Button size={'lg'} onPress={() => navigate('/user-manual/change-password')}>
-          Change Password Guide - See Step-by-Step Instructions
-        </Button>
-        <Button size={'lg'} onPress={() => navigate('/user-manual/dlc')}>
-          Digital Life Registration Guide - See Step-by-Step Instructions
-        </Button>
-        <Button size={'lg'} onPress={() => navigate('/user-manual/getting-started')}>
-          Getting Started Guide - See Step-by-Step Instructions
-        </Button>
+        {/* Guide Sections */}
+        <View className="gap-3 rounded-md border border-border bg-card p-4">
+          <Text className="text-lg font-bold text-foreground">Step-by-Step Guides</Text>
+          <Text className="text-sm font-medium leading-relaxed text-muted-foreground">
+            Tap a guide below to see simple instructions for that task.
+          </Text>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open step-by-step guide for changing your password"
+            onPress={() => navigate('/user-manual/change-password')}
+            className="flex-row items-center gap-3 rounded-md border border-border bg-white p-4 active:opacity-80">
+            <View className="bg-primary/10 h-11 w-11 items-center justify-center rounded-full">
+              <Icon name="shield" size={20} className="text-primary" />
+            </View>
+            <View className="flex-1 gap-0.5">
+              <Text className="text-base font-bold text-foreground">Change Password</Text>
+              <Text className="text-sm font-medium leading-snug text-muted-foreground">
+                Step-by-step instructions
+              </Text>
+            </View>
+            <Text className="text-xl font-semibold leading-none text-muted-foreground">›</Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open step-by-step guide for digital life registration"
+            onPress={() => navigate('/user-manual/dlc')}
+            className="flex-row items-center gap-3 rounded-md border border-border bg-white p-4 active:opacity-80">
+            <View className="bg-primary/10 h-11 w-11 items-center justify-center rounded-full">
+              <Icon name="camera-01" size={20} className="text-primary" />
+            </View>
+            <View className="flex-1 gap-0.5">
+              <Text className="text-base font-bold text-foreground">Digital Life Registration</Text>
+              <Text className="text-sm font-medium leading-snug text-muted-foreground">
+                Step-by-step instructions
+              </Text>
+            </View>
+            <Text className="text-xl font-semibold leading-none text-muted-foreground">›</Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open step-by-step guide to get started with the app"
+            onPress={() => navigate('/user-manual/getting-started')}
+            className="flex-row items-center gap-3 rounded-md border border-border bg-white p-4 active:opacity-80">
+            <View className="bg-primary/10 h-11 w-11 items-center justify-center rounded-full">
+              <Icon name="rocket-01" size={20} className="text-primary" />
+            </View>
+            <View className="flex-1 gap-0.5">
+              <Text className="text-base font-bold text-foreground">Getting Started</Text>
+              <Text className="text-sm font-medium leading-snug text-muted-foreground">
+                Step-by-step instructions
+              </Text>
+            </View>
+            <Text className="text-xl font-semibold leading-none text-muted-foreground">›</Text>
+          </Pressable>
+        </View>
         <FooterImg />
       </Container>
     </SafeAreaView>
