@@ -264,9 +264,17 @@ export const USER_MANUAL_CHANGE_PASSWORD_STEPS: UserManualDlcStep[] = [
   {
     step: 'STEP 6',
     title: 'TAP THE CHANGE PASSWORD BUTTON',
-    desc: "Tap the 'Change Password' button at the bottom of the form. A green success message will appear confirming your password has been updated.",
-    placeholder: 'Change Password form with Change Password button and success message',
-    caption: 'Tap the Change Password button to submit',
+    desc: "Tap the 'Change Password' button at the bottom of the form. A confirmation pop-up will appear asking if you really want to update your password.",
+    placeholder: 'Change Password form with Change Password button',
+    caption: 'Tap the Change Password button to open the confirmation',
+    source: require('@assets/images/manual/home-screen.jpeg'),
+  },
+  {
+    step: 'STEP 7',
+    title: 'CONFIRM THE PASSWORD CHANGE',
+    desc: "In the confirmation pop-up, tap 'Yes, Update' to finish. A green success message will appear confirming your password has been updated.",
+    placeholder: 'Confirmation pop-up asking to update your password',
+    caption: "Tap 'Yes, Update' to confirm and submit",
     source: require('@assets/images/manual/home-screen.jpeg'),
   },
 ];
