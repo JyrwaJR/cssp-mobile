@@ -61,7 +61,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
   {
     step: 'Step 2',
     title: 'Tap Proceed to Registration',
-    source: require('@assets/images/manual/login.jpeg'),
+    source: require('@assets/images/manual/reg/reg-instruction.jpg'),
     description: (
       <>
         On the Registration Guide screen, tap{' '}
@@ -74,8 +74,21 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
   },
   {
     step: 'Step 3',
+    title: 'Scroll Down if Needed',
+    source: require('@assets/images/manual/reg/reg-instruction-1.jpg'),
+    description: (
+      <>
+        If the <Text className="font-black text-blue-800">&quot;Proceed to Registration&quot;</Text>{' '}
+        button is not visible, scroll down to find it.
+      </>
+    ),
+    placeholder: 'Registration Guide screen scrolled down to reveal Proceed to Registration button',
+    caption: 'Scroll down if you cannot see the Proceed to Registration button',
+  },
+  {
+    step: 'Step 4',
     title: 'Enter PPO Number',
-    source: require('@assets/images/manual/reg-1.jpeg'),
+    source: require('@assets/images/manual/reg/reg-1.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">PPO Number</Text> (printed on the
@@ -87,9 +100,9 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     caption: 'Type your PPO number, then tap Check PPO Status',
   },
   {
-    step: 'Step 4',
+    step: 'Step 5',
     title: 'Enter DOB & Bank Account',
-    source: require('@assets/images/manual/reg-2.jpeg'),
+    source: require('@assets/images/manual/reg/reg-2.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">Organization</Text>,{' '}
@@ -102,9 +115,9 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     caption: 'Fill in Organization, Date of Birth, and Bank account, then tap Next',
   },
   {
-    step: 'Step 5',
+    step: 'Step 6',
     title: 'Enter Login Password',
-    source: require('@assets/images/manual/reg-3.jpeg'),
+    source: require('@assets/images/manual/reg/reg-3.jpeg'),
     description: (
       <>
         Enter your <Text className="font-black text-slate-900">Password</Text>, then re-enter it in{' '}
@@ -116,9 +129,9 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     caption: 'Fill in Password and Confirm password, then tap Next',
   },
   {
-    step: 'Step 6',
+    step: 'Step 7',
     title: 'Review & Submit',
-    source: require('@assets/images/manual/reg-4.jpeg'),
+    source: require('@assets/images/manual/reg/reg-4.jpeg'),
     description: (
       <>
         Review all your details on the confirmation screen, then tap{' '}

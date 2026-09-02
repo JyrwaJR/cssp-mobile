@@ -184,7 +184,7 @@ export function RegistrationInstructionScreen() {
           <Button
             variant="outline"
             size="lg"
-            onPress={() => router.push(PAGE_ROUTES.USER_MANUAL)}
+            onPress={() => router.push(PAGE_ROUTES.USER_MANUAL.HOME)}
             className="flex-row items-center gap-2"
             accessibilityLabel="Open user manual">
             <Icon name="book-01" size={18} className="text-primary" />
