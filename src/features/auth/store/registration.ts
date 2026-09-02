@@ -19,12 +19,16 @@ interface RegistrationStore {
 
   validation: Omit<RegisterPensionerInput, 'ppo_no' | 'password'> | null;
   setValidationData: (data: Omit<RegisterPensionerInput, 'ppo_no' | 'password'>) => void;
+
+  isSuccess: boolean;
+  setSuccess: () => void;
 }
 
 export const useRegistrationStore = create<RegistrationStore>((set, get) => ({
   step: 1,
   formData: defaultValue,
   validation: null,
+  isSuccess: false,
   setValidationData: (data) => set({ validation: data }),
 
   setStep: (step) => set({ step }),
@@ -44,5 +48,7 @@ export const useRegistrationStore = create<RegistrationStore>((set, get) => ({
       formData: { ...state.formData, ...data },
     })),
 
-  reset: () => set({ step: 1, formData: defaultValue }),
+  setSuccess: () => set({ isSuccess: true }),
+
+  reset: () => set({ step: 1, formData: defaultValue, isSuccess: false }),
 }));
