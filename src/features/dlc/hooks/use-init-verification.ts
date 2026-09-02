@@ -11,7 +11,7 @@ const getRegStatusMessage = (currentReg: string | null | undefined): string => {
 };
 
 export function useInitializeVerification() {
-  const { user } = useAuthStore();
+  const { user, isSignedIn } = useAuthStore();
   const initData = {
     regStatus: user?.approval,
     dlc: user?.has_dlc,
@@ -21,6 +21,7 @@ export function useInitializeVerification() {
     queryKey: ['init', 'verification'],
     queryFn: () => initData,
     select: (data) => data,
+    enabled: isSignedIn,
   });
 
   const regStatus = query.data?.regStatus;
