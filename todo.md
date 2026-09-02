@@ -1,13 +1,30 @@
+---
+tags:
+  - Daily
+  - Standup
+---
+
+# Daily Standup: 2026-09-02
+
+## 🗓️ Yesterday's Recap
+
+- [ ] What did I accomplish?
+- [ ] Any unexpected challenges?
+
+## 🎯 Today's Focus (Top 3)
+
+1.
+2.
+3.
+
+## 🚧 Blockers / Impediments
+
+## 📝 Notes & Reflections
+
+-
+
+## 💡 Suggestions / Brainstorming
+
+-
+
 # TODO
-
-## User Manual
-
-- [x] Update user manual content and images to accurately reflect all screens and flows (Change Password, DLC, Registration, etc.)
-
-## Change Password
-
-- [x] Add confirmation dialog before submitting new password on the Change Password screen
-
-## Registration
-
-- [x] Add confirmation dialog before submitting registration details

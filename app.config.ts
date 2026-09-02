@@ -68,6 +68,14 @@ const config: ExpoConfig = {
         },
       },
     ],
+    [
+      'expo-build-properties',
+      {
+        android: {
+          buildArchs: ['arm64-v8a'], // armeabi-v7a arm64-v8a x86 x86_64 - x86_64 for emulator
+        },
+      },
+    ],
 
     'expo-secure-store',
   ],
