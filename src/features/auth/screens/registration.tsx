@@ -6,6 +6,7 @@ import {
   RegistrationPersonalForm,
   RegistrationStatusForm,
   RegistrationStepHeader,
+  RegistrationSuccessView,
 } from '../components';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common/nic-footer-img';
@@ -14,15 +15,28 @@ import { useRegistrationStore } from '../store/registration';
 /**
  * Four-step pensioner registration wizard shell.
  *
- * Renders a top-corner exit that RESETS the flow before navigating back
- * to login (prevents stale half-finished data on shared devices), a
- * large-print step header with progress bar, and the active step form.
- * Content is top-aligned so the keyboard cannot shift layout.
+ * Renders a large-print step header with progress bar and the active step
+ * form. Content is top-aligned so the keyboard cannot shift layout.
+ *
+ * After a successful submit, the entire step content (header, form, footer)
+ * is replaced by the success view, which resets the wizard and returns the
+ * user to login.
  *
  * @returns The rendered registration screen.
  */
 export default function RegistrationScreen() {
-  const { step } = useRegistrationStore();
+  const { step, isSuccess } = useRegistrationStore();
+
+  if (isSuccess) {
+    return (
+      <Container className="flex-1 gap-5 py-10">
+        <View className="mt-6 w-full">
+          <RegistrationSuccessView />
+        </View>
+      </Container>
+    );
+  }
+
   return (
     <Container className="flex-1 gap-5 py-10">
       {/* Step X of 4 + progress bar + title + instruction */}
