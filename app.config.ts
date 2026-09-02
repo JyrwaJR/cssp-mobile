@@ -72,7 +72,12 @@ const config: ExpoConfig = {
       'expo-build-properties',
       {
         android: {
-          buildArchs: ['arm64-v8a'], // armeabi-v7a arm64-v8a x86 x86_64 - x86_64 for emulator
+          // Supported Android CPU architectures:
+          // - armeabi-v7a  → 32-bit ARM devices (older/low-end phones)
+          // - arm64-v8a    → 64-bit ARM devices (most modern phones/tablets) ← active
+          // - x86          → 32-bit Intel (rare, some older Intel tablets)
+          // - x86_64       → 64-bit Intel/AMD (Android emulators on x86 hosts)
+          buildArchs: ['arm64-v8a'],
         },
       },
     ],
