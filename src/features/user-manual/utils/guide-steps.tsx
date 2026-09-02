@@ -159,7 +159,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
   {
     step: 'Step 9',
     title: 'Registration Successful',
-    source: require('@assets/images/manual/reg/reg-4.jpeg'),
+    source: require('@assets/images/manual/reg/reg-5.jpg'),
     description: (
       <>
         A{' '}
