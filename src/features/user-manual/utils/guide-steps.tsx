@@ -51,7 +51,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     description: (
       <>
         Open the app and tap on{' '}
-        <Text className="font-black text-blue-800">&quot;Register / Forgot Password&quot;</Text>{' '}
+        <Text className="font-black text-primary">&quot;Register / Forgot Password&quot;</Text>{' '}
         Button at the bottom.
       </>
     ),
@@ -65,7 +65,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     description: (
       <>
         On the Registration Guide screen, tap{' '}
-        <Text className="font-black text-blue-800">&quot;Proceed to Registration&quot;</Text> to
+        <Text className="font-black text-primary">&quot;Proceed to Registration&quot;</Text> to
         start the registration wizard.
       </>
     ),
@@ -78,7 +78,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     source: require('@assets/images/manual/reg/reg-instruction-1.jpg'),
     description: (
       <>
-        If the <Text className="font-black text-blue-800">&quot;Proceed to Registration&quot;</Text>{' '}
+        If the <Text className="font-black text-primary">&quot;Proceed to Registration&quot;</Text>{' '}
         button is not visible, scroll down to find it.
       </>
     ),
@@ -93,7 +93,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
       <>
         Enter your <Text className="font-black text-slate-900">PPO Number</Text> (printed on the
         front cover of your Pension Passbook) and tap{' '}
-        <Text className="font-black text-blue-800">&quot;Check PPO Status&quot;</Text>
+        <Text className="font-black text-primary">&quot;Check PPO Status&quot;</Text>
       </>
     ),
     placeholder: 'PPO Number input box screen with Check PPO Status button',
@@ -108,7 +108,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
         Enter your <Text className="font-black text-slate-900">Organization</Text>,{' '}
         <Text className="font-black text-slate-900">Date of Birth</Text>, and{' '}
         <Text className="font-black text-slate-900">Bank Account Number</Text>, then tap{' '}
-        <Text className="font-black text-blue-800">&quot;Next&quot;</Text>
+        <Text className="font-black text-primary">&quot;Next&quot;</Text>
       </>
     ),
     placeholder: 'Registration Form Screen with Organization, DOB, and Bank Account fields',
@@ -122,7 +122,7 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
       <>
         Enter your <Text className="font-black text-slate-900">Password</Text>, then re-enter it in{' '}
         <Text className="font-black text-slate-900">Confirm Password</Text>, then tap{' '}
-        <Text className="font-black text-blue-800">&quot;Next&quot;</Text>
+        <Text className="font-black text-primary">&quot;Next&quot;</Text>
       </>
     ),
     placeholder: 'Password Form Screen',
@@ -135,12 +135,26 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     description: (
       <>
         Review all your details on the confirmation screen, then tap{' '}
-        <Text className="font-black text-blue-800">&quot;Submit&quot;</Text> to complete
-        registration.
+        <Text className="font-black text-primary">&quot;Submit&quot;</Text>.
       </>
     ),
     placeholder: 'Confirmation Screen with Submit button',
-    caption: 'Check your details, then tap Submit to finish',
+    caption: 'Check your details, then tap Submit to confirm',
+  },
+  {
+    step: 'Step 8',
+    title: 'Confirm Registration',
+    source: require('@assets/images/manual/reg/reg-4.jpeg'),
+    description: (
+      <>
+        A confirmation pop-up will appear asking if you&apos;re sure. Tap{' '}
+        <Text className="font-black text-primary">&quot;Confirm&quot;</Text> to complete your
+        registration, or <Text className="font-black text-slate-900">&quot;Cancel&quot;</Text> to go
+        back and review your details.
+      </>
+    ),
+    placeholder: 'Confirmation pop-up with Cancel and Confirm buttons',
+    caption: 'Tap Confirm to finish registering',
   },
 ];
 
