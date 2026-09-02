@@ -22,18 +22,12 @@ import { ProfileUpdateInput } from '../validators';
  */
 export function useUpdateProfile() {
   return useMutation({
-    mutationFn: async (data: ProfileUpdateInput) => {
-      const res = await http.post(ENDPOINTS.USER.UPDATE_PROFILE, data);
-      if (!res.success) {
-        throw new Error(res.message || 'Failed to update profile.');
-      }
-      return res;
-    },
-    onSuccess: (_res, data) => {
+    mutationFn: async (data: ProfileUpdateInput) => http.post(ENDPOINTS.USER.UPDATE_PROFILE, data),
+    onSuccess: (res, data) => {
+      if (!res.success) return;
       const { user, setUser } = useAuthStore.getState();
-      if (user) {
-        setUser({ ...user, name: data.name, username: data.username });
-      }
+      if (!user) return;
+      setUser({ ...user, name: data.name, username: data.username });
     },
   });
 }

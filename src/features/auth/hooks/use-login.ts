@@ -13,19 +13,16 @@ export function useLogin() {
     mutationFn: async (data: LoginInput) =>
       http.post<LoginT>(ENDPOINTS.AUTH.LOGIN, data, { headers }),
     onSuccess: ({ success, data }, { username }) => {
-      if (success) {
-        if (data) {
-          setUser({
-            approval: data.approval,
-            username: data.username,
-            uid: data.uid,
-            name: data.name,
-            has_dlc: data.has_dlc,
-            ppo_no: username,
-          });
-        }
-      }
-      // _hydrate();
+      if (!success) return;
+      if (!data) return;
+      setUser({
+        approval: data.approval,
+        username: data.username,
+        uid: data.uid,
+        name: data.name,
+        has_dlc: data.has_dlc,
+        ppo_no: username,
+      });
     },
   });
 }

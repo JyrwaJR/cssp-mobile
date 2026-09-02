@@ -19,15 +19,14 @@ export function useVerificationStatus() {
 
     select: (response) => {
       const data = response.data;
-      if (data) {
-        return {
-          ...data,
-          ver_status: data?.ver_status
-            ?.replace(/\r?\n|\r/g, ' ')
-            .replace(/\s+/g, ' ')
-            .trim(),
-        };
-      }
+      if (!data) return;
+      return {
+        ...data,
+        ver_status: data?.ver_status
+          ?.replace(/\r?\n|\r/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim(),
+      };
     },
 
     enabled: isEnabled,
