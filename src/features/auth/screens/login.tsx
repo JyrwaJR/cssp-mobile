@@ -52,6 +52,7 @@ export function LoginScreen() {
             <Button
               variant="outline"
               onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
+              size={'lg'}
               className="w-full">
               <Text className="text-center text-base font-bold text-primary">
                 New User? Register / Forgot Password

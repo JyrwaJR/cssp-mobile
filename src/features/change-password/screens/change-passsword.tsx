@@ -37,6 +37,7 @@ export function ChangePasswordScreen() {
       newPassword: '',
       confirmPassword: '',
     },
+    mode: 'all',
   });
 
   const newPassword = useWatch({ name: 'newPassword', control: control });
