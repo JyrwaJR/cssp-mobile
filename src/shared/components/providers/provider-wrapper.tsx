@@ -38,7 +38,7 @@ export const ProviderWrapper = ({ children }: Props) => {
             <QueryErrorResetBoundary>
               <AuthInitializer>
                 <AuthRedirect>
-                  <StatusBar style="auto" animated />
+                  <StatusBar style="auto" hidden animated />
                   {children}
                   <UpdateModal />
                 </AuthRedirect>
