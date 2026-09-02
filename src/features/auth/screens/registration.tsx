@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import {
   ConfirmRegistrationScreen,
@@ -29,7 +29,20 @@ export default function RegistrationScreen() {
 
   if (isSuccess) {
     return (
-      <Container className="flex-1 gap-5 py-10">
+      <Container className="flex-1 gap-5">
+        <View className="gap-2">
+          <View className="bg-primary/10 self-start py-1">
+            <Text className="text-xs font-bold uppercase tracking-wider text-primary">Success</Text>
+          </View>
+
+          <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+            Registration
+          </Text>
+
+          <Text className="text-sm font-medium text-muted-foreground">
+            Your registration was successful. You can now log in with your details.
+          </Text>
+        </View>
         <View className="mt-6 w-full">
           <RegistrationSuccessView />
         </View>
