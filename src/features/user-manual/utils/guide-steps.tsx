@@ -156,6 +156,24 @@ export const USER_GETTING_STARTED_STEPS: RegistrationStep[] = [
     placeholder: 'Confirmation pop-up with Cancel and Confirm buttons',
     caption: 'Tap Confirm to finish registering',
   },
+  {
+    step: 'Step 9',
+    title: 'Registration Successful',
+    source: require('@assets/images/manual/reg/reg-4.jpeg'),
+    description: (
+      <>
+        A{' '}
+        <Text className="font-black text-emerald-900">
+          green &quot;Registration Successful&quot;
+        </Text>{' '}
+        screen will appear. Tap{' '}
+        <Text className="font-black text-primary">&quot;Go to Login&quot;</Text> to return to the
+        login screen.
+      </>
+    ),
+    placeholder: 'Registration Successful screen with Go to Login button',
+    caption: 'Tap Go to Login to return to the login screen',
+  },
 ];
 
 /**
