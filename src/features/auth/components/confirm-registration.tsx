@@ -7,6 +7,7 @@ import { RegisterPensionerSchema } from '../validators';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useNetworkStatus } from '@hooks/use-network-status';
 import { formatPassword } from '@lib/encryption';
+import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { RegistrationConfirmDialog } from './registration-confirm-dialog';
 
 /**
@@ -14,12 +15,15 @@ import { RegistrationConfirmDialog } from './registration-confirm-dialog';
  *
  * Shows a summary card of all entered data (bank account and password
  * masked) with >=16px labels / 18px values, theme-token colors for dark
- * mode, and two equal-width actions: "Back & Edit" (preserves data) and
- * "Submit". A confirmation dialog appears before the final submission to
- * prevent accidental registrations.
+ * mode, and two equal-width actions: "Back" (preserves data) and "Submit".
+ * A confirmation dialog appears before the final submission to prevent
+ * accidental registrations. On success the store's `isSuccess` is set (which
+ * swaps the screen to a success view); on failure an inline destructive alert
+ * shows the server message and the form remains for retry.
  */
 export function ConfirmRegistrationScreen() {
-  const { formData, prevStep } = useRegistrationStore();
+  const { formData, prevStep, setSuccess } = useRegistrationStore();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { showSnackbar } = useSnackbar();
   const { mutate: register, isPending: isRegistering } = useRegisterPensioner();
   const { isOffline } = useNetworkStatus();
@@ -30,6 +34,7 @@ export function ConfirmRegistrationScreen() {
    * validation passes; otherwise shows a snackbar with the error.
    */
   const handleSubmitClick = () => {
+    setErrorMessage(null);
     const isValidData = RegisterPensionerSchema.safeParse(formData);
     if (isValidData.success) {
       setIsConfirmOpen(true);
@@ -46,10 +51,21 @@ export function ConfirmRegistrationScreen() {
    */
   const handleDialogConfirm = () => {
     setIsConfirmOpen(false);
-    register({
-      ...formData,
-      password: formatPassword(formData.password),
-    });
+    register(
+      {
+        ...formData,
+        password: formatPassword(formData.password),
+      },
+      {
+        onSuccess: (data) => {
+          if (data.success) {
+            setSuccess();
+          } else {
+            setErrorMessage(data.message || 'Registration failed. Please try again.');
+          }
+        },
+      }
+    );
   };
 
   const maskBankAccount = (accountNumber?: string) => {
@@ -60,6 +76,13 @@ export function ConfirmRegistrationScreen() {
 
   return (
     <View className="w-full gap-4">
+      {errorMessage ? (
+        <Alert variant="destructive">
+          <AlertTitle>Registration Failed</AlertTitle>
+          <AlertDescription>{errorMessage}</AlertDescription>
+        </Alert>
+      ) : null}
+
       <View className="rounded-xl border border-border bg-card px-4 py-2">
         <View className="flex-row items-center justify-between border-b border-border py-3.5">
           <Text className="text-base text-muted-foreground">PPO Number</Text>
