@@ -13,12 +13,42 @@ import { PasswordRequiredments } from '../components/password-req';
 import { ChangePasswordConfirmDialog } from '../components/change-password-confirm-dialog';
 import { formatPassword } from '@lib/encryption';
 
+/**
+ * The type of the change password form fields.
+ *
+ * `oldPassword` is the user's current password, `newPassword` is the desired
+ * replacement, and `confirmPassword` must match `newPassword` for validation
+ * to pass. All values are captured in plain text and encoded by
+ * {@link formatPassword} before being sent to the API.
+ */
 type ChangePasswordForm = {
   oldPassword: string;
   newPassword: string;
   confirmPassword: string;
 };
 
+/**
+ * Renders the "Change Password" screen for an authenticated pension user.
+ *
+ * Presents a scrollable form capturing the old password, the new password,
+ * and a confirmation of the new password. Field-level validation is driven by
+ * {@link ChangePasswrodSchema} through `react-hook-form`, and the live new
+ * password value is watched to power the inline {@link PasswordRequiredments}
+ * checklist. The form is only submittable when `isValid` is true and is not
+ * currently pending.
+ *
+ * Submitting opens a {@link ChangePasswordConfirmDialog}; confirming it submits
+ * the mutation from {@link useChangePassword} with the old and new passwords
+ * encoded via {@link formatPassword}. A success state replaces the form and
+ * shows a confirmation banner, while API failures render the server-provided
+ * error message (falling back to a generic message) above the form.
+ *
+ * Visibility of the password fields is toggled independently for the old
+ * password and together for the new/confirm password via the eye icons.
+ *
+ * @returns The change password screen containing either the form or the
+ * success banner, plus the confirmation dialog.
+ */
 export function ChangePasswordScreen() {
   const [isShowOldPassword, setIsShowOldPassword] = useState(false);
   const [isShowNewPassword, setIsShowNewPassword] = useState(false);
