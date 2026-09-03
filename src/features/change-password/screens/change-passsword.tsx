@@ -29,7 +29,7 @@ export function ChangePasswordScreen() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
   } = useForm<ChangePasswordForm>({
     resolver: zodResolver(ChangePasswrodSchema),
     defaultValues: {
