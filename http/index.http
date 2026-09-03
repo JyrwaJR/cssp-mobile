@@ -113,7 +113,6 @@ request_token={{REQUEST_TOKEN_ENCRYPTED}}&uid={{UID_ENCRYPTED}}
 
 ### Encrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
-Authorization: accessToken {{accessToken}}
 Content-Type: application/json
 
 { 
@@ -123,8 +122,11 @@ Content-Type: application/json
 
 ### Decrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt
-Authorization: accessToken {{accessToken}}
 Content-Type: application/json
+
+{
+  "username":"{{USERNAME_ENCRYPTED}}"
+}
 
 ### format-password helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
