@@ -29,7 +29,7 @@ export function ChangePasswordScreen() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,isDirty,isValid },
   } = useForm<ChangePasswordForm>({
     resolver: zodResolver(ChangePasswrodSchema),
     defaultValues: {
@@ -241,7 +241,7 @@ export function ChangePasswordScreen() {
             <Button
               size="lg"
               onPress={() => setIsConfirmOpen(true)}
-              disabled={isPending}
+              disabled={isPending||!isValid}
               isLoading={isPending}
               activeOpacity={0.8}>
               Change Password
