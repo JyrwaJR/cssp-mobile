@@ -36,9 +36,9 @@ Accept: application/json
 
 {
   "ppo_no": {{USERNAME_ENCRYPTED}},
-  "dob": "18041999",
-  "bank_account_number": "1111111111111111",
-  "password": "D@phne123"
+  "dob": "{{DOB}}",
+  "bank_account_number": "{{BANK_AC_NO}}",
+  "password": "{{PPO_NO_ENCRYPTED}}"
 }
 
 ### Login
@@ -117,8 +117,8 @@ Authorization: accessToken {{accessToken}}
 Content-Type: application/json
 
 { 
-    "username":"{{EXPO_PUBLIC_PPO_NO}}",
-    "password":"{{EXPO_PUBLIC_FORMATTED_PASSWORD}}"
+    "username":"{{PPO_NO}}",
+    "password":"{{FORMATTED_PASSWORD}}"
 }
 
 ### Decrypt helper
@@ -132,5 +132,5 @@ Authorization: accessToken {{accessToken}}
 Content-Type: application/json
 
 {
-  "password":"{{EXPO_PUBLIC_PASSWORD}}"
+  "password":"{{PASSWORD}}"
 }
