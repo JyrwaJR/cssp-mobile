@@ -7,6 +7,28 @@ import { useVerificationStatus } from '../hooks';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 
+/**
+ * Renders the "Verification Status" screen for a pensioner.
+ *
+ * Fetches the current verification status via {@link useVerificationStatus}
+ * and presents it in a scrollable, pull-to-refresh layout. The screen shows a
+ * header introduction, a status badge displaying the raw `ver_status` code, a
+ * dynamic section subtitle, and a "Record Overview" card listing the
+ * verification date and time.
+ *
+ * When the verification status equals `'03'` (photo submitted), the overview
+ * additionally renders the submission place plus the Non-Employment /
+ * Re-Employment and Re-Marriage / Non-Marriage declaration cards derived from
+ * `ver_nec`. A separate card prompts the pensioner to submit a Digital Life
+ * Certificate (DLC), navigating to `PAGE_ROUTES.DLC` on press, and a warning
+ * alert reminds the user that face verification is required twice per calendar
+ * year. Absent field values are rendered as an em dash (`—`).
+ *
+ * Includes a `RefreshControl` bound to the query's `refetch`, so pulling down
+ * re-fetches the latest status while `isFetching` drives the spinner.
+ *
+ * @returns The verification status screen within a safe area and container.
+ */
 export function VerificationStatusScreen() {
   const { data, isFetching, refetch } = useVerificationStatus();
 
