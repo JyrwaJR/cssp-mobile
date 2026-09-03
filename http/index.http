@@ -25,7 +25,7 @@ Accept: application/json
 
 {
   "ppo_no": "{{PPO_NO}}",
-  "version": "24"
+  "version": "{{VERSION}}"
 }
 
 ### Create Pensioner
