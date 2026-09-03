@@ -147,7 +147,6 @@ export function DLCScreen() {
           </Alert>
         )}
 
-        {/* Primary Action Button | Check if camera Permission is granted */}
         {/* Partner Logos */}
         <Ternary
           condition={hasPermission}

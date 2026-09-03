@@ -8,9 +8,8 @@ import { Button, Input, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
 
 import { ChangePasswrodSchema } from '../validators';
-import { useChangePassword } from '../hooks/use-change-password';
-import { PasswordRequiredments } from '../components/password-req';
-import { ChangePasswordConfirmDialog } from '../components/change-password-confirm-dialog';
+import { useChangePassword } from '../hooks';
+import { ChangePasswordConfirmDialog, PasswordRequiredments } from '../components';
 import { formatPassword } from '@lib/encryption';
 
 /**
