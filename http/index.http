@@ -35,10 +35,10 @@ Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 {
-  "ppo_no": {{PPO_NO}},
-  "dob": "",
-  "bank_account_number": "",
-  "password": ""
+  "ppo_no": {{USERNAME_ENCRYPTED}},
+  "dob": "18041999",
+  "bank_account_number": "1111111111111111",
+  "password": "D@phne123"
 }
 
 ### Login
@@ -59,6 +59,12 @@ POST {{EXPO_PUBLIC_API_URL}}/api/verification/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
+
+{ 
+ "image_1":"",// base64 image
+ "image_2":"",// base64 image
+
+}
 
 ### DLC
 POST {{EXPO_PUBLIC_API_URL}}/api/lc/
@@ -111,8 +117,8 @@ Authorization: accessToken {{accessToken}}
 Content-Type: application/json
 
 { 
-    "token":"{{RENEW_TOKEN}}",
-    "uid":"{{UID_ENCRYPTED}}"
+    "username":"{{EXPO_PUBLIC_PPO_NO}}",
+    "password":"{{EXPO_PUBLIC_FORMATTED_PASSWORD}}"
 }
 
 ### Decrypt helper
@@ -126,5 +132,5 @@ Authorization: accessToken {{accessToken}}
 Content-Type: application/json
 
 {
-  "password": "{{PASSWORD}}"
+  "password":"{{EXPO_PUBLIC_PASSWORD}}"
 }
