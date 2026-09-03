@@ -6,7 +6,7 @@ import { useCameraDevice, useCameraPermission } from 'react-native-vision-camera
 import * as Linking from 'expo-linking';
 import { useNetworkStatus } from '@hooks/use-network-status';
 
-import { useInitializeVerification } from '../hooks/use-init-verification';
+import { useInitializeVerification } from '../hooks';
 import { DLCHeader, DLCInstructions, DLCAlerts, DLCActions } from '../components';
 
 /**
