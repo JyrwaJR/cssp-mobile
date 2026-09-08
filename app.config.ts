@@ -77,7 +77,7 @@ const config: ExpoConfig = {
           // - arm64-v8a    → 64-bit ARM devices (most modern phones/tablets) ← active
           // - x86          → 32-bit Intel (rare, some older Intel tablets)
           // - x86_64       → 64-bit Intel/AMD (Android emulators on x86 hosts)
-          buildArchs: ['arm64-v8a'],
+          buildArchs: ['arm64-v8a', 'areabi-v7a'],
         },
       },
     ],
