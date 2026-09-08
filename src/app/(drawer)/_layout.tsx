@@ -36,6 +36,13 @@ function CustomDrawerContent(props: any) {
           icon={({ size, color }) => <Icon name="information-circle" size={size} color={color} />}
         />
         <DrawerItem
+          label="Digital Life Certificate"
+          pressOpacity={0.1}
+          pressColor={'#FFF'}
+          onPress={() => navigate(PAGE_ROUTES.DLC_STATUS)}
+          icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
+        />
+        <DrawerItem
           label="Change Password"
           pressOpacity={0.1}
           pressColor={'#FFF'}

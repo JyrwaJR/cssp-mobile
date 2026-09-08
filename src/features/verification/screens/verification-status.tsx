@@ -3,7 +3,7 @@ import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AlertDescription, Alert, AlertTitle, Icon, Button } from '@components/ui';
 import { FooterImg } from '@components/common';
-import { useVerificationStatus } from '../hooks';
+import { useVerificationStatus } from '@hooks/use-verification-status';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 
@@ -30,13 +30,16 @@ import { PAGE_ROUTES } from '@utils/constants';
  * @returns The verification status screen within a safe area and container.
  */
 export function VerificationStatusScreen() {
-  const { data, isFetching, refetch } = useVerificationStatus();
+  const { data, isFetching, isLoading, refetch } = useVerificationStatus();
 
   const isPhotoSubmitted = data?.ver_status === '03';
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
-      <Container refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}>
+      <Container
+        refreshControl={
+          <RefreshControl refreshing={isFetching || isLoading} onRefresh={refetch} />
+        }>
         <View className="w-full gap-5">
           <View className="gap-2">
             <View className="bg-primary/10 self-start py-1">
@@ -67,74 +70,10 @@ export function VerificationStatusScreen() {
           {/* Section Subtitle */}
           <View className="bg-muted/40 rounded-md border border-gray-300 p-3">
             <Text className="text-center text-sm font-semibold leading-5 text-muted-foreground">
-              {isPhotoSubmitted
-                ? 'Details of Photo Submitted'
-                : 'Details of Last Face Verification & Self Declarations'}
+              Submit your Digital Life Cerificate
             </Text>
           </View>
 
-          {/* Verification Details Card */}
-          <View className="gap-4 rounded-md border border-gray-200/80 bg-card p-5">
-            <Text className="border-b border-gray-500/50 pb-2 text-sm font-bold uppercase tracking-wider text-muted-foreground">
-              Record Overview
-            </Text>
-
-            <View className="gap-3">
-              {/* Date */}
-              <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
-                <Text className="text-sm font-medium text-muted-foreground">Date</Text>
-                <Text className="text-sm font-bold text-foreground">{data?.ver_date || '—'}</Text>
-              </View>
-
-              {/* Time */}
-              <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
-                <Text className="text-sm font-medium text-muted-foreground">Time</Text>
-                <Text className="text-sm font-bold text-foreground">{data?.ver_time || '—'}</Text>
-              </View>
-
-              {isPhotoSubmitted && (
-                <>
-                  {/* Place */}
-                  <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
-                    <Text className="text-sm font-medium text-muted-foreground">Place</Text>
-                    <Text className="text-sm font-bold text-foreground">
-                      {data?.ver_place || '—'}
-                    </Text>
-                  </View>
-
-                  {/* Non-Employment Declaration Card */}
-                  <View className="gap-2 rounded-md border border-gray-200 bg-background p-3.5">
-                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Non-Employment / Re-Employment
-                    </Text>
-                    <View className="flex-row items-center justify-between border-t border-gray-200 pt-1">
-                      <Text className="text-sm font-medium text-foreground">Declaration</Text>
-                      <View className="rounded-md bg-secondary px-2.5 py-1">
-                        <Text className="text-sm font-bold text-secondary-foreground">
-                          {data?.ver_nec || '—'}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-
-                  {/* Re-Marriage Declaration Card */}
-                  <View className="gap-2 rounded-md border border-gray-200 bg-background p-3.5">
-                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Re-Marriage / Non-Marriage
-                    </Text>
-                    <View className="flex-row items-center justify-between border-t border-gray-200 pt-1">
-                      <Text className="text-sm font-medium text-foreground">Declaration</Text>
-                      <View className="rounded-md bg-secondary px-2.5 py-1">
-                        <Text className="text-sm font-bold text-secondary-foreground">
-                          {data?.ver_nec || '—'}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </>
-              )}
-            </View>
-          </View>
           <View className="gap-3 rounded-md border border-border bg-card p-4">
             <View className="flex-row items-center gap-3">
               <Text className="flex-1 text-base font-semibold text-foreground">

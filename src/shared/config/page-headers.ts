@@ -28,6 +28,8 @@ export const PAGE_HEADERS = {
   '/about': { title: 'About Us', showBackButton: true },
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
 
+  '/dlc-status': { title: 'Digital Life Certificate', showBackButton: true },
+
   '/user-manual': { title: 'App User Manual', showBackButton: true, showDrawer: false },
 
   '/user-manual/getting-started': {
