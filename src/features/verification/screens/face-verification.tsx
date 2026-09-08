@@ -27,7 +27,6 @@ import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useImageCompressor, type CompressedImageResult } from '@hooks/use-image-compressor';
-import { MAX_IMAGE_SIZE_IN_KB } from '@utils/constants';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
@@ -152,7 +151,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
       //    of rejected.
       let compressed: CompressedImageResult;
       try {
-        compressed = await compressImageToBase64(filePath, { maxSizeKB: MAX_IMAGE_SIZE_IN_KB });
+        compressed = await compressImageToBase64(filePath);
       } finally {
         // Delete the original capture file, even when compression fails.
         await FileSystem.deleteAsync(filePath, { idempotent: true });

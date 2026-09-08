@@ -59,7 +59,12 @@ POST {{EXPO_PUBLIC_API_URL}}/api/verification/
 Content-Type: application/x-www-form-urlencoded
 Authorization: accessToken {{accessToken}}
 
-image_1={{IMAGE_SAMPLE_2}}&version=24
+image_1={{IMAGE_SAMPLE_2}}&image_1={{IMAGE_SAMPLE_2}}
+// { 
+//    "image_1":"{{IMAGE_SAMPLE_ENCRYPTED_2}}",
+//    "image_2":"{{IMAGE_SAMPLE_ENCRYPTED_2}}",
+//    "version":"24"
+// }
 
 
 ### DLC
@@ -105,15 +110,14 @@ Content-Type: application/x-www-form-urlencoded
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
-request_token={{REQUEST_TOKEN_ENCRYPTED}}&uid={{UID_ENCRYPTED}}
+request_token={{RENEW_TOKEN}}&uid={{UID_ENCRYPTED}}
 
 ### Encrypt helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
 Content-Type: application/json
 
 { 
-    "username":"{{PPO_NO}}",
-    "password":"{{FORMATTED_PASSWORD}}"
+    "uid":"{{UID_ENCRYPTED}}",
 }
 
 ### Decrypt helper

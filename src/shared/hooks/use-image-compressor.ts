@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as FileSystem from 'expo-file-system/legacy';
+import { MAX_IMAGE_SIZE_IN_KB } from '@utils/constants';
 
 /**
  * Result of {@link useImageCompressor.compressImageToBase64 | compressImageToBase64}.
@@ -57,7 +58,7 @@ export function useImageCompressor() {
       options: CompressImageOptions = {}
     ): Promise<CompressedImageResult> => {
       const {
-        maxSizeKB = 500,
+        maxSizeKB = __DEV__ ? 500 : MAX_IMAGE_SIZE_IN_KB,
         initialQuality = 0.85,
         minQuality = 0.3,
         qualityStep = 0.05,

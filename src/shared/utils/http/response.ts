@@ -95,8 +95,8 @@ const extractBackendMessage = (data: unknown): string | undefined => {
 
   const body = data as BackendErrorBody;
   return (
-    body.message ??
     body.msg ??
+    body.message ??
     (typeof body.error === 'string' && body.error.trim() ? body.error : undefined) ??
     undefined
   );
@@ -122,7 +122,7 @@ const buildErrorFields = (
   if (data && typeof data === 'object') {
     const body = data as BackendErrorBody;
     return {
-      message: getErrorMessage(extractBackendMessage(body), status),
+      message: extractBackendMessage(body) || '',
       ...(body.errors && { errors: body.errors }),
       ...(body.error && typeof body.error === 'object' && { error: body.error }),
     };
