@@ -44,11 +44,13 @@ export const createRequestInterceptor = () => {
       config.data instanceof URLSearchParams ||
       config.data instanceof FormData;
 
-    if (!isPreSerializedBody) {
-      config.data = {
-        ...encryptFields(config.data),
-        version: '24',
-      };
+    if (config.url !== '/api/verification/') {
+      if (!isPreSerializedBody) {
+        config.data = {
+          ...encryptFields(config.data),
+          version: '24',
+        };
+      }
     }
 
     return config;

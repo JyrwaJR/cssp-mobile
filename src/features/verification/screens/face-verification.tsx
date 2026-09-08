@@ -91,7 +91,7 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   }, [hasPermission, requestPermission]);
 
   const submitVerification = useCallback(
-    async (img1: string, img2: string) => {
+    async (img1: string, img2?: string) => {
       updatePhase('submitting');
 
       verificationMutation.mutate(

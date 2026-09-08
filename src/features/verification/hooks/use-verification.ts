@@ -3,10 +3,11 @@ import { ENDPOINTS } from '@utils/constants';
 import { http } from '@utils/http';
 import type { VerificationResponseT } from '../types';
 import { useAuthStore } from '@stores/auth.store';
+import * as FileSystem from 'expo-file-system/legacy';
 
 interface VerificationPayload {
   image_1: string;
-  image_2: string;
+  image_2?: string;
 }
 
 /**
@@ -19,12 +20,24 @@ interface VerificationPayload {
  *
  * @returns TanStack Query mutation with `VerificationResponseT` result.
  */
+
+const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
 export function useSubmitVerification() {
   // TODO: change and saperate this
   const { setUser, user } = useAuthStore();
   return useMutation({
-    mutationFn: async (payload: VerificationPayload) =>
-      http.post<VerificationResponseT>(ENDPOINTS.VERIFICATION.VERIFICATION, payload),
+    mutationFn: async (payload: VerificationPayload) => {
+      const data = new URLSearchParams({
+        image_1: payload.image_1,
+        ...(payload.image_2 ? { image_2: payload.image_2 } : {}),
+      });
+
+      return http.post<VerificationResponseT>(ENDPOINTS.VERIFICATION.VERIFICATION, data, {
+        headers,
+        timeout: 30_000, //
+      });
+    },
 
     onSuccess: async ({ data }) => {
       if (!data) return;

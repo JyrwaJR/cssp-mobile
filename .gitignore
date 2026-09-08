@@ -25,3 +25,4 @@ android
 /.export-verify
 .worktrees
 *.apk
+ignore*

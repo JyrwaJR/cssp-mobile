@@ -56,15 +56,11 @@ Accept: application/json
 
 ### Verification
 POST {{EXPO_PUBLIC_API_URL}}/api/verification/
-Content-Type: application/json
+Content-Type: application/x-www-form-urlencoded
 Authorization: accessToken {{accessToken}}
-Accept: application/json
 
-{ 
- "image_1":"", // base64 image
- "image_2":"" // base64 image
+image_1={{IMAGE_SAMPLE_2}}&version=24
 
-}
 
 ### DLC
 POST {{EXPO_PUBLIC_API_URL}}/api/lc/
