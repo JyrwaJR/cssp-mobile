@@ -51,8 +51,8 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
   const [errorMsg, setErrorMsg] = useState('');
 
   // Declaration form
-  const [selfVerNec, setSelfVerNec] = useState<'Yes' | 'No' | ''>('');
-  const [selfVerNmc, setSelfVerNmc] = useState<'Yes' | 'No' | ''>('');
+  const [selfVerNec, setSelfVerNec] = useState<'Yes' | 'No' | ''>('No');
+  const [selfVerNmc, setSelfVerNmc] = useState<'Yes' | 'No' | ''>('No');
 
   // Dialogs
   const [dlcDialogOpen, setDlcDialogOpen] = useState(false);
