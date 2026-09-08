@@ -6,6 +6,7 @@ import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '@hooks/use-verification-status';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
+import { LoadingScreen } from '@components/screens';
 
 /**
  * Renders the "Verification Status" screen for a pensioner.
@@ -32,7 +33,9 @@ import { PAGE_ROUTES } from '@utils/constants';
 export function VerificationStatusScreen() {
   const { data, isFetching, isLoading, refetch } = useVerificationStatus();
 
-  const isPhotoSubmitted = data?.ver_status === '03';
+  if (isLoading || isFetching) {
+    return <LoadingScreen />;
+  }
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
