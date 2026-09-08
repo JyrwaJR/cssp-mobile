@@ -14,7 +14,7 @@ export const APP_VERSION = Application.nativeApplicationVersion || '3.0.0';
 /**
  * File size limits (in bytes).
  */
-export const MAX_IMAGE_SIZE_IN_KB = 1024; // 1 MB
+export const MAX_IMAGE_SIZE_IN_KB = 800; // 1 MB
 
 export const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1 MB
 
