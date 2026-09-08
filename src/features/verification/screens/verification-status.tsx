@@ -44,19 +44,6 @@ export function VerificationStatusScreen() {
           <RefreshControl refreshing={isFetching || isLoading} onRefresh={refetch} />
         }>
         <View className="w-full gap-5">
-          <View className="gap-2">
-            <View className="bg-primary/10 self-start py-1">
-              <Text className="text-sm font-bold uppercase tracking-wider text-primary">
-                Verification Status
-              </Text>
-            </View>
-
-            <Text className="text-2xl font-extrabold tracking-tight text-foreground">Status</Text>
-
-            <Text className="text-sm font-medium text-muted-foreground">
-              Pensioner verification status
-            </Text>
-          </View>
           {/* Status Header Badge */}
           <View className="items-center gap-2 rounded-md border border-emerald-200/80 bg-emerald-50/70 p-5">
             <View className="flex-row items-center gap-2">

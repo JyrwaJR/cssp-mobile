@@ -45,10 +45,6 @@ export const DLCStatusScreen = () => {
 
           {/* Verification Details Card */}
           <View className="gap-4 rounded-md border border-gray-200/80 bg-card p-5">
-            <Text className="border-b border-gray-500/50 pb-2 text-sm font-bold uppercase tracking-wider text-muted-foreground">
-              Record Overview
-            </Text>
-
             <View className="gap-3">
               {/* Date */}
               <View className="bg-muted/40 flex-row items-center justify-between rounded-md px-3.5 py-3">
@@ -74,7 +70,7 @@ export const DLCStatusScreen = () => {
                 {/* Non-Employment Declaration Card */}
                 <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
                   <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Are you Employed
+                    Are you Re-Employed
                   </Text>
 
                   <View className="items-end rounded-md bg-secondary px-2.5 py-1">
@@ -87,7 +83,7 @@ export const DLCStatusScreen = () => {
                 {/* Re-Marriage Declaration Card */}
                 <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
                   <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Are u re-married
+                    Are u Re-Married
                   </Text>
                   <View className="items-end rounded-md bg-secondary px-2.5 py-1">
                     <Text className="text-sm font-bold text-secondary-foreground">
