@@ -2,8 +2,8 @@
 # (used by flows that require a logged-out start: auth flows call
 # helpers/login.yaml which clears implicitly; guest-guard passes
 # env: {CLEAR_STATE: true} explicitly).
-appId: ${APP_ID}
+appId: 'com.jyrwajr.csspmobile.dev'
 ---
 - stopApp
 - launchApp:
-    clearState: ${CLEAR_STATE}
+    clearState: false

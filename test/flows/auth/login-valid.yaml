@@ -6,5 +6,5 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 - assertVisible: 'Submit your Digital Life Cerificate'

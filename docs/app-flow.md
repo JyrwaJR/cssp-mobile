@@ -92,7 +92,7 @@ Guard component: `src/shared/components/common/auth-redirect.tsx`
 Auth store `src/shared/stores/auth.store.ts`: Zustand + SecureStore. Holds
 `user` (name, username, uid, ppo_no, approval, has_dlc, phone_no,
 organization), `isSignedIn`, `isAuthLoading`; actions `setUser`, `logout`
-(full clear — E2E auth flows must launch with `clearState: true` because dev
+(full clear — E2E auth flows must launch with `clearState: false` because dev
 prefill comes from env, not storage), `refresh`.
 
 `/login/` success shapes `user` from the response; logout also fires
@@ -327,7 +327,7 @@ the **real** UI (rule R2: testIDs only where elements exist; skip + report other
 
 - **Dev prefill:** `EXPO_PUBLIC_PPO_NO` prefills login username AND registration
   Step 1; `EXPO_PUBLIC_PASSWORD` prefills login password **only in `__DEV__`**.
-  Auth flows must launch with `clearState: true`; helper `login.yaml` can rely on
+  Auth flows must launch with `clearState: false`; helper `login.yaml` can rely on
   prefill or explicit fill.
 - **Selectors:** prefer `id:` (= RN `testID`). Fallback to exact visible text.
   Never author selectors from screenshots alone.

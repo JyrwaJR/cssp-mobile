@@ -18,7 +18,7 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 - setPermissions:
     permissions:
       camera: unset

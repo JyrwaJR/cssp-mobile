@@ -5,11 +5,11 @@
 # the auth guard (auth-redirect.tsx:50-53) must send a signed-out visitor to
 # /auth; we assert the login screen marker (login-submit) is visible.
 # Env vars: APP_ID.
-appId: ${APP_ID}
+appId: 'com.jyrwajr.csspmobile.dev'
 ---
 - stopApp
 - launchApp:
-    clearState: true
+    clearState: false
 - extendedWaitUntil:
     visible: 'Pensioner Portal'
     timeout: 60000

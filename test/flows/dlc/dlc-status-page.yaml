@@ -21,7 +21,7 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 # Open the drawer via left-edge swipe and navigate to the DLC status page.
 - swipe:
     start: 0%, 50%

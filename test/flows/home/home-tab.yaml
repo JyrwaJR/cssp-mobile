@@ -11,7 +11,7 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 - assertVisible:
     id: 'tab-home'
 - assertVisible:

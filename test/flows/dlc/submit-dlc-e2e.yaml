@@ -47,7 +47,7 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 
 # ---- Step 0: detect already-submitted state (repeat-run graceful branch) ----
 - swipe:

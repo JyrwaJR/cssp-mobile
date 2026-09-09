@@ -53,7 +53,7 @@ appId: ${APP_ID}
 # GRANT PATH — grant camera, capture once, verify a photo preview
 # ============================================================
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 # Reset camera permission to its platform-default (unset) so this path starts
 # from a truly not-granted state regardless of any prior grant (clearState may
 # not revoke OS-level permission on every OEM). The native dialog is still
@@ -130,7 +130,7 @@ appId: ${APP_ID}
 # DENY PATH — fresh clean start, deny camera, assert graceful denial UI
 # ============================================================
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 # Same permission-state reset as the grant path (see above).
 - setPermissions:
     permissions:

@@ -7,7 +7,7 @@ appId: ${APP_ID}
 ---
 - stopApp
 - launchApp:
-    clearState: true
+    clearState: false
 - extendedWaitUntil:
     visible: 'Pensioner Portal'
     timeout: 60000

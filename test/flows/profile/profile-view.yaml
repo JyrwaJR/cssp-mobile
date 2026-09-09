@@ -16,7 +16,7 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: ../helpers/login.yaml
+    file: ../../helpers/login.yaml
 - tapOn:
     id: 'tab-profile'
 - assertVisible: 'Personal info'

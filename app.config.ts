@@ -15,7 +15,7 @@ import type { ExpoConfig } from 'expo/config';
 const bundleIdentifier = 'com.jyrwajr.csspmobile';
 const androidPackage = 'com.jyrwajr.csspmobile';
 
-const variant = process.env.APP_VARIANT;
+const variant = process.env.APP_VARIANT || 'development';
 
 /**
  * Derives the platform bundle identifier for the active build variant.
