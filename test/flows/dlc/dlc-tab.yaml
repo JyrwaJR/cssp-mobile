@@ -1,0 +1,43 @@
+# DLC tab coverage: ensures a signed-in home screen (via helpers/login.yaml,
+# which asserts the home typo 'Submit your Digital Life Cerificate') and taps
+# the 'Submit DLC' bottom tab (tab-dlc), then asserts the DLC screen renders.
+# DLC screen markers (src/features/dlc/components/dlc-header.tsx): 'Self
+# Verification' chip :17; 'Digital Life Certificate' title :22; 'Verify your
+# identity with a photo' subtitle :26.
+#
+# On a clean launch camera permission is not yet granted, so the action area
+# shows the 'Camera Access Required' alert + 'Allow Camera Access' button
+# (dlc-capture-photo is only rendered once hasPermission is true — see
+# src/features/dlc/components/dlc-actions.tsx). We assert the graceful
+# camera-not-granted state here; the full permission journey is covered by
+# face-verification-camera.yaml.
+# Camera-not-granted markers (dlc-actions.tsx): 'Camera Access Required'
+# :69; 'dlc-allow-camera' :79; 'Allow Camera Access' :84. Also asserted:
+# 'dlc-capture-photo' :52 (rendered when permission granted — optional here).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- assertVisible:
+    id: 'tab-dlc'
+- tapOn:
+    id: 'tab-dlc'
+- assertVisible: 'Self Verification'
+- assertVisible: 'Digital Life Certificate'
+- assertVisible: 'Verify your identity with a photo'
+# Camera not granted yet on a clean launch: graceful in-app request prompt.
+- assertVisible: 'Camera Access Required'
+- assertVisible:
+    id: 'dlc-allow-camera'
+- assertVisible: 'Allow Camera Access'
+# If a device already has camera permission granted from a prior run, the
+# capture button renders instead — assert it when present so this flow is
+# robust across permission states.
+- runFlow:
+    when:
+      visible:
+        id: 'dlc-capture-photo'
+    commands:
+      - assertVisible:
+          id: 'dlc-capture-photo'

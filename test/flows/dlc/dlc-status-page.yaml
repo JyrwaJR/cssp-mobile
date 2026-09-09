@@ -1,0 +1,41 @@
+# DLC status page coverage: ensures a signed-in home screen (login helper),
+# opens the drawer (left-edge swipe — there is no hamburger), taps
+# 'drawer-dlc-status' (src/app/(drawer)/_layout.tsx:44), and asserts the DLC
+# status screen renders with its real markers.
+#
+# DLC status markers (src/features/dlc-status/screens/dlc-status.tsx):
+# 'Status' chip :25; 'Digital Life Certificate' title :30; 'Pensioner digital
+# life verification status' subtitle :34; section subtitle (dynamic):
+# 'Details of Photo Submitted' :41 when ver_status==='22', else
+# 'Details of Last Face Verification & Self Declarations' :42;
+# declaration markers 'Are you Re-Employed' :73 and 'Are u Re-Married' :86
+# (verbatim typo, per docs/app-flow.md §4.6); the same 'Digital Life
+# Certificate' card; 'SUBMIT DLC' button text :115 on the
+# 'dlc-status-submit-dlc' id :110.
+#
+# The typo 'Submit your Digital Life Cerificate' is NOT on this screen — it is
+# the HOME-only subtitle (src/features/verification/screens/verification-status.tsx:63),
+# which helpers/login.yaml already asserts as its home marker. So the typo is
+# covered by the login helper on this flow too.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+# Open the drawer via left-edge swipe and navigate to the DLC status page.
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-dlc-status'
+- extendedWaitUntil:
+    visible: 'Details of Photo Submitted|Details of Last Face Verification & Self Declarations'
+    timeout: 60000
+- assertVisible: 'Status'
+- assertVisible: 'Digital Life Certificate'
+- assertVisible: 'Pensioner digital life verification status'
+- assertVisible: 'Are you Re-Employed'
+- assertVisible: 'Are u Re-Married'
+- assertVisible:
+    id: 'dlc-status-submit-dlc'
+- assertVisible: 'SUBMIT DLC'

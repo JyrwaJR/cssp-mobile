@@ -1,0 +1,198 @@
+# END-TO-END live DLC submission (user-approved real backend): login -> DLC tab
+# -> grant camera -> blink auto-capture -> photo preview (when in registration
+# mode) -> self-declaration -> Terms & Conditions dialog (Yes = submit) ->
+# processing -> DLC status page showing the SUBMITTED state.
+#
+# GRACEFUL ALREADY-SUBMITTED BRANCH (repeat runs): a clean app launch
+# (clearState) wipes local storage but NOT the server, so re-running this flow
+# on the same account may hit "DLC already submitted". We detect that up front
+# on the DLC status page (subtitle 'Details of Photo Submitted' renders when
+# ver_status === '22' — src/features/dlc-status/screens/dlc-status.tsx:41) and,
+# when present, directly ASSERT the submitted state instead of re-capturing.
+# The declaration markers 'Are you Re-Employed' (:73) and 'Are u Re-Married'
+# (:86), plus the 'dlc-status-submit-dlc' button (:110) / 'SUBMIT DLC' (:115),
+# ground the submitted-state assertion. Docs: docs/app-flow.md §4.6.
+#
+# NOTE ON REPEAT RUNS (Maestro linear execution): if the already-submitted
+# branch fires, Maestro still continues to the journey steps below. This flow is
+# therefore intended to be run on a FRESH (not-yet-submitted) account; on a
+# repeat run the operator should rely on the top already-submitted branch to
+# verify the submitted state. All post-capture steps are guarded via
+# `runFlow when: visible:` so a repeat run degrades gracefully rather than
+# hard-fails on a re-capture rejection.
+#
+# OPERATOR-ASSISTED BLINK (HUMAN STEP): the capture has NO capture button
+# (docs/app-flow.md §4.5; face-verification.tsx:310-312 triggers after one
+# blink once the face is centered and large). Human operator: face the camera
+# and blink when prompted. The wait is expressed purely with Maestro
+# extendedWaitUntil commands and generous timeouts — NO runScript is used.
+#
+# ACCOUNT-DEPENDENT branch (docs/app-flow.md §4.5): when regStatus is '02' or
+# '03' (rejected / not-yet-submitted photo) the app captures TWICE and shows a
+# photo preview between captures (this flow asserts the preview via
+# 'fv-preview-action'); for other accounts it submits the single photo directly
+# into the declaration phase. Both are guarded below. Which branch fires is a
+# Task-13 device-run unknown tied to the test account's user.approval value.
+#
+# Declaration flow (face-verification.tsx): radios 'fv-radio-yes'/'fv-radio-no'
+# (face-verification-declaration-form.tsx:84,:97), submit
+# 'fv-submit-declaration' (:151), T&C dialog 'Terms and Conditions.' with
+# 'fv-terms-no' / 'fv-terms-yes' (face-verification-confirm-dialog.tsx:53,:54);
+# per RS5 tapping Yes submits the declaration. Processing shows the loading
+# view 'Please wait' (face-verification-loading-view.tsx:12).
+#
+# Home typo 'Submit your Digital Life Cerificate' is asserted by
+# helpers/login.yaml (verification-status.tsx:63).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+
+# ---- Step 0: detect already-submitted state (repeat-run graceful branch) ----
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-dlc-status'
+- extendedWaitUntil:
+    visible: 'Details of Photo Submitted|Details of Last Face Verification & Self Declarations'
+    timeout: 60000
+
+# ALREADY-SUBMITTED branch: assert the submitted state directly (repeat runs).
+- runFlow:
+    when:
+      visible: 'Details of Photo Submitted'
+    commands:
+      - assertVisible: 'Are you Re-Employed'
+      - assertVisible: 'Are u Re-Married'
+      - assertVisible:
+          id: 'dlc-status-submit-dlc'
+      - assertVisible: 'SUBMIT DLC'
+
+# ---- Step 1: return and open the DLC tab (fresh account) ----
+- back
+- tapOn:
+    id: 'tab-dlc'
+- assertVisible: 'Self Verification'
+
+# ---- Step 2: ensure camera permission (grant the native dialog if shown) ----
+- runFlow:
+    when:
+      visible:
+        id: 'dlc-allow-camera'
+    commands:
+      - tapOn:
+          id: 'dlc-allow-camera'
+      - extendedWaitUntil:
+          visible: '.*While using the app.*|.*Allow.*'
+          timeout: 30000
+      - runFlow:
+          when:
+            visible: '.*While using the app.*'
+          commands:
+            - tapOn: '.*While using the app.*'
+      - runFlow:
+          when:
+            visible: '.*Allow.*'
+          commands:
+            - tapOn: '.*Allow.*'
+
+# ---- Step 3: capture (operator blink) ----
+- extendedWaitUntil:
+    visible:
+      id: 'dlc-capture-photo'
+    timeout: 30000
+- tapOn:
+    id: 'dlc-capture-photo'
+- extendedWaitUntil:
+    visible: 'Please blink!!'
+    timeout: 30000
+
+# >>> HUMAN OPERATOR STEP: face the camera and blink. Capture is automatic. <<<
+- extendedWaitUntil:
+    visible: >-
+      This photo is required for the system to verify your
+      Authenticity.|Please wait|Submit Self Declaration|Pending Official
+      Approval|Identity confirmed|Verification Successful|Photo Verification
+      Failed|Something went wrong
+    timeout: 120000
+
+# ---- Step 4: if in registration mode, approve the photo preview ----
+- runFlow:
+    when:
+      visible: 'This photo is required for the system to verify your Authenticity.'
+    commands:
+      - assertVisible:
+          id: 'fv-preview-action'
+      - tapOn:
+          id: 'fv-preview-action'
+      # >>> HUMAN OPERATOR: if the app returns to the camera for a second photo,
+      # blink again when prompted (registration mode captures twice).
+      # Capture resolves again (preview -> camera -> second preview -> submit).
+      - extendedWaitUntil:
+          visible: >-
+            This photo is required for the system to verify your
+            Authenticity.|Please blink!!|Please wait|Submit Self
+            Declaration|Pending Official Approval|Identity confirmed|Verification
+            Successful|Photo Verification Failed|Something went wrong
+          timeout: 120000
+      - runFlow:
+          when:
+            visible: 'This photo is required for the system to verify your Authenticity.'
+          commands:
+            - tapOn:
+                id: 'fv-preview-action'
+
+# ---- Step 5: declaration phase ----
+- runFlow:
+    when:
+      visible: 'Self-Declaration'
+    commands:
+      - assertVisible:
+          id: 'fv-submit-declaration'
+      # Answer the Non-Employment question (default 'No' is pre-selected; keep it).
+      - tapOn:
+          id: 'fv-radio-no'
+      - tapOn:
+          id: 'fv-submit-declaration'
+
+# ---- Step 6: Terms & Conditions dialog -> Yes submits the declaration ----
+- runFlow:
+    when:
+      visible: 'Terms and Conditions.'
+    commands:
+      - assertVisible:
+          id: 'fv-terms-no'
+      - assertVisible:
+          id: 'fv-terms-yes'
+      - tapOn:
+          id: 'fv-terms-yes'
+      # Processing / result.
+      - extendedWaitUntil:
+          visible: >-
+            Please wait|Identity confirmed|Verification Successful|Pending
+            Official Approval|Something went wrong
+          timeout: 60000
+
+# ---- Step 7: return from face-recognition, then assert the SUBMITTED state ----
+# Android back pops the root-stack face-recognition screen back to the DLC tab
+# (the screen we navigated from), regardless of which terminal view (success /
+# declaration / rejection / error) resolved after the declaration submit.
+- back
+- extendedWaitUntil:
+    visible: 'Self Verification'
+    timeout: 30000
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-dlc-status'
+- extendedWaitUntil:
+    visible: 'Details of Photo Submitted|Details of Last Face Verification & Self Declarations'
+    timeout: 60000
+- assertVisible: 'Are you Re-Employed'
+- assertVisible: 'Are u Re-Married'
+- assertVisible:
+    id: 'dlc-status-submit-dlc'
+- assertVisible: 'SUBMIT DLC'

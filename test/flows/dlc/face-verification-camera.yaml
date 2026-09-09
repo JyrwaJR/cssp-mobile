@@ -1,0 +1,176 @@
+# Face-verification camera journey covering BOTH the grant path and the deny
+# path of the camera permission, plus the OPERATOR-ASSISTED blink auto-capture.
+# Two clean-state starts (grant, then deny) share this one file.
+#
+# Permission entry point (grounded): on a clean launch the DLC tab shows the
+# 'Camera Access Required' alert + 'Allow Camera Access' button
+# (src/features/dlc/components/dlc-actions.tsx:69,:79,:84). Tapping
+# 'dlc-allow-camera' calls requestPermission() (dlc-screen.tsx:83) -> the
+# NATIVE Android permission dialog appears (react-native-vision-camera). Once
+# granted, the 'Capture Photo' button ('dlc-capture-photo',
+# dlc-actions.tsx:52) renders; tapping it routes to /face-recognition
+# (dlc-screen.tsx:48).
+#
+# Camera UI (face-verification): the camera phase is a live front-camera feed
+# with a liveness-instruction banner (face-verification-camera.tsx:59); the
+# default store message is 'Please blink!!' (face-verification.store.ts). The
+# capture is BLINK-BASED AUTO-CAPTURE with NO capture button
+# (face-verification.tsx:310-312).
+#
+# OPERATOR-ASSISTED BLINK (HUMAN STEP — documented for Tasks 9 & 13):
+#   Human operator: face the camera and BLINK when prompted. Capture is
+#   automatic after a single blink once the face is centered and large
+#   enough. The extendedWaitUntil below has a GENEROUS timeout and just
+#   waits for the camera to become active ('Please blink!!'), then yields
+#   to the operator; a second generous extendedWaitUntil waits for the
+#   capture to resolve to any known next phase (photo preview, loading,
+#   result, declaration, or error). No runScript is used.
+#
+# POST-CAPTURE outcomes are account/regStatus-dependent (docs/app-flow.md §4.5):
+#   - registration mode (regStatus 02/03): photo preview
+#     ('This photo is required for the system to verify your Authenticity.',
+#      face-verification-photo-preview.tsx:38) with 'fv-preview-action' :48.
+#   - normal mode (regStatus 0): submits directly -> result/declaration/loading.
+# We wait for whichever resolves and assert the element(s) present via
+# guarded runFlow branches below.
+#
+# DENY PATH permission-dialog assumption:
+#   The native Android dialog wording is OS-version dependent — 'While using
+#   the app' on Android 11+ and 'Allow'/'Deny' on older versions. Grant taps
+#   '.*While using the app.*' with a '.*Allow.*' fallback (both guarded);
+#   deny taps '.*Don.t allow.*' with a '.*Deny.*' fallback. The app's
+#   graceful denial UI depends on whether the denial is permanent: a
+#   permanently-blocked permission shows 'Camera Access Blocked' +
+#   'dlc-open-settings' (dlc-actions.tsx:94,:104); a one-time denial stays
+#   re-requestable and shows 'dlc-allow-camera' again. Both are asserted via
+#   guarded branches below (dlc-open-settings requires permanent denial —
+#   the operator checks "Don't ask again", or the runner presets camera
+#   permission via launchApp.permissions/setPermissions).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+# ============================================================
+# GRANT PATH — grant camera, capture once, verify a photo preview
+# ============================================================
+- runFlow:
+    file: ../helpers/login.yaml
+# Reset camera permission to its platform-default (unset) so this path starts
+# from a truly not-granted state regardless of any prior grant (clearState may
+# not revoke OS-level permission on every OEM). The native dialog is still
+# exercised below — setPermissions only normalizes the starting state.
+- setPermissions:
+    permissions:
+      camera: unset
+- tapOn:
+    id: 'tab-dlc'
+- assertVisible:
+    id: 'dlc-allow-camera'
+- tapOn:
+    id: 'dlc-allow-camera'
+# Native Android permission dialog -> grant (Android 11+ wording, fallback).
+- extendedWaitUntil:
+    visible: '.*While using the app.*|.*Allow.*'
+    timeout: 30000
+- runFlow:
+    when:
+      visible: '.*While using the app.*'
+    commands:
+      - tapOn: '.*While using the app.*'
+- runFlow:
+    when:
+      visible: '.*Allow.*'
+    commands:
+      - tapOn: '.*Allow.*'
+# Permission now granted -> Capture Photo button renders.
+- extendedWaitUntil:
+    visible:
+      id: 'dlc-capture-photo'
+    timeout: 30000
+- tapOn:
+    id: 'dlc-capture-photo'
+# Camera UI renders: wait for the liveness banner ('Please blink!!' is the
+# store default shown as soon as the camera screen mounts).
+- extendedWaitUntil:
+    visible: 'Please blink!!'
+    timeout: 30000
+
+# >>> HUMAN OPERATOR STEP (see header): face the camera and BLINK. <<<
+# Blink-based auto capture fires after one blink; wait (generous timeout) for
+# the capture to resolve to any known next phase. No runScript is used.
+- extendedWaitUntil:
+    visible: >-
+      This photo is required for the system to verify your
+      Authenticity.|Please wait|Submit Self Declaration|Pending Official
+      Approval|Identity confirmed|Verification Successful|Photo Verification
+      Failed|Something went wrong
+    timeout: 120000
+
+# Guarded assertions for whichever post-capture phase resolved.
+- runFlow:
+    when:
+      visible: 'This photo is required for the system to verify your Authenticity.'
+    commands:
+      - assertVisible:
+          id: 'fv-preview-action'
+      - assertVisible: 'Submit Photo'
+- runFlow:
+    when:
+      visible: 'Pending Official Approval'
+    commands:
+      - assertVisible: 'Submit Self Declaration'
+- runFlow:
+    when:
+      visible: 'Verification Successful'
+    commands:
+      - assertVisible:
+          id: 'fv-success-back'
+
+# ============================================================
+# DENY PATH — fresh clean start, deny camera, assert graceful denial UI
+# ============================================================
+- runFlow:
+    file: ../helpers/login.yaml
+# Same permission-state reset as the grant path (see above).
+- setPermissions:
+    permissions:
+      camera: unset
+- tapOn:
+    id: 'tab-dlc'
+- assertVisible:
+    id: 'dlc-allow-camera'
+- tapOn:
+    id: 'dlc-allow-camera'
+- extendedWaitUntil:
+    visible: '.*Don.t allow.*|.*Deny.*'
+    timeout: 30000
+- runFlow:
+    when:
+      visible: '.*Don.t allow.*'
+    commands:
+      - tapOn: '.*Don.t allow.*'
+- runFlow:
+    when:
+      visible: '.*Deny.*'
+    commands:
+      - tapOn: '.*Deny.*'
+
+# Graceful denial UI. 'dlc-open-settings' renders when the permission is
+# permanently blocked; otherwise the permission stays re-requestable and
+# 'dlc-allow-camera' renders again. Assert whichever the device resolves to.
+- extendedWaitUntil:
+    visible: 'Camera Access Blocked|Camera Access Required'
+    timeout: 30000
+- runFlow:
+    when:
+      visible: 'Camera Access Blocked'
+    commands:
+      - assertVisible:
+          id: 'dlc-open-settings'
+      - assertVisible: 'Open App Settings'
+- runFlow:
+    when:
+      visible: 'Camera Access Required'
+    commands:
+      - assertVisible:
+          id: 'dlc-allow-camera'
+      - assertVisible: 'Allow Camera Access'
