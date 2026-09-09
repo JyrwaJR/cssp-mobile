@@ -52,7 +52,11 @@ export const SuccessStatusCard = ({ message }: { message: string }) => {
       <Text className="text-center text-lg font-medium leading-relaxed text-emerald-950/80">
         {message || 'Your face verification was processed and matched successfully.'}
       </Text>
-      <Button size="lg" variant="primary" onPress={() => router.push(PAGE_ROUTES.HOME)}>
+      <Button
+        testID="fv-success-back"
+        size="lg"
+        variant="primary"
+        onPress={() => router.push(PAGE_ROUTES.HOME)}>
         Go Back
       </Button>
     </View>
@@ -93,7 +97,12 @@ export const RejectStatusCard = ({ message, previewUri, onRetakePhoto }: RejectS
       </View>
 
       {onRetakePhoto && (
-        <Button size={'lg'} variant="destructive" onPress={onRetakePhoto} className="w-full">
+        <Button
+          testID="fv-retake"
+          size={'lg'}
+          variant="destructive"
+          onPress={onRetakePhoto}
+          className="w-full">
           Retake Photo
         </Button>
       )}

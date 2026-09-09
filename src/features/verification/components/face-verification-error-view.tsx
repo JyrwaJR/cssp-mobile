@@ -46,13 +46,19 @@ export function FaceVerificationErrorView({
         <View className="gap-2">
           {onTryAgainPress && (
             <Button
+              testID="fv-error-retry"
               size="lg"
               className="w-full"
               onPress={() => onTryAgainPress && onTryAgainPress()}>
               Try Again
             </Button>
           )}
-          <Button size="lg" variant={'secondary'} className="w-full" onPress={() => router.back()}>
+          <Button
+            testID="fv-error-back"
+            size="lg"
+            variant={'secondary'}
+            className="w-full"
+            onPress={() => router.back()}>
             Go Back
           </Button>
         </View>

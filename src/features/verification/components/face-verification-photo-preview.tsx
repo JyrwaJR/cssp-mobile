@@ -45,7 +45,7 @@ export function FaceVerificationPhotoPreviewStep({
         [Note: The photo {`won't`} be used for any other purpose except for authenticating your
         Identity for Pension.]
       </Text>
-      <Button size="lg" className="mt-6" onPress={onSubmitPress}>
+      <Button testID="fv-preview-action" size="lg" className="mt-6" onPress={onSubmitPress}>
         <Text className="text-base font-bold text-white">{actionLabel}</Text>
       </Button>
       <FooterImg />

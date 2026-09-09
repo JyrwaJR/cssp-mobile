@@ -81,6 +81,7 @@ export function FaceVerificationDeclarationForm({
           </Text>
           <View className="flex-row items-center gap-3">
             <TouchableOpacity
+              testID="fv-radio-yes"
               activeOpacity={0.7}
               onPress={() => onChangeNec('Yes')}
               className="flex-row items-center gap-1.5 px-2 py-1">
@@ -93,6 +94,7 @@ export function FaceVerificationDeclarationForm({
               <Text className="text-sm font-bold text-foreground">Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              testID="fv-radio-no"
               activeOpacity={0.7}
               onPress={() => onChangeNec('No')}
               className="flex-row items-center gap-1.5 px-2 py-1">
@@ -146,7 +148,7 @@ export function FaceVerificationDeclarationForm({
           </>
         )}
 
-        <Button size="lg" className="mt-3 w-full" onPress={onSubmit}>
+        <Button testID="fv-submit-declaration" size="lg" className="mt-3 w-full" onPress={onSubmit}>
           <Text className="text-base font-bold text-white">Submit</Text>
         </Button>
       </View>

@@ -50,8 +50,8 @@ export function FaceVerificationConfirmDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel title="No" onPress={() => onOpenChange(false)} />
-          <AlertDialogAction onPress={onConfirm}>
+          <AlertDialogCancel title="No" onPress={() => onOpenChange(false)} testID="fv-terms-no" />
+          <AlertDialogAction onPress={onConfirm} testID="fv-terms-yes">
             <Text className="text-base font-bold text-white">Yes</Text>
           </AlertDialogAction>
         </AlertDialogFooter>
