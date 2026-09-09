@@ -1,0 +1,24 @@
+# Maestro test-suite configuration for CSSP Mobile E2E.
+# Run: npm run test:e2e           (whole suite)
+#      npm run test:e2e:<folder>  (folder only, e.g. test:e2e:auth)
+# Env vars are injected via npm scripts that source test/.env (see R3).
+testName: CSSP Mobile E2E
+version: 0.1.0
+appId: com.jyrwajr.csspmobile.dev
+
+env:
+  PPO_NO: ${PPO_NO}
+  PASSWORD: ${PASSWORD}
+  # optional: REG_PPO_NO, REG_ORGANIZATION, REG_DOB, REG_BANK, REG_PASSWORD,
+  # NEW_PASSWORD (default Test1234!)
+
+flows:
+  - flows/auth
+  - flows/home
+  - flows/dlc
+  - flows/profile
+  - flows/change-password
+  - flows/static
+
+executionOrder:
+  continueOnFailure: true

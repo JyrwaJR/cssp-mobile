@@ -1,0 +1,9 @@
+# Launches the app (stop + start). Set CLEAR_STATE=true to wipe app data first
+# (used by flows that require a logged-out start: auth flows call
+# helpers/login.yaml which clears implicitly; guest-guard passes
+# env: {CLEAR_STATE: true} explicitly).
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: ${CLEAR_STATE}

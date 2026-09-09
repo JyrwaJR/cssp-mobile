@@ -1,0 +1,41 @@
+# Ensures a signed-in home screen. All secure flows start with this helper.
+# Strategy:
+#   1. Launch clean (clearState) so session/auth logic is exercised from
+#      scratch — dev prefill comes from env, not storage (R4).
+#   2. If a session somehow survived (home marker visible), force-logout via
+#      the drawer, landing back on the login screen.
+#   3. Fill login fields from env (eraseText clears any dev prefill) and tap
+#      login-submit; wait for the home marker.
+# Home marker: the home-only subtitle 'Submit your Digital Life Cerificate'
+# (verbatim typo — unique to the home screen; dlc-status uses different text).
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+- runFlow:
+    when:
+      visible: 'Submit your Digital Life Cerificate'
+    commands:
+      - swipe:
+          start: 0%, 50%
+          end: 80%, 50%
+      - tapOn:
+          id: 'drawer-logout'
+      - assertVisible: 'Pensioner Portal'
+- tapOn:
+    id: 'login-input-username'
+- eraseText
+- inputText: ${PPO_NO}
+- tapOn:
+    id: 'login-input-password'
+- eraseText
+- inputText: ${PASSWORD}
+- tapOn:
+    id: 'login-submit'
+- extendedWaitUntil:
+    visible: 'Submit your Digital Life Cerificate'
+    timeout: 60000

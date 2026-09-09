@@ -26,3 +26,8 @@ android
 .worktrees
 *.apk
 ignore*
+
+# Maestro E2E
+test/.env
+test/screenshots/
+.maestro/

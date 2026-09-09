@@ -9,7 +9,15 @@
     "start": "expo start",
     "prebuild": "expo prebuild",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
-    "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write"
+    "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
+    "test:e2e": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/ --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:auth": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/auth --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:home": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/home --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:dlc": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/dlc --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:profile": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/profile --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:cp": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/change-password --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:static": "sh -c '[ -f test/.env ] && . test/.env; maestro test test/flows/static --device \"${MAESTRO_DEVICE:-a5da5d01}\"'",
+    "test:e2e:flow": "sh -c '[ -f test/.env ] && . test/.env; maestro test \"$1\" --device \"${MAESTRO_DEVICE:-a5da5d01}\"' --"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
