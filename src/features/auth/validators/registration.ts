@@ -24,7 +24,11 @@ const bankAccountValidation = z
 export const RegisterPersonalInfoSchema = z.object({
   dob: dateOfBirthValidation,
   bank_account_number: bankAccountValidation,
-  organization: z.string('Organization is Required').min(3, 'Invalid organization'),
+  organization: z
+    .string('Organization is Required')
+    .min(3, 'Invalid organization')
+    .optional()
+    .nullable(),
 });
 
 export type RegisterPersonalInfoInput = z.infer<typeof RegisterPersonalInfoSchema>;

@@ -51,6 +51,7 @@ export const RegistrationPersonalForm = () => {
 
   return (
     <View className="w-full gap-4 py-2">
+      {/* 
       <Controller
         control={form.control}
         name="organization"
@@ -82,6 +83,7 @@ export const RegistrationPersonalForm = () => {
           </View>
         )}
       />
+      */}
       <Controller
         control={form.control}
         name="dob"

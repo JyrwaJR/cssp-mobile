@@ -32,9 +32,7 @@ export function ProfileScreen() {
 
   const fields: { label: string; value: string }[] = [
     { label: 'Name', value: user.name },
-    { label: 'Username', value: user.username },
-    { label: 'UID', value: user.uid },
-    { label: 'PPO No', value: user.ppo_no },
+    { label: 'Username', value: user.ppo_no },
     { label: 'Approval', value: user.approval },
     { label: 'Has DLC', value: user.has_dlc },
     { label: 'Phone No', value: user.phone_no || '—' },

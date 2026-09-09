@@ -48,9 +48,22 @@ function getAppName(): string {
     case 'preview':
       return `Pension [Preview]`;
     case 'production':
-      return 'Penison';
+      return 'Pension';
     default:
-      return `Pension`;
+      return `Pension [dev]`;
+  }
+}
+
+function getSchemaName(): string {
+  switch (variant) {
+    case 'development':
+      return `pension-dev`;
+    case 'preview':
+      return `pension-preview`;
+    case 'production':
+      return 'pension';
+    default:
+      return `pension-dev`;
   }
 }
 
@@ -58,8 +71,7 @@ const config: ExpoConfig = {
   name: getAppName(),
   slug: 'cssp',
   version: '3.0.0',
-
-  scheme: 'cssp-mobile',
+  scheme: getSchemaName(),
 
   platforms: ['ios', 'android'],
   orientation: 'portrait',
@@ -186,6 +198,7 @@ const config: ExpoConfig = {
       projectId: '9ac6a35c-06b5-445c-8227-37951817b496',
     },
   },
+  owner: 'pixel-thread',
 };
 
 /**
