@@ -59,7 +59,7 @@ export function VerificationStatusScreen() {
 
           {/* Section Subtitle */}
           <View className="bg-muted/40 rounded-md border border-gray-300 p-3">
-            <Text className="text-center text-sm font-semibold leading-5 text-muted-foreground">
+            <Text className="text-center text-base font-medium leading-5 text-muted-foreground">
               Submit your Digital Life Cerificate
             </Text>
           </View>
@@ -88,8 +88,8 @@ export function VerificationStatusScreen() {
           {/* Note Alert Card */}
           <Alert variant="warning">
             <Icon name="alert-triangle" size={18} className="mt-0.5 text-destructive" />
-            <View className="flex-1">
-              <AlertTitle className="text-sm">Important Notice</AlertTitle>
+            <View className="flex-1 gap-1">
+              <AlertTitle>Important Notice</AlertTitle>
               <AlertDescription>
                 Face Verification is required twice every Calendar year. Validity extends for 6
                 months from your last successful verification.

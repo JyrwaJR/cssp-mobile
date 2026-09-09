@@ -7,7 +7,7 @@ type Variant = 'default' | 'destructive' | 'success' | 'warning' | 'info';
 
 const AlertContext = createContext<{ variant: Variant }>({ variant: 'default' });
 
-const alertVariants = cva('relative w-full rounded-xl border p-4 flex-row items-start gap-3', {
+const alertVariants = cva('relative w-full rounded-md border p-4 flex-row items-start gap-3', {
   variants: {
     variant: {
       default: 'bg--50 border-gray-200',
@@ -22,7 +22,7 @@ const alertVariants = cva('relative w-full rounded-xl border p-4 flex-row items-
   },
 });
 
-const alertTitleVariants = cva('text-sm font-semibold leading-none tracking-tight mb-1', {
+const alertTitleVariants = cva('text-base font-semibold leading-none tracking-tight mb-1', {
   variants: {
     variant: {
       default: 'text-gray-900',
@@ -37,7 +37,7 @@ const alertTitleVariants = cva('text-sm font-semibold leading-none tracking-tigh
   },
 });
 
-const alertDescriptionVariants = cva('text-sm leading-relaxed font-normal', {
+const alertDescriptionVariants = cva('text-base leading-relaxed font-normal', {
   variants: {
     variant: {
       default: 'text-gray-600',
