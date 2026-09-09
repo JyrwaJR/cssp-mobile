@@ -49,6 +49,7 @@ export function DLCActions({
       condition={hasPermission}
       ifTrue={
         <Button
+          testID="dlc-capture-photo"
           disabled={isDisableCapture || isOffline}
           size="lg"
           onPress={onCapture}
@@ -74,7 +75,12 @@ export function DLCActions({
                 </View>
               </Alert>
 
-              <Button size="lg" variant="outline" onPress={onRequestPermission} activeOpacity={0.8}>
+              <Button
+                testID="dlc-allow-camera"
+                size="lg"
+                variant="outline"
+                onPress={onRequestPermission}
+                activeOpacity={0.8}>
                 Allow Camera Access
               </Button>
             </>
@@ -94,7 +100,12 @@ export function DLCActions({
                 </View>
               </Alert>
 
-              <Button size="lg" variant="outline" onPress={onOpenSettings} activeOpacity={0.8}>
+              <Button
+                testID="dlc-open-settings"
+                size="lg"
+                variant="outline"
+                onPress={onOpenSettings}
+                activeOpacity={0.8}>
                 Open App Settings
               </Button>
             </>

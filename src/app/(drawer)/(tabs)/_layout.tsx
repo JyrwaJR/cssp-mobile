@@ -48,6 +48,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Status',
+          tabBarButtonTestID: 'tab-home',
           tabBarIcon: ({ size, color }) => (
             <Icon name="information-circle" size={size} color={color} />
           ),
@@ -58,6 +59,7 @@ export default function TabLayout() {
         name="dlc"
         options={{
           title: 'Submit DLC',
+          tabBarButtonTestID: 'tab-dlc',
           tabBarIcon: ({ size, color }) => <Icon name="camera-01" size={size} color={color} />,
         }}
       />
@@ -66,6 +68,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
+          tabBarButtonTestID: 'tab-profile',
           tabBarIcon: ({ size, color }) => <Icon name="user-01" size={size} color={color} />,
         }}
       />

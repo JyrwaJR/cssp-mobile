@@ -101,6 +101,7 @@ export function UserManualScreen() {
           </Text>
 
           <Pressable
+            testID="home-manual-getting-started"
             accessibilityRole="button"
             accessibilityLabel="Open step-by-step guide to get started with the app"
             onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.GETTING_STARTED)}
@@ -118,6 +119,7 @@ export function UserManualScreen() {
           </Pressable>
 
           <Pressable
+            testID="home-manual-dlc"
             accessibilityRole="button"
             accessibilityLabel="Open step-by-step guide for digital life registration"
             onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.DLC)}
@@ -135,6 +137,7 @@ export function UserManualScreen() {
           </Pressable>
 
           <Pressable
+            testID="home-manual-change-password"
             accessibilityRole="button"
             accessibilityLabel="Open step-by-step guide for changing your password"
             onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.CHANGE_PASSWORD)}

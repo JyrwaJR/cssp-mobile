@@ -107,10 +107,11 @@ export const DLCStatusScreen = () => {
             </Text>
 
             <Button
+              testID="dlc-status-submit-dlc"
               size="lg"
               onPress={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
               className="flex-row items-center gap-2"
-              accessibilityLabel="Open user manual">
+              accessibilityLabel="Submit Digital Life Certificate">
               <Text className="text-base font-semibold text-primary-foreground">SUBMIT DLC</Text>
             </Button>
           </View>
