@@ -1,27 +1,19 @@
 # Profile update: performs a REAL update_profile backend call (POST
-# /api/update_profile/, ENDPOINTS.USER.UPDATE_PROFILE) with an ENV-DRIVEN SAFE
-# VALUE. Only the display NAME is changed (to ${PROFILE_DISPLAY_NAME});
-# Organization and Username are intentionally LEFT UNTOUCHED (no input into
-# profile-input-org / profile-input-username) so the login username
-# (${PPO_NO}) is never modified and every later flow keeps working.
+# /api/update_profile/, ENDPOINTS.USER.UPDATE_PROFILE) with ENV-DRIVEN SAFE
+# VALUES. Updates the display NAME (to ${PROFILE_DISPLAY_NAME}) and fills
+# organization (to ${PROFILE_ORG_NAME} per RS7 validation requirements), leaving
+# username UNTOUCHED so the login username (${PPO_NO}) is never modified.
 # Flow: login -> Profile tab -> open /profile/update via profile-update ->
-#   edit name -> profile-save -> assert success marker (inline success view,
-#   profile-update-screen.tsx) -> Android back -> assert the updated name now
-#   renders on the profile screen.
+#   edit name and organization -> profile-save -> assert success marker (inline
+#   success view, profile-update-screen.tsx) -> Android back -> assert updated
+#   name renders on profile screen.
 # Markers/ids:
 #   profile-update (profile-screen.tsx:72), profile-input-name:91,
-#   profile-save:167 (profile-update-screen.tsx). Success text 'Profile
-#   Updated':60 / 'Your profile has been updated.':64 (profile-update-screen.tsx).
+#   profile-input-org:118, profile-save:167 (profile-update-screen.tsx). Success
+#   text 'Profile Updated':60 / 'Your profile has been updated.':64.
 # Name refresh grounding: useUpdateProfile.onSuccess merges the new name into
-# the auth store via setUser (use-update-profile.ts), so the profile screen
-# (which reads user.name) reflects the change after back-navigation.
-# KNOWN CONCERN (flagged for review): the update form's defaultValues only
-# seed name/username; 'organization' is a registered Controller field with no
-# default, and ProfileUpdateSchema requires organization to be non-empty. With
-# the safe name-only interaction the submit may fail org validation instead of
-# reaching 'Profile Updated'. This flow follows the binding safe-values ruling
-# (no org/username writes) and documents the runtime risk.
-# Env vars: APP_ID, PPO_NO, PASSWORD, PROFILE_DISPLAY_NAME.
+# the auth store via setUser (use-update-profile.ts).
+# Env vars: APP_ID, PPO_NO, PASSWORD, PROFILE_DISPLAY_NAME, PROFILE_ORG_NAME.
 appId: ${APP_ID}
 ---
 - runFlow:
@@ -44,6 +36,10 @@ appId: ${APP_ID}
     id: 'profile-input-name'
 - eraseText
 - inputText: ${PROFILE_DISPLAY_NAME}
+- tapOn:
+    id: 'profile-input-org'
+- eraseText
+- inputText: ${PROFILE_ORG_NAME}
 - tapOn:
     id: 'profile-save'
 - assertVisible: 'Profile Updated'
