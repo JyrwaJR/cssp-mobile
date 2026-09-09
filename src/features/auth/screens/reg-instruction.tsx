@@ -193,7 +193,10 @@ export function RegistrationInstructionScreen() {
         </View>
 
         {/* Action Button */}
-        <Button size="lg" onPress={() => router.push(PAGE_ROUTES.AUTH.REGISTER)}>
+        <Button
+          testID="reg-guide-proceed"
+          size="lg"
+          onPress={() => router.push(PAGE_ROUTES.AUTH.REGISTER)}>
           Proceed to Registration
         </Button>
 

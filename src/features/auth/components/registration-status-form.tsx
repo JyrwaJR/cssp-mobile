@@ -51,6 +51,7 @@ export const RegistrationStatusForm = () => {
               <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
+              testID="reg-ppo-input"
               value={value}
               onChangeText={(v) => {
                 return onChange(v);
@@ -74,6 +75,7 @@ export const RegistrationStatusForm = () => {
         )}
       />
       <Button
+        testID="reg-ppo-check"
         isLoading={isPending}
         size="lg"
         disabled={isPending}

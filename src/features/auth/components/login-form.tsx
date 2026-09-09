@@ -65,6 +65,7 @@ export const LoginForm = () => {
               <Text className="mb-1.5 text-sm font-medium text-destructive">*</Text>
             </View>
             <Input
+              testID="login-input-username"
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -94,6 +95,7 @@ export const LoginForm = () => {
             </View>
             <View className="relative justify-center">
               <Input
+                testID="login-input-password"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -106,6 +108,7 @@ export const LoginForm = () => {
                 className="pr-12"
               />
               <Pressable
+                testID="login-toggle-password"
                 onPress={togglePasswordVisibility}
                 hitSlop={8}
                 className="absolute right-3 top-1/2 -translate-y-1/2 items-center justify-center p-1"
@@ -123,6 +126,7 @@ export const LoginForm = () => {
       />
       {/* Submit Button */}
       <Button
+        testID="login-submit"
         isLoading={isPending}
         size="lg"
         disabled={isPending || isOffline}

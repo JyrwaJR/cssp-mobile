@@ -61,6 +61,7 @@ export const RegistrationPersonalForm = () => {
               <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
+              testID="reg-org-input"
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -92,6 +93,7 @@ export const RegistrationPersonalForm = () => {
               <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
+              testID="reg-dob-input"
               value={value}
               onChangeText={(v) => {
                 const digits = v.replace(/\D/g, '').slice(0, 8);
@@ -138,6 +140,7 @@ export const RegistrationPersonalForm = () => {
               <Text className="mb-1.5 text-base font-semibold text-destructive">*</Text>
             </View>
             <Input
+              testID="reg-bank-input"
               value={value}
               onChangeText={(v) => onChange(v.replace(/\D/g, ''))}
               onBlur={onBlur}
@@ -162,12 +165,18 @@ export const RegistrationPersonalForm = () => {
       <View className="gap-2">
         <View className="w-full flex-row items-center gap-3">
           {/* Previous Step Button — keeps all entered data */}
-          <Button variant="outline" size="lg" onPress={prevStep} className="flex-1">
+          <Button
+            testID="reg-back"
+            variant="outline"
+            size="lg"
+            onPress={prevStep}
+            className="flex-1">
             Back
           </Button>
 
           {/* Next Step Button */}
           <Button
+            testID="reg-next"
             isLoading={form.formState.isSubmitting}
             size="lg"
             disabled={!form.formState.isValid}

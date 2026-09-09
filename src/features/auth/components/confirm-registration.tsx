@@ -109,6 +109,7 @@ export function ConfirmRegistrationScreen() {
 
       <View className="flex-row gap-3">
         <Button
+          testID="reg-back"
           size="lg"
           onPress={prevStep}
           variant="outline"
@@ -118,6 +119,7 @@ export function ConfirmRegistrationScreen() {
         </Button>
 
         <Button
+          testID="reg-submit"
           size="lg"
           onPress={handleSubmitClick}
           disabled={isRegistering || isOffline}

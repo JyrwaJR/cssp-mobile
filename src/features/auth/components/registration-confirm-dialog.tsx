@@ -51,11 +51,13 @@ export function RegistrationConfirmDialog({
             title="Cancel"
             onPress={() => onOpenChange(false)}
             accessibilityLabel="Cancel registration"
+            testID="reg-confirm-cancel"
           />
           <AlertDialogAction
             onPress={onConfirm}
             disabled={isPending}
-            accessibilityLabel="Confirm and submit registration">
+            accessibilityLabel="Confirm and submit registration"
+            testID="reg-confirm-confirm">
             <Text className="text-base font-bold text-white">Confirm</Text>
           </AlertDialogAction>
         </AlertDialogFooter>

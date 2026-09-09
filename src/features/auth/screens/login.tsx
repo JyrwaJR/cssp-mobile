@@ -50,6 +50,7 @@ export function LoginScreen() {
           <View className="w-full items-center gap-5">
             {/* Primary entry point for new users — full-width, 56px target */}
             <Button
+              testID="login-register"
               variant="outline"
               onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
               size={'lg'}
@@ -75,6 +76,7 @@ export function LoginScreen() {
               </Text>
 
               <Button
+                testID="login-view-manual"
                 variant="outline"
                 size="lg"
                 onPress={() => router.push(PAGE_ROUTES.USER_MANUAL.HOME)}
