@@ -1,0 +1,16 @@
+# Contact Us flow: ensures a signed-in home screen, opens the drawer,
+# navigates to Contact Us (drawer-contact-us), and asserts contact us markers
+# ('Contact Us', 'Finance Department', 'Technical Support').
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-contact-us'
+- assertVisible: 'Contact Us'
+- assertVisible: 'Finance Department'
+- assertVisible: 'Technical Support'

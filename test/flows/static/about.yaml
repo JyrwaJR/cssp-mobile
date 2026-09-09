@@ -1,0 +1,17 @@
+# About flow: ensures a signed-in home screen, opens the drawer,
+# navigates to About (drawer-about), and asserts about markers
+# ('Pensioner\'s Life Certificate Verification', 'About this app',
+# 'This app is meant for the Pensioners').
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-about'
+- assertVisible: "Pensioner's Life Certificate Verification"
+- assertVisible: 'About this app'
+- assertVisible: 'This app is meant for the Pensioners'

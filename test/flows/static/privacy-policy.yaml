@@ -1,0 +1,16 @@
+# Privacy policy flow: ensures a signed-in home screen, opens the drawer,
+# navigates to Privacy Policy (drawer-privacy-policy), and asserts
+# privacy policy content markers ('Privacy Policy',
+# '1. Information Collected & Manner of Collection').
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-privacy-policy'
+- assertVisible: 'Privacy Policy'
+- assertVisible: '1. Information Collected & Manner of Collection'

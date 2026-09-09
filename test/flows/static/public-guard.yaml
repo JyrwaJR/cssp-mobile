@@ -1,0 +1,46 @@
+# Public guard flow: verifies that public routes can be accessed while logged out
+# without being redirected to the auth screen. Launches with clearState: true,
+# uses deep links (cssp-mobile://...) for /user-manual, /privacy-policy,
+# /contact-us, and /about. Asserts that the respective public screen content
+# renders successfully and login-submit is NOT visible (no auth redirect).
+# Env vars: APP_ID.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+
+# User Manual (public) -> renders manual, no redirect to auth
+- openLink: 'cssp-mobile:///user-manual'
+- extendedWaitUntil:
+    visible: 'Pensioner App User Guide'
+    timeout: 30000
+- assertNotVisible:
+    id: 'login-submit'
+
+# Privacy Policy (public) -> renders privacy policy, no redirect to auth
+- openLink: 'cssp-mobile:///privacy-policy'
+- extendedWaitUntil:
+    visible: 'Privacy Policy'
+    timeout: 30000
+- assertNotVisible:
+    id: 'login-submit'
+
+# Contact Us (public) -> renders contact us, no redirect to auth
+- openLink: 'cssp-mobile:///contact-us'
+- extendedWaitUntil:
+    visible: 'Contact Us'
+    timeout: 30000
+- assertNotVisible:
+    id: 'login-submit'
+
+# About (public) -> renders about, no redirect to auth
+- openLink: 'cssp-mobile:///about'
+- extendedWaitUntil:
+    visible: "Pensioner's Life Certificate Verification"
+    timeout: 30000
+- assertNotVisible:
+    id: 'login-submit'

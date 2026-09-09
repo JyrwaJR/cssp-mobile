@@ -1,0 +1,30 @@
+# User manual flow: ensures a signed-in home screen, opens the drawer,
+# navigates to the User Manual (drawer-user-manual), asserts the manual index
+# renders ('Pensioner App User Guide'), and taps each of the three guide cards
+# (home-manual-getting-started, home-manual-dlc, home-manual-change-password),
+# asserting their specific header content ('Getting Started',
+# 'Digital Life Registration', 'Change Password'), using back between steps.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-user-manual'
+- assertVisible: 'Pensioner App User Guide'
+- tapOn:
+    id: 'home-manual-getting-started'
+- assertVisible: 'Getting Started'
+- back
+- tapOn:
+    id: 'home-manual-dlc'
+- assertVisible: 'Digital Life Registration'
+- back
+- tapOn:
+    id: 'home-manual-change-password'
+- assertVisible: 'Change Password'
+- back
+- assertVisible: 'Pensioner App User Guide'
