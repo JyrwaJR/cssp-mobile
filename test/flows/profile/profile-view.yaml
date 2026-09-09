@@ -1,0 +1,34 @@
+# Profile tab view: ensures a signed-in home screen (via helpers/login.yaml),
+# taps the Profile tab (tab-profile, tabBarButtonTestID in
+# src/app/(drawer)/(tabs)/_layout.tsx:71) and asserts the read-only profile
+# screen renders with its static markers.
+# Markers:
+#   'Personal info' chip (profile-screen.tsx:52) and the 'Update Profile'
+#   button label + its testID (profile-update, profile-screen.tsx:72).
+#   Field row labels (profile-screen.tsx, fields array) are static and
+#   rendered via ProfileFieldRow (uppercased by CSS but matched in source
+#   case, same convention as the committed home-tab claim on 'Personal info').
+# The profile heading and org line come from the auth store (dynamic user
+# data) and are intentionally NOT asserted as literal strings here.
+# Scroll is needed because the Update Profile button sits below the 8-row
+# field list on typical phone viewports.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- tapOn:
+    id: 'tab-profile'
+- assertVisible: 'Personal info'
+- assertVisible: 'Name'
+- assertVisible: 'Username'
+- assertVisible: 'UID'
+- assertVisible: 'PPO No'
+- assertVisible: 'Approval'
+- assertVisible: 'Has DLC'
+- scrollUntilVisible:
+    element:
+      id: 'profile-update'
+    direction: DOWN
+    timeout: 10000
+- assertVisible: 'Update Profile'

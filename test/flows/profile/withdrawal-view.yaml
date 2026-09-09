@@ -1,0 +1,41 @@
+# Withdrawal view (VIEW-ONLY — the withdrawal is NOT submitted): ensures a
+# signed-in home screen, opens the drawer, taps drawer-withdrawal
+# (src/app/(drawer)/_layout.tsx:68) and asserts the static withdrawal screen.
+# /withdrawal is a root-stack screen (no form/inputs) whose "App Details"
+# readback card carries the withdrawal-input testID (withdrawal.tsx:28, per
+# RS4).
+# Markers (src/features/withdrawal/screens/withdrawal.tsx):
+#   'Service Request' chip:14, title `Pensioner's` Life Certificate:19,
+#   subtitle 'Application Withdrawal & Notice':22; readback card label 'App
+#   Details':32, 'Treasury Request':40 and its copy:42; 'Important Notice':53
+#   and its copy:57. Version pill is dynamic (v{APP_VERSION}) so not asserted.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-withdrawal'
+- assertVisible: 'Service Request'
+- assertVisible: "Pensioner's Life Certificate"
+- assertVisible: 'Application Withdrawal & Notice'
+- scrollUntilVisible:
+    element:
+      id: 'withdrawal-input'
+    direction: DOWN
+    timeout: 10000
+- assertVisible:
+    id: 'withdrawal-input'
+- assertVisible: 'App Details'
+- assertVisible: 'Treasury Request'
+- assertVisible: 'A request can be made to the Treasury Office by any user who wants to stop using the application.'
+- scrollUntilVisible:
+    element:
+      text: 'Important Notice'
+    direction: DOWN
+    timeout: 10000
+- assertVisible: 'Important Notice'
+- assertVisible: 'Please contact your designated Treasury Office to submit and finalize your withdrawal procedure.'
