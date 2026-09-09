@@ -1,0 +1,55 @@
+# Guest guard: verifies that protected routes redirect to the auth screen when
+# visited while logged out. Launches cleared, then uses deep links
+# (scheme cssp-mobile, app.config.ts:62) to several protected routes from
+# routes.ts (change-password, withdrawal, profile/update, dlc-status). For each
+# the auth guard (auth-redirect.tsx:50-53) must send a signed-out visitor to
+# /auth; we assert the login screen marker (login-submit) is visible.
+# Env vars: APP_ID.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+
+# Home (protected) -> redirect to /auth
+- openLink: 'cssp-mobile:///'
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'
+
+# Change Password (protected) -> redirect to /auth
+- openLink: 'cssp-mobile:///change-password'
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'
+
+# Withdrawal (protected) -> redirect to /auth
+- openLink: 'cssp-mobile:///withdrawal'
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'
+
+# Profile update (protected) -> redirect to /auth
+- openLink: 'cssp-mobile:///profile/update'
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'
+
+# DLC status (protected) -> redirect to /auth
+- openLink: 'cssp-mobile:///dlc-status'
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'

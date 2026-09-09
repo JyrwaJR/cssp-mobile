@@ -1,0 +1,19 @@
+# Login -> Registration nav: taps the "New User? Register / Forgot Password"
+# button (testID login-register, login.tsx:53) and asserts the registration
+# instruction (guide) screen renders ("Registration Guide" + subtitle).
+# Starts cleared.
+# Env vars: APP_ID.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+- tapOn:
+    id: 'login-register'
+- extendedWaitUntil:
+    visible: 'Registration Guide'
+    timeout: 30000
+- assertVisible: 'Follow the steps below to register or update your password'

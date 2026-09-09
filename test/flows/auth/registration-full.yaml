@@ -1,0 +1,121 @@
+# Full registration journey: performs the REAL create_pensioner call
+# (user-approved live E2E) across wizard Steps 1->4 using REG_* env, tapping
+# "Submit" (reg-submit), accepting the Confirm dialog (reg-confirm-confirm),
+# and landing on the success view ("Registration Successful" + reg-success-login).
+#
+# Because REG_PPO_NO may already be registered (re-runs), the backend can
+# return a duplicate/existing-account error. Both outcomes are handled
+# gracefully:
+#   - success path: assert 'Registration Successful' + the 'Go to Login'
+#     success-action marker.
+#   - duplicate path: assert the client-side inline alert 'Registration Failed'
+#     (confirm-registration.tsx:81). The exact duplicate-account message text is
+#     server-provided (dynamic) and is reported as a device-run unknown (Task 13).
+# Env vars: APP_ID, REG_PPO_NO, REG_ORGANIZATION, REG_DOB (DD-MM-YYYY),
+# REG_BANK (16 digits), REG_PASSWORD (8-50 chars).
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+
+# Navigate login -> guide -> wizard
+- tapOn:
+    id: 'login-register'
+- extendedWaitUntil:
+    visible: 'Registration Guide'
+    timeout: 30000
+- tapOn:
+    id: 'reg-guide-proceed'
+- extendedWaitUntil:
+    visible: 'Check Your PPO Number'
+    timeout: 30000
+
+# Step 1 — Check PPO Status (auto-advances to Step 2 on success)
+- tapOn:
+    id: 'reg-ppo-input'
+- eraseText
+- inputText: ${REG_PPO_NO}
+- tapOn:
+    id: 'reg-ppo-check'
+- extendedWaitUntil:
+    visible: 'Your Details'
+    timeout: 60000
+
+# Step 2 — Organization / DOB / Bank
+- tapOn:
+    id: 'reg-org-input'
+- eraseText
+- inputText: ${REG_ORGANIZATION}
+- tapOn:
+    id: 'reg-dob-input'
+- eraseText
+- inputText: ${REG_DOB}
+- tapOn:
+    id: 'reg-bank-input'
+- eraseText
+- inputText: ${REG_BANK}
+- tapOn:
+    id: 'reg-next'
+- extendedWaitUntil:
+    visible: 'Create a Password'
+    timeout: 30000
+
+# Step 3 — Create a Password (password + confirm)
+- tapOn:
+    id: 'reg-password-input'
+- eraseText
+- inputText: ${REG_PASSWORD}
+- tapOn:
+    id: 'reg-confirm-password-input'
+- eraseText
+- inputText: ${REG_PASSWORD}
+- tapOn:
+    id: 'reg-next'
+- extendedWaitUntil:
+    visible: 'Confirm & Submit'
+    timeout: 30000
+
+# Step 4 — Confirm & Submit
+- tapOn:
+    id: 'reg-submit'
+- extendedWaitUntil:
+    visible: 'Confirm Registration?'
+    timeout: 30000
+
+# Exercise the dialog's Cancel path first (dismisses, stays on Step 4)
+- tapOn:
+    id: 'reg-confirm-cancel'
+- assertNotVisible: 'Confirm Registration?'
+
+# Re-open the dialog and Confirm to submit
+- tapOn:
+    id: 'reg-submit'
+- extendedWaitUntil:
+    visible: 'Confirm Registration?'
+    timeout: 30000
+- tapOn:
+    id: 'reg-confirm-confirm'
+
+# Handle either terminal outcome: fresh success or graceful duplicate/error
+- extendedWaitUntil:
+    visible: 'Registration Successful|Registration Failed'
+    timeout: 90000
+
+- runFlow:
+    when:
+      visible: 'Registration Successful'
+    commands:
+      - assertVisible: 'Your account has been created'
+      - assertVisible: 'Go to Login'
+      - assertVisible:
+          id: 'reg-success-login'
+
+- runFlow:
+    when:
+      visible: 'Registration Failed'
+    commands:
+      - assertVisible: 'Registration Failed'

@@ -1,0 +1,37 @@
+# Registration Step 1 -> Step 2: navigates login -> guide -> wizard, fills the
+# PPO Number (reg-ppo-input) from REG_PPO_NO, taps "Check PPO Status"
+# (reg-ppo-check) and asserts the wizard auto-advances to Step 2
+# ("Your Details": reg-org-input / reg-dob-input visible).
+# Requires real treasury PPO data (REG_PPO_NO must match a registered PPO).
+# Env vars: APP_ID, REG_PPO_NO.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+- tapOn:
+    id: 'login-register'
+- extendedWaitUntil:
+    visible: 'Registration Guide'
+    timeout: 30000
+- tapOn:
+    id: 'reg-guide-proceed'
+- extendedWaitUntil:
+    visible: 'Check Your PPO Number'
+    timeout: 30000
+- tapOn:
+    id: 'reg-ppo-input'
+- eraseText
+- inputText: ${REG_PPO_NO}
+- tapOn:
+    id: 'reg-ppo-check'
+- extendedWaitUntil:
+    visible: 'Your Details'
+    timeout: 60000
+- assertVisible:
+    id: 'reg-org-input'
+- assertVisible:
+    id: 'reg-dob-input'

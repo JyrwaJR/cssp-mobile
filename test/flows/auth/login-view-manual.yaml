@@ -1,0 +1,18 @@
+# Login -> User Manual: taps the "View Manual" action on the login screen
+# (testID login-view-manual, login.tsx:79) and asserts the app lands on the
+# public /user-manual screen. User manual is a public route, reachable while
+# logged out. Starts cleared.
+# Env vars: APP_ID.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+- tapOn:
+    id: 'login-view-manual'
+- extendedWaitUntil:
+    visible: 'Pensioner App User Guide'
+    timeout: 30000

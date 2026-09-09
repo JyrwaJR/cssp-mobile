@@ -1,0 +1,53 @@
+# Login client-side validation: reproduces all 4 login validation strings
+# verbatim from LoginSchema (src/features/auth/validators/auth.ts + common.ts):
+#   'Username is Required', 'Invalid Username',
+#   'Password is required', 'Password must be at least 8 characters'
+# All strings rendered by LoginForm error <Text> (login-form.tsx:79-81,119-121).
+# Starts cleared so the guest login screen is shown from a fresh state.
+# Env vars: APP_ID. PPO_NO optional (used only to exercise valid-username path).
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+
+# 1) Required errors — empty username + empty password -> submit
+- tapOn:
+    id: 'login-input-username'
+- eraseText
+- tapOn:
+    id: 'login-input-password'
+- eraseText
+- tapOn:
+    id: 'login-submit'
+- assertVisible: 'Username is Required'
+- assertVisible: 'Password is required'
+
+# 2) Invalid username — clear and type a username that fails the regex
+- tapOn:
+    id: 'login-input-username'
+- eraseText
+- inputText: 'INVALID!!'
+- tapOn:
+    id: 'login-input-password'
+- eraseText
+- inputText: 'SomePass123'
+- tapOn:
+    id: 'login-submit'
+- assertVisible: 'Invalid Username'
+
+# 3) Password too short — valid username, password under 8 chars
+- tapOn:
+    id: 'login-input-username'
+- eraseText
+- inputText: '12345'
+- tapOn:
+    id: 'login-input-password'
+- eraseText
+- inputText: 'short'
+- tapOn:
+    id: 'login-submit'
+- assertVisible: 'Password must be at least 8 characters'

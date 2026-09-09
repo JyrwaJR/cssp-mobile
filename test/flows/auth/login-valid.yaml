@@ -1,0 +1,10 @@
+# Valid login: ensures a fully signed-in home screen using the shared
+# helpers/login.yaml helper (which clears app state, force-logs-out if a
+# session survived, fills login fields from env, and asserts the home marker).
+# Covers the happy-path login -> home transition.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- assertVisible: 'Submit your Digital Life Cerificate'

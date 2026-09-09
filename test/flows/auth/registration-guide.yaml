@@ -1,0 +1,25 @@
+# Registration guide -> step 1: from a cleared launch, navigate login ->
+# registration guide, tap "Proceed to Registration" (testID reg-guide-proceed,
+# reg-instruction.tsx:197) and assert the registration wizard Step 1 renders
+# (PPO input testID reg-ppo-input visible).
+# Env vars: APP_ID.
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: 'Pensioner Portal'
+    timeout: 60000
+- tapOn:
+    id: 'login-register'
+- extendedWaitUntil:
+    visible: 'Registration Guide'
+    timeout: 30000
+- tapOn:
+    id: 'reg-guide-proceed'
+- extendedWaitUntil:
+    visible: 'Check Your PPO Number'
+    timeout: 30000
+- assertVisible:
+    id: 'reg-ppo-input'
