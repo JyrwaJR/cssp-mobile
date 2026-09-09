@@ -19,6 +19,9 @@ appId: ${APP_ID}
 ---
 - runFlow:
     file: ../helpers/login.yaml
+- setPermissions:
+    permissions:
+      camera: unset
 - assertVisible:
     id: 'tab-dlc'
 - tapOn:

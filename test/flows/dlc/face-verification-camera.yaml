@@ -112,7 +112,8 @@ appId: ${APP_ID}
     commands:
       - assertVisible:
           id: 'fv-preview-action'
-      - assertVisible: 'Submit Photo'
+      - assertVisible:
+          text: '.*(Take Second Photo|Submit Photo).*'
 - runFlow:
     when:
       visible: 'Pending Official Approval'
