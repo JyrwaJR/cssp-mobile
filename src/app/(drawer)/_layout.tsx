@@ -33,6 +33,7 @@ function CustomDrawerContent(props: any) {
           onPress={() => navigate(PAGE_ROUTES.HOME)}
           pressOpacity={0.1}
           pressColor={'#FFF'}
+          testID="drawer-home"
           icon={({ size, color }) => <Icon name="information-circle" size={size} color={color} />}
         />
         <DrawerItem
@@ -40,6 +41,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.DLC_STATUS)}
+          testID="drawer-dlc-status"
           icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
         />
         <DrawerItem
@@ -47,6 +49,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.CHANGE_PASSWORD)}
+          testID="drawer-change-password"
           icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
         />
         <DrawerItem
@@ -54,6 +57,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.CONTACT_US)}
+          testID="drawer-contact-us"
           icon={({ size, color }) => <Icon name="contact-01" size={size} color={color} />}
         />
         <DrawerItem
@@ -61,6 +65,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.WITHDRAWAL)}
+          testID="drawer-withdrawal"
           icon={({ size, color }) => <Icon name="property-delete" size={size} color={color} />}
         />
 
@@ -69,6 +74,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.HOME)}
+          testID="drawer-user-manual"
           icon={({ size, color }) => <Icon name="book-01" size={size} color={color} />}
         />
         <DrawerItem
@@ -76,6 +82,7 @@ function CustomDrawerContent(props: any) {
           onPress={() => navigate(PAGE_ROUTES.PRIVACY)}
           pressOpacity={0.1}
           pressColor={'#FFF'}
+          testID="drawer-privacy-policy"
           style={{ borderRadius: 6 }}
           icon={({ size, color }) => <Icon name="shield" size={size} color={color} />}
         />
@@ -84,13 +91,19 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.ABOUT_US)}
+          testID="drawer-about"
           icon={({ size, color }) => <Icon name="info" size={size} color={color} />}
         />
       </DrawerContentScrollView>
 
       {/* Drawer Footer / Logout */}
       <View className="border-t border-slate-100 p-4">
-        <Button size={'lg'} variant={'destructive'} activeOpacity={0.7} onPress={logout}>
+        <Button
+          size={'lg'}
+          variant={'destructive'}
+          activeOpacity={0.7}
+          onPress={logout}
+          testID="drawer-logout">
           Logout
         </Button>
       </View>

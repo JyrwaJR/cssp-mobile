@@ -88,6 +88,7 @@ export function ProfileUpdateScreen() {
                 render={({ field: { onChange, value } }) => (
                   <View>
                     <Input
+                      testID="profile-input-name"
                       value={value}
                       onChangeText={onChange}
                       placeholder="Enter your name"
@@ -114,6 +115,7 @@ export function ProfileUpdateScreen() {
                 render={({ field: { onChange, value } }) => (
                   <View>
                     <Input
+                      testID="profile-input-org"
                       value={value}
                       onChangeText={onChange}
                       placeholder="Enter your organization"
@@ -142,6 +144,7 @@ export function ProfileUpdateScreen() {
                 render={({ field: { onChange, value } }) => (
                   <View>
                     <Input
+                      testID="profile-input-username"
                       value={value}
                       onChangeText={onChange}
                       placeholder="Enter your username"
@@ -161,6 +164,7 @@ export function ProfileUpdateScreen() {
 
             {/* Submit */}
             <Button
+              testID="profile-save"
               size="lg"
               onPress={handleSubmit(onSubmit)}
               disabled={isPending}

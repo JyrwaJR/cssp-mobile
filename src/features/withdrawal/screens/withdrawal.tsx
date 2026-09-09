@@ -24,7 +24,9 @@ export default function WithdrawalScreen() {
           </View>
 
           {/* Main Info Card */}
-          <View className="gap-5 rounded-md border border-gray-200/60 bg-white p-6">
+          <View
+            testID="withdrawal-input"
+            className="gap-5 rounded-md border border-gray-200/60 bg-white p-6">
             <View className="flex-row items-center justify-between border-b border-gray-200 pb-4">
               <Text className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
                 App Details

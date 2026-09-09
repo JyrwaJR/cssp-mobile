@@ -144,6 +144,7 @@ export function ChangePasswordScreen() {
                   <View>
                     <View className="relative justify-center">
                       <Input
+                        testID="cp-old-password"
                         value={value}
                         onChangeText={onChange}
                         secureTextEntry={!isShowOldPassword}
@@ -188,6 +189,7 @@ export function ChangePasswordScreen() {
                   <View>
                     <View className="relative justify-center">
                       <Input
+                        testID="cp-new-password"
                         value={value}
                         onChangeText={onChange}
                         secureTextEntry={!isShowNewPassword}
@@ -235,6 +237,7 @@ export function ChangePasswordScreen() {
                   <View>
                     <View className="relative justify-center">
                       <Input
+                        testID="cp-confirm-password"
                         value={value}
                         onChangeText={onChange}
                         secureTextEntry={!isShowNewPassword}
@@ -268,6 +271,7 @@ export function ChangePasswordScreen() {
 
             {/* Submit */}
             <Button
+              testID="cp-submit"
               size="lg"
               onPress={() => setIsConfirmOpen(true)}
               disabled={isPending || !isValid}

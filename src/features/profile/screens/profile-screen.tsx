@@ -68,7 +68,10 @@ export function ProfileScreen() {
         </View>
 
         {/* Update action */}
-        <Button size={'lg'} onPress={() => router.push(PAGE_ROUTES.PROFILE.UPDATE)}>
+        <Button
+          testID="profile-update"
+          size={'lg'}
+          onPress={() => router.push(PAGE_ROUTES.PROFILE.UPDATE)}>
           Update Profile
         </Button>
       </View>

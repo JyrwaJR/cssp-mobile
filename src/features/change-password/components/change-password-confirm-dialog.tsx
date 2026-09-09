@@ -49,11 +49,13 @@ export function ChangePasswordConfirmDialog({
             title="Cancel"
             onPress={() => onOpenChange(false)}
             accessibilityLabel="Cancel password change"
+            testID="cp-confirm-cancel"
           />
           <AlertDialogAction
             variant="destructive"
             onPress={onConfirm}
-            accessibilityLabel="Confirm password change">
+            accessibilityLabel="Confirm password change"
+            testID="cp-confirm-yes">
             <Text className="text-base font-bold text-white">Yes, Update</Text>
           </AlertDialogAction>
         </AlertDialogFooter>
