@@ -1,0 +1,53 @@
+# Drawer navigation: ensures a signed-in home screen, opens the drawer, and
+# asserts all nine drawer items exist (RS6). There is NO drawer Profile item
+# (drawer-profile does not exist — Profile is the third bottom tab, RS2).
+# Navigation: Home -> Change Password (asserts the change-password screen
+# marker) -> back to Home via drawer-home.
+# /change-password is a root-stack screen with showBackButton:true and no drawer
+# (page-headers.ts:26); the drawer is only reachable after returning to the
+# (drawer) group, so an Android `back` first returns to the Home tab before the
+# drawer is reopened and drawer-home is tapped.
+# Drawer ids (src/app/(drawer)/_layout.tsx): drawer-home:36, drawer-dlc-status:44,
+# drawer-change-password:52, drawer-contact-us:60, drawer-withdrawal:68,
+# drawer-user-manual:77, drawer-privacy-policy:85, drawer-about:94,
+# drawer-logout:106.
+# Change-password markers (src/features/change-password/screens/change-passsword.tsx):
+# 'Change Password' title:98, 'cp-submit' button:274.
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- assertVisible:
+    id: 'drawer-home'
+- assertVisible:
+    id: 'drawer-dlc-status'
+- assertVisible:
+    id: 'drawer-change-password'
+- assertVisible:
+    id: 'drawer-contact-us'
+- assertVisible:
+    id: 'drawer-withdrawal'
+- assertVisible:
+    id: 'drawer-user-manual'
+- assertVisible:
+    id: 'drawer-privacy-policy'
+- assertVisible:
+    id: 'drawer-about'
+- assertVisible:
+    id: 'drawer-logout'
+- tapOn:
+    id: 'drawer-change-password'
+- assertVisible: 'Change Password'
+- assertVisible:
+    id: 'cp-submit'
+- back
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-home'
+- assertVisible: 'Submit your Digital Life Cerificate'

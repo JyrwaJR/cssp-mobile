@@ -1,0 +1,19 @@
+# Drawer logout: ensures a signed-in home screen, opens the drawer, taps the
+# drawer-logout button, and asserts the login screen appears. logout() (auth
+# store, src/shared/stores/auth.store.ts) fully clears the session and the
+# guard redirects to /auth.
+# Markers: 'Pensioner Portal' logon branding (LoginScreen) and the login-submit
+# button id (login screen).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-logout'
+- assertVisible: 'Pensioner Portal'
+- assertVisible:
+    id: 'login-submit'

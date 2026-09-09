@@ -1,0 +1,30 @@
+# Home tab coverage: ensures a signed-in home screen (via helpers/login.yaml)
+# and asserts the home greeting (verbatim typo) plus all three bottom tabs are
+# present (tab-home / tab-dlc / tab-profile, set via tabBarButtonTestID in
+# src/app/(drawer)/(tabs)/_layout.tsx:51,62,71). Each tab is tapped and its
+# screen marker is asserted; the flow ends back on the Home tab.
+# Markers: 'Submit your Digital Life Cerificate' home subtitle
+# (verification-status.tsx:63); 'Self Verification' DLC-tab chip
+# (dlc-header.tsx:17); 'Personal info' profile-tab chip
+# (profile-screen.tsx:52).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- assertVisible:
+    id: 'tab-home'
+- assertVisible:
+    id: 'tab-dlc'
+- assertVisible:
+    id: 'tab-profile'
+- assertVisible: 'Submit your Digital Life Cerificate'
+- tapOn:
+    id: 'tab-dlc'
+- assertVisible: 'Self Verification'
+- tapOn:
+    id: 'tab-profile'
+- assertVisible: 'Personal info'
+- tapOn:
+    id: 'tab-home'
+- assertVisible: 'Submit your Digital Life Cerificate'

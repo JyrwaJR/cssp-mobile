@@ -1,0 +1,41 @@
+# User-manual guide cards: ensures a signed-in home screen, opens the drawer,
+# navigates to the User Manual (drawer-user-manual), and asserts the three real
+# guide Pressables open their guide screens. RS3: the plan's four doc cards
+# (home-manual-pensioner/office/fund/forms) DO NOT exist; the real cards are the
+# three /user-manual guide Pressables
+# (home-manual-getting-started / home-manual-dlc / home-manual-change-password,
+# user-manual.tsx:104,122,140). Each Pressable is tapped and its guide screen
+# marker is asserted; Android `back` returns from each guide to the manual home.
+# Guide markers: 'Getting Started' title (getting-started.tsx:33),
+# 'Digital Life Registration' title (dlc-screen.tsx:32),
+# 'Change Password' title (change-password.tsx:29).
+# Env vars: APP_ID, PPO_NO, PASSWORD.
+appId: ${APP_ID}
+---
+- runFlow:
+    file: ../helpers/login.yaml
+- swipe:
+    start: 0%, 50%
+    end: 80%, 50%
+- tapOn:
+    id: 'drawer-user-manual'
+- assertVisible: 'Pensioner App User Guide'
+- assertVisible:
+    id: 'home-manual-getting-started'
+- assertVisible:
+    id: 'home-manual-dlc'
+- assertVisible:
+    id: 'home-manual-change-password'
+- tapOn:
+    id: 'home-manual-getting-started'
+- assertVisible: 'Getting Started'
+- back
+- tapOn:
+    id: 'home-manual-dlc'
+- assertVisible: 'Digital Life Registration'
+- back
+- tapOn:
+    id: 'home-manual-change-password'
+- assertVisible: 'Change Password'
+- back
+- assertVisible: 'Pensioner App User Guide'
