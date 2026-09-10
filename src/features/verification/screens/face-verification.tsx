@@ -114,7 +114,7 @@ export function FaceVerificationScreen() {
                 } else if (img2 !== '') {
                   updatePhase('result');
                 } else {
-                  updatePhase('error');
+                  updatePhase('result');
                   setErrorMsg(data.message || 'Verification failed');
                 }
               }
@@ -409,15 +409,9 @@ export function FaceVerificationScreen() {
   }, [dlcMutation, selfVerNec, selfVerNmc, verResponse, updatePhase]);
 
   const resetForSecondCapture = useCallback(() => {
-    blinkCount.current = 0;
-    eyesClosed.current = false;
-    setImage2('');
-    setPreviewUri('');
-    setVerResponse(null);
     isCapturing.current = false;
-    updateMsg('Please blink!!');
-    updatePhase('camera');
-  }, [updatePhase, updateMsg]);
+    updatePhase('declaration');
+  }, [updatePhase ]);
 
   if (!hasPermission || !device) {
     return (

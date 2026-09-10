@@ -280,8 +280,7 @@
       "from": "result",
       "to": "success",
       "label": "'00'",
-      "variant": "emphasis",
-      "toSide": "left"
+      "variant": "emphasis"
     },
     {
       "from": "result",
