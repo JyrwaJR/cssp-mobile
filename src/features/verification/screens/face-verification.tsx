@@ -27,10 +27,15 @@ import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useImageCompressor, type CompressedImageResult } from '@hooks/use-image-compressor';
+import { useInitializeVerification } from '@features/dlc/hooks';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
-export function FaceVerificationScreen({ registrationStatus }: FaceVerificationScreenProps) {
+export function FaceVerificationScreen() {
+  const { regStatus } = useInitializeVerification();
+
+  const isRegistrationRequired = regStatus === '03' || regStatus === '02';
+  const registrationStatus: number = isRegistrationRequired ? 1 : 0;
   const { hasPermission, requestPermission } = useCameraPermission();
   const { showSnackbar } = useSnackbar();
   const { compressImageToBase64, reset } = useImageCompressor();
@@ -101,13 +106,13 @@ export function FaceVerificationScreen({ registrationStatus }: FaceVerificationS
               if (data.data) {
                 setVerResponse(data.data);
                 isCapturing.current = false;
-
-                if (data.data.self_ver_code === '00' || data.data.self_ver_code === '22') {
+                const selfVerCode: string = data.data.self_ver_code;
+                if (selfVerCode === '00' || selfVerCode === '22') {
                   updatePhase('result');
+                } else if (selfVerCode === '4' || selfVerCode === '04') {
+                  updatePhase('declaration');
                 } else if (img2 !== '') {
                   updatePhase('result');
-                } else if (data.success) {
-                  updatePhase('declaration');
                 } else {
                   updatePhase('error');
                   setErrorMsg(data.message || 'Verification failed');

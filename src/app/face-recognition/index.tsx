@@ -1,4 +1,3 @@
-import { useLocalSearchParams } from 'expo-router';
 import { FaceVerificationScreen } from '@features/verification/screens';
 
 /**
@@ -9,7 +8,5 @@ import { FaceVerificationScreen } from '@features/verification/screens';
  * - `0` = normal verification (single photo)
  */
 export default function FaceRecognitionPage() {
-  const { registrationStatus } = useLocalSearchParams<{ registrationStatus: string }>();
-
-  return <FaceVerificationScreen registrationStatus={registrationStatus === '1' ? 1 : 0} />;
+  return <FaceVerificationScreen />;
 }

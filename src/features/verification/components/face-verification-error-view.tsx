@@ -25,14 +25,18 @@ export function FaceVerificationErrorView({
     <Container className="gap-5">
       <View className="gap-2">
         <View className="bg-primary/10 self-start py-1">
-          <Text className="text-xs font-bold uppercase tracking-wider text-primary">Error</Text>
+          <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+            Something went wrong
+          </Text>
         </View>
 
         <Text className="text-2xl font-extrabold tracking-tight text-foreground">
-          Something went wrong
+          Face Verification failed
         </Text>
 
-        <Text className="text-sm font-medium text-muted-foreground">Please try again.</Text>
+        <Text className="text-sm font-medium text-muted-foreground">
+          Please try again after sometime.
+        </Text>
       </View>
       <View className="items-center justify-center gap-5">
         <Alert variant="destructive">

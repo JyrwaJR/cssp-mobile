@@ -39,19 +39,22 @@ export function useSubmitVerification() {
       });
     },
 
-    onSuccess: async ({ data }) => {
-      if (!data) return;
-      if (data.self_ver_code === '03') return;
-      const regStatus = user?.approval;
-      if (regStatus === '00') return;
-      setUser({
-        approval: '01',
-        username: user?.username || '',
-        uid: user?.uid || '',
-        name: user?.name || '',
-        has_dlc: user?.has_dlc || '',
-        ppo_no: user?.username || '',
-      });
+    onSuccess: async (res) => {
+      const data = res.data;
+      if (res.success) {
+        const regStatus = user?.approval;
+        if (data?.self_ver_code !== '03' && regStatus !== '00') {
+          setUser({
+            approval: '01',
+            username: user?.username || '',
+            uid: user?.uid || '',
+            name: user?.name || '',
+            has_dlc: user?.has_dlc || '',
+            ppo_no: user?.username || '',
+          });
+        }
+      }
+      return data;
     },
   });
 }

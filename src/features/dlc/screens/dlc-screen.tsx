@@ -8,6 +8,7 @@ import { useNetworkStatus } from '@hooks/use-network-status';
 
 import { useInitializeVerification } from '../hooks';
 import { DLCHeader, DLCInstructions, DLCAlerts, DLCActions } from '../components';
+import { PAGE_ROUTES } from '@utils/constants';
 
 /**
  * Renders the "Digital Life Certificate" (DLC) self-verification screen.
@@ -41,14 +42,10 @@ export function DLCScreen() {
 
   const isDisableCapture = frontCamera === null || !hasPermission;
 
-  const { regStatus, msg } = useInitializeVerification();
+  const { msg } = useInitializeVerification();
 
   const handleCapturePress = () => {
-    const isRegistrationRequired = regStatus === '03' || regStatus === '02';
-    router.push({
-      pathname: '/face-recognition',
-      params: { registrationStatus: isRegistrationRequired ? '1' : '0' },
-    });
+    router.push(PAGE_ROUTES.FACE_RECOGNITION);
   };
 
   const openSettings = async () => await Linking.openSettings();

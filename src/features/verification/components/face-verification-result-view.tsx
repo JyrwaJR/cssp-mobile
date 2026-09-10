@@ -4,7 +4,7 @@ import type { VerificationResponseT } from '../types';
 import { Container } from '@components/layout';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
-import { FooterImg } from '@components/common';
+import { Ternary } from '@components/common';
 
 /** Props for {@link FaceVerificationResultView}. */
 export interface FaceVerificationResultViewProps {
@@ -67,7 +67,7 @@ export interface RejectStatusCardProps {
 
 export const RejectStatusCard = ({ message, previewUri, onRetakePhoto }: RejectStatusCardProps) => {
   return (
-    <View className="border-destructive/30 bg-destructive/10 items-center gap-y-4 rounded-md border p-5">
+    <View className="items-center gap-y-4 rounded-md border border-red-500/20 bg-red-500/20 p-5">
       {previewUri ? (
         <View className="relative">
           <Image
@@ -168,23 +168,23 @@ export function FaceVerificationResultView({
         </Text>
       </View>
 
-      {/* 1. Verification Success State ('00') */}
-      {code === '00' && <SuccessStatusCard message={verResponse.msg} />}
-
-      {/* 2. Photo Rejection State ('22') */}
-      {code === '22' && (
-        <RejectStatusCard
-          message={verResponse.msg}
-          previewUri={previewUri}
-          onRetakePhoto={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
-        />
-      )}
-
-      {/* 3. Submitted for Approval & Declaration Pending */}
-      {code !== '00' && code !== '22' && hasSecondImage && (
-        <DeclarationStatusCard proceedDeclaration={onProceedToDeclaration} />
-      )}
-      <FooterImg />
+      <Ternary
+        condition={code === '00'}
+        ifTrue={<SuccessStatusCard message={verResponse.msg} />}
+        ifFalse={
+          <Ternary
+            condition={code === '22' && !hasSecondImage}
+            ifTrue={
+              <RejectStatusCard
+                message={verResponse.msg}
+                previewUri={previewUri}
+                onRetakePhoto={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
+              />
+            }
+            ifFalse={<DeclarationStatusCard proceedDeclaration={onProceedToDeclaration} />}
+          />
+        }
+      />
     </Container>
   );
 }

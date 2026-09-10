@@ -7,6 +7,7 @@ import { useVerificationStatus } from '@hooks/use-verification-status';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 import { LoadingScreen } from '@components/screens';
+import { useInitializeVerification } from '@features/dlc/hooks';
 
 /**
  * Renders the "Verification Status" screen for a pensioner.
@@ -33,6 +34,8 @@ import { LoadingScreen } from '@components/screens';
 export function VerificationStatusScreen() {
   const { data, isFetching, isLoading, refetch } = useVerificationStatus();
 
+  const { msg } = useInitializeVerification();
+
   if (isLoading || isFetching) {
     return <LoadingScreen />;
   }
@@ -57,13 +60,15 @@ export function VerificationStatusScreen() {
             </Text>
           </View>
 
-          {/* Section Subtitle */}
-          <View className="bg-muted/40 rounded-md border border-gray-300 p-3">
-            <Text className="text-center text-sm font-semibold leading-5 text-muted-foreground">
-              Submit your Digital Life Cerificate
-            </Text>
-          </View>
-
+          {msg !== '' && (
+            <Alert variant={'destructive'}>
+              <Icon name="alert-circle" size={18} className="text-destructive" />
+              <View className="flex-1">
+                <AlertTitle>Warning</AlertTitle>
+                <AlertDescription className="flex-1">{msg}</AlertDescription>
+              </View>
+            </Alert>
+          )}
           <View className="gap-3 rounded-md border border-border bg-card p-4">
             <View className="flex-row items-center gap-3">
               <Text className="flex-1 text-base font-semibold text-foreground">
