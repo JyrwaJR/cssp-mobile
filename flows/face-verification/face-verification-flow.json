@@ -1,0 +1,393 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Face Verification \u2014 Phase State Machine",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "views": [
+      {
+        "id": "phase-machine",
+        "label": "Phase machine",
+        "focus": [
+          "camera",
+          "capturing",
+          "preview",
+          "submitting",
+          "result",
+          "declaration",
+          "error"
+        ],
+        "note": "Walk all seven phase states that drive which screen renders."
+      },
+      {
+        "id": "capture-to-submit",
+        "label": "Capture to submit",
+        "focus": [
+          "camera",
+          "capturing",
+          "preview",
+          "submitting"
+        ],
+        "note": "Blink-liveness capture, compression and API submission."
+      },
+      {
+        "id": "code-routing",
+        "label": "self_ver_code routing",
+        "focus": [
+          "submitting",
+          "result",
+          "success",
+          "rejected",
+          "pending",
+          "declaration",
+          "error"
+        ],
+        "note": "How the backend code steers success, retake, pending or declaration."
+      },
+      {
+        "id": "declaration-dlc",
+        "label": "Declaration & DLC",
+        "focus": [
+          "declaration",
+          "submitting",
+          "result"
+        ],
+        "note": "NEC/NMC form validation, confirm dialog and DLC submission."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "flow",
+      "label": "User Flow"
+    },
+    {
+      "id": "registration",
+      "label": "Registration Mode (2 Photos)",
+      "variant": "exception"
+    },
+    {
+      "id": "backend",
+      "label": "Backend Processing"
+    },
+    {
+      "id": "declaration",
+      "label": "Declaration & DLC"
+    },
+    {
+      "id": "results",
+      "label": "Result States"
+    }
+  ],
+  "phases": [
+    {
+      "id": "capture-phase",
+      "label": "Capture \u2014 camera \u2192 capturing",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "review-submit-phase",
+      "label": "Review + Submit \u2014 preview \u2192 submitting",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "outcome-phase",
+      "label": "Outcome \u2014 result / declaration / error",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "reg_group",
+      "label": "Registration mode (2 photos)",
+      "lane": "registration",
+      "fromCol": 2,
+      "toCol": 2,
+      "variant": "dashed"
+    },
+    {
+      "id": "code_group",
+      "label": "self_ver_code routing",
+      "lane": "results",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "camera",
+    "capturing",
+    "submitting",
+    "result",
+    "success"
+  ],
+  "nodes": [
+    {
+      "id": "camera",
+      "lane": "flow",
+      "col": 0,
+      "type": "frontend",
+      "label": "Camera",
+      "sublabel": "camera \u00b7 blink liveness"
+    },
+    {
+      "id": "capturing",
+      "lane": "flow",
+      "col": 1,
+      "type": "frontend",
+      "label": "Capturing",
+      "sublabel": "capturing \u00b7 compress \u2264 500 KB",
+      "width": 130
+    },
+    {
+      "id": "preview",
+      "lane": "registration",
+      "col": 2,
+      "width": 110,
+      "type": "frontend",
+      "label": "Photo Preview",
+      "sublabel": "preview \u00b7 approve 1st / 2nd"
+    },
+    {
+      "id": "submitting",
+      "lane": "backend",
+      "col": 3,
+      "width": 156,
+      "type": "backend",
+      "label": "Submitting",
+      "sublabel": "submitting \u00b7 verification / DLC in flight",
+      "tag": "API"
+    },
+    {
+      "id": "result",
+      "lane": "results",
+      "col": 4,
+      "width": 120,
+      "type": "cloud",
+      "label": "Result",
+      "sublabel": "result \u00b7 verResponse"
+    },
+    {
+      "id": "declaration",
+      "lane": "declaration",
+      "col": 4,
+      "width": 120,
+      "type": "external",
+      "label": "Declaration",
+      "sublabel": "declaration \u00b7 NEC / NMC"
+    },
+    {
+      "id": "success",
+      "lane": "results",
+      "col": 5,
+      "yOffset": -110,
+      "type": "cloud",
+      "label": "Success",
+      "sublabel": "code '00'"
+    },
+    {
+      "id": "rejected",
+      "lane": "results",
+      "col": 5,
+      "yOffset": 0,
+      "type": "security",
+      "label": "Rejected",
+      "sublabel": "code '22' \u00b7 !image2"
+    },
+    {
+      "id": "pending",
+      "lane": "results",
+      "col": 5,
+      "yOffset": 110,
+      "width": 120,
+      "type": "messagebus",
+      "label": "Pending",
+      "sublabel": "other / '22' + image2"
+    },
+    {
+      "id": "error",
+      "lane": "flow",
+      "col": 5,
+      "width": 110,
+      "type": "security",
+      "label": "Error",
+      "sublabel": "error \u00b7 try again"
+    }
+  ],
+  "edges": [
+    {
+      "from": "camera",
+      "to": "capturing",
+      "label": "blink detected",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "from": "capturing",
+      "to": "preview",
+      "label": "registration \u00b7 1st photo",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "from": "capturing",
+      "to": "submitting",
+      "label": "normal \u00b7 single photo",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "from": "preview",
+      "to": "camera",
+      "label": "retake \u00b7 take 2nd",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "from": "preview",
+      "to": "submitting",
+      "label": "submit photo(s)",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "from": "submitting",
+      "to": "result",
+      "label": "success \u00b7 '00' / '22' / other+img2",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "from": "submitting",
+      "to": "declaration",
+      "label": "'4' / '04'",
+      "role": "branch"
+    },
+    {
+      "from": "submitting",
+      "to": "error",
+      "label": "API fail \u00b7 other, no img2",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "from": "result",
+      "to": "success",
+      "label": "'00'",
+      "variant": "emphasis",
+      "toSide": "left"
+    },
+    {
+      "from": "result",
+      "to": "rejected",
+      "label": "'22' && !image2",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "from": "result",
+      "to": "pending",
+      "label": "'22'+img2 / other",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "from": "rejected",
+      "to": "camera",
+      "label": "retake photo",
+      "variant": "security",
+      "role": "return"
+    },
+    {
+      "from": "pending",
+      "to": "camera",
+      "label": "Submit Self Declaration \u00b7 reset",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "from": "declaration",
+      "to": "submitting",
+      "label": "validate + confirm \u2192 submitDLC",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "from": "camera",
+      "to": "error",
+      "label": "capture / compress fail",
+      "variant": "security",
+      "role": "error",
+      "route": "up-channel"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Phase State Machine",
+      "items": [
+        "camera \u2192 live feed with blink-liveness checks",
+        "capturing \u2192 native capture + compress to \u2264 500 KB",
+        "preview \u2192 approve or retake (registration mode only)",
+        "submitting \u2192 loading spinner while an API call is in flight",
+        "result \u2192 server response display (verResponse)",
+        "declaration \u2192 NEC/NMC self-declaration form",
+        "error \u2192 unrecoverable state, Try Again returns to camera"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Camera Liveness Checks",
+      "items": [
+        "0 faces \u2192 'No Face Detected'",
+        ">1 faces \u2192 'Multiple Faces Detected'",
+        "|yaw| \u2265 28 or |pitch| \u2265 32 \u2192 'Please look straight'",
+        "face center outside 30\u201370% frame \u2192 'Center your face'",
+        "face smaller than 20% of frame \u2192 'Move closer to camera'",
+        "eyes closed (< 0.35 both) \u2192 'Eyes Closed', then open \u2192 blink",
+        "blink detected \u2192 capturePhoto()"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Capture & Compression",
+      "items": [
+        "capturePhotoToFile \u2192 phase 'capturing' \u2192 compress (JPEG 0.85 \u2192 0.3) until \u2264 500 KB",
+        "base64 payload stripped of whitespace, wrapped as data:image/jpeg",
+        "normal mode: single photo submitted as image_1 (image_2 '')",
+        "registration mode: 1st photo \u2192 preview, 2nd photo \u2192 preview, then submit both",
+        "capture/compress failure deletes temp files and jumps to error"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Self-Verification Codes",
+      "items": [
+        "'00' \u2192 SuccessStatusCard \u00b7 official approval",
+        "'22' + no image2 \u2192 RejectStatusCard \u00b7 retake photo",
+        "'22' + image2 \u2192 Pending \u00b7 self-declaration",
+        "'4' / '04' \u2192 Declaration directly (skips result)",
+        "other + image2 \u2192 Pending \u00b7 self-declaration",
+        "other + no image2 \u2192 Error ('Verification failed')"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Declaration & DLC",
+      "items": [
+        "NEC: 'Are you Re-Employed?' always shown",
+        "NMC: 'Are you Re-Married?' only when code '4'",
+        "empty answer \u2192 snackbar 'Please select Yes or No'",
+        "Terms & Conditions confirm dialog before POST /api/lc/",
+        "payload: selfVerNec, selfVerNmc, self_ver_code, ver_mode_code '01'",
+        "DLC success \u2192 verResponse \u2192 result; failure \u2192 error"
+      ]
+    }
+  ]
+}
