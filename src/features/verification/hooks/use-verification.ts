@@ -22,6 +22,7 @@ interface VerificationPayload {
  */
 
 const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+const mockImage = process.env.EXPO_PUBLIC_TEST_IMAGE as string;
 
 export function useSubmitVerification() {
   // TODO: change and saperate this
@@ -29,8 +30,8 @@ export function useSubmitVerification() {
   return useMutation({
     mutationFn: async (payload: VerificationPayload) => {
       const data = new URLSearchParams({
-        image_1: payload.image_1,
-        ...(payload.image_2 ? { image_2: payload.image_2 } : {}),
+        image_1: __DEV__ ? mockImage : payload.image_1,
+        ...(payload.image_2 ? { image_2: __DEV__ ? mockImage : payload.image_2 } : {}),
       });
 
       return http.post<VerificationResponseT>(ENDPOINTS.VERIFICATION.VERIFICATION, data, {
