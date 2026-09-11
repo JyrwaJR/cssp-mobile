@@ -15,9 +15,10 @@ export const PAGE_HEADERS = {
   // TABS
   '/': { title: 'Pensioner', showDrawer: true },
   '/dlc': { title: 'Submit Digital Life Certificate', showDrawer: true },
-  '/profile': { title: 'My Profile', showDrawer: true },
+  '/statement': { title: 'Pensioner Statements', showDrawer: true },
 
   // pages
+  '/profile': { title: 'My Profile', showBackButton: true },
   '/withdrawal': { title: 'Withdrawal', showBackButton: true },
   '/auth': { title: 'Pensioner', showBackButton: true },
   '/auth/register': { title: 'Register/Update-Password', showBackButton: true },

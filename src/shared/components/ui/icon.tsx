@@ -30,6 +30,7 @@ import {
   SecurityBlockIcon,
   ToolsIcon,
   PropertyDeleteIcon,
+  ReceiptTextIcon,
 } from './icons';
 import { cn } from '@utils/helpers';
 
@@ -62,6 +63,7 @@ export type IconName =
   | 'tool'
   | 'smartphone'
   | 'property-delete'
+  | 'receipt'
   | 'file-not-found';
 
 type Props = {
@@ -131,6 +133,8 @@ const getHugeIcon = (name: IconName) => {
       return ToolsIcon;
     case 'property-delete':
       return PropertyDeleteIcon;
+    case 'receipt':
+      return ReceiptTextIcon;
     default:
       return MenuIcon;
   }

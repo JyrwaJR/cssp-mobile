@@ -13,7 +13,10 @@ const routes = {
   },
   CHANGE_PASSWORD: '/change-password' as Href,
   DLC_STATUS: '/dlc-status' as Href,
-  PROFILE: { UPDATE: '/profile/update' as Href },
+  PROFILE: {
+    HOME: '/profile' as Href,
+    UPDATE: '/profile/update' as Href,
+  },
   CONTACT_US: '/contact-us' as Href,
   ABOUT_US: '/about' as Href,
   FACE_RECOGNITION: '/face-recognition' as Href,

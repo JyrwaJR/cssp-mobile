@@ -4,13 +4,13 @@ import { Drawer, DrawerContentScrollView, DrawerItem } from 'expo-router/drawer'
 import { Button, Icon } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
-import { useNavigationLock } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-navigation-lock';
 
 function CustomDrawerContent(props: any) {
   const { user } = useAuthStore();
   const { logout } = useAuthStore();
   const inset = useSafeAreaInsets();
-  const navigate = useNavigationLock();
+  const navigate = useSafeNavigation();
 
   return (
     <View className="flex-1">
@@ -40,7 +40,7 @@ function CustomDrawerContent(props: any) {
           pressOpacity={0.1}
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.DLC_STATUS)}
-          icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
+          icon={({ size, color }) => <Icon name="menu" size={size} color={color} />}
         />
         <DrawerItem
           label="Change Password"
@@ -48,6 +48,13 @@ function CustomDrawerContent(props: any) {
           pressColor={'#FFF'}
           onPress={() => navigate(PAGE_ROUTES.CHANGE_PASSWORD)}
           icon={({ size, color }) => <Icon name="user-unlock" size={size} color={color} />}
+        />
+        <DrawerItem
+          label="Profile"
+          pressOpacity={0.1}
+          pressColor={'#FFF'}
+          onPress={() => navigate(PAGE_ROUTES.PROFILE.HOME)}
+          icon={({ size, color }) => <Icon name="user-01" size={size} color={color} />}
         />
         <DrawerItem
           label="Contact Us"
