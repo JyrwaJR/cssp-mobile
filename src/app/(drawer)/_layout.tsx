@@ -1,12 +1,17 @@
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Drawer, DrawerContentScrollView, DrawerItem } from 'expo-router/drawer';
+import {
+  Drawer,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerContentComponentProps,
+} from 'expo-router/drawer';
 import { Button, Icon } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
 import { useSafeNavigation } from '@hooks/use-navigation-lock';
 
-function CustomDrawerContent(props: any) {
+function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { user } = useAuthStore();
   const { logout } = useAuthStore();
   const inset = useSafeAreaInsets();
