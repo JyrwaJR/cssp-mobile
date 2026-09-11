@@ -6,7 +6,7 @@ import { Button } from '@components/ui/button';
 import { RegisterPensionerSchema } from '../validators';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useNetworkStatus } from '@hooks/use-network-status';
-import { formatPassword } from '@lib/encryption';
+import { formatPassword, sha256 } from '@lib/encryption';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { RegistrationConfirmDialog } from './registration-confirm-dialog';
 
@@ -54,7 +54,7 @@ export function ConfirmRegistrationScreen() {
     register(
       {
         ...formData,
-        password: formatPassword(formData.password),
+        password: sha256(formatPassword(formData.password)),
       },
       {
         onSuccess: (data) => {
