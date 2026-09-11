@@ -5,7 +5,7 @@ import { Container, PaginatedList } from '@components/layout';
 import { usePensionerStatement } from '../hooks';
 import { PensionerStatementListItem } from '../components';
 import type { PensionerStatement } from '../types';
-import { Button, Icon } from '@components/ui';
+import { Button } from '@components/ui';
 
 /**
  * Screen displaying pensioner statements for the current year.
@@ -63,14 +63,15 @@ export const PensionStatementScreen = () => {
           }
         />
       </SafeAreaView>
-      <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-muted bg-background px-2">
+      <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-secondary-foreground bg-background px-2">
         <View className="">
-          <Text className="text-lg font-semibold tracking-wider">Download PDF</Text>
+          <Text className="text-lg font-semibold tracking-wider text-secondary-foreground">
+            PDF is available
+          </Text>
         </View>
         <View>
-          <Button size={'default'} className="gap-x-2" onPress={() => {}}>
-            <Icon size={20} name="download-01" className="text-white" />
-            <Text className="font-bold text-white">Download</Text>
+          <Button size={'default'} onPress={() => {}}>
+            Preview / Download
           </Button>
         </View>
       </View>
