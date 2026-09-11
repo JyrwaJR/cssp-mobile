@@ -191,7 +191,7 @@ const DEFAULT_SUCCESS_MESSAGE = 'Success';
  */
 export const handleResponse = <T>(response: AxiosResponse<T>): ApiResponse<T> => {
   const { status, data } = response;
-  const isSuccess = status >= 200;
+  const isSuccess = status === 200;
 
   if (isSuccess) {
     const message = extractBackendMessage(data);
