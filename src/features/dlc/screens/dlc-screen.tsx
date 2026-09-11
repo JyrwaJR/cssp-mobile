@@ -9,6 +9,7 @@ import { useNetworkStatus } from '@hooks/use-network-status';
 import { useInitializeVerification } from '../hooks';
 import { DLCHeader, DLCInstructions, DLCAlerts, DLCActions } from '../components';
 import { PAGE_ROUTES } from '@utils/constants';
+import { Container } from '@components/layout';
 
 /**
  * Renders the "Digital Life Certificate" (DLC) self-verification screen.
@@ -54,9 +55,7 @@ export function DLCScreen() {
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
       {/* Main Content Area */}
 
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1, padding: 16, gap: 20 }}
-        showsVerticalScrollIndicator={false}>
+      <Container className="gap-4">
         {/* Instructions Card */}
 
         <DLCHeader />
@@ -82,7 +81,7 @@ export function DLCScreen() {
         />
 
         <FooterImg />
-      </ScrollView>
+      </Container>
     </SafeAreaView>
   );
 }

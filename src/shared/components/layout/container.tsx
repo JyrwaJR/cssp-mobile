@@ -56,7 +56,7 @@ export const Container = ({
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="w-full flex-1">
+      className="w-full flex-1 bg-background">
       {scrollable ? (
         <ScrollView
           className="w-full flex-1"
