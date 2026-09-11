@@ -26,4 +26,7 @@ export const ENDPOINTS = {
     MANUAL: 'https://shillong.meg.nic.in/manual.html',
     POLICY: 'https://shillong.meg.nic.in/privacy_policy.html',
   },
+  PENSIONER_STATEMENTS: {
+    SIX_MONTH_STATEMENTS: '',
+  },
 } as const;

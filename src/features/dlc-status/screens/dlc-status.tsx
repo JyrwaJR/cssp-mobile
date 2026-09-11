@@ -4,14 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '@hooks/use-verification-status';
-import { useAuthStore } from '@stores/auth.store';
 import { SubmitDLCCard } from '@components/common/submit-dlc-card';
 
 export const DLCStatusScreen = () => {
   const { isLoading, isFetching, refetch, data } = useVerificationStatus();
-  const { user } = useAuthStore();
 
-  const isPhotoSubmitted = user?.has_dlc === '22';
+  const isPhotoSubmitted = data?.is_valid === '03';
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
@@ -82,18 +80,16 @@ export const DLCStatusScreen = () => {
                 </View>
 
                 {/* Re-Marriage Declaration Card */}
-                {data?.ver_status === '4' && (
-                  <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
-                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Are u Re-Married
+                <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
+                  <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    Are u Re-Married
+                  </Text>
+                  <View className="items-end rounded-md bg-secondary px-2.5 py-1">
+                    <Text className="text-sm font-bold text-secondary-foreground">
+                      {data?.ver_nec || '—'}
                     </Text>
-                    <View className="items-end rounded-md bg-secondary px-2.5 py-1">
-                      <Text className="text-sm font-bold text-secondary-foreground">
-                        {data?.ver_nec || '—'}
-                      </Text>
-                    </View>
                   </View>
-                )}
+                </View>
               </>
             </View>
           </View>
