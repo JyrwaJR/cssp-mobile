@@ -1,8 +1,8 @@
 import { useAuthStore } from '@stores/auth.store';
 import { useQuery } from '@tanstack/react-query';
 import { http } from '@utils/http';
-import { VerificationStatusT } from '../types';
 import { ENDPOINTS } from '@utils/constants';
+import { VerificationStatusT } from '@features/verification';
 
 export function useVerificationStatus() {
   const { user, isSignedIn } = useAuthStore();

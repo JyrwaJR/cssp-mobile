@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 import { LoadingScreen } from '@components/screens';
 import { useInitializeVerification } from '@features/dlc/hooks';
+import { SubmitDLCCard } from '@components/common/submit-dlc-card';
 
 /**
  * Renders the "Verification Status" screen for a pensioner.
@@ -69,26 +70,7 @@ export function VerificationStatusScreen() {
               </View>
             </Alert>
           )}
-          <View className="gap-3 rounded-md border border-border bg-card p-4">
-            <View className="flex-row items-center gap-3">
-              <Text className="flex-1 text-base font-semibold text-foreground">
-                Digital Life Certificate
-              </Text>
-            </View>
-
-            <Text className="text-center text-base leading-relaxed text-muted-foreground">
-              Submit a quick photo to verify your identity and complete your Digital Life
-              Certificate.
-            </Text>
-
-            <Button
-              size="lg"
-              onPress={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
-              className="flex-row items-center gap-2"
-              accessibilityLabel="Open user manual">
-              <Text className="text-base font-semibold text-primary-foreground">SUBMIT DLC</Text>
-            </Button>
-          </View>
+          <SubmitDLCCard />
 
           {/* Note Alert Card */}
           <Alert variant="warning">

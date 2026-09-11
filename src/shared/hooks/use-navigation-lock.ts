@@ -3,7 +3,7 @@ import { useRouter, type Href } from 'expo-router';
 
 type NavigationMethod = 'push' | 'replace';
 
-export const useNavigationLock = () => {
+export const useSafeNavigation = () => {
   const router = useRouter();
   const locked = useRef(false);
 

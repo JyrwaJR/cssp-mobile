@@ -7,7 +7,7 @@ import { APP_LINKS, APP_VERSION, PAGE_ROUTES } from '@utils/constants';
 import { openPhoneNumber } from '@utils/helpers';
 
 import { FooterImg } from '@components/common';
-import { useNavigationLock } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-navigation-lock';
 
 /**
  * Senior-friendly user manual screen for the Pensioner app.
@@ -22,7 +22,7 @@ import { useNavigationLock } from '@hooks/use-navigation-lock';
  * @returns The rendered user manual screen.
  */
 export function UserManualScreen() {
-  const navigate = useNavigationLock();
+  const navigate = useSafeNavigation();
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
       <Container className="gap-5">

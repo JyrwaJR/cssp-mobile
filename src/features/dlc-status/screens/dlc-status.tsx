@@ -1,16 +1,17 @@
 import { View, Text, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AlertDescription, Alert, AlertTitle, Icon, Button } from '@components/ui';
+import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '@hooks/use-verification-status';
-import { router } from 'expo-router';
-import { PAGE_ROUTES } from '@utils/constants';
+import { useAuthStore } from '@stores/auth.store';
+import { SubmitDLCCard } from '@components/common/submit-dlc-card';
 
 export const DLCStatusScreen = () => {
   const { isLoading, isFetching, refetch, data } = useVerificationStatus();
+  const { user } = useAuthStore();
 
-  const isPhotoSubmitted = data?.ver_status === '22';
+  const isPhotoSubmitted = user?.has_dlc === '22';
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
@@ -81,39 +82,22 @@ export const DLCStatusScreen = () => {
                 </View>
 
                 {/* Re-Marriage Declaration Card */}
-                <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
-                  <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Are u Re-Married
-                  </Text>
-                  <View className="items-end rounded-md bg-secondary px-2.5 py-1">
-                    <Text className="text-sm font-bold text-secondary-foreground">
-                      {data?.ver_nec || '—'}
+                {data?.ver_status === '4' && (
+                  <View className="flex-row items-center justify-between gap-2 rounded-md border border-gray-200 bg-background p-3.5">
+                    <Text className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      Are u Re-Married
                     </Text>
+                    <View className="items-end rounded-md bg-secondary px-2.5 py-1">
+                      <Text className="text-sm font-bold text-secondary-foreground">
+                        {data?.ver_nec || '—'}
+                      </Text>
+                    </View>
                   </View>
-                </View>
+                )}
               </>
             </View>
           </View>
-          <View className="gap-3 rounded-md border border-border bg-card p-4">
-            <View className="flex-row items-center gap-3">
-              <Text className="flex-1 text-base font-semibold text-foreground">
-                Digital Life Certificate
-              </Text>
-            </View>
-
-            <Text className="text-center text-base leading-relaxed text-muted-foreground">
-              Submit a quick photo to verify your identity and complete your Digital Life
-              Certificate.
-            </Text>
-
-            <Button
-              size="lg"
-              onPress={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
-              className="flex-row items-center gap-2"
-              accessibilityLabel="Open user manual">
-              <Text className="text-base font-semibold text-primary-foreground">SUBMIT DLC</Text>
-            </Button>
-          </View>
+          <SubmitDLCCard />
 
           {/* Note Alert Card */}
           <Alert variant="warning">
