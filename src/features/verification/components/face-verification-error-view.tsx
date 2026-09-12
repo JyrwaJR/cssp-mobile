@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import { Alert, AlertDescription, Icon, AlertTitle, Button } from '@components/ui';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 /** Props for {@link FaceVerificationErrorView}. */
 export interface FaceVerificationErrorViewProps {
@@ -21,6 +21,7 @@ export function FaceVerificationErrorView({
   errorMsg,
   onTryAgainPress,
 }: FaceVerificationErrorViewProps) {
+  const { back } = useSafeNavigation();
   return (
     <Container className="gap-5">
       <View className="gap-2">
@@ -56,7 +57,7 @@ export function FaceVerificationErrorView({
               Try Again
             </Button>
           )}
-          <Button size="lg" variant={'secondary'} className="w-full" onPress={() => router.back()}>
+          <Button size="lg" variant={'secondary'} className="w-full" onPress={back}>
             Go Back
           </Button>
         </View>

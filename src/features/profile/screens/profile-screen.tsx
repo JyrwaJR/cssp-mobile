@@ -1,8 +1,8 @@
 import { View, Text, RefreshControl } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Container } from '@components/layout';
 import { Button } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { PAGE_ROUTES } from '@utils/constants';
 import { ProfileFieldRow } from '../components';
 
@@ -15,7 +15,7 @@ import { ProfileFieldRow } from '../components';
  * present, a fallback message is shown.
  */
 export function ProfileScreen() {
-  const router = useRouter();
+  const { navigate } = useSafeNavigation();
   const user = useAuthStore((s) => s.user);
   const refresh = useAuthStore((s) => s.refresh);
   const isLoading = useAuthStore((s) => s.isAuthLoading);
@@ -66,7 +66,7 @@ export function ProfileScreen() {
         </View>
 
         {/* Update action */}
-        <Button size={'lg'} onPress={() => router.push(PAGE_ROUTES.PROFILE.UPDATE)}>
+        <Button size={'lg'} onPress={() => navigate(PAGE_ROUTES.PROFILE.UPDATE)}>
           Update Profile
         </Button>
       </View>
