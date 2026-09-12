@@ -10,7 +10,13 @@
  * - `error`     — unrecoverable error state
  */
 export type FaceVerificationPhase =
-  'camera' | 'capturing' | 'preview' | 'submitting' | 'result' | 'declaration' | 'error';
+  | 'camera'
+  | 'capturing'
+  | 'preview'
+  | 'submitting'
+  | 'result'
+  | 'declaration'
+  | 'error';
 
 /**
  * Server response from `POST /api/verification/`.

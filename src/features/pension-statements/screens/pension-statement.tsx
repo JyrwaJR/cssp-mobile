@@ -1,5 +1,4 @@
-import { RefreshControl } from 'react-native';
-import { View, Text } from 'react-native';
+import { RefreshControl, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container, PaginatedList } from '@components/layout';
 import { usePensionerStatement } from '../hooks';

@@ -33,8 +33,8 @@ async function resolveDeviceMetadata(): Promise<DeviceMetadata> {
 
   const deviceId =
     Platform.OS === 'ios'
-      ? ((await Application.getIosIdForVendorAsync()) ?? 'unknown')
-      : ((await Application.getAndroidId()) ?? 'unknown');
+      ? (await Application.getIosIdForVendorAsync()) ?? 'unknown'
+      : (await Application.getAndroidId()) ?? 'unknown';
 
   return { deviceName, deviceId };
 }

@@ -3,7 +3,6 @@ import { ENDPOINTS } from '@utils/constants';
 import { http } from '@utils/http';
 import type { VerificationResponseT } from '../types';
 import { useAuthStore } from '@stores/auth.store';
-import * as FileSystem from 'expo-file-system/legacy';
 
 interface VerificationPayload {
   image_1: string;

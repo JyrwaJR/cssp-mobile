@@ -1,11 +1,9 @@
 import { View, Text, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AlertDescription, Alert, AlertTitle, Icon, Button } from '@components/ui';
+import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '@hooks/use-verification-status';
-import { router } from 'expo-router';
-import { PAGE_ROUTES } from '@utils/constants';
 import { LoadingScreen } from '@components/screens';
 import { useInitializeVerification } from '@features/dlc/hooks';
 import { SubmitDLCCard } from '@components/common/submit-dlc-card';

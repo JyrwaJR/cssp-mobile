@@ -411,7 +411,7 @@ export function FaceVerificationScreen() {
   const resetForSecondCapture = useCallback(() => {
     isCapturing.current = false;
     updatePhase('declaration');
-  }, [updatePhase ]);
+  }, [updatePhase]);
 
   if (!hasPermission || !device) {
     return (

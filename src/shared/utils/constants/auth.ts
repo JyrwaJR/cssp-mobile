@@ -69,7 +69,4 @@ export const isProtectedRoute = (pathname: string): boolean => {
 
 // Backward compatibility export
 /** @deprecated Use GUEST_ONLY_ROUTES, PUBLIC_ROUTES, or isProtectedRoute instead */
-export const LEGACY_PUBLIC_ROUTES: string[] = [
-  ...GUEST_ONLY_ROUTES,
-  ...PUBLIC_ROUTES,
-] as const;
+export const LEGACY_PUBLIC_ROUTES: string[] = [...GUEST_ONLY_ROUTES, ...PUBLIC_ROUTES] as const;

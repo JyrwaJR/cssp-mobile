@@ -9,50 +9,25 @@
       {
         "id": "phase-machine",
         "label": "Phase machine",
-        "focus": [
-          "camera",
-          "capturing",
-          "preview",
-          "submitting",
-          "result",
-          "declaration",
-          "error"
-        ],
+        "focus": ["camera", "capturing", "preview", "submitting", "result", "declaration", "error"],
         "note": "Walk all seven phase states that drive which screen renders."
       },
       {
         "id": "capture-to-submit",
         "label": "Capture to submit",
-        "focus": [
-          "camera",
-          "capturing",
-          "preview",
-          "submitting"
-        ],
+        "focus": ["camera", "capturing", "preview", "submitting"],
         "note": "Blink-liveness capture, compression and API submission."
       },
       {
         "id": "code-routing",
         "label": "self_ver_code routing",
-        "focus": [
-          "submitting",
-          "result",
-          "success",
-          "rejected",
-          "pending",
-          "declaration",
-          "error"
-        ],
+        "focus": ["submitting", "result", "success", "rejected", "pending", "declaration", "error"],
         "note": "How the backend code steers success, retake, pending or declaration."
       },
       {
         "id": "declaration-dlc",
         "label": "Declaration & DLC",
-        "focus": [
-          "declaration",
-          "submitting",
-          "result"
-        ],
+        "focus": ["declaration", "submitting", "result"],
         "note": "NEC/NMC form validation, confirm dialog and DLC submission."
       }
     ]
@@ -120,13 +95,7 @@
       "variant": "emphasis"
     }
   ],
-  "mainPath": [
-    "camera",
-    "capturing",
-    "submitting",
-    "result",
-    "success"
-  ],
+  "mainPath": ["camera", "capturing", "submitting", "result", "success"],
   "nodes": [
     {
       "id": "camera",
