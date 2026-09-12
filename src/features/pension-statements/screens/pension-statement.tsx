@@ -7,8 +7,9 @@ import { PensionerStatementListItem } from '../components';
 import type { PensionerStatement } from '../types';
 import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
-import { router } from 'expo-router';
 import { Ternary } from '@components/common';
+import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { usePdfPreviewStore } from '@stores/pdf-preview';
 
 /**
  * Screen displaying pensioner statements for the current year.
@@ -22,6 +23,14 @@ export const PensionStatementScreen = () => {
   const currentYear = new Date().getFullYear();
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
   const uri = statements?.base64;
+  const setPdf = usePdfPreviewStore((s) => s.setPdf);
+  const navigate = useSafeNavigation();
+
+  const onPressPreview = () => {
+    if (!uri) return;
+    setPdf(uri);
+    navigate(PAGE_ROUTES.PDF_PREVIEW);
+  };
 
   return (
     <Container
@@ -79,14 +88,7 @@ export const PensionStatementScreen = () => {
               </Text>
             </View>
             <View>
-              <Button
-                onPress={() =>
-                  router.push({
-                    pathname: PAGE_ROUTES.PDF_PREVIEW as any,
-                    params: { uri },
-                  })
-                }
-                size={'default'}>
+              <Button onPress={onPressPreview} size={'default'}>
                 Preview / Download
               </Button>
             </View>
