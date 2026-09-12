@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { Button } from '@components/ui/button';
 import { useRegistrationStore } from '../store/registration';
 import { PAGE_ROUTES } from '@utils/constants';
@@ -15,10 +15,11 @@ import { PAGE_ROUTES } from '@utils/constants';
  */
 export function RegistrationSuccessView() {
   const reset = useRegistrationStore((state) => state.reset);
+  const { navigate } = useSafeNavigation();
 
   const handleDone = () => {
     reset();
-    router.push(PAGE_ROUTES.AUTH.HOME);
+    navigate(PAGE_ROUTES.AUTH.HOME);
   };
 
   return (

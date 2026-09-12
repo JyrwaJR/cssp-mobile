@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { Text, View } from 'react-native';
 import { Button } from '@components/ui/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,6 +19,8 @@ import { Container } from '@components/layout';
  * @returns The rendered registration instruction screen.
  */
 export function RegistrationInstructionScreen() {
+  const { navigate } = useSafeNavigation();
+
   const handleEmailSupport = async () => {
     const url = `mailto:${APP_LINKS.EMAIL.DAT_SHIL_MEG}`;
 
@@ -184,7 +186,7 @@ export function RegistrationInstructionScreen() {
           <Button
             variant="outline"
             size="lg"
-            onPress={() => router.push(PAGE_ROUTES.USER_MANUAL.HOME)}
+            onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.HOME)}
             className="flex-row items-center gap-2"
             accessibilityLabel="Open user manual">
             <Icon name="book-01" size={18} className="text-primary" />
@@ -193,7 +195,7 @@ export function RegistrationInstructionScreen() {
         </View>
 
         {/* Action Button */}
-        <Button size="lg" onPress={() => router.push(PAGE_ROUTES.AUTH.REGISTER)}>
+        <Button size="lg" onPress={() => navigate(PAGE_ROUTES.AUTH.REGISTER)}>
           Proceed to Registration
         </Button>
 

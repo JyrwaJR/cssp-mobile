@@ -1,5 +1,6 @@
 import { useAuthStore } from '@stores/auth.store';
-import { usePathname, useRouter, useLocalSearchParams, Href } from 'expo-router';
+import { usePathname, useLocalSearchParams, Href } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import React, { useEffect } from 'react';
 import { LoadingScreen } from '@components/screens/loading-screen';
 import { isGuestOnlyRoute, isPublicRoute, isProtectedRoute } from '@utils/constants/auth';
@@ -27,8 +28,8 @@ export const AuthRedirect = ({ children }: Props) => {
   const { isAuthLoading: isLoading, isSignedIn } = useAuthStore();
 
   const pathName = usePathname();
-  const router = useRouter();
   const params = useLocalSearchParams();
+  const { navigate } = useSafeNavigation();
 
   const redirectTo = params.redirect as Href;
   const redirectHref = (redirectTo || PAGE_ROUTES.HOME) as Href;
@@ -42,13 +43,13 @@ export const AuthRedirect = ({ children }: Props) => {
 
     // 1. Authenticated user on guest-only page -> redirect to home (or redirectTo)
     if (isSignedIn && onGuestOnlyPage) {
-      router.replace(redirectHref);
+      navigate(redirectHref, 'replace');
       return;
     }
 
     // 2. Non-authenticated user on protected page -> redirect to auth
     if (!isSignedIn && onProtectedPage) {
-      router.replace(PAGE_ROUTES.AUTH.HOME);
+      navigate(PAGE_ROUTES.AUTH.HOME, 'replace');
       return;
     }
 
@@ -61,7 +62,7 @@ export const AuthRedirect = ({ children }: Props) => {
     onProtectedPage,
     pathName,
     redirectTo,
-    router,
+    navigate,
   ]);
 
   if (isLoading) {
