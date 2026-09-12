@@ -1,5 +1,5 @@
 import { Button } from '@components/ui';
-import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { PAGE_ROUTES } from '@utils/constants';
 import { View, Text } from 'react-native';
 

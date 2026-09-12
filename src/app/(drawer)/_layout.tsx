@@ -9,7 +9,7 @@ import {
 import { Button, Icon } from '@components/ui';
 import { useAuthStore } from '@stores/auth.store';
 import { PAGE_ROUTES } from '@utils/constants';
-import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { user } = useAuthStore();
