@@ -24,7 +24,7 @@ export const PensionStatementScreen = () => {
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
   const uri = statements?.base64;
   const setPdf = usePdfPreviewStore((s) => s.setPdf);
-  const navigate = useSafeNavigation();
+  const { navigate } = useSafeNavigation();
 
   const onPressPreview = () => {
     if (!uri) return;

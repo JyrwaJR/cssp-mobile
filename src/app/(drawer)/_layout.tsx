@@ -15,7 +15,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { user } = useAuthStore();
   const { logout } = useAuthStore();
   const inset = useSafeAreaInsets();
-  const navigate = useSafeNavigation();
+  const { navigate } = useSafeNavigation();
 
   return (
     <View className="flex-1">
