@@ -8,7 +8,7 @@ import type { PensionerStatement } from '../types';
 import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Ternary } from '@components/common';
-import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { usePdfPreviewStore } from '@stores/pdf-preview';
 
 /**
@@ -24,7 +24,7 @@ export const PensionStatementScreen = () => {
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
   const uri = statements?.base64;
   const setPdf = usePdfPreviewStore((s) => s.setPdf);
-  const navigate = useSafeNavigation();
+  const { navigate } = useSafeNavigation();
 
   const onPressPreview = () => {
     if (!uri) return;

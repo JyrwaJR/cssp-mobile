@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { Button, Icon } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Container } from '@components/layout';
@@ -15,7 +15,7 @@ export const UnderDevelopment = ({
   message = "We're currently working hard on this feature. Stay tuned!",
   showBackButton = true,
 }: UnderDevelopmentProps) => {
-  const router = useRouter();
+  const { navigate, back } = useSafeNavigation();
 
   return (
     <Container className="flex-1 items-center justify-center">
@@ -31,11 +31,9 @@ export const UnderDevelopment = ({
         <Button
           variant={'outline'}
           onPress={() => {
-            const canGoBack = router.canGoBack();
-            if (canGoBack) {
-              router.back();
-            } else {
-              router.push(PAGE_ROUTES.HOME);
+            const wentBack = back();
+            if (!wentBack) {
+              navigate(PAGE_ROUTES.HOME);
             }
           }}>
           Go Back

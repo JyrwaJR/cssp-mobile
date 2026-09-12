@@ -1,10 +1,10 @@
 import { Button } from '@components/ui';
-import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { PAGE_ROUTES } from '@utils/constants';
 import { View, Text } from 'react-native';
 
 export const SubmitDLCCard = () => {
-  const navigate = useSafeNavigation();
+  const { navigate } = useSafeNavigation();
   return (
     <View className="gap-3 rounded-md border border-border bg-card p-4">
       <View className="flex-row items-center gap-3">

@@ -1,10 +1,10 @@
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import { FooterImg } from '@components/common';
 import { useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
 import * as Linking from 'expo-linking';
 import { useNetworkStatus } from '@hooks/use-network-status';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 import { useInitializeVerification } from '../hooks';
 import { DLCHeader, DLCInstructions, DLCAlerts, DLCActions } from '../components';
@@ -36,7 +36,7 @@ import { Container } from '@components/layout';
  * @returns The DLC screen wrapped in a safe area and scroll view.
  */
 export function DLCScreen() {
-  const router = useRouter();
+  const { navigate } = useSafeNavigation();
   const frontCamera = useCameraDevice('front');
   const { hasPermission, requestPermission, canRequestPermission } = useCameraPermission();
   const { isOffline } = useNetworkStatus();
@@ -46,7 +46,7 @@ export function DLCScreen() {
   const { msg } = useInitializeVerification();
 
   const handleCapturePress = () => {
-    router.push(PAGE_ROUTES.FACE_RECOGNITION);
+    navigate(PAGE_ROUTES.FACE_RECOGNITION);
   };
 
   const openSettings = async () => await Linking.openSettings();

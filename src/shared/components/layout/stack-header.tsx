@@ -1,8 +1,9 @@
 import { memo, useCallback, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useRouter, useNavigation } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoutePath } from '@hooks/use-route-path';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { matchPageHeader, cn } from '@utils/helpers';
 import { Icon } from '@components/ui/icon';
 import { DrawerToggleButton } from 'expo-router/drawer';
@@ -12,12 +13,12 @@ import { NetworkStatusBanner } from '@components/common/network-status-banner';
 export const StackHeader = memo(() => {
   const path = useRoutePath();
   const config = useMemo(() => matchPageHeader(path), [path]);
-  const router = useRouter();
+  const { back } = useSafeNavigation();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const canGoBack = navigation.canGoBack();
 
-  const handleBack = useCallback(() => router.back(), [router]);
+  const handleBack = useCallback(() => back(), [back]);
 
   if (!config) return null;
 

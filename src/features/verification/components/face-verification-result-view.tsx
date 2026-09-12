@@ -2,8 +2,8 @@ import { Text, Image, View } from 'react-native';
 import { Button } from '@components/ui';
 import type { VerificationResponseT } from '../types';
 import { Container } from '@components/layout';
-import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { Ternary } from '@components/common';
 
 /** Props for {@link FaceVerificationResultView}. */
@@ -22,6 +22,7 @@ export interface FaceVerificationResultViewProps {
  * Enhanced verification result screen with structured status cards instead of simple alert boxes.
  */
 export const SuccessStatusCard = ({ message }: { message: string }) => {
+  const { navigate } = useSafeNavigation();
   return (
     <View className="gap-y-5 rounded-md border border-emerald-500/30 bg-emerald-500/10 p-5">
       <View className="flex-row items-center gap-3">
@@ -52,7 +53,7 @@ export const SuccessStatusCard = ({ message }: { message: string }) => {
       <Text className="text-center text-lg font-medium leading-relaxed text-emerald-950/80">
         {message || 'Your face verification was processed and matched successfully.'}
       </Text>
-      <Button size="lg" variant="primary" onPress={() => router.push(PAGE_ROUTES.HOME)}>
+      <Button size="lg" variant="primary" onPress={() => navigate(PAGE_ROUTES.HOME)}>
         Go Back
       </Button>
     </View>
@@ -148,6 +149,7 @@ export function FaceVerificationResultView({
   hasSecondImage,
   onProceedToDeclaration,
 }: FaceVerificationResultViewProps) {
+  const { navigate } = useSafeNavigation();
   const code = verResponse.self_ver_code;
   return (
     <Container className="gap-y-5">
@@ -178,7 +180,7 @@ export function FaceVerificationResultView({
               <RejectStatusCard
                 message={verResponse.msg}
                 previewUri={previewUri}
-                onRetakePhoto={() => router.push(PAGE_ROUTES.FACE_RECOGNITION)}
+                onRetakePhoto={() => navigate(PAGE_ROUTES.FACE_RECOGNITION)}
               />
             }
             ifFalse={<DeclarationStatusCard proceedDeclaration={onProceedToDeclaration} />}

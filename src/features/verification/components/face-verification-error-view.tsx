@@ -2,25 +2,28 @@ import { View, Text } from 'react-native';
 import { Alert, AlertDescription, Icon, AlertTitle, Button } from '@components/ui';
 import { Container } from '@components/layout';
 import { FooterImg } from '@components/common';
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 /** Props for {@link FaceVerificationErrorView}. */
 export interface FaceVerificationErrorViewProps {
   /** Human-readable failure message displayed in the alert body. */
   errorMsg: string;
-  /** Invoked by the Go Back button; parent wires `router.back()`. */
+  /** Invoked by the "Try Again" button; optional retry handler from the parent. */
   onTryAgainPress?: () => void;
 }
 
 /**
- * Renders a destructive alert with the failure reason and a Go Back
- * button for the error phase of FaceVerificationScreen. Purely
- * presentational; navigation is delegated via `onGoBack`.
+ * Renders a destructive alert with the failure reason, an optional Try
+ * Again action, and a Go Back button for the error phase of
+ * FaceVerificationScreen. The Go Back button uses the guarded
+ * `useSafeNavigation` hook internally; retry is delegated to the parent
+ * via `onTryAgainPress`.
  */
 export function FaceVerificationErrorView({
   errorMsg,
   onTryAgainPress,
 }: FaceVerificationErrorViewProps) {
+  const { back } = useSafeNavigation();
   return (
     <Container className="gap-5">
       <View className="gap-2">
@@ -56,7 +59,7 @@ export function FaceVerificationErrorView({
               Try Again
             </Button>
           )}
-          <Button size="lg" variant={'secondary'} className="w-full" onPress={() => router.back()}>
+          <Button size="lg" variant={'secondary'} className="w-full" onPress={back}>
             Go Back
           </Button>
         </View>

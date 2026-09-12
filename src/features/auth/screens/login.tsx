@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 import { LoginForm } from '../components';
 import { Button } from '@components/ui/button';
@@ -20,6 +20,7 @@ import { Icon } from '@components/ui';
  * @returns The rendered login screen.
  */
 export function LoginScreen() {
+  const { navigate } = useSafeNavigation();
   return (
     <SafeAreaView className="flex-1">
       <Container centered scrollable dismissKeyboard>
@@ -51,7 +52,7 @@ export function LoginScreen() {
             {/* Primary entry point for new users — full-width, 56px target */}
             <Button
               variant="outline"
-              onPress={() => router.push(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
+              onPress={() => navigate(PAGE_ROUTES.AUTH.REG_INSTRUCTION)}
               size={'lg'}
               className="w-full">
               <Text className="text-center text-base font-bold text-primary">
@@ -77,7 +78,7 @@ export function LoginScreen() {
               <Button
                 variant="outline"
                 size="lg"
-                onPress={() => router.push(PAGE_ROUTES.USER_MANUAL.HOME)}
+                onPress={() => navigate(PAGE_ROUTES.USER_MANUAL.HOME)}
                 className="flex-row items-center gap-2"
                 accessibilityLabel="Open user manual">
                 <Icon name="book-01" size={18} className="text-primary" />

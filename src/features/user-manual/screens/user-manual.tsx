@@ -1,13 +1,12 @@
 import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
 import { Container } from '@components/layout';
 import { Button, Icon } from '@components/ui';
 import { APP_LINKS, APP_VERSION, PAGE_ROUTES } from '@utils/constants';
 import { openPhoneNumber } from '@utils/helpers';
 
 import { FooterImg } from '@components/common';
-import { useSafeNavigation } from '@hooks/use-navigation-lock';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 
 /**
  * Senior-friendly user manual screen for the Pensioner app.
@@ -22,7 +21,7 @@ import { useSafeNavigation } from '@hooks/use-navigation-lock';
  * @returns The rendered user manual screen.
  */
 export function UserManualScreen() {
-  const navigate = useSafeNavigation();
+  const { navigate } = useSafeNavigation();
   return (
     <SafeAreaView edges={['right', 'left']} className="flex-1">
       <Container className="gap-5">
@@ -84,7 +83,7 @@ export function UserManualScreen() {
             <Button
               variant="outline"
               size="lg"
-              onPress={() => router.push(PAGE_ROUTES.PRIVACY)}
+              onPress={() => navigate(PAGE_ROUTES.PRIVACY)}
               className="flex-row items-center gap-2"
               accessibilityLabel="Open privacy policy">
               <Icon name="book-01" size={18} className="text-primary" />
