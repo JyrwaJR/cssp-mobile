@@ -16,6 +16,10 @@ export function PdfPreview() {
   const uri = usePdfPreviewStore((s) => s.uri);
   const clearPdf = usePdfPreviewStore((s) => s.clearPdf);
 
+  useEffect(() => {
+    return () => clearPdf();
+  }, []);
+
   const onPressGoBack = () => {
     if (router.canGoBack()) {
       router.back();
@@ -37,15 +41,12 @@ export function PdfPreview() {
     );
   }
 
-  useEffect(() => {
-    return () => clearPdf();
-  }, []);
-
   return (
-    <Container className="p-0">
+    <Container className="p-0" scrollable>
       <Pdf
         source={{ uri }}
         trustAllCerts={false}
+        enableDoubleTapZoom
         style={{
           flex: 1,
           width: '100%',
