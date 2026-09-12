@@ -27,6 +27,6 @@ export const ENDPOINTS = {
     POLICY: 'https://shillong.meg.nic.in/privacy_policy.html',
   },
   PENSIONER_STATEMENTS: {
-    SIX_MONTH_STATEMENTS: '',
+    SIX_MONTH_STATEMENTS: '/pension-statements',
   },
 } as const;

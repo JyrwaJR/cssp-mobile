@@ -28,6 +28,7 @@ export const PAGE_HEADERS = {
   '/profile/update': { title: 'Update Profile', showBackButton: true },
   '/about': { title: 'About Us', showBackButton: true },
   '/face-recognition': { title: 'Photo Verification', showBackButton: true },
+  '/pdf-preview': { title: 'PDF Preview', showBackButton: true },
 
   '/dlc-status': { title: 'Digital Life Certificate', showBackButton: true },
 

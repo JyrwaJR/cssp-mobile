@@ -82,6 +82,7 @@ const config: ExpoConfig = {
   plugins: [
     'expo-router',
 
+    'expo-sharing',
     [
       'expo-splash-screen',
       {
@@ -195,7 +196,7 @@ const config: ExpoConfig = {
 
   updates: {
     url: 'https://u.expo.dev/9ac6a35c-06b5-445c-8227-37951817b496',
-    checkAutomatically:"ON_LOAD"
+    checkAutomatically: 'ON_LOAD',
   },
   runtimeVersion: {
     policy: 'appVersion',

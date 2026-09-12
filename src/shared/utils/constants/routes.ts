@@ -28,6 +28,7 @@ const routes = {
     CHANGE_PASSWORD: '/user-manual/change-password',
     GETTING_STARTED: '/user-manual/getting-started',
   },
+  PDF_PREVIEW: '/pdf-preview' as Href,
   WITHDRAWAL: '/withdrawal' as Href,
 } as const;
 

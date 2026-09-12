@@ -6,6 +6,9 @@ import { usePensionerStatement } from '../hooks';
 import { PensionerStatementListItem } from '../components';
 import type { PensionerStatement } from '../types';
 import { Button } from '@components/ui';
+import { PAGE_ROUTES } from '@utils/constants';
+import { router } from 'expo-router';
+import { Ternary } from '@components/common';
 
 /**
  * Screen displaying pensioner statements for the current year.
@@ -14,9 +17,11 @@ import { Button } from '@components/ui';
  * rendered as an expandable FlatList via PaginatedList. Shows a
  * clear empty state when no statements are available.
  */
+
 export const PensionStatementScreen = () => {
   const currentYear = new Date().getFullYear();
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
+  const uri = statements?.base64;
 
   return (
     <Container
@@ -41,7 +46,7 @@ export const PensionStatementScreen = () => {
 
         {/* Statement List */}
         <PaginatedList
-          data={statements}
+          data={statements?.data}
           isLoading={isLoading}
           isRefreshing={isFetching && !isLoading}
           onRefresh={refetch}
@@ -63,18 +68,31 @@ export const PensionStatementScreen = () => {
           }
         />
       </SafeAreaView>
-      <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-secondary-foreground bg-background px-2">
-        <View className="">
-          <Text className="text-lg font-semibold tracking-wider text-secondary-foreground">
-            PDF is available
-          </Text>
-        </View>
-        <View>
-          <Button size={'default'} onPress={() => {}}>
-            Preview / Download
-          </Button>
-        </View>
-      </View>
+      <Ternary
+        condition={!uri}
+        ifTrue={null}
+        ifFalse={
+          <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-secondary-foreground bg-background px-2">
+            <View className="">
+              <Text className="text-lg font-semibold tracking-wider text-secondary-foreground">
+                PDF is available
+              </Text>
+            </View>
+            <View>
+              <Button
+                onPress={() =>
+                  router.push({
+                    pathname: PAGE_ROUTES.PDF_PREVIEW as any,
+                    params: { uri },
+                  })
+                }
+                size={'default'}>
+                Preview / Download
+              </Button>
+            </View>
+          </View>
+        }
+      />
     </Container>
   );
 };
