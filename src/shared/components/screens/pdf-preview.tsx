@@ -1,5 +1,5 @@
 import Pdf from 'react-native-pdf';
-import { router } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import { PAGE_ROUTES } from '@utils/constants';
@@ -15,16 +15,16 @@ export function PdfPreview() {
   const isDownloadable = usePdfPreviewStore((s) => s.downloadable);
   const uri = usePdfPreviewStore((s) => s.uri);
   const clearPdf = usePdfPreviewStore((s) => s.clearPdf);
+  const { navigate, back } = useSafeNavigation();
 
   useEffect(() => {
     return () => clearPdf();
   }, []);
 
   const onPressGoBack = () => {
-    if (router.canGoBack()) {
-      router.back();
-    } else {
-      router.replace(PAGE_ROUTES.HOME);
+    const wentBack = back();
+    if (!wentBack) {
+      navigate(PAGE_ROUTES.HOME, 'replace');
     }
   };
 

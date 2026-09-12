@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import { Button, Icon } from '@components/ui';
-import { type Href, Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
+import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
 
@@ -44,11 +45,11 @@ export const Forbidden = ({
   message = 'You do not have permission to view this page. Contact your administrator if you believe this is a mistake.',
   onPressTryAgain,
 }: ForbiddenProps) => {
-  const router = useRouter();
+  const { navigate } = useSafeNavigation();
   const { logout } = useAuthStore();
 
   const handlePress = () => {
-    router.replace(PAGE_ROUTES.HOME as Href);
+    navigate(PAGE_ROUTES.HOME, 'replace');
   };
 
   return (
