@@ -79,6 +79,9 @@ export const refreshToken = async (): Promise<string> => {
   } else {
     // remove both token when backend does not return a new token when refresh
     await TokenStoreManager.removeTokens();
+    // Intentionally not using useSafeNavigation: this module is NOT a React
+    // component (hooks cannot run here), and this is a programmatic redirect
+    // after a failed token refresh, not a user gesture needing double-tap guard.
     router.replace(PAGE_ROUTES.HOME);
   }
 

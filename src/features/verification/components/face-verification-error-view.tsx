@@ -8,14 +8,16 @@ import { useSafeNavigation } from '@hooks/use-safe-navigation';
 export interface FaceVerificationErrorViewProps {
   /** Human-readable failure message displayed in the alert body. */
   errorMsg: string;
-  /** Invoked by the Go Back button; parent wires `router.back()`. */
+  /** Invoked by the "Try Again" button; optional retry handler from the parent. */
   onTryAgainPress?: () => void;
 }
 
 /**
- * Renders a destructive alert with the failure reason and a Go Back
- * button for the error phase of FaceVerificationScreen. Purely
- * presentational; navigation is delegated via `onGoBack`.
+ * Renders a destructive alert with the failure reason, an optional Try
+ * Again action, and a Go Back button for the error phase of
+ * FaceVerificationScreen. The Go Back button uses the guarded
+ * `useSafeNavigation` hook internally; retry is delegated to the parent
+ * via `onTryAgainPress`.
  */
 export function FaceVerificationErrorView({
   errorMsg,
