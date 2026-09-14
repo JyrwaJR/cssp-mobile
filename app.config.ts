@@ -127,7 +127,7 @@ const config: ExpoConfig = {
           //   armeabi-v7a  -> 32-bit ARM — older / low-end phones (Android 4.0+)
           // arm64-v8a is REQUIRED (Play Store mandates 64-bit), armeabi-v7a is
           // kept so older 32-bit devices can still run the app.
-          buildArchs: ['arm64-v8a', 'armeabi-v7a'],
+          buildArchs: ['arm64-v8a'],
 
           // minSdkVersion = 24 = Android 7.0 (Nougat, 2016)
           // The LOWEST Android version the app supports — devices below it
