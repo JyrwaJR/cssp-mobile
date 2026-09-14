@@ -9,6 +9,7 @@ import { PAGE_ROUTES } from '@utils/constants';
 import { Ternary } from '@components/common';
 import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { usePdfPreviewStore } from '@stores/pdf-preview';
+import { EmptyScreen } from '@components/screens';
 
 /**
  * Screen displaying pensioner statements for the current year.
@@ -67,11 +68,11 @@ export const PensionStatementScreen = () => {
           contentContainerStyle={{ gap: 12 }}
           ListEmptyComponent={
             !isLoading ? (
-              <View className="flex-1 items-center justify-center py-20">
-                <Text className="text-sm font-medium text-muted-foreground">
-                  No pension statements found for this year.
-                </Text>
-              </View>
+              <EmptyScreen
+                title="No Pension Statement found"
+                message="Please try again after sometime"
+                refresh={refetch}
+              />
             ) : undefined
           }
         />
