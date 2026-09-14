@@ -32,6 +32,7 @@ import {
   PropertyDeleteIcon,
   ReceiptTextIcon,
   Download01Icon,
+  FileCheckIcon,
 } from './icons';
 import { cn } from '@utils/helpers';
 
@@ -66,6 +67,7 @@ export type IconName =
   | 'property-delete'
   | 'receipt'
   | 'file-not-found'
+  | 'file-check-02'
   | 'download-01';
 
 type Props = {
@@ -139,6 +141,8 @@ const getHugeIcon = (name: IconName) => {
       return ReceiptTextIcon;
     case 'download-01':
       return Download01Icon;
+    case 'file-check-02':
+      return FileCheckIcon;
     default:
       return MenuIcon;
   }

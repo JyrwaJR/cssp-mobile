@@ -29,6 +29,7 @@ import AlertCircleIcon from '@hugeicons/core-free-icons/AlertCircleIcon';
 import PropertyDeleteIcon from '@hugeicons/core-free-icons/PropertyDeleteIcon';
 import ReceiptTextIcon from '@hugeicons/core-free-icons/ReceiptTextIcon';
 import Download01Icon from '@hugeicons/core-free-icons/Download01Icon';
+import FileCheckIcon from '@hugeicons/core-free-icons/FileCheckIcon';
 
 /**
  * Central icon re-export layer.
@@ -75,4 +76,5 @@ export {
   PropertyDeleteIcon,
   ReceiptTextIcon,
   Download01Icon,
+  FileCheckIcon,
 };
