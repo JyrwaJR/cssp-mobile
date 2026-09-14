@@ -22,7 +22,7 @@ import { EmptyScreen } from '@components/screens';
 export const PensionStatementScreen = () => {
   const currentYear = new Date().getFullYear();
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
-  const uri = statements?.base64;
+  const uri = statements?.pdf;
   const setPdf = usePdfPreviewStore((s) => s.setPdf);
   const { navigate } = useSafeNavigation();
 
@@ -55,7 +55,7 @@ export const PensionStatementScreen = () => {
 
         {/* Statement List */}
         <PaginatedList
-          data={statements?.data}
+          data={statements?.pension}
           isLoading={isLoading}
           isRefreshing={isFetching && !isLoading}
           onRefresh={refetch}
@@ -82,7 +82,7 @@ export const PensionStatementScreen = () => {
         ifTrue={null}
         ifFalse={
           <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-secondary-foreground bg-background px-2">
-            <View className="">
+            <View>
               <Text className="text-lg font-semibold tracking-wider text-secondary-foreground">
                 PDF is available
               </Text>

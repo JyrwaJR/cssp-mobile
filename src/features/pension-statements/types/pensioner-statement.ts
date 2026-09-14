@@ -17,3 +17,8 @@ export type PensionerStatement = {
   net_amt: string;
   ddo_bill_date: string;
 };
+
+export interface PensionStatementResponseI {
+  pdf: string;
+  pension: PensionerStatement[];
+}

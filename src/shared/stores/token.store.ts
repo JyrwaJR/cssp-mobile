@@ -1,8 +1,9 @@
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@utils/constants';
+import { ACCESS_TOKEN_KEY, DAT_ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@utils/constants';
 import { getItemAsync, setItemAsync, deleteItemAsync } from 'expo-secure-store';
 
 const key = ACCESS_TOKEN_KEY;
 const refreshKey = REFRESH_TOKEN_KEY;
+const datAccessKey = DAT_ACCESS_TOKEN_KEY;
 
 export const TokenStoreManager = {
   async getAccessToken(): Promise<string | null> {
@@ -31,5 +32,13 @@ export const TokenStoreManager = {
 
   async removeRefreshToken(): Promise<void> {
     return await deleteItemAsync(refreshKey);
+  },
+
+  async getDatAccessToken(): Promise<string | null> {
+    return await getItemAsync(datAccessKey);
+  },
+
+  async addDatAccessToken(token: string): Promise<void> {
+    return await setItemAsync(datAccessKey, token);
   },
 };

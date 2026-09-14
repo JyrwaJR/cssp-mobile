@@ -1,6 +1,7 @@
 export const ENDPOINTS = {
   AUTH: {
     LOGIN: '/login/',
+    DAT_LOGIN: `${process.env.EXPO_PUBLIC_DAT_API_URL}/login`,
     LOGOUT: '/logout/',
     VALIDATE_TOKEN: '/api/validate_token/',
     CURRENT_USER: '/current-user/',
@@ -27,6 +28,6 @@ export const ENDPOINTS = {
     POLICY: 'https://shillong.meg.nic.in/privacy_policy.html',
   },
   PENSIONER_STATEMENTS: {
-    SIX_MONTH_STATEMENTS: '/pension-statements',
+    SIX_MONTH_STATEMENTS: `${process.env.EXPO_PUBLIC_DAT_API_URL}/paymentslip`,
   },
 } as const;
