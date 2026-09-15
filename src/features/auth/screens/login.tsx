@@ -8,6 +8,7 @@ import { FooterImg } from '@components/common/nic-footer-img';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@components/ui';
+import { NetworkStatusBanner } from '@components/common/network-status-banner';
 
 /**
  * Login screen for the Pensioner Portal.
@@ -23,6 +24,7 @@ export function LoginScreen() {
   const { navigate } = useSafeNavigation();
   return (
     <SafeAreaView className="flex-1">
+      <NetworkStatusBanner />
       <Container centered scrollable dismissKeyboard>
         <View className="w-full items-center gap-6 py-2">
           {/* Top Branding Section */}
