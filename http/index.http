@@ -127,7 +127,6 @@ Content-Type: application/json
 {
   "username":"{{USERNAME_ENCRYPTED}}"
 }
-
 ### format-password helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
 Authorization: accessToken {{accessToken}}
@@ -136,3 +135,21 @@ Content-Type: application/json
 {
   "password":"{{PASSWORD}}"
 }
+
+### dat login
+POST {{EXPO_PUBLIC_DAT_API_URL}}/login
+Content-Type: application/json
+
+{
+  "payload":"{{LOGIN_PAYLOAD}}"
+}
+
+### dat pension statement
+POST {{EXPO_PUBLIC_DAT_API_URL}}/paymentslip
+Authorization: Bearer {{DAT_ACCESS_TOKEN}}
+Content-Type: application/json
+
+{
+  "payload":"{{DAT_PENSION_PAYMENT_SLIP_PAYLOAD}}"
+}
+
