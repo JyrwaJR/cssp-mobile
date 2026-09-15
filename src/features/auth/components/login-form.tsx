@@ -11,12 +11,13 @@ import { Icon } from '@components/ui/icon';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useNetworkStatus } from '@hooks/use-network-status';
+import { useDatLogin } from '../hooks/use-dat-login';
 
 const defaultValues = {
   // DEV-ONLY convenience prefill. EXPO_PUBLIC_PPO_NO is compiled into the JS
   // bundle, so it must NEVER be set in a production/EAS build. Leave unset for
   // release builds.
-  username: process.env.EXPO_PUBLIC_PPO_NO || '',
+  username: __DEV__ ? process.env.EXPO_PUBLIC_PPO_NO : '',
   // Password is NEVER defaulted from an env var: EXPO_PUBLIC_* values ship in
   // the client bundle, which would embed a working credential in the binary.
   password: __DEV__ ? process.env.EXPO_PUBLIC_PASSWORD : '',
@@ -25,7 +26,8 @@ const defaultValues = {
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { showSnackbar } = useSnackbar();
-  const { mutate, isPending, isSuccess, data } = useLogin();
+  const { mutateAsync, isPending, isSuccess, data } = useLogin();
+  const { mutateAsync: datMutateAsync, isPending: isDatPending } = useDatLogin();
   const { isOffline } = useNetworkStatus();
 
   const form = useForm<LoginInput>({
@@ -33,12 +35,15 @@ export const LoginForm = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: LoginInput) => {
-    mutate(data, {
-      onSuccess: (res) => {
-        if (res.success) showSnackbar('Login Success', 'info');
-      },
-    });
+  const onSubmit = async (data: LoginInput) => {
+    await Promise.all([
+      mutateAsync(data, {
+        onSuccess: (res) => {
+          if (res.success) showSnackbar('Login Success', 'info');
+        },
+      }),
+      datMutateAsync(data),
+    ]);
   };
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
@@ -123,7 +128,7 @@ export const LoginForm = () => {
       />
       {/* Submit Button */}
       <Button
-        isLoading={isPending}
+        isLoading={isPending || isDatPending}
         size="lg"
         disabled={isPending || isOffline}
         onPress={form.handleSubmit(onSubmit)}

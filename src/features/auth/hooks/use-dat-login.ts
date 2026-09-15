@@ -14,7 +14,7 @@ export function useDatLogin() {
     },
     onSuccess: async (data) => {
       if (__DEV__) {
-        logger.info('Login Res with Second Login', data.success);
+        logger.info('Login Res with Second Login', data.success, data);
       }
       if (data.data?.token) {
         await TokenStoreManager.addDatAccessToken(data?.data?.token);

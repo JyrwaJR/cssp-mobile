@@ -14,6 +14,7 @@ export function usePensionerStatement() {
     queryFn: async () => {
       const encData = encryptText(JSON.stringify({ ppo_no: ppoNo }));
       const token = await TokenStoreManager.getDatAccessToken();
+      console.log(token);
       return http.post<PensionStatementResponseI>(
         ENDPOINTS.PENSIONER_STATEMENTS.SIX_MONTH_STATEMENTS,
         encData,
