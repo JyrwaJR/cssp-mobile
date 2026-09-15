@@ -37,12 +37,12 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginInput) => {
     await Promise.all([
-      mutateAsync(data, {
+      await mutateAsync(data, {
         onSuccess: (res) => {
           if (res.success) showSnackbar('Login Success', 'info');
         },
       }),
-      datMutateAsync(data),
+      await datMutateAsync(data),
     ]);
   };
 
