@@ -43,5 +43,6 @@ export const queryClient = new QueryClient({
   }),
   defaultOptions: {
     queries: defaultOptionConfig,
+    mutations: { retry: false },
   },
 });
