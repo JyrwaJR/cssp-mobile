@@ -5,7 +5,7 @@ import { AlertDescription, Alert, AlertTitle, Icon } from '@components/ui';
 import { FooterImg } from '@components/common';
 import { useVerificationStatus } from '@hooks/use-verification-status';
 import { LoadingScreen } from '@components/screens';
-import { useInitializeVerification } from '@features/dlc/hooks';
+import { useInitializeVerification } from '@hooks/use-init-verification';
 import { SubmitDLCCard } from '@components/common/submit-dlc-card';
 
 /**

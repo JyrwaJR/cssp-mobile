@@ -27,7 +27,7 @@ import { FooterImg } from '@components/common';
 import { Container } from '@components/layout';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useImageCompressor, type CompressedImageResult } from '@hooks/use-image-compressor';
-import { useInitializeVerification } from '@features/dlc/hooks';
+import { useInitializeVerification } from '@hooks/use-init-verification';
 
 type FaceVerificationScreenProps = FaceVerificationRouteParams;
 
