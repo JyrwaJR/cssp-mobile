@@ -223,11 +223,28 @@ interface LoginResponseT extends LoginT {
 export const handleLoginResponse = async (response: AxiosResponse) => {
   const requestUrl = response.config.url || '';
 
+  if (response.status !== 200) return response;
   // Safely check if the request path matches the login endpoint, ignoring query parameters
   const isLoginEndpoint = requestUrl.split('?')[0].endsWith(ENDPOINTS.AUTH.LOGIN);
+  const isDatLogin = requestUrl.split('?')[0].endsWith(ENDPOINTS.AUTH.DAT_LOGIN);
+
+  // handle dat login
+  if (isDatLogin && response.data) {
+    const data = response.data.data as Omit<LoginResponseT, 'renew_token'>;
+    try {
+      if (data.token) {
+        logger.info('Setting DAT Token');
+        await TokenStoreManager.addDatAccessToken(data.token);
+        logger.info('Token DAT Set');
+      }
+    } catch (error) {
+      logger.error('Failed to save dat tokens to store', error);
+      return Promise.reject(error);
+    }
+  }
 
   // Axios only passes 2xx status codes to this handler by default
-  if (isLoginEndpoint && response.data && response.status === 200) {
+  if (isLoginEndpoint && response.data) {
     const data = response.data as LoginResponseT;
 
     try {
