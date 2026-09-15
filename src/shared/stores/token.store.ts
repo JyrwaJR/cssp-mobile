@@ -14,11 +14,6 @@ export const TokenStoreManager = {
     return await setItemAsync(key, token);
   },
 
-  async removeTokens(): Promise<void> {
-    await deleteItemAsync(key);
-
-    await deleteItemAsync(refreshKey);
-  },
   async removeAccessToken(): Promise<void> {
     return await deleteItemAsync(key);
   },
@@ -40,5 +35,14 @@ export const TokenStoreManager = {
 
   async addDatAccessToken(token: string): Promise<void> {
     return await setItemAsync(datAccessKey, token);
+  },
+
+  async removeDatAccessTokens(): Promise<void> {
+    return await deleteItemAsync(datAccessKey);
+  },
+  async removeTokens(): Promise<void> {
+    await deleteItemAsync(key);
+    await deleteItemAsync(refreshKey);
+    await deleteItemAsync(datAccessKey);
   },
 };
