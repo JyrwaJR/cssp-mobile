@@ -3,6 +3,7 @@ export const ENDPOINTS = {
     LOGIN: '/login/',
     DAT_LOGIN: `${process.env.EXPO_PUBLIC_DAT_API_URL}/login`,
     LOGOUT: '/logout/',
+    DAT_LOGOUT: `${process.env.EXPO_PUBLIC_DAT_API_URL}/login`,
     VALIDATE_TOKEN: '/api/validate_token/',
     CURRENT_USER: '/current-user/',
   },
