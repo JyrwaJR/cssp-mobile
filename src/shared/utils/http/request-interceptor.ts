@@ -8,6 +8,7 @@
 // import { encryptFields } from '@lib/encryption';
 import { encryptFields } from '@lib/encryption';
 import { TokenStoreManager } from '@stores/token.store';
+import { ENDPOINTS } from '@utils/constants';
 import { logger } from '@utils/logger';
 import type { InternalAxiosRequestConfig } from 'axios';
 
@@ -23,6 +24,18 @@ import type { InternalAxiosRequestConfig } from 'axios';
  *
  * @returns The request interceptor function.
  */
+const skipEncUrl: string[] = [
+  ENDPOINTS.VERIFICATION.VERIFICATION,
+  ENDPOINTS.AUTH.DAT_LOGIN,
+  ENDPOINTS.PENSIONER_STATEMENTS.SIX_MONTH_STATEMENTS,
+  ENDPOINTS.AUTH.DAT_LOGOUT,
+];
+
+const baererTokenUrl: string[] = [
+  ENDPOINTS.PENSIONER_STATEMENTS.SIX_MONTH_STATEMENTS,
+  ENDPOINTS.AUTH.DAT_LOGOUT,
+];
+
 export const createRequestInterceptor = () => {
   return async (config: InternalAxiosRequestConfig) => {
     if (__DEV__) {
@@ -30,7 +43,9 @@ export const createRequestInterceptor = () => {
     }
     const accessToken = await TokenStoreManager.getAccessToken();
 
-    if (accessToken) {
+    const isBaerer: boolean = baererTokenUrl.includes(config.url || '');
+
+    if (accessToken && !isBaerer) {
       config.headers.Authorization = `accessToken ${accessToken}`;
     }
 
@@ -44,7 +59,7 @@ export const createRequestInterceptor = () => {
       config.data instanceof URLSearchParams ||
       config.data instanceof FormData;
 
-    if (config.url !== '/api/verification/') {
+    if (!skipEncUrl.includes(config?.url || '/login/')) {
       if (!isPreSerializedBody) {
         config.data = {
           ...encryptFields(config.data),
@@ -52,7 +67,6 @@ export const createRequestInterceptor = () => {
         };
       }
     }
-
     return config;
   };
 };
