@@ -149,7 +149,7 @@ const config: ExpoConfig = {
           // versions; only https:// is allowed. Protects the pensioner photo
           // and PII in transit. (Android 9/API 28+ blocks cleartext by default;
           // this also enforces it on 7.x/8.x devices -> fail-secure.)
-          usesCleartextTraffic: false,
+          usesCleartextTraffic: variant !== 'production' ? true : false,
         },
 
         // ── iOS CONFIG ────────────────────────────────────────────────────
