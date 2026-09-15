@@ -9,16 +9,23 @@ import { PAGE_ROUTES } from '@utils/constants';
 import { Ternary } from '@components/common';
 import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { usePdfPreviewStore } from '@stores/pdf-preview';
-import { EmptyScreen } from '@components/screens';
+import { EmptyScreen, LoadingScreen } from '@components/screens';
 
 /**
  * Screen displaying pensioner statements for the current year.
  *
- * Uses the usePensionerStatement hook to fetch statement data,
- * rendered as an expandable FlatList via PaginatedList. Shows a
- * clear empty state when no statements are available.
+ * Fetches statement data through the usePensionerStatement hook and renders
+ * it as an expandable FlatList via PaginatedList. Shows a loading screen
+ * while fetching, an empty state when no statements exist, and a sticky
+ * preview/download bar when a statement PDF is available. Pressing
+ * Preview / Download stores the PDF URI in the pdf-preview store and
+ * navigates to the PDF_PREVIEW route.
+ *
+ * @returns The pensioner statement screen UI.
+ *
+ * @example
+ * <PensionStatementScreen />
  */
-
 export const PensionStatementScreen = () => {
   const currentYear = new Date().getFullYear();
   const { data: statements, isLoading, refetch, isFetching } = usePensionerStatement();
@@ -31,6 +38,8 @@ export const PensionStatementScreen = () => {
     setPdf(uri);
     navigate(PAGE_ROUTES.PDF_PREVIEW);
   };
+
+  if (isFetching || isLoading) return <LoadingScreen />;
 
   return (
     <Container
