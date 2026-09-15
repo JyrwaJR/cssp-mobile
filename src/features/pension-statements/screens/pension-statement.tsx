@@ -76,13 +76,11 @@ export const PensionStatementScreen = () => {
           )}
           contentContainerStyle={{ gap: 12 }}
           ListEmptyComponent={
-            !isLoading ? (
-              <EmptyScreen
-                title="No Pension Statement found"
-                message="Please try again after sometime"
-                refresh={refetch}
-              />
-            ) : undefined
+            <EmptyScreen
+              title="No Pension Statement found"
+              message="Please try again after sometime"
+              refresh={refetch}
+            />
           }
         />
       </SafeAreaView>
