@@ -1,0 +1,70 @@
+# Exercises the username regex: /^[a-zA-Z0-9_/]{3,20}$/.
+# Each invalid input must surface "Invalid Username"; a valid input must NOT.
+name: Login — username validation
+tags: [login, validation]
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+
+- assertVisible: 'Pensioner Portal'
+
+# ── Helper macro-fragments are inlined per Maestro convention ────────────
+# Each case: type the value, dismiss keyboard, scroll to Submit, tap Submit,
+# then assert the error. The form is inside a ScrollView, so scrollUntilVisible
+# keeps the button tappable.
+
+# Case 1 — too short (2 chars). Must fail the {3,20} min-length.
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: 'ab'
+- hideKeyboard
+- scrollUntilVisible:
+    element: { text: 'Submit' }
+    direction: DOWN
+- tapOn: 'Submit'
+- assertVisible: 'Invalid Username'
+
+# Case 2 — special characters. Exclamation/bang/hash break [a-zA-Z0-9_/].
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: 'abc!@#'
+- hideKeyboard
+- scrollUntilVisible:
+    element: { text: 'Submit' }
+    direction: DOWN
+- tapOn: 'Submit'
+- assertVisible: 'Invalid Username'
+
+# Case 3 — too long (21 chars). Exceeds the {3,20} max-length.
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: 'aaaaaaaaaaaaaaaaaaaaa'
+- hideKeyboard
+- scrollUntilVisible:
+    element: { text: 'Submit' }
+    direction: DOWN
+- tapOn: 'Submit'
+- assertVisible: 'Invalid Username'
+
+# Case 4 — space character. Spaces are not in the allow-list charset.
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: 'abc def'
+- hideKeyboard
+- scrollUntilVisible:
+    element: { text: 'Submit' }
+    direction: DOWN
+- tapOn: 'Submit'
+- assertVisible: 'Invalid Username'
+
+# Case 5 — valid 3-char alphanumeric. Error should disappear.
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: 'abc'
+- hideKeyboard
+- scrollUntilVisible:
+    element: { text: 'Submit' }
+    direction: DOWN
+- tapOn: 'Submit'
+- assertNotVisible: 'Invalid Username'
