@@ -58,7 +58,7 @@ export function useImageCompressor() {
       options: CompressImageOptions = {}
     ): Promise<CompressedImageResult> => {
       const {
-        maxSizeKB = __DEV__ ? 500 : MAX_IMAGE_SIZE_IN_KB,
+        maxSizeKB = MAX_IMAGE_SIZE_IN_KB,
         initialQuality = 0.85,
         minQuality = 0.3,
         qualityStep = 0.05,
