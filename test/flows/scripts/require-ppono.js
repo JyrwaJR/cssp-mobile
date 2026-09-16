@@ -1,3 +1,4 @@
+/* eslint-disable no-undef -- PPO_NO is injected by Maestro at runtime */
 // Fails fast with a clear error when the PPO_NO env var is unavailable.
 //
 // Maestro injects flow/shell environment variables into a runScript's scope
