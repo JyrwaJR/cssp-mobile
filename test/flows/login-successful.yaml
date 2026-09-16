@@ -13,7 +13,13 @@ tags:
   - network
   - happy-path
 ---
-# Wipe SecureStore session to guarantee the logged-out login screen.
+# Fail fast if PPO_NO or PASSWORD is missing — prevents a 30-second
+# ambiguous timeout when credentials are simply absent.
+- runScript: scripts/require-creds.js
+
+# Wipe SecureStore session to land on the logged-out login screen.
+# On iOS, expo-secure-store persists via Keychain; verify on-device
+# that a prior session doesn't skip the login screen.
 - launchApp:
     clearState: true
     stopApp: true
