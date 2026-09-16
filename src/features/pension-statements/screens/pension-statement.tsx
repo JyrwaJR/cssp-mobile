@@ -88,7 +88,7 @@ export const PensionStatementScreen = () => {
         condition={!uri}
         ifTrue={null}
         ifFalse={
-          <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-secondary-foreground bg-background px-2">
+          <View className="absolute bottom-0 left-0 right-0 h-16 flex-1 flex-row items-center justify-between border-t border-muted bg-background px-2">
             <View>
               <Text className="text-lg font-semibold tracking-wider text-secondary-foreground">
                 PDF is available

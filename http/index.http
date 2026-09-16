@@ -152,7 +152,7 @@ Authorization: Bearer {{DAT_ACCESS_TOKEN}}
 Content-Type: application/json
 
 {
-  "payload":"gAAAAABqqO6xiUWrka7BHKDSdLzGIWxHFWYdGVHfr7URlZ_qlv38BP-r7dZHLxeyPDvWynfeOZsVLQxG7AfQ1t55X5-uS5GcewyyTrwseIj1tA8Y99TU1WY="
+  "payload":"{{DAT_PENSION_PAYMENT_SLIP_PAYLOAD}}"
 }
 
 

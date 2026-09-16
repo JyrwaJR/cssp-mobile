@@ -1,5 +1,3 @@
-import { NotFoundScreen } from '@components/screens';
+import { Unmatched } from 'expo-router';
 
-export default function page() {
-  return <NotFoundScreen />;
-}
+export default Unmatched;
