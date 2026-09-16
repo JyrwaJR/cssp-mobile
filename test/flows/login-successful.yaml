@@ -1,0 +1,46 @@
+# Verify a valid login navigates to the Home screen.
+#
+# Prerequisites:
+#   - Network access to the backend
+#   - PPO_NO and PASSWORD set in the shell environment
+#   - Device connected or emulator running
+#
+# Expected outcome:
+#   Home screen appears with the "Verification Status" badge.
+name: Login – Successful
+tags:
+  - login
+  - network
+  - happy-path
+---
+# Wipe SecureStore session to guarantee the logged-out login screen.
+- launchApp:
+    clearState: true
+    stopApp: true
+
+# Branding anchor unique to the login screen.
+- assertVisible: 'Pensioner Portal'
+
+# Tap the username field by placeholder and fill it.
+- tapOn: 'Enter your PPO No.'
+- eraseText
+- inputText: ${PPO_NO}
+- hideKeyboard
+
+# Tap the password field by placeholder and enter the real password.
+- tapOn: 'Enter your password'
+- eraseText
+- inputText: ${PASSWORD}
+- hideKeyboard
+
+# Scroll Submit into view and tap it.
+- scrollUntilVisible:
+    element:
+      text: 'Submit'
+    direction: DOWN
+- tapOn: 'Submit'
+
+# Wait for the server to respond and the Home screen to render.
+- extendedWaitUntil:
+    visible: 'Verification Status'
+    timeout: 30000
