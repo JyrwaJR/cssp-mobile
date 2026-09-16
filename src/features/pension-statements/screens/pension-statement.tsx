@@ -39,7 +39,25 @@ export const PensionStatementScreen = () => {
     navigate(PAGE_ROUTES.PDF_PREVIEW);
   };
 
-  if (isFetching || isLoading) return <LoadingScreen />;
+  if (isFetching || isLoading)
+    return (
+      <Container>
+        <View className="gap-2 pb-2">
+          <View className="self-start bg-primary-foreground py-1">
+            <Text className="text-xs font-bold uppercase tracking-wider text-primary">
+              6 Month Statements
+            </Text>
+          </View>
+
+          <Text className="text-2xl font-extrabold tracking-tight text-foreground">
+            Pensioner Statements
+          </Text>
+
+          <Text className="text-sm font-medium text-muted-foreground">{currentYear} Statement</Text>
+        </View>
+        <LoadingScreen />
+      </Container>
+    );
 
   return (
     <Container
@@ -71,6 +89,7 @@ export const PensionStatementScreen = () => {
           skeletonCount={4}
           skeletonHeight={140}
           keyExtractor={(_item, index) => index.toString()}
+          contentContainerClassName="pb-20"
           renderItem={({ item }) => (
             <PensionerStatementListItem statement={item as PensionerStatement} />
           )}

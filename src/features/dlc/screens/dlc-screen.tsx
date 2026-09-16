@@ -1,15 +1,9 @@
-import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FooterImg } from '@components/common';
-import { useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
-import * as Linking from 'expo-linking';
-import { useNetworkStatus } from '@hooks/use-network-status';
-import { useSafeNavigation } from '@hooks/use-safe-navigation';
-
-import { useInitializeVerification } from '../hooks';
-import { DLCHeader, DLCInstructions, DLCAlerts, DLCActions } from '../components';
-import { PAGE_ROUTES } from '@utils/constants';
+import { DLCHeader, DLCInstructions } from '../components';
 import { Container } from '@components/layout';
+import { useInitializeVerification } from '@hooks/use-init-verification';
+import { SubmitDLCCard } from '@components/common/submit-dlc-card';
 
 /**
  * Renders the "Digital Life Certificate" (DLC) self-verification screen.
@@ -36,20 +30,7 @@ import { Container } from '@components/layout';
  * @returns The DLC screen wrapped in a safe area and scroll view.
  */
 export function DLCScreen() {
-  const { navigate } = useSafeNavigation();
-  const frontCamera = useCameraDevice('front');
-  const { hasPermission, requestPermission, canRequestPermission } = useCameraPermission();
-  const { isOffline } = useNetworkStatus();
-
-  const isDisableCapture = frontCamera === null || !hasPermission;
-
   const { msg } = useInitializeVerification();
-
-  const handleCapturePress = () => {
-    navigate(PAGE_ROUTES.FACE_RECOGNITION);
-  };
-
-  const openSettings = async () => await Linking.openSettings();
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
@@ -62,24 +43,9 @@ export function DLCScreen() {
 
         <DLCInstructions msg={msg} />
 
-        <DLCAlerts
-          hasPermission={hasPermission}
-          frontCameraAvailable={frontCamera !== null}
-          isOffline={isOffline}
-        />
-
         {/* Primary Action Button | Check if camera Permission is granted */}
+        <SubmitDLCCard />
         {/* Partner Logos */}
-        <DLCActions
-          hasPermission={hasPermission}
-          canRequestPermission={canRequestPermission}
-          isDisableCapture={isDisableCapture}
-          isOffline={isOffline}
-          onCapture={handleCapturePress}
-          onRequestPermission={requestPermission}
-          onOpenSettings={openSettings}
-        />
-
         <FooterImg />
       </Container>
     </SafeAreaView>
