@@ -15,56 +15,56 @@ tags: [login, validation]
 # keeps the button tappable.
 
 # Case 1 — too short (2 chars). Must fail the {3,20} min-length.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: 'ab'
 - hideKeyboard
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
-- tapOn: 'Submit'
-- assertVisible: 'Invalid Username'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
+- assertVisible: [{ id: 'login-error-username' }, 'Invalid Username']
 
 # Case 2 — special characters. Exclamation/bang/hash break [a-zA-Z0-9_/].
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: 'abc!@#'
 - hideKeyboard
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
-- tapOn: 'Submit'
-- assertVisible: 'Invalid Username'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
+- assertVisible: [{ id: 'login-error-username' }, 'Invalid Username']
 
 # Case 3 — too long (21 chars). Exceeds the {3,20} max-length.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: 'aaaaaaaaaaaaaaaaaaaaa'
 - hideKeyboard
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
-- tapOn: 'Submit'
-- assertVisible: 'Invalid Username'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
+- assertVisible: [{ id: 'login-error-username' }, 'Invalid Username']
 
 # Case 4 — space character. Spaces are not in the allow-list charset.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: 'abc def'
 - hideKeyboard
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
-- tapOn: 'Submit'
-- assertVisible: 'Invalid Username'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
+- assertVisible: [{ id: 'login-error-username' }, 'Invalid Username']
 
 # Case 5 — valid 3-char alphanumeric. Error should disappear.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: 'abc'
 - hideKeyboard
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
-- tapOn: 'Submit'
-- assertNotVisible: 'Invalid Username'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
+- assertNotVisible: [{ id: 'login-error-username' }, 'Invalid Username']

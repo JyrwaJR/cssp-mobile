@@ -51,7 +51,7 @@ export const LoginForm = () => {
   return (
     <View className="w-full gap-2 py-2">
       {isSuccess && !data.success && (
-        <Alert variant="destructive">
+        <Alert testID="login-error-alert" variant="destructive">
           <Icon name="alert-circle" size={18} className="mt-0.5 text-destructive" />
           <View className="flex-1">
             <AlertTitle className="text-sm">Login Error!</AlertTitle>
@@ -70,6 +70,7 @@ export const LoginForm = () => {
               <Text className="mb-1.5 text-sm font-medium text-destructive">*</Text>
             </View>
             <Input
+              testID="login-username"
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -80,7 +81,7 @@ export const LoginForm = () => {
               error={!!form.formState.errors.username}
             />
             {form.formState.errors.username && (
-              <Text className="mt-1 text-xs text-destructive">
+              <Text testID="login-error-username" className="mt-1 text-xs text-destructive">
                 {form.formState.errors.username.message}
               </Text>
             )}
@@ -99,6 +100,7 @@ export const LoginForm = () => {
             </View>
             <View className="relative justify-center">
               <Input
+                testID="login-password"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -111,6 +113,7 @@ export const LoginForm = () => {
                 className="pr-12"
               />
               <Pressable
+                testID="login-toggle-password"
                 onPress={togglePasswordVisibility}
                 hitSlop={8}
                 className="absolute right-3 top-1/2 -translate-y-1/2 items-center justify-center p-1"
@@ -119,7 +122,7 @@ export const LoginForm = () => {
               </Pressable>
             </View>
             {form.formState.errors.password && (
-              <Text className="mt-1 text-xs text-destructive">
+              <Text testID="login-error-password" className="mt-1 text-xs text-destructive">
                 {form.formState.errors.password.message}
               </Text>
             )}
@@ -128,6 +131,7 @@ export const LoginForm = () => {
       />
       {/* Submit Button */}
       <Button
+        testID="login-submit"
         isLoading={isPending || isDatPending}
         size="lg"
         disabled={isPending || isOffline}

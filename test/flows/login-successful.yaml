@@ -28,13 +28,13 @@ tags:
 - assertVisible: 'Pensioner Portal'
 
 # Tap the username field by placeholder and fill it.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
 - inputText: ${PPO_NO}
 - hideKeyboard
 
 # Tap the password field by placeholder and enter the real password.
-- tapOn: 'Enter your password'
+- tapOn: [{ id: 'login-password' }, 'Enter your password']
 - eraseText
 - inputText: ${PASSWORD}
 - hideKeyboard
@@ -42,9 +42,9 @@ tags:
 # Scroll Submit into view and tap it.
 - scrollUntilVisible:
     element:
-      text: 'Submit'
+      id: 'login-submit'
     direction: DOWN
-- tapOn: 'Submit'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
 
 # Wait for the server to respond and the Home screen to render.
 - extendedWaitUntil:

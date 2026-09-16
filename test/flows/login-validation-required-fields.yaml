@@ -12,20 +12,20 @@ tags: [login, validation]
 - assertVisible: 'Pensioner Portal'
 
 # Clear any __DEV__ env prefill so both fields are genuinely empty.
-- tapOn: 'Enter your PPO No.'
+- tapOn: [{ id: 'login-username' }, 'Enter your PPO No.']
 - eraseText
-- tapOn: 'Enter your password'
+- tapOn: [{ id: 'login-password' }, 'Enter your password']
 - eraseText
 - hideKeyboard
 
 # Scroll Submit into view (the form is inside a ScrollView).
 - scrollUntilVisible:
-    element: { text: 'Submit' }
+    element: { id: 'login-submit' }
     direction: DOWN
 
 # Submit with both fields empty — Zod should reject both.
-- tapOn: 'Submit'
+- tapOn: [{ id: 'login-submit' }, 'Submit']
 
 # Both required-field errors should appear simultaneously.
-- assertVisible: 'Username is Required'
-- assertVisible: 'Password is required'
+- assertVisible: [{ id: 'login-error-username' }, 'Username is Required']
+- assertVisible: [{ id: 'login-error-password' }, 'Password is required']
