@@ -9,19 +9,11 @@
 #     keep .env gitignored.
 # ============================================================================
 
-@accessToken = {{ACCESS_TOKEN}}
-@renewToken = {{RENEW_TOKEN}}
-
 ### Current User
 POST {{BASE_URL}}/current-user/
-Content-Type: application/json
-Authorization: accessToken {{accessToken}}
-Accept: application/json
 
 ### Registration Status
 POST {{BASE_URL}}/get_registration_status/
-Content-Type: application/json
-Accept: application/json
 
 {
   "ppo_no": "{{PPO_NO}}",
@@ -30,9 +22,6 @@ Accept: application/json
 
 ### Create Pensioner
 POST {{BASE_URL}}/api/create_pensioner/
-Content-Type: application/json
-Authorization: accessToken {{accessToken}}
-Accept: application/json
 
 {
   "ppo_no":{{USERNAME_ENCRYPTED}},
@@ -44,7 +33,6 @@ Accept: application/json
 ### Login
 POST {{BASE_URL}}/login/
 Content-Type: application/x-www-form-urlencoded
-Accept: application/json
 
 password={{PASSWORD_ENCRYPTED}}&username={{USERNAME_ENCRYPTED}}&version=24
 
@@ -57,7 +45,6 @@ Accept: application/json
 ### Verification
 POST {{BASE_URL}}/api/verification/
 Content-Type: application/x-www-form-urlencoded
-Authorization: accessToken {{accessToken}}
 
 image_1={{IMAGE_SAMPLE_2}}&image_1={{IMAGE_SAMPLE_2}}
 
@@ -86,8 +73,6 @@ Accept: application/json
 
 ### Verification Status
 POST {{BASE_URL}}/api/verification_status/
-Authorization: accessToken {{accessToken}}
-Accept: application/json
 
 {
   "ppo_no": "{{PPO_NO}}"
@@ -95,9 +80,6 @@ Accept: application/json
 
 ### Change Password
 POST {{BASE_URL}}/api/change_password/
-Content-Type: application/json
-Authorization: accessToken {{accessToken}}
-Accept: application/json
 
 {
   "oldPassword": "",
@@ -108,8 +90,6 @@ Accept: application/json
 # @name=refresh token
 POST {{BASE_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
-Authorization: accessToken {{accessToken}}
-Accept: application/json
 
 request_token={{RENEW_TOKEN}}&uid={{UID_ENCRYPTED}}
 
@@ -131,8 +111,6 @@ Content-Type: application/json
 
 ### format-password helper
 POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
-Authorization: accessToken {{accessToken}}
-Content-Type: application/json
 
 {
   "password":"{{PASSWORD}}"
