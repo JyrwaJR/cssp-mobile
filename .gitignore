@@ -27,3 +27,4 @@ android
 .worktrees
 *.apk
 ignore*
+/http/http-client.env.json

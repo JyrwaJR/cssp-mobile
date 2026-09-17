@@ -4,7 +4,7 @@
 # SECURITY NOTICE:
 #   - NEVER commit real tokens, passwords, hashes, or encrypted payloads here.
 #   - Values are interpolated from your LOCAL .env at request time.
-#   - Required .env vars: EXPO_PUBLIC_API_URL, ACCESS_TOKEN, RENEW_TOKEN.
+#   - Required .env vars: BASE_URL, ACCESS_TOKEN, RENEW_TOKEN.
 #     After a fresh login, copy token= / renew_token= values into .env and
 #     keep .env gitignored.
 # ============================================================================
@@ -13,13 +13,13 @@
 @renewToken = {{RENEW_TOKEN}}
 
 ### Current User
-POST {{EXPO_PUBLIC_API_URL}}/current-user/
+POST {{BASE_URL}}/current-user/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 ### Registration Status
-POST {{EXPO_PUBLIC_API_URL}}/get_registration_status/
+POST {{BASE_URL}}/get_registration_status/
 Content-Type: application/json
 Accept: application/json
 
@@ -29,7 +29,7 @@ Accept: application/json
 }
 
 ### Create Pensioner
-POST {{EXPO_PUBLIC_API_URL}}/api/create_pensioner/
+POST {{BASE_URL}}/api/create_pensioner/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -42,20 +42,20 @@ Accept: application/json
 }
 
 ### Login
-POST {{EXPO_PUBLIC_API_URL}}/login/
+POST {{BASE_URL}}/login/
 Content-Type: application/x-www-form-urlencoded
 Accept: application/json
 
 password={{PASSWORD_ENCRYPTED}}&username={{USERNAME_ENCRYPTED}}&version=24
 
 ### Logout
-POST {{EXPO_PUBLIC_API_URL}}/logout/
+POST {{BASE_URL}}/logout/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
 ### Verification
-POST {{EXPO_PUBLIC_API_URL}}/api/verification/
+POST {{BASE_URL}}/api/verification/
 Content-Type: application/x-www-form-urlencoded
 Authorization: accessToken {{accessToken}}
 
@@ -69,7 +69,7 @@ image_1={{IMAGE_SAMPLE_2}}&image_1={{IMAGE_SAMPLE_2}}
 
 
 ### DLC
-POST {{EXPO_PUBLIC_API_URL}}/api/lc/
+POST {{BASE_URL}}/api/lc/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -85,7 +85,7 @@ Accept: application/json
 }
 
 ### Verification Status
-POST {{EXPO_PUBLIC_API_URL}}/api/verification_status/
+POST {{BASE_URL}}/api/verification_status/
 Authorization: accessToken {{accessToken}}
 Accept: application/json
 
@@ -94,7 +94,7 @@ Accept: application/json
 }
 
 ### Change Password
-POST {{EXPO_PUBLIC_API_URL}}/api/change_password/
+POST {{BASE_URL}}/api/change_password/
 Content-Type: application/json
 Authorization: accessToken {{accessToken}}
 Accept: application/json
@@ -106,7 +106,7 @@ Accept: application/json
 
 ### Validate Token
 # @name=refresh token
-POST {{EXPO_PUBLIC_API_URL}}/api/validate_token/
+POST {{BASE_URL}}/api/validate_token/
 Content-Type: application/x-www-form-urlencoded
 Authorization: accessToken {{accessToken}}
 Accept: application/json

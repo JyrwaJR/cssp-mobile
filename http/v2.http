@@ -1,16 +1,17 @@
 # --------------------------------------------
 # Pensioner v2
 # --------------------------------------------
-### dat login
-POST {{EXPO_PUBLIC_DAT_API_URL}}/login
+
+###  login
+POST {{BASE_URL}}/login
 Content-Type: application/json
 
 {
   "payload":"{{LOGIN_PAYLOAD}}"
 }
 
-### dat pension statement
-POST {{EXPO_PUBLIC_DAT_API_URL}}/paymentslip
+###  pension statement
+POST {{BASE_URL}}/paymentslip
 Authorization: Bearer {{DAT_ACCESS_TOKEN}}
 Content-Type: application/json
 
@@ -19,11 +20,31 @@ Content-Type: application/json
 }
 
 
-### dat pension logout
-POST {{EXPO_PUBLIC_DAT_API_URL}}/logout
+### pension logout
+POST {{BASE_URL}}/logout
 Authorization: Bearer {{DAT_ACCESS_TOKEN}}
 Content-Type: application/json
 
 {
  "token":"{{DAT_ACCESS_TOKEN}}"
+}
+
+### get ppo status 
+POST {{BASE_URL}}/get_ppo_status
+Content-Type: application/json
+
+# //{"ppo_no": ""}
+
+{
+ "payload":"{{PPO_NO_ENCRYPTED}}"
+}
+
+### get facial registration
+POST {{BASE_URL}}/get_ppo_status
+Content-Type: application/json
+
+# //{"ppo_no": ""}
+
+{
+ "payload":"{{REGISTRATION_PAYLOAD_V2}}"
 }
