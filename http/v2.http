@@ -12,8 +12,6 @@ Content-Type: application/json
 
 ###  pension statement
 POST {{BASE_URL}}/paymentslip
-Authorization: Bearer {{DAT_ACCESS_TOKEN}}
-Content-Type: application/json
 
 {
   "payload":"{{DAT_PENSION_PAYMENT_SLIP_PAYLOAD}}"
@@ -22,18 +20,16 @@ Content-Type: application/json
 
 ### pension logout
 POST {{BASE_URL}}/logout
-Authorization: Bearer {{DAT_ACCESS_TOKEN}}
-Content-Type: application/json
 
 {
- "token":"{{DAT_ACCESS_TOKEN}}"
+ "token":"{{ACCESS_TOKEN}}"
 }
 
 ### get ppo status 
 POST {{BASE_URL}}/get_ppo_status
 Content-Type: application/json
 
-# //{"ppo_no": ""}
+# //"payload": {"ppo_no": ""}
 
 {
  "payload":"{{PPO_NO_ENCRYPTED}}"
