@@ -10,7 +10,9 @@
     "preview": "eas build --profile preview --platform android --output 'build-preview-$(date +%d-%m-%Y-%H%M).apk'",
     "development:local": "eas build --profile development --platform android --local --output 'build-development-$(date +%d-%m-%Y-%H%M).apk'",
     "development": "eas build --profile development --platform android --output 'build-development-$(date +%d-%m-%Y-%H%M).apk'",
-    "test:e2e": "maestro test .maestro/"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
@@ -62,13 +64,16 @@
   "devDependencies": {
     "@babel/core": "7.29.7",
     "@babel/plugin-transform-react-jsx": "^8.0.1",
+    "@testing-library/react-native": "^14.0.1",
     "@types/crypto-js": "4.2.2",
+    "@types/jest": "^30.0.0",
     "@types/react": "19.2.18",
     "babel-preset-expo": "57.0.9",
     "eslint": "9.39.5",
     "eslint-config-expo": "57.0.2",
     "eslint-config-prettier": "10.1.2",
     "expo-dev-client": "57.0.16",
+    "jest-expo": "~57.0.0",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.11",
     "tailwindcss": "3.4.0",
