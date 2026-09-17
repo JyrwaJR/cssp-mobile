@@ -138,29 +138,3 @@ Content-Type: application/json
   "password":"{{PASSWORD}}"
 }
 
-### dat login
-POST {{EXPO_PUBLIC_DAT_API_URL}}/login
-Content-Type: application/json
-
-{
-  "payload":"{{LOGIN_PAYLOAD}}"
-}
-
-### dat pension statement
-POST {{EXPO_PUBLIC_DAT_API_URL}}/paymentslip
-Authorization: Bearer {{DAT_ACCESS_TOKEN}}
-Content-Type: application/json
-
-{
-  "payload":"{{DAT_PENSION_PAYMENT_SLIP_PAYLOAD}}"
-}
-
-
-### dat pension logout
-POST {{EXPO_PUBLIC_DAT_API_URL}}/logout
-Authorization: Bearer {{DAT_ACCESS_TOKEN}}
-Content-Type: application/json
-
-{
- "token":"{{DAT_ACCESS_TOKEN}}"
-}
