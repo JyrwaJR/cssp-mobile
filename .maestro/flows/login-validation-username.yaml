@@ -1,0 +1,108 @@
+# Exercises the username regex: /^[a-zA-Z0-9_/]{3,20}$/.
+# Each invalid input must surface "Invalid Username"; a valid one must not.
+#
+# Every case follows the same shape: type the value, dismiss the keyboard,
+# scroll Submit into view (the form is inside a ScrollView), tap Submit,
+# then assert the error state.
+appId: ${APP_ID}
+name: Login - Username Validation
+tags:
+  - login
+  - validation
+
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+
+- assertVisible: 'Pensioner Portal'
+
+# Case 1 - too short: 2 characters (below the {3,20} minimum).
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: 'ab'
+- hideKeyboard
+
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+- assertVisible:
+    id: 'login-error-username'
+    text: 'Invalid Username'
+
+# Case 2 - special characters ('!', '@', '#') are outside the allow-list.
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: 'abc!@#'
+- hideKeyboard
+
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+- assertVisible:
+    id: 'login-error-username'
+    text: 'Invalid Username'
+
+# Case 3 - too long: 21 characters (above the {3,20} maximum).
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: 'aaaaaaaaaaaaaaaaaaaaa'
+- hideKeyboard
+
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+- assertVisible:
+    id: 'login-error-username'
+    text: 'Invalid Username'
+
+# Case 4 - spaces are not part of the allow-list charset.
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: 'abc def'
+- hideKeyboard
+
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+- assertVisible:
+    id: 'login-error-username'
+    text: 'Invalid Username'
+
+# Case 5 - valid minimum length: 3 alphanumeric characters.
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: 'abc'
+- hideKeyboard
+
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+- assertNotVisible:
+    id: 'login-error-username'
+    text: 'Invalid Username'

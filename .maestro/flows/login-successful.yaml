@@ -1,0 +1,50 @@
+# Verifies a valid login navigates to the Home screen.
+#
+# Prerequisites:
+#   - Network access to the backend
+#   - PPO_NO and PASSWORD set in the shell environment
+#
+# Expected outcome:
+#   Home screen appears with the "Verification Status" badge.
+appId: ${APP_ID}
+name: Login - Successful
+tags:
+  - login
+  - network
+  - happy-path
+
+---
+# Fail fast if PPO_NO or PASSWORD is missing, instead of a 30s timeout.
+- runScript: scripts/require-creds.js
+
+# Wipe the SecureStore session to land on the logged-out login screen.
+- launchApp:
+    clearState: true
+    stopApp: true
+
+- assertVisible: 'Pensioner Portal'
+
+- tapOn:
+    id: 'login-username'
+- eraseText
+- inputText: ${PPO_NO}
+- hideKeyboard
+
+- tapOn:
+    id: 'login-password'
+- eraseText
+- inputText: ${PASSWORD}
+- hideKeyboard
+
+# The form lives in a ScrollView — bring Submit into view before tapping.
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+- tapOn:
+    id: 'login-submit'
+
+# Wait for the server to respond and the Home screen to render.
+- extendedWaitUntil:
+    visible: 'Verification Status'
+    timeout: 30000

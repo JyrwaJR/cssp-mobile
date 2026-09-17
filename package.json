@@ -10,8 +10,7 @@
     "preview": "eas build --profile preview --platform android --output 'build-preview-$(date +%d-%m-%Y-%H%M).apk'",
     "development:local": "eas build --profile development --platform android --local --output 'build-development-$(date +%d-%m-%Y-%H%M).apk'",
     "development": "eas build --profile development --platform android --output 'build-development-$(date +%d-%m-%Y-%H%M).apk'",
-    "test:e2e": "maestro test test/flows/",
-    "test:e2e:validation": "maestro test test/flows/ --exclude-tags happy-path"
+    "test:e2e": "maestro test .maestro/"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",

@@ -12,6 +12,6 @@
 if (typeof PPO_NO === 'undefined' || PPO_NO === null || PPO_NO === '') {
   throw new Error(
     'Missing required env var PPO_NO. Export it in your shell or pass ' +
-      '-e PPO_NO=... to maestro (see test/flows/README.md).'
+      '-e PPO_NO=... to maestro (see .maestro/flows/README.md).'
   );
 }

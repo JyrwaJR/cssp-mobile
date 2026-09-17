@@ -1,0 +1,44 @@
+# Verifies client-side required-field validation on the login form.
+# Tapping Submit with both fields empty must surface two distinct errors.
+appId: ${APP_ID}
+name: Login - Required Fields
+tags:
+  - login
+  - validation
+
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+
+# "Pensioner Portal" is branding unique to the login screen.
+- assertVisible: 'Pensioner Portal'
+
+# Clear the __DEV__ env prefill so both fields are genuinely empty.
+- tapOn:
+    id: 'login-username'
+- eraseText
+
+- tapOn:
+    id: 'login-password'
+- eraseText
+- hideKeyboard
+
+# The form lives in a ScrollView — bring Submit into view before tapping.
+- scrollUntilVisible:
+    element:
+      id: 'login-submit'
+    direction: DOWN
+
+# Submit with both fields empty — Zod rejects both.
+- tapOn:
+    id: 'login-submit'
+
+# Both required-field errors appear simultaneously.
+- assertVisible:
+    id: 'login-error-username'
+    text: 'Username is Required'
+
+- assertVisible:
+    id: 'login-error-password'
+    text: 'Password is required'

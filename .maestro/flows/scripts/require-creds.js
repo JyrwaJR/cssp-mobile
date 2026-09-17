@@ -20,6 +20,6 @@ if (
   throw new Error(
     'Missing required env vars. Export PPO_NO and PASSWORD in your shell ' +
       'or pass -e PPO_NO=... -e PASSWORD=... to maestro ' +
-      '(see test/flows/README.md).'
+      '(see .maestro/flows/README.md).'
   );
 }

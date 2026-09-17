@@ -1,12 +1,13 @@
 # Maestro project configuration for the cssp-mobile login E2E suite.
 #
 # Maestro discovers this file when pointed at this directory:
-#   maestro test test/flows/
+#   maestro test .maestro/
 #
 # Flow discovery:
-#   - All flow YAML files are kept at the TOP LEVEL of this directory.
-#     Maestro ignores subfolders by default, so the shared `face-verification`
-#     docs under `flows/` are never picked up as tests.
+#   - All Maestro flow YAML files live in the `flows/` subfolder and are
+#     selected by the glob below. Non-flow files in this directory (README,
+#     scripts/) and the repo-root `flows/face-verification/` product docs
+#     (HTML/JSON/MD) are never picked up as tests.
 #
 # Secrets policy:
 #   - No credentials may be committed here. `PPO_NO` and `PASSWORD` are read
@@ -14,19 +15,20 @@
 #
 # App under test:
 #   - Android dev-client build (see eas.json "development" profile), app id
-#     `com.jyrwajr.csspmobile.dev`. Point to a different build by changing
+#     `${APP_ID}`. Point to a different build by changing
 #     `appId` below (e.g. `com.jyrwajr.csspmobile.preview`).
-appId: com.jyrwajr.csspmobile.dev
+appId: 'com.jyrwajr.csspmobile.dev'
 
 # Shared environment for every flow. Non-secret defaults only.
 env:
   # Device must be ONLINE for every flow: the Submit button is disabled while
   # the app reports itself offline, which would make `tapOn: "Submit"` no-op.
-  # Credentials below are intentionally commented out; export them in the
-  # shell that launches `maestro test` instead.
-  # PPO_NO: ${PPO_NO}
-  # PASSWORD: ${PASSWORD}
+  # Credentials are read from the shell environment at run time (no secrets
+  # committed here); export them in the shell that launches `maestro test`.
+  PPO_NO: ${PPO_NO}
+  PASSWORD: ${PASSWORD}
+  APP_ID: 'com.jyrwajr.csspmobile.dev'
 
-# Explicit top-level glob for the flow files in this directory.
+# Explicit glob for the flow files in the flows/ subfolder.
 flows:
   - '*.yaml'
