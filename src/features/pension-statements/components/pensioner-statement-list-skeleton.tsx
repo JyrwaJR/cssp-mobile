@@ -34,7 +34,7 @@ export function PensionerStatementListSkeleton({ count = 4 }: PensionerStatement
             <Skeleton className="h-5 w-16 rounded-md" />
           </View>
 
-          {/* Summary rows: Basic Pension, DA */}
+          {/* Summary rows: Basic Pension, DA, Net amount */}
           <View className="gap-2">
             <View className="flex-row items-center justify-between">
               <Skeleton className="h-3.5 w-24 rounded-md" />
@@ -44,12 +44,11 @@ export function PensionerStatementListSkeleton({ count = 4 }: PensionerStatement
               <Skeleton className="h-3.5 w-24 rounded-md" />
               <Skeleton className="h-3.5 w-16 rounded-md" />
             </View>
-          </View>
-
-          {/* Net amount row with top border */}
-          <View className="flex-row items-center justify-between border-t border-border pt-2">
-            <Skeleton className="h-3.5 w-20 rounded-md" />
-            <Skeleton className="h-4 w-20 rounded-md" />
+            {/* Net amount row with top border */}
+            <View className="flex-row items-center justify-between border-t border-border pt-2">
+              <Skeleton className="h-3.5 w-20 rounded-md" />
+              <Skeleton className="h-4 w-20 rounded-md" />
+            </View>
           </View>
 
           {/* Toggle line */}
