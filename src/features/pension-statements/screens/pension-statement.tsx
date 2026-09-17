@@ -2,21 +2,21 @@ import { RefreshControl, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container, PaginatedList } from '@components/layout';
 import { usePensionerStatement } from '../hooks';
-import { PensionerStatementListItem } from '../components';
+import { PensionerStatementListItem, PensionerStatementListSkeleton } from '../components';
 import type { PensionerStatement } from '../types';
 import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Ternary } from '@components/common';
 import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { usePdfPreviewStore } from '@stores/pdf-preview';
-import { EmptyScreen, LoadingScreen } from '@components/screens';
+import { EmptyScreen } from '@components/screens';
 
 /**
  * Screen displaying pensioner statements for the current year.
  *
  * Fetches statement data through the usePensionerStatement hook and renders
- * it as an expandable FlatList via PaginatedList. Shows a loading screen
- * while fetching, an empty state when no statements exist, and a sticky
+ * it as an expandable FlatList via PaginatedList. Shows a skeleton loading
+ * state while fetching, an empty state when no statements exist, and a sticky
  * preview/download bar when a statement PDF is available. Pressing
  * Preview / Download stores the PDF URI in the pdf-preview store and
  * navigates to the PDF_PREVIEW route.
@@ -39,7 +39,7 @@ export const PensionStatementScreen = () => {
     navigate(PAGE_ROUTES.PDF_PREVIEW);
   };
 
-  if (isFetching || isLoading)
+  if (isLoading) {
     return (
       <Container>
         <View className="gap-2 pb-2">
@@ -55,9 +55,10 @@ export const PensionStatementScreen = () => {
 
           <Text className="text-sm font-medium text-muted-foreground">{currentYear} Statement</Text>
         </View>
-        <LoadingScreen />
+        <PensionerStatementListSkeleton />
       </Container>
     );
+  }
 
   return (
     <Container
