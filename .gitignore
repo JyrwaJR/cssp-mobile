@@ -21,7 +21,8 @@ android
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
-.env
+.env*
+!.env.sample
 /.export-verify
 .worktrees
 *.apk
