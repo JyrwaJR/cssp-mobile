@@ -87,6 +87,9 @@ importers:
       expo-updates:
         specifier: 57.0.19
         version: 57.0.19(expo-dev-client@57.0.16(expo@57.0.18)(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.2.3))(@react-native/metro-config@0.86.3(@babel/core@7.29.7))(@types/react@19.2.18)(react@19.2.3)))(expo@57.0.18)(react-native@0.86.3(@babel/core@7.29.7)(@react-native/jest-preset@0.86.3(@babel/core@7.29.7)(react@19.2.3))(@react-native/metro-config@0.86.3(@babel/core@7.29.7))(@types/react@19.2.18)(react@19.2.3))(react@19.2.3)
+      jail-monkey:
+        specifier: ^3.0.0
+        version: 3.0.0
       nativewind:
         specifier: 4.2.6
         version: 4.2.6(60142a2cdfca1335d8b6b6873d46a066)
@@ -3494,6 +3497,9 @@ packages:
   iterator.prototype@1.1.5:
     resolution: {integrity: sha512-H0dkQoCa3b2VEeKQBOxFph+JAbcrQdE7KC0UkqwpLmv2EC4P41QXP+rqo9wYodACiG5/WM5s9oDApTU8utwj9g==}
     engines: {node: '>= 0.4'}
+
+  jail-monkey@3.0.0:
+    resolution: {integrity: sha512-EB382zJRHzElFPEucuafU3cxPJn5U8QgaQHzY09J8ly1eElG4EvNBEWu+0okS7Ro5Jvc8B/7lB+6mNCKjWjDGg==}
 
   jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
@@ -9484,6 +9490,8 @@ snapshots:
       get-proto: 1.0.1
       has-symbols: 1.1.0
       set-function-name: 2.0.2
+
+  jail-monkey@3.0.0: {}
 
   jest-changed-files@29.7.0:
     dependencies:

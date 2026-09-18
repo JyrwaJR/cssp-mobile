@@ -15,9 +15,17 @@ setUpTests();
 jest.mock('expo-application', () => ({
   nativeApplicationVersion: '1.0.0',
   nativeBuildVersion: '1',
-  applicationName: 'cssp-mobile',
-  applicationId: 'com.cssp.mobile',
+  applicationName: 'pensioner',
+  applicationId: 'com.jyrwajr.csspmobile.dev',
   getAndroidId: jest.fn(() => ''),
   getIosIdForVendorAsync: jest.fn(async () => null),
   getInstallationTimeAsync: jest.fn(async () => new Date(0)),
+}));
+
+// Mocks expo-device's native module, which is not available under Jest.
+// The mock mirrors the members the codebase consumes (see
+// `src/shared/utils/helpers/expo.ts`).
+jest.mock('expo-device', () => ({
+  isDevice: true,
+  isEmulator: false,
 }));

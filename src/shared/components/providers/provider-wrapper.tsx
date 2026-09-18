@@ -7,6 +7,7 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 // Internal Providers
 import { AuthInitializer } from './auth-provider';
 import { TQueryProvider } from './query-provider';
+import { RootProvider } from './root-provider';
 // Shared Components & Redirects
 import { AuthRedirect } from '@components/common';
 import { UpdateModal } from './update-modal';
@@ -31,22 +32,24 @@ export const ProviderWrapper = ({ children }: Props) => {
   // Prevent user from taking screen shot or screen recording
   usePreventScreenCapture();
   return (
-    <GlobalErrorBoundary>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider className="flex-1">
-          <TQueryProvider>
-            <QueryErrorResetBoundary>
-              <AuthInitializer>
-                <AuthRedirect>
-                  <StatusBar style="auto" animated />
-                  {children}
-                  <UpdateModal />
-                </AuthRedirect>
-              </AuthInitializer>
-            </QueryErrorResetBoundary>
-          </TQueryProvider>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    </GlobalErrorBoundary>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider className="flex-1">
+        <RootProvider>
+          <GlobalErrorBoundary>
+            <TQueryProvider>
+              <QueryErrorResetBoundary>
+                <AuthInitializer>
+                  <AuthRedirect>
+                    <StatusBar style="auto" animated />
+                    {children}
+                    <UpdateModal />
+                  </AuthRedirect>
+                </AuthInitializer>
+              </QueryErrorResetBoundary>
+            </TQueryProvider>
+          </GlobalErrorBoundary>
+        </RootProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
