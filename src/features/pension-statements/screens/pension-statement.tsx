@@ -6,7 +6,7 @@ import { PensionerStatementListItem, PensionerStatementListSkeleton } from '../c
 import type { PensionerStatement } from '../types';
 import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
-import { Ternary } from '@components/common';
+import { FooterImg, NicBanner, Ternary } from '@components/common';
 import { useSafeNavigation } from '@hooks/use-safe-navigation';
 import { usePdfPreviewStore } from '@stores/pdf-preview';
 import { EmptyScreen } from '@components/screens';
@@ -95,6 +95,7 @@ export const PensionStatementScreen = () => {
             <PensionerStatementListItem statement={item as PensionerStatement} />
           )}
           contentContainerStyle={{ gap: 12 }}
+          ListFooterComponent={<FooterImg />}
           ListEmptyComponent={
             <EmptyScreen
               title="No Pension Statement found"

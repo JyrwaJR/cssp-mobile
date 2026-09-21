@@ -17,7 +17,7 @@ export const FooterImg = () => {
           resizeMode="contain"
         />
       </View>
-      <Text className="text-center text-sm font-semibold tracking-wider">
+      <Text className="text-center text-sm font-semibold tracking-wider text-gray-400">
         Version {APP_VERSION}
       </Text>
     </View>
