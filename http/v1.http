@@ -93,26 +93,4 @@ Content-Type: application/x-www-form-urlencoded
 
 request_token={{RENEW_TOKEN}}&uid={{UID_ENCRYPTED}}
 
-### Encrypt helper
-POST http://localhost:3000/api/cpps/PensionersApp/v1/encrypt
-Content-Type: application/json
-
-{ 
-    "uid":"{{UID_ENCRYPTED}}",
-}
-
-### Decrypt helper
-POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt
-Content-Type: application/json
-
-{
-  "username":"gAAAAABqqO6xiUWrka7BHKDSdLzGIWxHFWYdGVHfr7URlZ_qlv38BP-r7dZHLxeyPDvWynfeOZsVLQxG7AfQ1t55X5-uS5GcewyyTrwseIj1tA8Y99TU1WY="
-}
-
-### format-password helper
-POST http://localhost:3000/api/cpps/PensionersApp/v1/format-password
-
-{
-  "password":"{{PASSWORD}}"
-}
 
