@@ -27,7 +27,7 @@ export function PensionerStatementListSkeleton({ count = 4 }: PensionerStatement
   return (
     <View className="gap-3 pb-20">
       {Array.from({ length: count }).map((_, index) => (
-        <View key={index} className="gap-3 rounded-md border border-border bg-card p-4">
+        <View key={index} className="gap-3 rounded-md border border-gray-200 bg-card p-4">
           {/* Header: date range + months chip */}
           <View className="flex-row items-center justify-between">
             <Skeleton className="h-4 w-40 rounded-md" />
@@ -45,7 +45,7 @@ export function PensionerStatementListSkeleton({ count = 4 }: PensionerStatement
               <Skeleton className="h-3.5 w-16 rounded-md" />
             </View>
             {/* Net amount row with top border */}
-            <View className="flex-row items-center justify-between border-t border-border pt-2">
+            <View className="flex-row items-center justify-between border-t border-gray-100 pt-2">
               <Skeleton className="h-3.5 w-20 rounded-md" />
               <Skeleton className="h-4 w-20 rounded-md" />
             </View>
