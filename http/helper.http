@@ -11,7 +11,7 @@ POST http://localhost:3000/api/cpps/PensionersApp/v1/decrypt
 Content-Type: application/json
 
 {
-  "payload":"[Redacted]"
+  "payload":"{{DECRYPT_PAYLOAD}}"
 }
 
 ### format-password helper
